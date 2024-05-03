@@ -39,7 +39,7 @@ jobs:
         uses: ncipollo/release-action@v1
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')  # Only on tag push
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}  # Access token with release permissions
+          GITHUB_TOKEN: ${{ github.token }}  # Access token with release permissions
         with:
           tag_name: ${{ github.ref }}  # Use full ref to extract tag later
           artifacts: /tmp/app/app-release.apk  # Reference uploaded artifact
