@@ -20,6 +20,29 @@ flutter run
 
 This will start the application on your connected device or emulator.
 
+=======
+
+## Features
+
+App will have the following features:
+
+- Sessions
+- Feed
+- About
+- Home
+- Speakers
+- Sponsors
+- Authentication
+- Feedback
+
+## Designs
+
+This is the link to the app designs:  
+Light Theme: [https://xd.adobe.com/view/dd5d0245-b92b-4678-9d4a-48b3a6f48191-880e/](https://xd.adobe.com/view/dd5d0245-b92b-4678-9d4a-48b3a6f48191-880e/)  
+Dark Theme: [https://xd.adobe.com/view/5ec235b6-c3c6-49a9-b783-1f1303deb1a8-0b91/](https://xd.adobe.com/view/5ec235b6-c3c6-49a9-b783-1f1303deb1a8-0b91/)
+
+REST API: [Postman Files](https://documenter.getpostman.com/view/3385291/SzS4TTXb?version=latest#intro)
+
 ## Contributing
 
 If you would like to contribute to this project, you can fork the repository and create a new branch for your changes. Once you have made your changes, you can create a pull request to merge your changes into the main branch.
