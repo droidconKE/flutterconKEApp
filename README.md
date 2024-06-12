@@ -20,6 +20,7 @@ flutter run
 
 This will start the application on your connected device or emulator.
 
+=======
 
 ## Features
 
@@ -41,9 +42,6 @@ Light Theme: [https://xd.adobe.com/view/dd5d0245-b92b-4678-9d4a-48b3a6f48191-880
 Dark Theme: [https://xd.adobe.com/view/5ec235b6-c3c6-49a9-b783-1f1303deb1a8-0b91/](https://xd.adobe.com/view/5ec235b6-c3c6-49a9-b783-1f1303deb1a8-0b91/)
 
 REST API: [Postman Files](https://documenter.getpostman.com/view/3385291/SzS4TTXb?version=latest#intro)
-
-
-
 
 ## Contributing
 
