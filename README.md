@@ -57,9 +57,6 @@ Dark Theme: [https://xd.adobe.com/view/5ec235b6-c3c6-49a9-b783-1f1303deb1a8-0b91
 
 REST API: [Postman Files](https://documenter.getpostman.com/view/3385291/SzS4TTXb?version=latest#intro)
 
-
-
-
 ## Contributing
 
 If you would like to contribute to this project, you can fork the repository and create a new branch for your changes. Once you have made your changes, you can create a pull request to merge your changes into the main branch.
