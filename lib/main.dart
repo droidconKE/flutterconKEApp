@@ -6,6 +6,7 @@ import 'common/utils/logger.dart';
 import 'common/utils/env/environments.dart';
 import 'di/injectable.dart';
 
+// starting the app with developer options
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -23,5 +24,5 @@ Future<void> main() async {
 
   await configureDependencies(Environments.dev);
 
-  runApp(const FlutterconApp());
+  runApp(const MyApp());
 }

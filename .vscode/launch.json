@@ -5,9 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "fluttercon",
+            "name": "dev",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "program": "lib/main.dart",
+            "args": [ "--flavor", "dev", "--target", "lib/main.dart" ]
+        },
+        {
+            "name": "prod",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main_prod.dart",
+            "args": [ "--flavor", "prod", "--target", "lib/main_prod.dart" ]
         }
     ]
 }

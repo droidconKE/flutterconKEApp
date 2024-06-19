@@ -5,6 +5,7 @@ import '../../data/repository/local_storage.dart';
 import '../../di/injectable.dart';
 import '../utils/constants/pref_constants.dart';
 
+/// Custom Bottom Navigation Bar that will handles the page to be displayed on the dashboard
 class CustomBottomNavigationBar extends StatefulWidget {
   const CustomBottomNavigationBar(
       {super.key, required this.selectedPageIndex, required this.onPageChange});

@@ -1,4 +1,4 @@
-name: fluttercon_2024
+name: fluttercon2024
 description: "A new Flutter project."
 publish_to: 'none'
 version: 1.0.0+1
@@ -26,6 +26,7 @@ dependencies:
   equatable: ^2.0.5
   stream_transform: ^2.1.0
   bloc_concurrency: ^0.2.5
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies:
   build_runner: ^2.4.6
@@ -41,3 +42,6 @@ dev_dependencies:
 flutter:
   generate: true
   uses-material-design: true
+  assets:
+    - assets/icons/
+    - assets/images/

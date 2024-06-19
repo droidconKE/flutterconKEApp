@@ -4,48 +4,38 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'common/theme/bloc/theme_bloc.dart';
-import 'fluttercon/bloc/fluttercon_bloc.dart';
+import 'common/theme/theme_data.dart';
+import 'data/repository/local_storage.dart';
+import 'di/injectable.dart';
 import 'navigator/main_navigator.dart';
 
-class FlutterconApp extends StatefulWidget {
+class MyApp extends StatefulWidget {
   final Widget? home;
-  const FlutterconApp({super.key, this.home});
+  const MyApp({super.key, this.home});
 
   @override
-  State<FlutterconApp> createState() => FlutterconAppState();
+  State<MyApp> createState() => MyAppState();
 }
 
-class FlutterconAppState extends State<FlutterconApp> {
+class MyAppState extends State<MyApp> {
   final navigatorKey = MainNavigatorState.navigationKey;
   NavigatorState get navigator =>
       MainNavigatorState.navigationKey.currentState!;
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => ThemeBloc(),
-        ),
-        BlocProvider(
-          create: (context) => FlutterconBloc(),
-        ),
-      ],
-      child: BlocBuilder<ThemeBloc, ThemeState>(
-        builder: (context, state) {
-          if (state.status == ThemeStatus.initial) {
-            context.read<ThemeBloc>().add(ThemeChangeEvent());
-          }
+    var localStorage = getIt<LocalStorage>();
+
+    return BlocProvider(
+      create: (context) => ThemeBloc(),
+      child: BlocBuilder<ThemeBloc, ThemeMode>(
+        builder: (context, themeMode) {
           return MaterialApp(
-            title: 'Fluttercon 2024',
-            themeMode: state.themeType == ThemeType.system
-                ? ThemeMode.system
-                : (state.themeType == ThemeType.light
-                    ? ThemeMode.light
-                    : ThemeMode.dark),
-            //theme: theme,
-            //darkTheme: darkTheme,
             home: widget.home,
+            themeMode: localStorage.getThemeMode(),
+            theme: AppTheme.lightTheme(),
+            darkTheme: AppTheme.darkTheme(),
+            supportedLocales: const [Locale('en'), Locale('sw')],
             debugShowCheckedModeBanner: false,
             navigatorKey: navigatorKey,
             initialRoute: MainNavigatorState.initialRoute,

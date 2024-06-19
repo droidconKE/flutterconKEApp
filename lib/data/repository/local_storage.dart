@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../common/utils/constants/pref_constants.dart';
 
+/// A class based on Shared Preferences for managing basic stuff like themes
 @singleton
 abstract class LocalStorage {
   @factoryMethod
@@ -39,15 +40,21 @@ class LocalStorageImp implements LocalStorage {
 
   @override
   ThemeMode getThemeMode() {
-    final themeString = sharedPrefs.getString(PrefConstants.appThemeKey);
-    final theme = ThemeMode.values
-        .firstWhere((element) => element.toString() == themeString);
-    return theme;
+    switch (sharedPrefs.getString(PrefConstants.appThemeKey)) {
+      case 'ThemeMode.light':
+        return ThemeMode.light;
+
+      case 'ThemeMode.dark':
+        return ThemeMode.dark;
+
+      default:
+        return ThemeMode.system;
+    }
   }
 
   @override
   void clearData() {
-    //sharedPrefs.remove(PrefConstants.isLoggedInKey);
+    sharedPrefs.remove(PrefConstants.appThemeKey);
   }
 
   @override

@@ -1,10 +1,8 @@
 part of 'theme_bloc.dart';
 
-abstract class ThemeEvent extends Equatable {
-  const ThemeEvent();
-
-  @override
-  List<Object> get props => [];
+@freezed
+sealed class ThemeEvent with _$ThemeEvent {
+  const factory ThemeEvent.themeModeChanged(
+    ThemeMode themeMode,
+  ) = ThemeModeChanged;
 }
-
-class ThemeChangeEvent extends ThemeEvent {}
