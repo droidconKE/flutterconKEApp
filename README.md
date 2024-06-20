@@ -47,7 +47,11 @@ REST API: [Postman Files](https://documenter.getpostman.com/view/3385291/SzS4TTX
 
 ## Contributing
 
-If you would like to contribute to this project, you can fork the repository and create a new branch for your changes. Once you have made your changes, you can create a pull request to merge your changes into the main branch.
+If you would like to contribute to this project, you can first create an issue describing the feature you'd like
+to do. This helps prevent duplication of effort (working on something someone else is already working on). 
+
+After the discussion on the GitHub issue,you can fork the repository and create a new branch for your changes. Once you have made your changes, you can create a pull request to merge your changes into the main branch.
+For much smaller fixes like typos, you can skip the create issue step.
 
 ## License
 
