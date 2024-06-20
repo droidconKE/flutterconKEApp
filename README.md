@@ -51,6 +51,8 @@ to do. This helps prevent duplication of effort (working on something someone el
 After the discussion on the GitHub issue,you can fork the repository and create a new branch for your changes. Once you have made your changes, you can create a pull request to merge your changes into the main branch.
 For much smaller fixes like typos, you can skip the create issue step.
 
+Tip: Keep feature contributions small and focused. This makes it easy to review contributions and spot errors if any
+
 ## App Architecture
 ### State Management
 
@@ -72,7 +74,7 @@ lib
   - ui
     - auth
     - speakers
-    
+
 If you have a preferred different approach to structuring your folders, [join the discussion here](https://github.com/droidconKE/flutterconKEApp/discussions/10).
 
 ### Routing
