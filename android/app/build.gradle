@@ -23,7 +23,7 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "com.android254.fluttercon2024"
+    namespace "com.android254.fluttercon_2024"
     compileSdk flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
@@ -41,7 +41,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.android254.fluttercon2024"
+        applicationId "com.android254.fluttercon_2024"
         minSdkVersion 21
         targetSdkVersion 34
         compileSdkVersion 34

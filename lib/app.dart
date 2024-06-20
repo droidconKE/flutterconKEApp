@@ -5,7 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'common/theme/bloc/theme_bloc.dart';
 import 'common/theme/theme_data.dart';
-import 'data/repository/local_storage.dart';
+import 'data/local/local_storage.dart';
 import 'di/injectable.dart';
 import 'navigator/main_navigator.dart';
 

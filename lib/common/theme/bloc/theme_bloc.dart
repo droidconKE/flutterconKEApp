@@ -13,10 +13,10 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeMode> {
     on<ThemeModeChanged>(_onThemeModeChanged);
   }
 
-  Stream<ThemeMode> _onThemeModeChanged(
+  Future<void> _onThemeModeChanged(
     ThemeModeChanged event,
-    Emitter<ThemeMode> mode,
-  ) async* {
-    yield event.themeMode;
+    Emitter<ThemeMode> emit,
+  ) async {
+    emit(event.themeMode);
   }
 }
