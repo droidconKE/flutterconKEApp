@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fluttercon2024/common/theme/theme_colors.dart';
-import 'package:fluttercon2024/common/utils/constants/app_assets.dart';
+import 'package:fluttercon_2024/common/theme/theme_colors.dart';
+import 'package:fluttercon_2024/common/utils/constants/app_assets.dart';
 
 import '../../about/ui/about_screen.dart';
 import '../../common/widgets/bottom_nav_bar.dart';

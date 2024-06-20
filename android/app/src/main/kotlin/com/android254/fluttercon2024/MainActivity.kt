@@ -1,4 +1,4 @@
-package com.android254.fluttercon2024
+package com.android254.fluttercon_2024
 
 import io.flutter.embedding.android.FlutterActivity
 

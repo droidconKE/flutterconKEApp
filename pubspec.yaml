@@ -1,4 +1,4 @@
-name: fluttercon2024
+name: fluttercon_2024
 description: "A new Flutter project."
 publish_to: 'none'
 version: 1.0.0+1
@@ -13,7 +13,7 @@ dependencies:
   flutter_bloc: ^8.1.5
   flutter_localizations:
     sdk: flutter
-  http: ^1.2.1
+  dio: ^5.4.3+1
   get_it: ^7.7.0
   injectable: ^2.4.2
   intl: ^0.18.0
@@ -36,8 +36,8 @@ dev_dependencies:
     sdk: flutter
   freezed: ^2.3.5
   injectable_generator: ^2.1.6
-  json_serializable: ^6.7.0 
-  mockito: ^5.0.15
+  json_serializable: ^6.8.0
+  mocktail: ^1.0.3
 
 flutter:
   generate: true

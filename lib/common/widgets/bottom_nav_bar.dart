@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../data/repository/local_storage.dart';
+import '../../data/local/local_storage.dart';
 import '../../di/injectable.dart';
 import '../utils/constants/pref_constants.dart';
 
