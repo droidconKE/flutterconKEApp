@@ -9,14 +9,28 @@
             "request": "launch",
             "type": "dart",
             "program": "lib/main.dart",
-            "args": [ "--flavor", "dev", "--target", "lib/main.dart" ]
+            "args": [
+                "--flavor",
+                "dev",
+                "--target",
+                "lib/main.dart",
+                "--dart-define-from-file",
+                "env/keys.dev.json"
+            ]
         },
         {
             "name": "prod",
             "request": "launch",
             "type": "dart",
             "program": "lib/main_prod.dart",
-            "args": [ "--flavor", "prod", "--target", "lib/main_prod.dart" ]
+            "args": [
+                "--flavor",
+                "prod",
+                "--target",
+                "lib/main_prod.dart",
+                "--dart-define-from-file",
+                "env/keys.dev.json"
+            ]
         }
     ]
 }

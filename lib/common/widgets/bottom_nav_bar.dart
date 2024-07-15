@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../data/local/local_storage.dart';
-import '../../di/injectable.dart';
-import '../utils/constants/pref_constants.dart';
+import '../../core/local_storage.dart';
+import '../../core/di/injectable.dart';
+import '../../core/theme/theme_colors.dart';
+import 'bottom_nav_icon.dart';
+import 'page_item.dart';
 
 /// Custom Bottom Navigation Bar that will handles the page to be displayed on the dashboard
 class CustomBottomNavigationBar extends StatefulWidget {
-  const CustomBottomNavigationBar(
-      {super.key, required this.selectedPageIndex, required this.onPageChange});
+  const CustomBottomNavigationBar({
+    super.key,
+    required this.selectedIndex,
+    required this.onPageChange,
+    required this.pages,
+  });
 
-  final int selectedPageIndex;
+  final int selectedIndex;
   final Function(int) onPageChange;
+  final List<PageItem> pages;
 
   @override
   State<CustomBottomNavigationBar> createState() =>
@@ -38,7 +44,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
 
   // Handles drag on bottom nav bar to open the drawer
   void _handleDragEnd(DragEndDetails details, BuildContext context) async {
-    if (widget.selectedPageIndex != 0) return;
+    if (widget.selectedIndex != 0) return;
 
     if (bottomNavBarSwipeGestures == false) return;
 
@@ -56,7 +62,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
 
   // Handles double-tap to open the drawer
   void _handleDoubleTap(BuildContext context) async {
-    if (widget.selectedPageIndex != 0) return;
+    if (widget.selectedIndex != 0) return;
 
     if (bottomNavBarDoubleTapGestures == false) return;
 
@@ -72,59 +78,47 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    bottomNavBarSwipeGestures =
-        localStorage.getPrefBool(PrefConstants.bottomNavBarSwipeGesturesKey);
-    bottomNavBarDoubleTapGestures = localStorage
-        .getPrefBool(PrefConstants.bottomNavBarDoubleTapGesturesKey);
+    bool isDarkTheme = theme.brightness == Brightness.light;
 
-    return Theme(
-      data: ThemeData.from(colorScheme: theme.colorScheme).copyWith(
-        splashColor: Colors.transparent,
-        highlightColor: Colors.transparent,
-      ),
-      child: GestureDetector(
-        onHorizontalDragStart: _handleDragStart,
-        onHorizontalDragUpdate: _handleDragUpdate,
-        onHorizontalDragEnd: (DragEndDetails dragEndDetails) =>
-            _handleDragEnd(dragEndDetails, context),
-        onDoubleTap: bottomNavBarDoubleTapGestures == true
-            ? () => _handleDoubleTap(context)
-            : null,
-        child: NavigationBar(
-          selectedIndex: widget.selectedPageIndex,
-          backgroundColor: theme.colorScheme.surface,
-          labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-          elevation: 1,
-          destinations: [
-            NavigationDestination(
-              icon: const Icon(Icons.home_outlined),
-              selectedIcon: const Icon(Icons.home_rounded),
-              label: l10n.home,
+    return GestureDetector(
+      onHorizontalDragStart: _handleDragStart,
+      onHorizontalDragUpdate: _handleDragUpdate,
+      onHorizontalDragEnd: (DragEndDetails dragEndDetails) =>
+          _handleDragEnd(dragEndDetails, context),
+      onDoubleTap: bottomNavBarDoubleTapGestures == true
+          ? () => _handleDoubleTap(context)
+          : null,
+      child: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: isDarkTheme ? Colors.black : Colors.white,
+        currentIndex: widget.selectedIndex,
+        selectedItemColor: ThemeColors.orangeDroidconColor,
+        unselectedItemColor: isDarkTheme
+            ? ThemeColors.greyTextColor
+            : ThemeColors.greyDarkThemeBackground,
+        unselectedLabelStyle: const TextStyle(fontSize: 12),
+        selectedLabelStyle: const TextStyle(fontSize: 12),
+        onTap: widget.onPageChange,
+        items: widget.pages.map((page) {
+          bool isActive = widget.selectedIndex == widget.pages.indexOf(page);
+          return BottomNavigationBarItem(
+            label: page.title,
+            icon: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: BottomNavIcon(
+                page.icon,
+                color: isActive
+                    ? isDarkTheme
+                        ? ThemeColors.blueGreenDroidconColor
+                        : ThemeColors.blueDroidconColor
+                    : isDarkTheme
+                        ? ThemeColors.lightGreyTextColor
+                        : ThemeColors.greyTextColor,
+              ),
             ),
-            NavigationDestination(
-              icon: const Icon(Icons.notifications_outlined),
-              selectedIcon: const Icon(Icons.notifications_rounded),
-              label: l10n.feed,
-            ),
-            NavigationDestination(
-              icon: const Icon(Icons.timer_outlined),
-              selectedIcon: const Icon(Icons.timer_rounded),
-              label: l10n.sessions,
-            ),
-            NavigationDestination(
-              icon: const Icon(Icons.info_outlined),
-              selectedIcon: const Icon(Icons.info_rounded),
-              label: l10n.about,
-            ),
-          ],
-          onDestinationSelected: (index) {
-            if (widget.selectedPageIndex != index) {
-              widget.onPageChange(index);
-            }
-          },
-        ),
+          );
+        }).toList(),
       ),
     );
   }

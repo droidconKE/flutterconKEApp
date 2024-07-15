@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:fluttercon_2024/models/models.dart';
-import 'package:fluttercon_2024/repository/repository.dart';
+import 'package:fluttercon_2024/common/data/models/models.dart';
+import 'package:fluttercon_2024/common/repository/repository.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockDio extends Mock implements Dio {}

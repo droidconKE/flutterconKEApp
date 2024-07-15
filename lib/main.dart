@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'app.dart';
 import 'common/utils/env/flavor_config.dart';
-import 'common/utils/logger.dart';
 import 'common/utils/env/environments.dart';
-import 'di/injectable.dart';
+import 'common/utils/logger.dart';
+import 'core/di/injectable.dart';
 
-// starting the app with developer options
+// starting the app with debug options
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
