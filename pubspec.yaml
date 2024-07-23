@@ -27,6 +27,8 @@ dependencies:
   stream_transform: ^2.1.0
   bloc_concurrency: ^0.2.5
   flutter_svg: ^2.0.10+1
+  cached_network_image: ^3.3.1
+  sizer: ^2.0.15
 
 dev_dependencies:
   build_runner: ^2.4.6

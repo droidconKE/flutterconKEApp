@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:sizer/sizer.dart';
 
 import 'core/theme/bloc/theme_bloc.dart';
 import 'core/theme/theme_data.dart';
@@ -30,22 +31,26 @@ class MyAppState extends State<MyApp> {
       create: (context) => ThemeBloc(),
       child: BlocBuilder<ThemeBloc, ThemeMode>(
         builder: (context, themeMode) {
-          return MaterialApp(
-            home: widget.home,
-            themeMode: localStorage.getThemeMode(),
-            theme: AppTheme.lightTheme(),
-            darkTheme: AppTheme.darkTheme(),
-            supportedLocales: const [Locale('en'), Locale('sw')],
-            debugShowCheckedModeBanner: false,
-            navigatorKey: navigatorKey,
-            initialRoute: MainNavigatorState.initialRoute,
-            onGenerateRoute: MainNavigatorState.onGenerateRoute,
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
+          return Sizer(
+            builder: (context, orientation, deviceType) {
+              return MaterialApp(
+                home: widget.home,
+                themeMode: localStorage.getThemeMode(),
+                theme: AppTheme.lightTheme(),
+                darkTheme: AppTheme.darkTheme(),
+                supportedLocales: const [Locale('en'), Locale('sw')],
+                debugShowCheckedModeBanner: false,
+                navigatorKey: navigatorKey,
+                initialRoute: MainNavigatorState.initialRoute,
+                onGenerateRoute: MainNavigatorState.onGenerateRoute,
+                localizationsDelegates: const [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+              );
+            },
           );
         },
       ),

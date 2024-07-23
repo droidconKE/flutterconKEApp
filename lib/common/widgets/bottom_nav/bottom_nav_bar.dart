@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../core/local_storage.dart';
-import '../../core/di/injectable.dart';
-import '../../core/theme/theme_colors.dart';
-import 'bottom_nav_icon.dart';
-import 'page_item.dart';
+import '../../../core/local_storage.dart';
+import '../../../core/di/injectable.dart';
+import '../../../core/theme/theme_colors.dart';
+import 'app_nav_icon.dart';
+import '../page_item.dart';
 
 /// Custom Bottom Navigation Bar that will handles the page to be displayed on the dashboard
 class CustomBottomNavigationBar extends StatefulWidget {
@@ -106,7 +106,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             label: page.title,
             icon: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: BottomNavIcon(
+              child: AppNavIcon(
                 page.icon,
                 color: isActive
                     ? isDarkTheme

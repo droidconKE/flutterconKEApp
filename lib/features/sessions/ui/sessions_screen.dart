@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/theme/theme_colors.dart';
+
 class SessionsScreen extends StatefulWidget {
   const SessionsScreen({super.key});
 
@@ -15,9 +17,19 @@ class _SessionsScreenState extends State<SessionsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: SizedBox(),
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Text(
+              'All sessions',
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? ThemeColors.tealColor
+                      : ThemeColors.blueDroidconColor),
+            ),
+          ],
+        ),
       ),
     );
   }

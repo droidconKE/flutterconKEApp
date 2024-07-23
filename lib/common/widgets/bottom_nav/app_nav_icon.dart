@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class BottomNavIcon extends StatelessWidget {
+class AppNavIcon extends StatelessWidget {
   final String name;
   final String? semanticsLabel;
   final Color? color;
   final double? height;
   final double? width;
 
-  const BottomNavIcon(
+  const AppNavIcon(
     this.name, {
     super.key,
     this.semanticsLabel,

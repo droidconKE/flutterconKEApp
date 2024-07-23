@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fluttercon_2024/core/theme/theme_colors.dart';
-import 'package:fluttercon_2024/common/utils/constants/app_assets.dart';
 
+import '../../../common/widgets/app_bar/app_bar.dart';
 import '../../../common/widgets/page_item.dart';
 import '../../about/ui/about_screen.dart';
-import '../../../common/widgets/bottom_nav_bar.dart';
+import '../../../common/widgets/bottom_nav/bottom_nav_bar.dart';
 import '../../feed/ui/feed_screen.dart';
-import '../../ui/home_screen.dart';
+import '../../home/ui/home_screen.dart';
 import '../../sessions/ui/sessions_screen.dart';
 
 /// Default Screen to handle all the UIs after the Splash Screen
@@ -21,7 +19,6 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   PageController pageController = PageController(initialPage: 0);
   int selectedPageIndex = 0;
-  int selectedIndex = 0;
 
   final List<PageItem> pages = [
     const PageItem(title: 'Home', icon: 'home', screen: HomeScreen()),
@@ -31,53 +28,34 @@ class _DashboardScreenState extends State<DashboardScreen> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    selectedPageIndex = pageController.initialPage;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: SvgPicture.asset(
-          AppAssets.iconDroidcon,
-          height: 25,
-          width: 137,
-        ),
-        actions: [
-          InkWell(
-            onTap: () {},
-            child: Container(
-              padding: const EdgeInsets.all(5),
-              margin: const EdgeInsets.symmetric(horizontal: 10),
-              decoration: const BoxDecoration(
-                  color: ThemeColors.blueGreenDroidconColor,
-                  borderRadius: BorderRadius.all(Radius.circular(30))),
-              child: SvgPicture.asset(
-                AppAssets.iconLocked,
-                height: 25,
-                width: 25,
-              ),
-            ),
-          ),
-        ],
+        automaticallyImplyLeading: false,
+        title: CustomAppBar(selectedIndex: selectedPageIndex),
       ),
       bottomNavigationBar: CustomBottomNavigationBar(
         selectedIndex: selectedPageIndex,
         onPageChange: (int index) {
           setState(() {
             selectedPageIndex = index;
-            //pageController.jumpToPage(index);
+            pageController.jumpToPage(index);
           });
         },
         pages: pages,
       ),
-      body: pages[selectedIndex].screen,
-      /*body: PageView(
+      body: PageView(
         controller: pageController,
         onPageChanged: (index) => setState(() => selectedPageIndex = index),
         physics: const NeverScrollableScrollPhysics(),
-        children: pageItems
-            .map<Widget>(
-              (item) => item['screen'] as Widget,
-            )
-            .toList(),
-      ),*/
+        children: pages.map<Widget>((item) => item.screen).toList(),
+      ),
     );
   }
 }
