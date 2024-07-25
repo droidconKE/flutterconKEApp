@@ -59,7 +59,43 @@ REST API: [Postman Files](https://documenter.getpostman.com/view/3385291/SzS4TTX
 
 ## Contributing
 
-If you would like to contribute to this project, you can fork the repository and create a new branch for your changes. Once you have made your changes, you can create a pull request to merge your changes into the main branch.
+If you would like to contribute to this project, you can first create an issue describing the feature you'd like
+to do. This helps prevent duplication of effort (working on something someone else is already working on). 
+
+After the discussion on the GitHub issue,you can fork the repository and create a new branch for your changes. Once you have made your changes, you can create a pull request to merge your changes into the main branch.
+For much smaller fixes like typos, you can skip the create issue step.
+
+Tip: Keep feature contributions small and focused. This makes it easy to review contributions and spot errors if any
+
+## App Architecture
+### State Management
+
+For this project, we use flutter_bloc. You can find documentation [here](https://bloclibrary.dev)
+
+The [architecture portion](https://bloclibrary.dev/architecture/) has a really good explanation of how we plan
+to architect the app conceptually.
+
+### Folder Structure
+
+We use a folder first then a feature based approach to structuring folders. This would look similar to:
+
+lib
+  - repositories
+    - repository.dart
+  - blocs
+    - auth
+    - speakers
+  - ui
+    - auth
+    - speakers
+
+If you have a preferred different approach to structuring your folders, [join the discussion here](https://github.com/droidconKE/flutterconKEApp/discussions/10).
+
+### Routing
+
+For routing, we will use the [go_router package](https://pub.dev/packages/go_router). It offers the benefit of
+simplifying the usage of navigator 2.0, which is helpful for deep linking
+
 
 ## License
 
