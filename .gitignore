@@ -47,3 +47,7 @@ app.*.map.json
 
 #keys
 /env/keys*.json
+
+# FVM Version Cache
+.fvm/
+.fvmrc
