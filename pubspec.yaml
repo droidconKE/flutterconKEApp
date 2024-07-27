@@ -7,10 +7,11 @@ environment:
   sdk: '>=3.3.1 <4.0.0'
 
 dependencies:
+  bloc: ^8.1.4
   bloc_concurrency: ^0.2.5
   cached_network_image: ^3.3.1
   cupertino_icons: ^1.0.6
-  dio: ^5.4.3+1
+  dio: ^5.5.0+1
   equatable: ^2.0.5
   flutter:
     sdk: flutter
@@ -18,9 +19,9 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_svg: ^2.0.10+1
-  freezed_annotation: ^2.4.1
+  freezed_annotation: ^2.4.4
   get_it: ^7.7.0
-  injectable: ^2.4.2
+  injectable: ^2.4.4
   intl: ^0.19.0
   json_annotation: ^4.9.0
   rxdart: ^0.27.7
@@ -31,14 +32,14 @@ dependencies:
   textstyle_extensions: ^2.0.0-nullsafety
 
 dev_dependencies:
-  build_runner: ^2.4.6
+  build_runner: ^2.4.11
   flutter_launcher_icons: ^0.13.1
   flutter_native_splash: ^2.4.1
   flutter_test:
     sdk: flutter
   freezed: ^2.3.5
   icons_launcher: ^2.1.7
-  injectable_generator: ^2.1.6
+  injectable_generator: ^2.6.2
   json_serializable: ^6.8.0
   mocktail: ^1.0.3
   very_good_analysis: ^6.0.0
