@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-
-import '../../../common/widgets/app_bar/app_bar.dart';
-import '../../../common/widgets/page_item.dart';
-import '../../about/ui/about_screen.dart';
-import '../../../common/widgets/bottom_nav/bottom_nav_bar.dart';
-import '../../feed/ui/feed_screen.dart';
-import '../../home/ui/home_screen.dart';
-import '../../sessions/ui/sessions_screen.dart';
+import 'package:fluttercon/common/widgets/app_bar/app_bar.dart';
+import 'package:fluttercon/common/widgets/bottom_nav/bottom_nav_bar.dart';
+import 'package:fluttercon/common/widgets/page_item.dart';
+import 'package:fluttercon/features/about/ui/about_screen.dart';
+import 'package:fluttercon/features/feed/ui/feed_screen.dart';
+import 'package:fluttercon/features/home/ui/home_screen.dart';
+import 'package:fluttercon/features/sessions/ui/sessions_screen.dart';
 
 /// Default Screen to handle all the UIs after the Splash Screen
 class DashboardScreen extends StatefulWidget {
@@ -17,7 +16,7 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  PageController pageController = PageController(initialPage: 0);
+  PageController pageController = PageController();
   int selectedPageIndex = 0;
 
   final List<PageItem> pages = [

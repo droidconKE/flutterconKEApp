@@ -33,6 +33,7 @@ migrate_working_dir/
 *.config.dart
 *.freezed.dart
 *.g.dart
+*.lock
 
 # Symbolication related
 app.*.symbols
@@ -45,8 +46,6 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-#keys
-/env/keys*.json
 
 # FVM Version Cache
 .fvm/

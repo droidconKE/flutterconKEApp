@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../core/navigator/route_names.dart';
-import '../../common/utils/constants/app_assets.dart';
+import 'package:fluttercon/common/utils/constants/app_assets.dart';
+import 'package:fluttercon/core/navigator/route_names.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -17,10 +16,10 @@ class _SplashScreenState extends State<SplashScreen> {
     nextAction();
   }
 
-  void nextAction() async {
+  Future<void> nextAction() async {
     await Future.delayed(const Duration(seconds: 3), () {});
     if (!mounted) return;
-    Navigator.pushNamedAndRemoveUntil(
+    await Navigator.pushNamedAndRemoveUntil(
       context,
       RouteNames.dashboard,
       (route) => false,

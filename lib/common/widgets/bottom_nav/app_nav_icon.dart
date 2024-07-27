@@ -2,12 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AppNavIcon extends StatelessWidget {
-  final String name;
-  final String? semanticsLabel;
-  final Color? color;
-  final double? height;
-  final double? width;
-
   const AppNavIcon(
     this.name, {
     super.key,
@@ -16,6 +10,11 @@ class AppNavIcon extends StatelessWidget {
     this.height,
     this.width,
   });
+  final String name;
+  final String? semanticsLabel;
+  final Color? color;
+  final double? height;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {

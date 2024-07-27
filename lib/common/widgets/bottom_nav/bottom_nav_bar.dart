@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-
-import '../../../core/local_storage.dart';
-import '../../../core/di/injectable.dart';
-import '../../../core/theme/theme_colors.dart';
-import 'app_nav_icon.dart';
-import '../page_item.dart';
+import 'package:fluttercon/common/widgets/bottom_nav/app_nav_icon.dart';
+import 'package:fluttercon/common/widgets/page_item.dart';
+import 'package:fluttercon/core/di/injectable.dart';
+import 'package:fluttercon/core/local_storage.dart';
+import 'package:fluttercon/core/theme/theme_colors.dart';
 
 /// Custom Bottom Navigation Bar that will handles the page to be displayed on the dashboard
 class CustomBottomNavigationBar extends StatefulWidget {
   const CustomBottomNavigationBar({
-    super.key,
     required this.selectedIndex,
     required this.onPageChange,
     required this.pages,
+    super.key,
   });
 
   final int selectedIndex;
@@ -26,11 +25,12 @@ class CustomBottomNavigationBar extends StatefulWidget {
 
 class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   /// This is used for the swipe drag gesture on the bottom nav bar
-  var localStorage = getIt<LocalStorage>();
-  bool bottomNavBarSwipeGestures = false, bottomNavBarDoubleTapGestures = false;
+  LocalStorage localStorage = getIt<LocalStorage>();
+  bool bottomNavBarSwipeGestures = false;
+  bool bottomNavBarDoubleTapGestures = false;
 
-  double _dragStartX = 0.0;
-  double _dragEndX = 0.0;
+  double _dragStartX = 0;
+  double _dragEndX = 0;
 
   // Handles drag on bottom nav bar to open the drawer
   void _handleDragStart(DragStartDetails details) {
@@ -38,17 +38,20 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   }
 
   // Handles drag on bottom nav bar to open the drawer
-  void _handleDragUpdate(DragUpdateDetails details) async {
+  Future<void> _handleDragUpdate(DragUpdateDetails details) async {
     _dragEndX = details.globalPosition.dx;
   }
 
   // Handles drag on bottom nav bar to open the drawer
-  void _handleDragEnd(DragEndDetails details, BuildContext context) async {
+  Future<void> _handleDragEnd(
+    DragEndDetails details,
+    BuildContext context,
+  ) async {
     if (widget.selectedIndex != 0) return;
 
     if (bottomNavBarSwipeGestures == false) return;
 
-    double delta = _dragEndX - _dragStartX;
+    final delta = _dragEndX - _dragStartX;
 
     // Set some threshold to also allow for swipe up to reveal FAB
     if (delta > 20) {
@@ -61,12 +64,12 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   }
 
   // Handles double-tap to open the drawer
-  void _handleDoubleTap(BuildContext context) async {
+  Future<void> _handleDoubleTap(BuildContext context) async {
     if (widget.selectedIndex != 0) return;
 
     if (bottomNavBarDoubleTapGestures == false) return;
 
-    bool isDrawerOpen =
+    final isDrawerOpen =
         context.mounted ? Scaffold.of(context).isDrawerOpen : false;
 
     if (isDrawerOpen) {
@@ -79,7 +82,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    bool isDarkTheme = theme.brightness == Brightness.light;
+    final isDarkTheme = theme.brightness == Brightness.light;
 
     return GestureDetector(
       onHorizontalDragStart: _handleDragStart,
@@ -101,11 +104,11 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         selectedLabelStyle: const TextStyle(fontSize: 12),
         onTap: widget.onPageChange,
         items: widget.pages.map((page) {
-          bool isActive = widget.selectedIndex == widget.pages.indexOf(page);
+          final isActive = widget.selectedIndex == widget.pages.indexOf(page);
           return BottomNavigationBarItem(
             label: page.title,
             icon: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8),
               child: AppNavIcon(
                 page.icon,
                 color: isActive

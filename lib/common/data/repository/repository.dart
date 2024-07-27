@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-import '../models/models.dart';
+import 'package:fluttercon/common/data/models/models.dart';
 
 class Repository {
   Repository({required this.dio});
@@ -24,13 +24,7 @@ class Repository {
       });
     }
 
-    final speakersJson = List<Map<String, dynamic>>.from(
-      (response.data as Map<String, dynamic>)['data'],
-    );
-
-    return [
-      for (final speakerJson in speakersJson) Speaker.fromJson(speakerJson)
-    ];
+    return SpeakerResponse.fromJson(response.data as Map<String, dynamic>).data;
   }
 
   Future<List<Room>> fetchRooms({
@@ -47,13 +41,7 @@ class Repository {
       });
     }
 
-    final roomsJson = List<Map<String, dynamic>>.from(
-      (response.data as Map<String, dynamic>)['data'],
-    );
-
-    return [
-      for (final roomJson in roomsJson) Room.fromJson(roomJson),
-    ];
+    return RoomResponse.fromJson(response.data as Map<String, dynamic>).data;
   }
 
   Future<List<Session>> fetchSessions({
@@ -61,8 +49,10 @@ class Repository {
     int perPage = 20,
     int page = 1,
   }) async {
-    final response = await dio.get('/events/$event/sessions',
-        queryParameters: {'per_page': perPage, 'page': page});
+    final response = await dio.get(
+      '/events/$event/sessions',
+      queryParameters: {'per_page': perPage, 'page': page},
+    );
 
     if (response.statusCode != 200) {
       throw Exception({
@@ -71,12 +61,6 @@ class Repository {
       });
     }
 
-    final sessionsJson = List<Map<String, dynamic>>.from(
-      (response.data as Map<String, dynamic>)['data'],
-    );
-
-    return [
-      for (final sessionJson in sessionsJson) Session.fromJson(sessionJson)
-    ];
+    return SessionResponse.fromJson(response.data as Map<String, dynamic>).data;
   }
 }

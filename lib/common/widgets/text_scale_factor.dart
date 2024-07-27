@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
 class TextScaleFactor extends StatelessWidget {
-  final Widget child;
-
   const TextScaleFactor({
     required this.child,
     super.key,
   });
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {

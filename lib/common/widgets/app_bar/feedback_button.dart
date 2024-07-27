@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-
-import '../../../core/theme/theme_colors.dart';
-import '../bottom_nav/app_nav_icon.dart';
+import 'package:fluttercon/common/widgets/bottom_nav/app_nav_icon.dart';
+import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:fluttercon/l10n/l10n.dart';
 
 class FeedbackButton extends StatelessWidget {
+  const FeedbackButton({required this.selectedIndex, super.key});
   final int selectedIndex;
-  const FeedbackButton({super.key, required this.selectedIndex});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return selectedIndex == 0
         ? const SizedBox()
         : InkWell(
@@ -33,14 +35,17 @@ class FeedbackButton extends StatelessWidget {
                         : Colors.black,
                   ),
                   Text(
-                    'Feedback',
+                    l10n.feedback,
                     style: Theme.of(context)
                         .textTheme
                         .bodyMedium
                         ?.copyWith(fontSize: 12),
                   ),
-                  const AppNavIcon('send',
-                      height: 12, color: ThemeColors.tealColor),
+                  const AppNavIcon(
+                    'send',
+                    height: 12,
+                    color: ThemeColors.tealColor,
+                  ),
                 ],
               ),
             ),
