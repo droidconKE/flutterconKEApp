@@ -32,6 +32,9 @@ jobs:
       - name: Analyze code
         run: flutter analyze
 
+      - name: Create env/keys.dev.json
+        run: cp env/keys.example env/keys.dev.json
+
       - name: Build APK
         run: flutter build apk --flavor prod --target lib/main_prod.dart --dart-define-from-file env/keys.dev.json --release -vv
 
