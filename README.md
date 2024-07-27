@@ -13,11 +13,17 @@ Once you have Flutter installed, you can clone this repository and run the follo
 flutter pub get
 ```
 
+### Update Code generation files
+
+```bash
+dart run build_runner build --delete-conflicting-outputs
+```
+
 ### Running the app
 After installing the dependencies, you can run the application using the following command:
 
 ```bash
-flutter run
+flutter run --dart-define-from-file keys.dev.json
 ```
 
 This will start the application on your connected device or emulator.
@@ -27,13 +33,13 @@ This will start the application on your connected device or emulator.
 - **AppTester (Firebase Distribution):**
 
     ```bash
-    flutter build apk --flavor uat -t lib/main_uat.dart --no-tree-shake-icons
+    flutter build apk --flavor uat -t lib/main_uat.dart --dart-define-from-file keys.dev.json --no-tree-shake-icons
     ```
 
 - **Production (For Play Store):**
 
     ```bash
-    flutter build appbundle --flavor prod -t lib/main_prod.dart --no-tree-shake-icons
+    flutter build appbundle --flavor prod -t lib/main_prod.dart --dart-define-from-file keys.prod.json --no-tree-shake-icons
     ```
 
 ## Features

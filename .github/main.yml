@@ -18,10 +18,16 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 3.19.5
+          flutter-version: 3
 
       - name: Get dependencies
         run: flutter pub get
+
+      - name: Check Formatting
+        run: dart format --set-exit-if-changed lib test
+
+      - name: Code Generation
+        run: dart run build_runner build --delete-conflicting-outputs
 
       - name: Analyze code
         run: flutter analyze
