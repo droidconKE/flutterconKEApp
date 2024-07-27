@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercon/app.dart';
+import 'package:fluttercon/bootstrap.dart';
 import 'package:fluttercon/common/utils/env/flavor_config.dart';
-import 'bootstrap.dart';
-import 'core/di/injectable.dart';
+import 'package:fluttercon/core/di/injectable.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   FlutterConConfig(
     values: FlutterConValues(
       baseDomain: 'api.droidcon.co.ke',
@@ -16,5 +16,5 @@ Future<void> main() async {
 
   await configureDependencies();
 
-  bootstrap(() => const MyApp());
+  await bootstrap(() => const MyApp());
 }

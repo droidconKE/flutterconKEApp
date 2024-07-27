@@ -1,7 +1,7 @@
 class AppException implements Exception {
   AppException([
-    this.message = "",
-    this.debugString = "",
+    this.message = '',
+    this.debugString = '',
   ]);
 
   /// This MUST be a user friendly error message
@@ -11,6 +11,6 @@ class AppException implements Exception {
 
   @override
   String toString() {
-    return "$message $debugString";
+    return '$message $debugString';
   }
 }

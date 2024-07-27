@@ -39,7 +39,7 @@ class MainNavigatorState extends State<MainNavigator> with MainNavigationMixin {
   /// ```
   static Route? onGenerateRoute(RouteSettings settings) {
     final strippedPath = settings.name?.replaceFirst('/', '');
-    final Map<String, WidgetBuilder> routes = {
+    final routes = <String, WidgetBuilder>{
       // Splash Screens
       '': (context) => const SplashScreen(),
       RouteNames.splash: (context) => const SplashScreen(),
@@ -53,7 +53,7 @@ class MainNavigatorState extends State<MainNavigator> with MainNavigationMixin {
       RouteNames.dashboard: (context) => const DashboardScreen(),
     };
 
-    defaultRoute(context) => const SplashScreen();
+    SplashScreen defaultRoute(context) => const SplashScreen();
 
     WidgetBuilder? getRouteBuilder(String routeName) {
       if (routes.containsKey(routeName)) {
@@ -64,14 +64,16 @@ class MainNavigatorState extends State<MainNavigator> with MainNavigationMixin {
     }
 
     MaterialPageRoute<void> createMaterialPageRoute(
-        WidgetBuilder builder, RouteSettings settings) {
+      WidgetBuilder builder,
+      RouteSettings settings,
+    ) {
       return MaterialPageRoute<void>(
         builder: builder,
         settings: settings,
       );
     }
 
-    WidgetBuilder? routeBuilder = getRouteBuilder(strippedPath!);
+    final routeBuilder = getRouteBuilder(strippedPath!);
     if (routeBuilder != null) {
       return createMaterialPageRoute(routeBuilder, settings);
     } else {

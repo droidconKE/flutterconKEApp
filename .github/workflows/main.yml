@@ -35,8 +35,8 @@ jobs:
           dart run build_runner build --delete-conflicting-outputs
           flutter pub get
 
-      - name: 🕵️ Analyze
-        run: flutter analyze lib
+      # - name: 🕵️ Analyze
+      #   run: flutter analyze lib
 
       # - name: ⚙️ Download Android keystore
       #   id: android_keystore

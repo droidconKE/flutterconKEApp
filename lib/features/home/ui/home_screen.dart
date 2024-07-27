@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:fluttercon/common/utils/constants/app_assets.dart';
+import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:fluttercon/features/home/widgets/organizers_card.dart';
+import 'package:fluttercon/features/home/widgets/sponsors_card.dart';
 import 'package:sizer/sizer.dart';
-
-import '../../../common/utils/constants/app_assets.dart';
-import '../../../core/theme/theme_colors.dart';
-import '../widgets/organizers_card.dart';
-import '../widgets/sponsors_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -21,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -32,9 +31,10 @@ class _HomeScreenState extends State<HomeScreen> {
               Text(
                 'Welcome to the largest Focused Android Developer community in Africa',
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: isDark ? Colors.black : Colors.white,
-                    fontSize: 16),
+                      fontWeight: FontWeight.w600,
+                      color: isDark ? Colors.black : Colors.white,
+                      fontSize: 16,
+                    ),
               ),
               const SizedBox(height: 15),
               ClipRRect(
@@ -61,23 +61,21 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         Text(
                           'Call for Speakers',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium
-                              ?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontSize: 17.sp),
+                          style:
+                              Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    fontSize: 17.sp,
+                                  ),
                         ),
                         Text(
                           'Apply to be a speakers',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium
-                              ?.copyWith(
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
-                                  fontSize: 10.sp),
+                          style:
+                              Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                    fontSize: 10.sp,
+                                  ),
                         ),
                       ],
                     ),

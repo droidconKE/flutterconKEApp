@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttercon/common/utils/constants/pref_constants.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../common/utils/constants/pref_constants.dart';
 
 /// A class based on Shared Preferences for managing basic stuff like themes
 @singleton
@@ -28,14 +27,15 @@ abstract class LocalStorage {
 }
 
 class LocalStorageImp implements LocalStorage {
-  final SharedPreferences sharedPrefs;
-
   LocalStorageImp(this.sharedPrefs);
+  final SharedPreferences sharedPrefs;
 
   @override
   Future<void> updateThemeMode(ThemeMode themeMode) async {
     await sharedPrefs.setInt(
-        PrefConstants.appThemeKey, int.parse(themeMode.toString()));
+      PrefConstants.appThemeKey,
+      int.parse(themeMode.toString()),
+    );
   }
 
   @override

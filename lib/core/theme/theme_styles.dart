@@ -32,7 +32,7 @@ class Sizes {
 }
 
 class ThemeFonts {
-  static const String poppins = "Poppins";
+  static const String poppins = 'Poppins';
 }
 
 class Insets {
@@ -71,7 +71,7 @@ class Shadows {
               blurRadius: mRadius / 2,
               spreadRadius: mRadius / 4,
               offset: const Offset(1, 0),
-            )
+            ),
           ]
         : const <BoxShadow>[];
   }

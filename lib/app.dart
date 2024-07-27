@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttercon/core/di/injectable.dart';
+import 'package:fluttercon/core/local_storage.dart';
+import 'package:fluttercon/core/navigator/main_navigator.dart';
+import 'package:fluttercon/core/theme/bloc/theme_bloc.dart';
+import 'package:fluttercon/core/theme/theme_data.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 import 'package:sizer/sizer.dart';
 
-import 'core/theme/bloc/theme_bloc.dart';
-import 'core/theme/theme_data.dart';
-import 'core/local_storage.dart';
-import 'core/di/injectable.dart';
-import 'core/navigator/main_navigator.dart';
-
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
-  
+  const MyApp({super.key});
+
   @override
   State<MyApp> createState() => MyAppState();
 }
@@ -23,7 +22,7 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    var localStorage = getIt<LocalStorage>();
+    final localStorage = getIt<LocalStorage>();
 
     return BlocProvider(
       create: (context) => ThemeBloc(),

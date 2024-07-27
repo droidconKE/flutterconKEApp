@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/theme/theme_colors.dart';
+import 'package:fluttercon/core/theme/theme_colors.dart';
 
 class SessionsScreen extends StatefulWidget {
   const SessionsScreen({super.key});
@@ -24,9 +24,10 @@ class _SessionsScreenState extends State<SessionsScreen> {
             Text(
               'All sessions',
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: Theme.of(context).brightness == Brightness.light
-                      ? ThemeColors.tealColor
-                      : ThemeColors.blueDroidconColor),
+                    color: Theme.of(context).brightness == Brightness.light
+                        ? ThemeColors.tealColor
+                        : ThemeColors.blueDroidconColor,
+                  ),
             ),
           ],
         ),

@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
-
-import '../../core/app_extension.dart';
-import '../utils/logger.dart';
+import 'package:fluttercon/common/utils/logger.dart';
+import 'package:fluttercon/core/app_extension.dart';
 
 class DioInterceptor extends Interceptor {
   @override
@@ -9,7 +8,8 @@ class DioInterceptor extends Interceptor {
     logger('====================START====================');
     logger('HTTP method => ${options.method} ');
     logger(
-        'Request => ${options.baseUrl}${options.path}${options.queryParameters.format}');
+      'Request => ${options.baseUrl}${options.path}${options.queryParameters.format}',
+    );
     logger('Header  => ${options.headers}');
     return super.onRequest(options, handler);
   }

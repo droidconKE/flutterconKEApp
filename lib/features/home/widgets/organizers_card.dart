@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/theme/theme_colors.dart';
+import 'package:fluttercon/core/theme/theme_colors.dart';
 
 class OrganizersCard extends StatefulWidget {
   const OrganizersCard({super.key});
@@ -26,11 +26,14 @@ class _OrganizersCardState extends State<OrganizersCard> {
       child: Column(
         children: [
           const Spacer(),
-          Text('Organised by:',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+          Text(
+            'Organised by:',
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: isDark ? Colors.white : ThemeColors.blueColor,
-                  fontSize: 18)),
+                  fontSize: 18,
+                ),
+          ),
           const Spacer(),
           //sponsors list
           const Spacer(),

@@ -24,20 +24,14 @@ extension GeneralExtension<T> on T {
   String get getEnumString => toString().split('.').last.toCapital;
 }
 
-extension IterableExtension<T> on Iterable<T> {
-  Iterable<E> mapWithIndex<E>(E Function(int index, T value) f) {
-    return Iterable.generate(length).map((i) => f(i, elementAt(i)));
-  }
-}
-
 extension MapExtension on Map {
   String get format {
     if (isEmpty) {
-      return "";
+      return '';
     } else {
-      var firstKey = entries.first.key;
-      var mapValues = entries.first.value;
-      return "?$firstKey=$mapValues";
+      final firstKey = entries.first.key;
+      final mapValues = entries.first.value;
+      return '?$firstKey=$mapValues';
     }
   }
 }
