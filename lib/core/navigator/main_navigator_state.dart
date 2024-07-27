@@ -51,7 +51,6 @@ class MainNavigatorState extends State<MainNavigator> with MainNavigationMixin {
 
       // Home Screens
       RouteNames.dashboard: (context) => const DashboardScreen(),
-
     };
 
     defaultRoute(context) => const SplashScreen();

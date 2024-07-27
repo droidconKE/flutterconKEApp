@@ -26,7 +26,7 @@ abstract class RegisterModule {
   @singleton
   @preResolve
   Future<SharedPreferences> prefs() => SharedPreferences.getInstance();
-  
+
   @singleton
   Dio dio() => Dio();
 }

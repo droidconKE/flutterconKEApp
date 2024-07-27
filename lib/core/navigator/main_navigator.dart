@@ -18,8 +18,8 @@ class MainNavigator extends StatefulWidget {
 
   const MainNavigator({
     this.child,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   MainNavigatorState createState() => MainNavigatorState();

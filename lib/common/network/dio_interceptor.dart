@@ -4,12 +4,12 @@ import '../../core/app_extension.dart';
 import '../utils/logger.dart';
 
 class DioInterceptor extends Interceptor {
-
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     logger('====================START====================');
     logger('HTTP method => ${options.method} ');
-    logger('Request => ${options.baseUrl}${options.path}${options.queryParameters.format}');
+    logger(
+        'Request => ${options.baseUrl}${options.path}${options.queryParameters.format}');
     logger('Header  => ${options.headers}');
     return super.onRequest(options, handler);
   }
@@ -28,7 +28,4 @@ class DioInterceptor extends Interceptor {
     logger('Response => Body: ${response.data}'); // Debug log
     return super.onResponse(response, handler);
   }
-}
-
-mixin format {
 }

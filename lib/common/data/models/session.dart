@@ -11,12 +11,11 @@ class Session with _$Session {
     required String title,
     required String description,
     required String slug,
-    @JsonKey(name: 'session_format')
-    required String sessionFormat,
-    @JsonKey(name: 'session_level')
-    required String sessionLevel,
+    @JsonKey(name: 'session_format') required String sessionFormat,
+    @JsonKey(name: 'session_level') required String sessionLevel,
     @Default([]) List<Speaker> speakers,
   }) = _Session;
 
-  factory Session.fromJson(Map<String, Object?> json) => _$SessionFromJson(json);
+  factory Session.fromJson(Map<String, Object?> json) =>
+      _$SessionFromJson(json);
 }
