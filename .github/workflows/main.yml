@@ -1,46 +1,82 @@
-name: Flutter Build and Release APP
+name: Generate production APK
 
 on:
   push:
     branches:
       - main
-    tags:
-      - '*'  # Trigger on all tags
 
 jobs:
-  build_and_release:
-    name: Build, Upload, and Create Release
+  build:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
 
-      - name: Set up Flutter
+    steps:   
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+
+      - name: 📚 Git Checkout       
+        uses: actions/checkout@v4
+
+      - name: 🐦 Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 3
+          flutter-version: "3"
 
-      - name: Get dependencies
-        run: flutter pub get
+      - name: 📦 Install Dependencies
+        run: flutter packages get
 
-      - name: Check Formatting
+      - name: ✨ Check Formatting
         run: dart format --set-exit-if-changed lib test
 
-      - name: Code Generation
-        run: dart run build_runner build --delete-conflicting-outputs
+      - name: ⚙️ Code Generation
+        run: |
+          dart run build_runner build --delete-conflicting-outputs
+          flutter pub get
 
-      - name: Analyze code
-        run: flutter analyze
+      - name: 🕵️ Analyze
+        run: flutter analyze lib
 
-      - name: Create env/keys.dev.json
-        run: cp env/keys.example env/keys.dev.json
+      # - name: ⚙️ Download Android keystore
+      #   id: android_keystore
+      #   uses: timheuer/base64-to-file@v1.2
+      #   with:
+      #     fileName: key.jks
+      #     encodedString: ${{ secrets.RELEASE_KEYSTORE }}
 
-      - name: Build APK
-        run: flutter build apk --flavor prod --target lib/main_prod.dart --dart-define-from-file env/keys.dev.json --release -vv
+      # - name: 🔐 Create key.properties
+      #   run: |
+      #     echo "storeFile=${{ steps.android_keystore.outputs.filePath }}" > android/key.properties
+      #     echo "storePassword=${{ secrets.RELEASE_KEYSTORE_PASSPHRASE }}" >> android/key.properties
+      #     echo "keyPassword=${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" >> android/key.properties
+      #     echo "keyAlias=${{ secrets.RELEASE_KEYSTORE_ALIAS }}" >> android/key.properties
 
-      - name: Upload APK as artifact
-        uses: actions/upload-artifact@v3
+      - name: ⚙️ Build AAB
+        run: flutter build apk  --flavor production --target lib/main_production.dart
+
+      - name: 📦 Archive
+        uses: actions/upload-artifact@v2
         with:
-          name: android-app
-          path: build/app/outputs/flutter-apk/app-prod-release.apk # Update path if needed
+          name: app-release
+          path: build/app/outputs/flutter-apk/app-production-release.apk
 
+      # - name: ⚙️ Setup Ruby
+      #   uses: ruby/setup-ruby@v1
+      #   with:
+      #     ruby-version: "3.0"
+      #     bundler-cache: true
+
+      # - name: ⚙️ Download bundle dependencies
+      #   run: |
+      #     gem install bundler:2.0.2
+      #     bundle install
+
+      # - name: 🚀 Release to Google Play (Production)
+      #   env:
+      #     SUPPLY_PACKAGE_NAME: ${{ secrets.ANDROID_PACKAGE_NAME }}
+      #     SUPPLY_JSON_KEY_DATA: ${{ secrets.PLAY_STORE_CREDENTIALS }}
+      #   run: |
+      #     bundle exec fastlane supply \
+      #     --aab build/app/outputs/bundle/productionRelease/app-production-release.aab \
+      #     --track production

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttercon_2024/common/utils/constants/app_assets.dart';
+import 'package:fluttercon/common/utils/constants/app_assets.dart';
 
 import '../../../core/theme/theme_colors.dart';
 import '../../home/widgets/organizers_card.dart';

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttercon/l10n/l10n.dart';
 
 import '../../../core/theme/theme_colors.dart';
 import '../bottom_nav/app_nav_icon.dart';
@@ -9,6 +10,8 @@ class FeedbackButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return selectedIndex == 0
         ? const SizedBox()
         : InkWell(
@@ -33,7 +36,7 @@ class FeedbackButton extends StatelessWidget {
                         : Colors.black,
                   ),
                   Text(
-                    'Feedback',
+                    l10n.feedback,
                     style: Theme.of(context)
                         .textTheme
                         .bodyMedium

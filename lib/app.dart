@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:fluttercon/l10n/l10n.dart';
 import 'package:sizer/sizer.dart';
 
 import 'core/theme/bloc/theme_bloc.dart';
@@ -11,9 +10,8 @@ import 'core/di/injectable.dart';
 import 'core/navigator/main_navigator.dart';
 
 class MyApp extends StatefulWidget {
-  final Widget? home;
-  const MyApp({super.key, this.home});
-
+  const MyApp({Key? key}) : super(key: key);
+  
   @override
   State<MyApp> createState() => MyAppState();
 }
@@ -34,21 +32,15 @@ class MyAppState extends State<MyApp> {
           return Sizer(
             builder: (context, orientation, deviceType) {
               return MaterialApp(
-                home: widget.home,
                 themeMode: localStorage.getThemeMode(),
                 theme: AppTheme.lightTheme(),
                 darkTheme: AppTheme.darkTheme(),
-                supportedLocales: const [Locale('en'), Locale('sw')],
                 debugShowCheckedModeBanner: false,
                 navigatorKey: navigatorKey,
                 initialRoute: MainNavigatorState.initialRoute,
                 onGenerateRoute: MainNavigatorState.onGenerateRoute,
-                localizationsDelegates: const [
-                  AppLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                ],
+                localizationsDelegates: AppLocalizations.localizationsDelegates,
+                supportedLocales: AppLocalizations.supportedLocales,
               );
             },
           );
