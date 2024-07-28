@@ -5,10 +5,11 @@ import 'package:fluttercon/core/app_extension.dart';
 class DioInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+    final RequestOptions(:baseUrl, :path, :queryParameters) = options;
     logger('====================START====================');
     logger('HTTP method => ${options.method} ');
     logger(
-      'Request => ${options.baseUrl}${options.path}${options.queryParameters.format}',
+      'Request => $baseUrl$path${queryParameters.format}',
     );
     logger('Header  => ${options.headers}');
     return super.onRequest(options, handler);
@@ -23,7 +24,10 @@ class DioInterceptor extends Interceptor {
   }
 
   @override
-  void onResponse(Response response, ResponseInterceptorHandler handler) {
+  void onResponse(
+    Response<dynamic> response,
+    ResponseInterceptorHandler handler,
+  ) {
     logger('Response => StatusCode: ${response.statusCode}'); // Debug log
     logger('Response => Body: ${response.data}'); // Debug log
     return super.onResponse(response, handler);

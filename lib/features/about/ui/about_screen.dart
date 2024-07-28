@@ -19,7 +19,8 @@ class _AboutScreenState extends State<AboutScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.light;
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.light;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -32,7 +33,7 @@ class _AboutScreenState extends State<AboutScreen> {
                 children: [
                   Text(
                     'About',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    style: theme.textTheme.titleLarge?.copyWith(
                           color: isDark
                               ? ThemeColors.tealColor
                               : ThemeColors.blueDroidconColor,
@@ -40,15 +41,26 @@ class _AboutScreenState extends State<AboutScreen> {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    'Droidcon is a global conference focused on the engineering of Android applications. Droidcon provides a forum for developers to network with other developers, share techniques, announce apps and products, and to learn and teach.\n\n'
-                    'This three-day developer focused gathering will be held in Nairobi Kenya on November 16th to 18th 2022 and will be the largest of its kind in Africa.\n\n'
-                    'It will have workshops and codelabs focused on the building of Android applications and will give participants an excellent chance to learn about the local Android development ecosystem, opportunities and services as well as meet the engineers and companies who work on them.',
-                    style: Theme.of(context).textTheme.bodyMedium,
+                    'Droidcon is a global conference focused on the engineering'
+                    ' of Android applications. Droidcon provides a forum for '
+                    'developers to network with other developers, share '
+                    'techniques, announce apps and products, and to learn and '
+                    'teach.\n\n'
+                    'This three-day developer focused gathering will be held '
+                    'in Nairobi Kenya on November 16th to 18th 2022 and will '
+                    'be the largest of its kind in Africa.\n\n'
+                    'It will have workshops and codelabs focused on the '
+                    'building of Android applications and will give '
+                    'participants an excellent chance to learn about the local '
+                    'Android development ecosystem, opportunities and services '
+                    'as well as meet the engineers and companies who work on '
+                    'them.',
+                    style: theme.textTheme.bodyMedium,
                   ),
                   const SizedBox(height: 20),
                   Text(
                     'Organizing Team',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    style: theme.textTheme.titleLarge?.copyWith(
                           color: isDark
                               ? ThemeColors.tealColor
                               : ThemeColors.blueDroidconColor,

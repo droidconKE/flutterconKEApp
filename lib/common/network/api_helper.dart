@@ -12,6 +12,7 @@ abstract mixin class ApiHelper<T> {
     if (response.statusCode.success) {
       return true;
     } else {
+      // ignore: only_throw_errors
       throw DioExceptions;
     }
   }

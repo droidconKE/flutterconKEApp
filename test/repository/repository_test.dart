@@ -1,3 +1,5 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fluttercon/common/data/models/models.dart';
@@ -6,14 +8,14 @@ import 'package:mocktail/mocktail.dart';
 
 class MockDio extends Mock implements Dio {}
 
-class MockResponse extends Mock implements Response {}
+class MockResponse<T> extends Mock implements Response<T> {}
 
 void main() {
   group(
     'Repository tests',
     () {
       late Dio dio;
-      late MockResponse response;
+      late MockResponse<Map<String, dynamic>> response;
 
       setUp(() {
         dio = MockDio();
@@ -23,8 +25,10 @@ void main() {
       group('Speaker Tests', () {
         test('Fetches Speakers correctly', () async {
           when(
-            () =>
-                dio.get(any(), queryParameters: any(named: 'queryParameters')),
+            () => dio.get<Map<String, dynamic>>(
+              any(),
+              queryParameters: any(named: 'queryParameters'),
+            ),
           ).thenAnswer((_) async => response);
 
           when(() => response.statusCode).thenReturn(200);
@@ -47,7 +51,7 @@ void main() {
           'Throws an exception if the response status code is not 200',
           () {
             when(
-              () => dio.get(
+              () => dio.get<Map<String, dynamic>>(
                 any(),
                 queryParameters: any(named: 'queryParameters'),
               ),
@@ -69,8 +73,10 @@ void main() {
       group('Room Tests', () {
         test('Fetches Rooms correctly', () async {
           when(
-            () =>
-                dio.get(any(), queryParameters: any(named: 'queryParameters')),
+            () => dio.get<Map<String, dynamic>>(
+              any(),
+              queryParameters: any(named: 'queryParameters'),
+            ),
           ).thenAnswer((_) async => response);
 
           when(() => response.statusCode).thenReturn(200);
@@ -89,7 +95,7 @@ void main() {
           'Throws an exception if the response status code is not 200',
           () {
             when(
-              () => dio.get(
+              () => dio.get<Map<String, dynamic>>(
                 any(),
                 queryParameters: any(named: 'queryParameters'),
               ),
@@ -111,8 +117,10 @@ void main() {
       group('Session Tests', () {
         test('Fetches Sessions correctly', () async {
           when(
-            () =>
-                dio.get(any(), queryParameters: any(named: 'queryParameters')),
+            () => dio.get<Map<String, dynamic>>(
+              any(),
+              queryParameters: any(named: 'queryParameters'),
+            ),
           ).thenAnswer((_) async => response);
 
           when(() => response.statusCode).thenReturn(200);
@@ -131,7 +139,7 @@ void main() {
           'Throws an exception if the response status code is not 200',
           () {
             when(
-              () => dio.get(
+              () => dio.get<Map<String, dynamic>>(
                 any(),
                 queryParameters: any(named: 'queryParameters'),
               ),

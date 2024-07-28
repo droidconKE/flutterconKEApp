@@ -5,7 +5,8 @@ import 'package:fluttercon/core/di/injectable.dart';
 import 'package:fluttercon/core/local_storage.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 
-/// Custom Bottom Navigation Bar that will handles the page to be displayed on the dashboard
+/// Custom Bottom Navigation Bar that will handles the page to be displayed on
+/// the dashboard
 class CustomBottomNavigationBar extends StatefulWidget {
   const CustomBottomNavigationBar({
     required this.selectedIndex,
@@ -15,7 +16,7 @@ class CustomBottomNavigationBar extends StatefulWidget {
   });
 
   final int selectedIndex;
-  final Function(int) onPageChange;
+  final void Function(int) onPageChange;
   final List<PageItem> pages;
 
   @override
@@ -64,18 +65,17 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   }
 
   // Handles double-tap to open the drawer
-  Future<void> _handleDoubleTap(BuildContext context) async {
+  void _handleDoubleTap(BuildContext context) {
     if (widget.selectedIndex != 0) return;
 
     if (bottomNavBarDoubleTapGestures == false) return;
 
-    final isDrawerOpen =
-        context.mounted ? Scaffold.of(context).isDrawerOpen : false;
+    final isDrawerOpen = Scaffold.of(context).isDrawerOpen;
 
     if (isDrawerOpen) {
-      if (context.mounted) Scaffold.of(context).closeDrawer();
+      Scaffold.of(context).closeDrawer();
     } else {
-      if (context.mounted) Scaffold.of(context).openDrawer();
+      Scaffold.of(context).openDrawer();
     }
   }
 
