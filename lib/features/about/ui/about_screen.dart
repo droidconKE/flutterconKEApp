@@ -34,10 +34,10 @@ class _AboutScreenState extends State<AboutScreen> {
                   Text(
                     'About',
                     style: theme.textTheme.titleLarge?.copyWith(
-                          color: isDark
-                              ? ThemeColors.tealColor
-                              : ThemeColors.blueDroidconColor,
-                        ),
+                      color: isDark
+                          ? ThemeColors.tealColor
+                          : ThemeColors.blueDroidconColor,
+                    ),
                   ),
                   const SizedBox(height: 10),
                   Text(
@@ -61,10 +61,10 @@ class _AboutScreenState extends State<AboutScreen> {
                   Text(
                     'Organizing Team',
                     style: theme.textTheme.titleLarge?.copyWith(
-                          color: isDark
-                              ? ThemeColors.tealColor
-                              : ThemeColors.blueDroidconColor,
-                        ),
+                      color: isDark
+                          ? ThemeColors.tealColor
+                          : ThemeColors.blueDroidconColor,
+                    ),
                   ),
                   const SizedBox(height: 10),
                   //individualOrganizers
