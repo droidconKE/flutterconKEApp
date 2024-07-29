@@ -33,6 +33,6 @@ jobs:
       - name: ⚙️ Code Generation
         run: dart run build_runner build --delete-conflicting-outputs
 
-      # - name: 🕵️ Analyze
-      #   run: flutter analyze lib
+      - name: 🕵️ Analyze
+        run: flutter analyze lib
 
