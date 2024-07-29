@@ -12,7 +12,7 @@ class Repository {
     int perPage = 15,
     int page = 1,
   }) async {
-    final response = await dio.get(
+    final response = await dio.get<Map<String, dynamic>>(
       '/events/$event/speakers',
       queryParameters: {'per_page': perPage, 'page': page},
     );
@@ -24,13 +24,20 @@ class Repository {
       });
     }
 
-    return SpeakerResponse.fromJson(response.data as Map<String, dynamic>).data;
+    if (response.data == null) {
+      throw Exception({
+        'statusCode': response.statusCode,
+        'body': 'Data is null',
+      });
+    }
+
+    return SpeakerResponse.fromJson(response.data!).data;
   }
 
   Future<List<Room>> fetchRooms({
     required String event,
   }) async {
-    final response = await dio.get(
+    final response = await dio.get<Map<String, dynamic>>(
       '/events/$event/rooms',
     );
 
@@ -41,7 +48,14 @@ class Repository {
       });
     }
 
-    return RoomResponse.fromJson(response.data as Map<String, dynamic>).data;
+    if (response.data == null) {
+      throw Exception({
+        'statusCode': response.statusCode,
+        'body': 'Data is null',
+      });
+    }
+
+    return RoomResponse.fromJson(response.data!).data;
   }
 
   Future<List<Session>> fetchSessions({
@@ -49,7 +63,7 @@ class Repository {
     int perPage = 20,
     int page = 1,
   }) async {
-    final response = await dio.get(
+    final response = await dio.get<Map<String, dynamic>>(
       '/events/$event/sessions',
       queryParameters: {'per_page': perPage, 'page': page},
     );
@@ -61,6 +75,13 @@ class Repository {
       });
     }
 
-    return SessionResponse.fromJson(response.data as Map<String, dynamic>).data;
+    if (response.data == null) {
+      throw Exception({
+        'statusCode': response.statusCode,
+        'body': 'Data is null',
+      });
+    }
+
+    return SessionResponse.fromJson(response.data!).data;
   }
 }

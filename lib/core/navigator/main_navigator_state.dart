@@ -37,7 +37,7 @@ class MainNavigatorState extends State<MainNavigator> with MainNavigationMixin {
   /// ```dart
   /// RouteSettings(name: RouteNames.login)
   /// ```
-  static Route? onGenerateRoute(RouteSettings settings) {
+  static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     final strippedPath = settings.name?.replaceFirst('/', '');
     final routes = <String, WidgetBuilder>{
       // Splash Screens

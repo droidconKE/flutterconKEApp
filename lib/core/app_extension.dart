@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 extension StringExtension on String {
   String get toCapital {
-    return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
+    return '${this[0].toUpperCase()}${substring(1).toLowerCase()}';
   }
 }
 
@@ -17,14 +17,13 @@ extension IntegetExtension on int? {
 
 extension GeneralExtension<T> on T {
   bool get isEnum {
-    final split = toString().split('.');
-    return split.length > 1 && split[0] == runtimeType.toString();
+    return this is Enum;
   }
 
   String get getEnumString => toString().split('.').last.toCapital;
 }
 
-extension MapExtension on Map {
+extension MapExtension<K, V> on Map<K, V> {
   String get format {
     if (isEmpty) {
       return '';
@@ -36,7 +35,7 @@ extension MapExtension on Map {
   }
 }
 
-//Helper functions
+// Helper functions
 void pop(BuildContext context, int returnedLevel) {
   for (var i = 0; i < returnedLevel; ++i) {
     Navigator.pop(context, true);

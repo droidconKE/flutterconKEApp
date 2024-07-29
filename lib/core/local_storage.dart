@@ -17,7 +17,7 @@ abstract class LocalStorage {
   int getPrefInt(String settingsKey);
   String getPrefString(String settingsKey);
 
-  void setPrefBool(String settingsKey, bool settingsValue);
+  void setPrefBool(String settingsKey, {required bool settingsValue});
   void setPrefInt(String settingsKey, int settingsValue);
   void setPrefString(String settingsKey, String settingsValue);
 
@@ -83,7 +83,7 @@ class LocalStorageImp implements LocalStorage {
   }
 
   @override
-  void setPrefBool(String settingsKey, bool settingsValue) {
+  void setPrefBool(String settingsKey, {required bool settingsValue}) {
     if (!settingsValue) {
       sharedPrefs.remove(settingsKey);
       return;

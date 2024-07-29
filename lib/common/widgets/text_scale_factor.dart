@@ -11,7 +11,7 @@ class TextScaleFactor extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     return MediaQuery(
-      data: mediaQuery.copyWith(textScaler: const TextScaler.linear(1)),
+      data: mediaQuery.copyWith(textScaler: TextScaler.noScaling),
       child: child,
     );
   }

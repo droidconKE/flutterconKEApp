@@ -29,7 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               const SizedBox(height: 15),
               Text(
-                'Welcome to the largest Focused Android Developer community in Africa',
+                'Welcome to the largest Focused Android Developer community '
+                'in Africa',
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                       color: isDark ? Colors.black : Colors.white,
