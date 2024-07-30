@@ -15,7 +15,6 @@ Future<void> main() async {
     ),
   );
 
-  await configureDependencies();
 
   await bootstrap(() => const MyApp());
 }

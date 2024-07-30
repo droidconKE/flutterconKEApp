@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttercon/common/repository/hive_repository.dart';
+import 'package:fluttercon/core/di/injectable.dart';
 import 'package:fluttercon/firebase_options.dart';
 
 class AppBlocObserver extends BlocObserver {
@@ -31,6 +34,9 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+
+    await configureDependencies();
+    await getIt<HiveRepository>().initBoxes();
 
     runApp(await builder());
   }, (error, stackTrace) {

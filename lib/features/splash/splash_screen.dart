@@ -4,6 +4,7 @@ import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/env/flavor_config.dart';
 import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/core/di/injectable.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -19,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     String routeName,
   ) {
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) => Navigator.of(context).pushReplacementNamed(routeName),
+      (_) => GoRouter.of(context).goNamed(routeName),
     );
   }
 
