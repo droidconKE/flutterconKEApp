@@ -11,6 +11,7 @@ Future<void> main() async {
     values: FlutterConValues(
       baseDomain: 'api.droidcon.co.ke',
       urlScheme: 'https',
+      hiveBox: 'fluttercon-dev',
     ),
   );
 
