@@ -36,7 +36,6 @@ dependencies:
   logger: ^2.4.0
   pretty_dio_logger: ^1.4.0
   rxdart: ^0.28.0
-  shared_preferences: ^2.2.3
   sizer: ^2.0.15
   stream_transform: ^2.1.0
   styled_widget: ^0.4.1

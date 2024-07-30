@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:fluttercon/common/data/models/adapters.dart';
 import 'package:fluttercon/common/data/models/auth.dart';
 import 'package:fluttercon/common/utils/env/flavor_config.dart';
@@ -44,5 +45,25 @@ class HiveRepository {
   FlutterConUser? retrieveUser() {
     return Hive.box<dynamic>(FlutterConConfig.instance!.values.hiveBox)
         .get('profile') as FlutterConUser?;
+  }
+
+  void persistThemeMode(ThemeMode themeMode) {
+    Hive.box<dynamic>(FlutterConConfig.instance!.values.hiveBox)
+        .put('themeMode', themeMode.toString());
+  }
+
+  ThemeMode retrieveThemeMode() {
+    final themeMode =
+        Hive.box<dynamic>(FlutterConConfig.instance!.values.hiveBox)
+            .get('themeMode') as String?;
+
+    if (themeMode == null) {
+      return ThemeMode.system;
+    }
+
+    return ThemeMode.values.firstWhere(
+      (element) => element.toString() == themeMode,
+      orElse: () => ThemeMode.system,
+    );
   }
 }
