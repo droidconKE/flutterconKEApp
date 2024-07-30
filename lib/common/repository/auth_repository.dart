@@ -1,11 +1,16 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttercon/common/data/models/models.dart';
+import 'package:fluttercon/common/utils/network.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
 
 @singleton
 class AuthRepository {
+  final _networkUtil = NetworkUtil();
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   final GoogleSignIn _googleSignIn = GoogleSignIn(
@@ -32,15 +37,41 @@ class AuthRepository {
 
       if (user != null) {
         assert(!user.isAnonymous, 'User must not be anonymous');
-
-        final token = await user.getIdTokenResult();
-
-        return Future.value(token.token);
+        return Future.value(authResult.credential?.accessToken);
       } else {
         return throw Exception('An error occured');
       }
     } catch (e) {
       log(e.toString(), error: e);
+      rethrow;
+    }
+  }
+
+  Future<String> signIn({required String token}) async {
+    try {
+      final response = await _networkUtil.postWithFormData(
+        '/social_login/google',
+        body: {
+          'access_token': token,
+        },
+      );
+
+      Logger().d(response);
+
+      return response['data'] as String;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<AuthResult> getUser() async {
+    try {
+      final response = await _networkUtil.getReq('/details');
+
+      Logger().d(response);
+
+      return AuthResult.fromJson(response);
+    } catch (e) {
       rethrow;
     }
   }

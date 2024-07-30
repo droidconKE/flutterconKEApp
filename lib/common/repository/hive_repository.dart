@@ -1,3 +1,5 @@
+import 'package:fluttercon/common/data/models/adapters.dart';
+import 'package:fluttercon/common/data/models/auth.dart';
 import 'package:fluttercon/common/utils/env/flavor_config.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
@@ -7,7 +9,7 @@ class HiveRepository {
   Future<void> initBoxes() async {
     await Hive.initFlutter();
 
-    // Hive.registerAdapter(SignInDTOAdapter());
+    Hive.registerAdapter(FlutterConUserAdapter());
 
     await Hive.openBox<dynamic>(FlutterConConfig.instance!.values.hiveBox);
   }
@@ -32,5 +34,15 @@ class HiveRepository {
   String? retrieveToken() {
     return Hive.box<dynamic>(FlutterConConfig.instance!.values.hiveBox)
         .get('accessToken') as String?;
+  }
+
+  void persistUser(FlutterConUser user) {
+    Hive.box<dynamic>(FlutterConConfig.instance!.values.hiveBox)
+        .put('profile', user);
+  }
+
+  FlutterConUser? retrieveUser() {
+    return Hive.box<dynamic>(FlutterConConfig.instance!.values.hiveBox)
+        .get('profile') as FlutterConUser?;
   }
 }

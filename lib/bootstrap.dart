@@ -6,10 +6,10 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttercon/common/repository/auth_repository.dart';
 import 'package:fluttercon/common/repository/hive_repository.dart';
 import 'package:fluttercon/core/di/injectable.dart';
 import 'package:fluttercon/features/auth/cubit/google_sign_in_cubit.dart';
+import 'package:fluttercon/features/auth/cubit/social_auth_sign_in_cubit.dart';
 import 'package:fluttercon/firebase_options.dart';
 
 class AppBlocObserver extends BlocObserver {
@@ -45,7 +45,13 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
         providers: [
           BlocProvider<GoogleSignInCubit>(
             create: (_) => GoogleSignInCubit(
-              authRepository: getIt<AuthRepository>(),
+              authRepository: getIt(),
+            ),
+          ),
+          BlocProvider<SocialAuthSignInCubit>(
+            create: (_) => SocialAuthSignInCubit(
+              authRepository: getIt(),
+              hiveRepository: getIt(),
             ),
           ),
         ],
