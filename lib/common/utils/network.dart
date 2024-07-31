@@ -26,7 +26,10 @@ class NetworkUtil {
       BaseOptions(
         baseUrl: '${FlutterConConfig.instance!.values.baseUrl}/v1',
         contentType: 'application/json',
-        headers: <String, dynamic>{'Accept': 'application/json'},
+        headers: <String, dynamic>{
+          'Accept': 'application/json',
+          'Api-Authorization-Key': 'droidconKe-2020',
+        },
         connectTimeout: const Duration(seconds: 60 * 1000),
         receiveTimeout: const Duration(seconds: 60 * 1000),
       ),

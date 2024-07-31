@@ -39,7 +39,7 @@ class AuthRepository {
         assert(!user.isAnonymous, 'User must not be anonymous');
         return Future.value(authResult.credential?.accessToken);
       } else {
-        return throw Exception('An error occured');
+        throw Exception('An error occured');
       }
     } catch (e) {
       log(e.toString(), error: e);
