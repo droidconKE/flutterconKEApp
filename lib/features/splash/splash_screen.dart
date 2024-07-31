@@ -4,6 +4,7 @@ import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/core/di/injectable.dart';
 import 'package:go_router/go_router.dart';
+import 'package:logger/logger.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -25,6 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     final accessToken = getIt<HiveRepository>().retrieveToken();
+    Logger().d(accessToken);
 
     if (accessToken == null) {
       _redirectToPage(
