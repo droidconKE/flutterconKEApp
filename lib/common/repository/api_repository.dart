@@ -1,61 +1,32 @@
-import 'package:dio/dio.dart';
-
 import 'package:fluttercon/common/data/models/models.dart';
+import 'package:fluttercon/common/utils/network.dart';
+import 'package:injectable/injectable.dart';
 
+@singleton
 class ApiRepository {
-  ApiRepository({required this.dio});
-
-  final Dio dio;
+  final _networkUtil = NetworkUtil();
 
   Future<List<Speaker>> fetchSpeakers({
     required String event,
     int perPage = 15,
     int page = 1,
   }) async {
-    final response = await dio.get<Map<String, dynamic>>(
+    final response = await _networkUtil.getReq(
       '/events/$event/speakers',
       queryParameters: {'per_page': perPage, 'page': page},
     );
 
-    if (response.statusCode != 200) {
-      throw Exception({
-        'statusCode': response.statusCode,
-        'body': response.statusMessage,
-      });
-    }
-
-    if (response.data == null) {
-      throw Exception({
-        'statusCode': response.statusCode,
-        'body': 'Data is null',
-      });
-    }
-
-    return SpeakerResponse.fromJson(response.data!).data;
+    return SpeakerResponse.fromJson(response).data;
   }
 
   Future<List<Room>> fetchRooms({
     required String event,
   }) async {
-    final response = await dio.get<Map<String, dynamic>>(
+    final response = await _networkUtil.getReq(
       '/events/$event/rooms',
     );
 
-    if (response.statusCode != 200) {
-      throw Exception({
-        'statusCode': response.statusCode,
-        'body': response.statusMessage,
-      });
-    }
-
-    if (response.data == null) {
-      throw Exception({
-        'statusCode': response.statusCode,
-        'body': 'Data is null',
-      });
-    }
-
-    return RoomResponse.fromJson(response.data!).data;
+    return RoomResponse.fromJson(response).data;
   }
 
   Future<List<Session>> fetchSessions({
@@ -63,25 +34,11 @@ class ApiRepository {
     int perPage = 20,
     int page = 1,
   }) async {
-    final response = await dio.get<Map<String, dynamic>>(
+    final response = await _networkUtil.getReq(
       '/events/$event/sessions',
       queryParameters: {'per_page': perPage, 'page': page},
     );
 
-    if (response.statusCode != 200) {
-      throw Exception({
-        'statusCode': response.statusCode,
-        'body': response.statusMessage,
-      });
-    }
-
-    if (response.data == null) {
-      throw Exception({
-        'statusCode': response.statusCode,
-        'body': 'Data is null',
-      });
-    }
-
-    return SessionResponse.fromJson(response.data!).data;
+    return SessionResponse.fromJson(response).data;
   }
 }
