@@ -23,13 +23,12 @@ class SocialAuthSignInCubit extends Cubit<SocialAuthSignInState> {
   }) async {
     emit(const SocialAuthSignInState.loading());
     try {
-      final apiToken = await _authRepository.signIn(
+      final authResult = await _authRepository.signIn(
         token: token,
       );
-      _hiveRepository.persistToken(apiToken);
-      final authResult = await _authRepository.getUser();
-
-      _hiveRepository.persistUser(authResult.user);
+      _hiveRepository
+        ..persistToken(authResult.token)
+        ..persistUser(authResult.user);
 
       emit(const SocialAuthSignInState.loaded());
     } catch (e) {

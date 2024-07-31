@@ -47,7 +47,7 @@ class AuthRepository {
     }
   }
 
-  Future<String> signIn({required String token}) async {
+  Future<AuthResult> signIn({required String token}) async {
     try {
       final response = await _networkUtil.postWithFormData(
         '/social_login/google',
@@ -58,21 +58,11 @@ class AuthRepository {
 
       Logger().d(response);
 
-      return response['data'] as String;
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  Future<AuthResult> getUser() async {
-    try {
-      final response = await _networkUtil.getReq('/details');
-
-      Logger().d(response);
-
       return AuthResult.fromJson(response);
     } catch (e) {
       rethrow;
     }
   }
+
+
 }
