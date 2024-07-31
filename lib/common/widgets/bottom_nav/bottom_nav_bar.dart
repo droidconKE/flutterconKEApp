@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercon/common/widgets/bottom_nav/app_nav_icon.dart';
 import 'package:fluttercon/common/widgets/page_item.dart';
-import 'package:fluttercon/core/di/injectable.dart';
-import 'package:fluttercon/core/local_storage.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 
 /// Custom Bottom Navigation Bar that will handles the page to be displayed on
@@ -26,7 +24,7 @@ class CustomBottomNavigationBar extends StatefulWidget {
 
 class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   /// This is used for the swipe drag gesture on the bottom nav bar
-  LocalStorage localStorage = getIt<LocalStorage>();
+
   bool bottomNavBarSwipeGestures = false;
   bool bottomNavBarDoubleTapGestures = false;
 

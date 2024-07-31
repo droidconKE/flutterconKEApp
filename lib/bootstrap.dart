@@ -1,11 +1,15 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttercon/common/repository/hive_repository.dart';
+import 'package:fluttercon/core/di/injectable.dart';
+import 'package:fluttercon/features/auth/cubit/google_sign_in_cubit.dart';
+import 'package:fluttercon/features/auth/cubit/social_auth_sign_in_cubit.dart';
 import 'package:fluttercon/firebase_options.dart';
 
 class AppBlocObserver extends BlocObserver {
@@ -32,7 +36,28 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
       options: DefaultFirebaseOptions.currentPlatform,
     );
 
-    runApp(await builder());
+    await configureDependencies();
+    await getIt<HiveRepository>().initBoxes();
+
+    runApp(
+      MultiBlocProvider(
+        // Register all the BLoCs here
+        providers: [
+          BlocProvider<GoogleSignInCubit>(
+            create: (_) => GoogleSignInCubit(
+              authRepository: getIt(),
+            ),
+          ),
+          BlocProvider<SocialAuthSignInCubit>(
+            create: (_) => SocialAuthSignInCubit(
+              authRepository: getIt(),
+              hiveRepository: getIt(),
+            ),
+          ),
+        ],
+        child: await builder(),
+      ),
+    );
   }, (error, stackTrace) {
     if (kDebugMode) {
       log(error.toString(), stackTrace: stackTrace);
