@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/common/utils/network.dart';
@@ -39,10 +37,9 @@ class AuthRepository {
         assert(!user.isAnonymous, 'User must not be anonymous');
         return Future.value(authResult.credential?.accessToken);
       } else {
-        throw Exception('An error occured');
+        throw Failure(message: 'An unexpected error occured');
       }
     } catch (e) {
-      log(e.toString(), error: e);
       rethrow;
     }
   }
@@ -63,6 +60,4 @@ class AuthRepository {
       rethrow;
     }
   }
-
-
 }

@@ -58,7 +58,7 @@ class HiveRepository {
             .get('themeMode') as String?;
 
     if (themeMode == null) {
-      return ThemeMode.system;
+      return ThemeMode.light;
     }
 
     return ThemeMode.values.firstWhere(

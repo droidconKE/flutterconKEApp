@@ -1,6 +1,7 @@
 import 'package:auth_buttons/auth_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/features/auth/cubit/google_sign_in_cubit.dart';
 import 'package:fluttercon/features/auth/cubit/social_auth_sign_in_cubit.dart';
@@ -15,9 +16,8 @@ class SignInScreen extends StatelessWidget {
       listener: (context, state) {
         state.maybeWhen(
           orElse: () {},
-          loaded: (token) {
-            context.read<SocialAuthSignInCubit>().socialSignIn(token: token);
-          },
+          loaded: (token) =>
+              context.read<SocialAuthSignInCubit>().socialSignIn(token: token),
           error: (message) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -41,25 +41,31 @@ class SignInScreen extends StatelessWidget {
           );
         },
         child: Scaffold(
-          body: Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  BlocBuilder<GoogleSignInCubit, GoogleSignInState>(
-                    builder: (context, state) {
-                      return state.maybeWhen(
-                        loading: () => const LinearProgressIndicator(),
-                        orElse: () => GoogleAuthButton(
-                          onPressed: () async => context
-                              .read<GoogleSignInCubit>()
-                              .signInWithGoogle(),
-                        ),
-                      );
-                    },
-                  ),
-                ],
+          body: SafeArea(
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Spacer(),
+                    const Image(image: AssetImage(AppAssets.droidconLogo)),
+                    const SizedBox(height: 64),
+                    BlocBuilder<GoogleSignInCubit, GoogleSignInState>(
+                      builder: (context, state) {
+                        return state.maybeWhen(
+                          loading: () => const CircularProgressIndicator(),
+                          orElse: () => GoogleAuthButton(
+                            onPressed: () async => context
+                                .read<GoogleSignInCubit>()
+                                .signInWithGoogle(),
+                          ),
+                        );
+                      },
+                    ),
+                    const Spacer(),
+                  ],
+                ),
               ),
             ),
           ),
