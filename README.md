@@ -73,6 +73,18 @@ For much smaller fixes like typos, you can skip the create issue step.
 
 Tip: Keep feature contributions small and focused. This makes it easy to review contributions and spot errors if any
 
+## APK Signing
+To ensure that the correct SHA1 key is available for signing the APK to enable social auth with Firebase, we need to maintain a single public keystore so that we don't need to add everyone's debug key to the Firebase app. 
+
+Create a file `android/key.properties` with values as follows
+```jks
+storePassword=publicDevKey@2024
+keyPassword=publicDevKey@2024
+keyAlias=publicDevKey
+storeFile=../public-dev-keystore.jks
+```
+Ensure the `storeFile` path is correct depending on your OS
+
 ## App Architecture
 ### State Management
 
