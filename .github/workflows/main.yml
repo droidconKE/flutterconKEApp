@@ -58,7 +58,7 @@ jobs:
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
           serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_CREDENTIALS }}
-          groups: internal-production
+          groups: internal-testing
           file: build/app/outputs/flutter-apk/app-production-release.apk
 
       # - name: ⚙️ Setup Ruby
