@@ -21,3 +21,7 @@
 - [ ] ✅ Build configuration change
 - [ ] 📝 Documentation
 - [ ] 🗑️ Chore
+
+
+## Test Changes on Device
+You can download your APK from Firebase App Distribution once this PR builds successfully via the following link: https://appdistribution.firebase.dev/i/c796669942f8a811
