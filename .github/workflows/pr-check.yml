@@ -53,3 +53,11 @@ jobs:
       - name: ⚙️ Build APK
         run: flutter build apk --flavor production --target lib/main_production.dart
 
+      - name: Upload artifact to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{secrets.FIREBASE_APP_ID}}
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_CREDENTIALS }}
+          groups: internal-production
+          file: build/app/outputs/flutter-apk/app-production-release.apk
+
