@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 
 import 'package:fluttercon/common/data/models/models.dart';
 
-class Repository {
-  Repository({required this.dio});
+class ApiRepository {
+  ApiRepository({required this.dio});
 
   final Dio dio;
 
