@@ -18,6 +18,7 @@ class AppAssets {
   static const String iconLocked = '$assetsIcons/locked.svg';
   static const String iconPlay = '$assetsIcons/play.svg';
   static const String iconTiskos = '$assetsIcons/tiskos.svg';
+  static const String iconShare = '$assetsIcons/share.svg';
 
   // Images
   static const assetsImages = 'assets/images';

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:fluttercon/common/data/models/feed.dart';
 
 import 'package:fluttercon/common/data/models/models.dart';
 
@@ -91,4 +92,31 @@ class Repository {
 
     return SessionResponse.fromJson(response.data!).data;
   }
+  Future<List<Feed>> fetchFeeds({
+    required String event,
+    int perPage = 10,
+    int page = 1,
+  }) async {
+    final response = await dio.get<Map<String, dynamic>>(
+      '/events/$event/feeds',
+      queryParameters: {'per_page': perPage, 'page': page},
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception({
+        'statusCode': response.statusCode,
+        'body': response.statusMessage,
+      });
+    }
+
+    if (response.data == null) {
+      throw Exception({
+        'statusCode': response.statusCode,
+        'body': 'Data is null',
+      });
+    }
+
+    return FeedResponse.fromJson(response.data!).data;
+  }
+
 }
