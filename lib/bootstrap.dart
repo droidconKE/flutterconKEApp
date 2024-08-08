@@ -12,6 +12,8 @@ import 'package:fluttercon/features/auth/cubit/google_sign_in_cubit.dart';
 import 'package:fluttercon/features/auth/cubit/social_auth_sign_in_cubit.dart';
 import 'package:fluttercon/firebase_options.dart';
 
+import 'features/feed/cubit/feed_cubit.dart';
+
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
 
@@ -52,6 +54,11 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
             create: (_) => SocialAuthSignInCubit(
               authRepository: getIt(),
               hiveRepository: getIt(),
+            ),
+          ),
+          BlocProvider<FetchFeedCubit>(
+            create: (_) => FetchFeedCubit(
+              apiRepository: getIt(),
             ),
           ),
         ],
