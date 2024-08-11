@@ -1,5 +1,4 @@
 import 'package:fluttercon/common/data/models/models.dart';
-import 'package:fluttercon/common/data/models/organisers.dart';
 import 'package:fluttercon/common/utils/network.dart';
 import 'package:injectable/injectable.dart';
 

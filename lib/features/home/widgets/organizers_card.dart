@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/home/cubit/fetch_organisers_cubit.dart';
-import 'package:fluttercon/common/data/models/models.dart';
 
 class OrganizersCard extends StatefulWidget {
   const OrganizersCard({super.key});
