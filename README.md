@@ -6,42 +6,6 @@ This is the official Flutter Con Kenya 2024 mobile application. The application 
 
 To get started with this project, you need to have Flutter installed on your machine. You can follow the instructions on the [official Flutter website](https://flutter.dev/docs/get-started/install) to install Flutter on your machine.
 
-### Install the dependencies
-Once you have Flutter installed, you can clone this repository and run the following command to install the dependencies:
-
-```bash
-flutter pub get
-```
-
-### Update Code generation files
-
-```bash
-dart run build_runner build --delete-conflicting-outputs
-```
-
-### Running the app
-After installing the dependencies, you can run the application using the following command:
-
-```bash
-flutter run --dart-define-from-file keys.dev.json
-```
-
-This will start the application on your connected device or emulator.
-
-### Build the App
-
-- **AppTester (Firebase Distribution):**
-
-    ```bash
-    flutter build apk --flavor uat -t lib/main_uat.dart --dart-define-from-file keys.dev.json --no-tree-shake-icons
-    ```
-
-- **Production (For Play Store):**
-
-    ```bash
-    flutter build appbundle --flavor prod -t lib/main_prod.dart --dart-define-from-file keys.prod.json --no-tree-shake-icons
-    ```
-
 ## Features
 
 App will have the following features:

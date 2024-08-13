@@ -41,4 +41,16 @@ class ApiRepository {
 
     return SessionResponse.fromJson(response).data;
   }
+
+  Future<List<Organiser>> fetchOrganisers({
+    int perPage = 20,
+    int page = 1,
+  }) async {
+    final response = await _networkUtil.getReq(
+      '/organizers',
+      queryParameters: {'per_page': perPage, 'page': page},
+    );
+
+    return OrganiserResponse.fromJson(response).data;
+  }
 }
