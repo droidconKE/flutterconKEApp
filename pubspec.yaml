@@ -12,7 +12,7 @@ dependencies:
   bloc_concurrency: ^0.2.5
   cached_network_image: ^3.4.0
   cupertino_icons: ^1.0.8
-  dio: ^5.5.0+1
+  dio: ^5.6.0
   firebase_analytics: ^11.2.1
   firebase_auth: ^5.1.4
   firebase_core: ^3.3.0
