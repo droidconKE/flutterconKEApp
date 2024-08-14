@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/home/cubit/fetch_sessions_cubit.dart';
+import 'package:fluttercon/l10n/l10n.dart';
+import 'package:intl/intl.dart';
 
 class SessionsCard extends StatefulWidget {
   const SessionsCard({super.key});
@@ -19,6 +21,8 @@ class _SessionsCardState extends State<SessionsCard> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     final size = MediaQuery.of(context).size;
 
     return Column(
@@ -80,7 +84,7 @@ class _SessionsCardState extends State<SessionsCard> {
             builder: (context, state) => state.maybeWhen(
               loaded: (sessions, _) => ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: sessions.length,
+                itemCount: sessions.take(5).length,
                 itemBuilder: (context, index) {
                   final session = sessions[index];
                   return Container(
@@ -96,7 +100,8 @@ class _SessionsCardState extends State<SessionsCard> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: Image.network(
-                            session.sessionImage,
+                            session.sessionImage ??
+                                'https://via.placeholder.com/150',
                             height: 150,
                             width: double.infinity,
                             fit: BoxFit.cover,
@@ -115,11 +120,20 @@ class _SessionsCardState extends State<SessionsCard> {
                           ),
                         ),
                         const SizedBox(height: 5),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Text(
-                            '@ 10:30 | Room 1',
-                            style: TextStyle(
+                            l10n.sessionTimeAndVenue(
+                              DateFormat.Hm().format(
+                                DateTime.parse(
+                                  '2012-02-27 ${session.startTime}',
+                                ),
+                              ),
+                              session.rooms
+                                  .map((room) => room.title)
+                                  .join(', '),
+                            ),
+                            style: const TextStyle(
                               color: Colors.grey,
                               fontSize: 14,
                             ),

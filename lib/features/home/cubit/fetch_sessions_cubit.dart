@@ -21,11 +21,15 @@ class FetchSessionsCubit extends Cubit<FetchSessionsState> {
     try {
       final sessions =
           await _apiRepository.fetchSessions(event: 'droidconke-2022-281');
+
+      // Remove service sessions
+      final filteredSessions =
+          sessions.data.where((session) => !session.isServiceSession).toList();
+
       emit(
         FetchSessionsState.loaded(
-          sessions: sessions.data,
-          extras:
-              sessions.meta.paginator.count - sessions.meta.paginator.perPage,
+          sessions: filteredSessions,
+          extras: filteredSessions.length - 5,
         ),
       );
     } catch (e) {
