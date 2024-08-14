@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/l10n/l10n.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 class SessionDetailsPage extends StatelessWidget {
@@ -18,8 +19,9 @@ class SessionDetailsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(
-          Icons.arrow_back,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => GoRouter.of(context).pop(),
           color: Colors.black,
         ),
         title: const Text(
