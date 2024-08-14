@@ -22,7 +22,7 @@ class MyAppState extends State<MyApp> {
       create: (context) => ThemeBloc(),
       child: BlocBuilder<ThemeBloc, ThemeMode>(
         builder: (context, themeMode) {
-          return Sizer(
+          return ResponsiveSizer(
             builder: (context, orientation, deviceType) {
               return MaterialApp.router(
                 themeMode: getIt<HiveRepository>().retrieveThemeMode(),
