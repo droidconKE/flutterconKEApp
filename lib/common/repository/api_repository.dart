@@ -81,4 +81,17 @@ class ApiRepository {
 
     return SponsorResponse.fromJson(response).data;
   }
+
+  Future<List<OrganisingTeam>> fetchOrganisingTeam({
+    required String event,
+    int perPage = 20,
+    int page = 1,
+  }) async {
+    final response = await _networkUtil.getReq(
+      '/organizers/$event/team',
+      queryParameters: {'type': 'individual'},
+    );
+
+    return OrganisingTeamResponse.fromJson(response).data;
+  }
 }
