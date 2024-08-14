@@ -8,8 +8,12 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 class SessionsCard extends StatefulWidget {
-  const SessionsCard({super.key});
+  const SessionsCard({
+    super.key,
+    this.switchTab,
+  });
 
+  final void Function()? switchTab;
   @override
   State<SessionsCard> createState() => _SessionsCardState();
 }
@@ -41,7 +45,7 @@ class _SessionsCardState extends State<SessionsCard> {
             ),
             const Spacer(),
             TextButton(
-              onPressed: () {},
+              onPressed: widget.switchTab,
               child: Row(
                 children: [
                   const Text(
