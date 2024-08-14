@@ -19,7 +19,9 @@ class FetchFeedCubit extends Cubit<FetchFeedState> {
   Future<void> fetchFeeds() async {
     emit(const FetchFeedState.loading());
     try {
-      final feeds = await _apiRepository.fetchFeeds(event: '');
+      final feeds = await _apiRepository.fetchFeeds(
+        event: 'droidconke-2022-281',
+      );
       emit(FetchFeedState.loaded(fetchedFeed: feeds));
     } on Failure catch (e) {
       emit(FetchFeedState.error(e.message));

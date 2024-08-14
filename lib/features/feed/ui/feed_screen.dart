@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/feed/cubit/feed_cubit.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class FeedScreen extends StatefulWidget {
   const FeedScreen({super.key});
@@ -29,28 +31,64 @@ class _FeedScreenState extends State<FeedScreen> {
             itemCount: fetchedFeeds.length,
             itemBuilder: (context, index) {
               final feed = fetchedFeeds[index];
-              return Column(
-                children: [
-                  Text(feed.body),
-                  Image.asset(AppAssets.session1),
-                  Row(
-                    children: [
-                      ListTile(
-                        leading: const Text('Share'),
-                        title: Image.asset(
-                          AppAssets.iconShare,
-                          color: ThemeColors.blueColor,
-                        ),
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  children: [
+                    Text(
+                      feed.body,
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                    const SizedBox(height: 16),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      Text(feed.createdAt.toString()),
-                    ],
-                  ),
-                ],
+                      child: Image.asset(
+                        AppAssets.session1,
+                        height: 209,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {},
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Text(
+                                'Share',
+                                style: TextStyle(
+                                  color: ThemeColors.blueColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              SvgPicture.asset(
+                                AppAssets.iconShare,
+                                colorFilter: const ColorFilter.mode(
+                                  ThemeColors.blueColor,
+                                  BlendMode.srcIn,
+                                ),
+                                height: 32,
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Spacer(),
+                        Text(timeago.format(feed.createdAt)),
+                      ],
+                    ),
+                  ],
+                ),
               );
             },
-            separatorBuilder: (BuildContext context, int index) {
-              return const Divider();
-            },
+            separatorBuilder: (context, index) => const Padding(
+              padding: EdgeInsets.symmetric(vertical: 16),
+              child: Divider(color: Color.fromARGB(50, 112, 112, 112)),
+            ),
           ),
           error: (message) => Text(
             message,
