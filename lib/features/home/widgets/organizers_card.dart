@@ -45,7 +45,6 @@ class _OrganizersCardState extends State<OrganizersCard> {
                 ),
           ),
           const Spacer(),
-          //sponsors list
           BlocBuilder<FetchOrganisersCubit, FetchOrganisersState>(
             builder: (context, state) => state.maybeWhen(
               loaded: (organisers) => Wrap(
