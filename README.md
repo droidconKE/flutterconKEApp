@@ -20,7 +20,6 @@ To get started with this project, you need to have Flutter installed on your mac
     ```bash
     flutter pub get
     ```
-
 4. Run code generation:
     ```bash
     dart run build_runner build --delete-conflicting-outputs
@@ -28,6 +27,19 @@ To get started with this project, you need to have Flutter installed on your mac
 5. Build the application:
     ```bash
     flutter build apk
+    ```
+6. Run the application:
+    - For production:
+    ```bash
+    flutter run  --flavor production --target lib/main_production.dart
+    ```
+    - For development:
+    ```bash
+    flutter run  --flavor development --target lib/main_development.dart
+    ```
+    - For staging:
+    ```bash
+    flutter run  --flavor staging --target lib/main_staging.dart
     ```
 
 ## Features
