@@ -4,3 +4,4 @@ export 'organisers.dart';
 export 'room.dart';
 export 'session.dart';
 export 'speaker.dart';
+export 'organising_team.dart';
