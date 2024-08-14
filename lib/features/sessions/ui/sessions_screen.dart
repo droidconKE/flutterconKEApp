@@ -36,8 +36,6 @@ class _SessionsScreenState extends State<SessionsScreen>
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
-
     return Scaffold(
       body: DefaultTabController(
         length: 3,
@@ -58,10 +56,22 @@ class _SessionsScreenState extends State<SessionsScreen>
                       tabAlignment: TabAlignment.start,
                       indicatorColor: Colors.white,
                       overlayColor: WidgetStateProperty.all(Colors.transparent),
-                      tabs: const [
-                        DayTabView(date: '16th', day: '1'),
-                        DayTabView(date: '17th', day: '2'),
-                        DayTabView(date: '18th', day: '3'),
+                      tabs: [
+                        DayTabView(
+                          date: '16th',
+                          day: '1',
+                          isActive: _currentTab == 0,
+                        ),
+                        DayTabView(
+                          date: '17th',
+                          day: '2',
+                          isActive: _currentTab == 1,
+                        ),
+                        DayTabView(
+                          date: '18th',
+                          day: '3',
+                          isActive: _currentTab == 2,
+                        ),
                       ],
                     ),
                     const Spacer(),
@@ -130,20 +140,46 @@ class DayTabView extends StatelessWidget {
   const DayTabView({
     required this.day,
     required this.date,
+    required this.isActive,
     super.key,
   });
 
   final String day;
   final String date;
+  final bool isActive;
 
   @override
   Widget build(BuildContext context) {
     return Tab(
-      child: Column(
-        children: [
-          Text(date),
-          Text('Day $day'),
-        ],
+      height: 80,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: isActive
+              ? ThemeColors.orangeDroidconColor
+              : ThemeColors.blueGreenDroidconColor.withOpacity(.1),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+        child: Column(
+          children: [
+            Text(
+              date,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 24,
+                color: isActive ? Colors.white : Colors.black,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              'Day $day',
+              style: TextStyle(
+                fontSize: 16,
+                color: isActive ? Colors.white : Colors.black,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -157,7 +193,7 @@ class DaySessionsView extends StatelessWidget {
     final l10n = context.l10n;
 
     return ListView.separated(
-      padding: EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       itemCount: 5,
       separatorBuilder: (context, index) {
         final randomizeColor = Random().nextBool();
