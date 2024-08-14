@@ -26,6 +26,7 @@ dependencies:
   freezed_annotation: ^2.4.4
   get_it: ^7.7.0
   go_router: ^14.2.3
+  google_fonts: ^6.2.1
   google_sign_in: ^6.2.1
   hive: ^2.2.3
   hive_flutter: ^1.1.0
@@ -61,3 +62,4 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
+    - assets/google_fonts/

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
   AppTheme._();
@@ -30,6 +31,7 @@ class AppTheme {
         indicatorColor: ThemeColors.blueDroidconColor,
         elevation: 3,
       ),
+      textTheme: GoogleFonts.montserratTextTheme(),
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {
           TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
@@ -64,6 +66,7 @@ class AppTheme {
         indicatorColor: ThemeColors.blueDroidconColor,
         elevation: 3,
       ),
+      textTheme: GoogleFonts.montserratTextTheme(),
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {
           TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
