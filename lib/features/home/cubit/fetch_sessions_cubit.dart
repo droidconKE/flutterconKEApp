@@ -24,7 +24,7 @@ class FetchSessionsCubit extends Cubit<FetchSessionsState> {
 
       // Remove service sessions
       final filteredSessions =
-          sessions.data.where((session) => !session.isServiceSession).toList();
+          sessions.where((session) => !session.isServiceSession).toList();
 
       emit(
         FetchSessionsState.loaded(

@@ -31,7 +31,7 @@ class ApiRepository {
     return RoomResponse.fromJson(response).data;
   }
 
-  Future<SessionResponse> fetchSessions({
+  Future<List<Session>> fetchSessions({
     required String event,
     int perPage = 20,
     int page = 1,
@@ -41,7 +41,7 @@ class ApiRepository {
       queryParameters: {'per_page': perPage, 'page': page},
     );
 
-    return SessionResponse.fromJson(response);
+    return SessionResponse.fromJson(response).data;
   }
 
   Future<List<Feed>> fetchFeeds({
