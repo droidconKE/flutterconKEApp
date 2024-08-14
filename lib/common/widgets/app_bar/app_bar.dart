@@ -16,9 +16,6 @@ class _CustomBottomNavigationBarState extends State<CustomAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDarkTheme = theme.brightness == Brightness.light;
-
     final droidconLogo = GestureDetector(
       onTap: () {
         /*showDialog(
@@ -28,7 +25,7 @@ class _CustomBottomNavigationBarState extends State<CustomAppBar> {
             });*/
       },
       child: Image.asset(
-        isDarkTheme ? AppAssets.droidconLogoWhite : AppAssets.droidconLogo,
+        AppAssets.droidconLogo,
         scale: 2,
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:fluttercon/common/data/models/feed.dart';
 import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/common/utils/network.dart';
 import 'package:injectable/injectable.dart';
@@ -40,6 +41,19 @@ class ApiRepository {
     );
 
     return SessionResponse.fromJson(response).data;
+  }
+
+  Future<List<Feed>> fetchFeeds({
+    required String event,
+    int perPage = 10,
+    int page = 1,
+  }) async {
+    final response = await _networkUtil.getReq(
+      '/events/$event/feeds',
+      queryParameters: {'per_page': perPage, 'page': page},
+    );
+
+    return FeedResponse.fromJson(response).data;
   }
 
   Future<List<Organiser>> fetchOrganisers({
