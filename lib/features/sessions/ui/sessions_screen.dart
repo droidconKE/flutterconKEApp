@@ -3,10 +3,12 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/data/models/models.dart';
+import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/sessions/cubit/fetch_grouped_sessions_cubit.dart';
 
 import 'package:fluttercon/l10n/l10n.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:timeline_tile/timeline_tile.dart';
@@ -253,94 +255,101 @@ class DaySessionsView extends StatelessWidget {
           ),
         );
       },
-      itemBuilder: (context, index) => Card(
-        elevation: 2,
-        color: Colors.white,
-        child: ListTile(
-          leading: Column(
-            children: [
-              Text(
-                DateFormat.Hm().format(
-                  DateTime.parse('2022-01-01 ${sessions[index].startTime}'),
-                ),
-                style: const TextStyle(fontSize: 18),
-              ),
-              Text(
-                DateTime.parse('2022-01-01 ${sessions[index].startTime}').hour >
-                        11
-                    ? 'PM'
-                    : 'AM',
-                style: const TextStyle(fontSize: 18),
-              ),
-            ],
-          ),
-          title: Text(
-            sessions[index].title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
-          subtitle: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 8),
-              Text(
-                sessions[index].description,
-                style: const TextStyle(fontSize: 16),
-                maxLines: 3,
-              ),
-              if (sessions[index].rooms.isNotEmpty) const SizedBox(height: 8),
-              if (sessions[index].rooms.isNotEmpty)
+      itemBuilder: (context, index) => GestureDetector(
+        onTap: () => GoRouter.of(context).push(
+          FlutterConRouter.sessionDetailsRoute,
+          extra: sessions[index],
+        ),
+        child: Card(
+          elevation: 2,
+          color: Colors.white,
+          child: ListTile(
+            leading: Column(
+              children: [
                 Text(
-                  l10n.sessionFullTimeAndVenue(
-                    DateFormat.Hm().format(
-                      sessions[index].startDateTime,
-                    ),
-                    DateFormat.Hm().format(
-                      sessions[index].endDateTime,
-                    ),
-                    sessions[index]
-                        .rooms
-                        .map((room) => room.title)
-                        .join(', ')
-                        .toUpperCase(),
+                  DateFormat.Hm().format(
+                    DateTime.parse('2022-01-01 ${sessions[index].startTime}'),
                   ),
+                  style: const TextStyle(fontSize: 18),
                 ),
-              if (sessions[index].speakers.isNotEmpty)
+                Text(
+                  DateTime.parse('2022-01-01 ${sessions[index].startTime}')
+                              .hour >
+                          11
+                      ? 'PM'
+                      : 'AM',
+                  style: const TextStyle(fontSize: 18),
+                ),
+              ],
+            ),
+            title: Text(
+              sessions[index].title,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
                 const SizedBox(height: 8),
-              if (sessions[index].speakers.isNotEmpty)
-                Row(
-                  children: [
-                    const Flexible(
-                      child: Icon(
-                        Icons.android_outlined,
-                        color: ThemeColors.blueColor,
+                Text(
+                  sessions[index].description,
+                  style: const TextStyle(fontSize: 16),
+                  maxLines: 3,
+                ),
+                if (sessions[index].rooms.isNotEmpty) const SizedBox(height: 8),
+                if (sessions[index].rooms.isNotEmpty)
+                  Text(
+                    l10n.sessionFullTimeAndVenue(
+                      DateFormat.Hm().format(
+                        sessions[index].startDateTime,
                       ),
+                      DateFormat.Hm().format(
+                        sessions[index].endDateTime,
+                      ),
+                      sessions[index]
+                          .rooms
+                          .map((room) => room.title)
+                          .join(', ')
+                          .toUpperCase(),
                     ),
-                    const SizedBox(width: 8),
-                    Flexible(
-                      flex: 8,
-                      child: Text(
-                        sessions[index]
-                            .speakers
-                            .map((speaker) => speaker.name)
-                            .join(', '),
-                        style: const TextStyle(
+                  ),
+                if (sessions[index].speakers.isNotEmpty)
+                  const SizedBox(height: 8),
+                if (sessions[index].speakers.isNotEmpty)
+                  Row(
+                    children: [
+                      const Flexible(
+                        child: Icon(
+                          Icons.android_outlined,
                           color: ThemeColors.blueColor,
                         ),
                       ),
-                    ),
-                  ],
-                ),
-            ],
-          ),
-          trailing: IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.star_border_outlined,
-              color: ThemeColors.blueColor,
-              size: 32,
+                      const SizedBox(width: 8),
+                      Flexible(
+                        flex: 8,
+                        child: Text(
+                          sessions[index]
+                              .speakers
+                              .map((speaker) => speaker.name)
+                              .join(', '),
+                          style: const TextStyle(
+                            color: ThemeColors.blueColor,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+              ],
+            ),
+            trailing: IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.star_border_outlined,
+                color: ThemeColors.blueColor,
+                size: 32,
+              ),
             ),
           ),
         ),

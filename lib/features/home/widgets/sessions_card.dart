@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/home/cubit/fetch_sessions_cubit.dart';
 import 'package:fluttercon/l10n/l10n.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 class SessionsCard extends StatefulWidget {
@@ -87,57 +89,63 @@ class _SessionsCardState extends State<SessionsCard> {
                 itemCount: sessions.take(5).length,
                 itemBuilder: (context, index) {
                   final session = sessions[index];
-                  return Container(
-                    width: size.width * .7,
-                    margin: const EdgeInsets.only(right: 10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: ThemeColors.lightGrayColor,
+                  return GestureDetector(
+                    onTap: () => GoRouter.of(context).push(
+                      FlutterConRouter.sessionDetailsRoute,
+                      extra: sessions[index],
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.network(
-                            session.sessionImage ??
-                                'https://via.placeholder.com/150',
-                            height: 150,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Text(
-                            session.title,
-                            maxLines: 2,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
+                    child: Container(
+                      width: size.width * .7,
+                      margin: const EdgeInsets.only(right: 10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: ThemeColors.lightGrayColor,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.network(
+                              session.sessionImage ??
+                                  'https://via.placeholder.com/150',
+                              height: 150,
+                              width: double.infinity,
+                              fit: BoxFit.cover,
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 5),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Text(
-                            l10n.sessionTimeAndVenue(
-                              DateFormat.Hm().format(
-                                session.startDateTime,
+                          const SizedBox(height: 16),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Text(
+                              session.title,
+                              maxLines: 2,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
                               ),
-                              session.rooms
-                                  .map((room) => room.title)
-                                  .join(', '),
-                            ),
-                            style: const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 14,
                             ),
                           ),
-                        ),
-                      ],
+                          const SizedBox(height: 5),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Text(
+                              l10n.sessionTimeAndVenue(
+                                DateFormat.Hm().format(
+                                  session.startDateTime,
+                                ),
+                                session.rooms
+                                    .map((room) => room.title)
+                                    .join(', '),
+                              ),
+                              style: const TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },
