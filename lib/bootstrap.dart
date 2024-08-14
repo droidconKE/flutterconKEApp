@@ -14,6 +14,7 @@ import 'package:fluttercon/features/feed/cubit/feed_cubit.dart';
 import 'package:fluttercon/features/home/cubit/fetch_organisers_cubit.dart';
 import 'package:fluttercon/features/home/cubit/fetch_sessions_cubit.dart';
 import 'package:fluttercon/features/home/cubit/fetch_sponsors_cubit.dart';
+import 'package:fluttercon/features/sessions/cubit/fetch_grouped_sessions_cubit.dart';
 import 'package:fluttercon/firebase_options.dart';
 
 class AppBlocObserver extends BlocObserver {
@@ -75,6 +76,11 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
           ),
           BlocProvider<FetchSessionsCubit>(
             create: (context) => FetchSessionsCubit(
+              apiRepository: getIt(),
+            ),
+          ),
+          BlocProvider<FetchGroupedSessionsCubit>(
+            create: (context) => FetchGroupedSessionsCubit(
               apiRepository: getIt(),
             ),
           ),

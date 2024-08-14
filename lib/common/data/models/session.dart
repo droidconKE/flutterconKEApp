@@ -14,8 +14,8 @@ class Session with _$Session {
     String slug,
     @JsonKey(name: 'session_category') String sessionCategory,
     @JsonKey(name: 'session_format') String sessionFormat,
-    @JsonKey(name: 'start_date_time') String startDateTime,
-    @JsonKey(name: 'end_date_time') String endDateTime,
+    @JsonKey(name: 'start_date_time') DateTime startDateTime,
+    @JsonKey(name: 'end_date_time') DateTime endDateTime,
     @JsonKey(name: 'start_time') String startTime,
     @JsonKey(name: 'end_time') String endTime,
     @JsonKey(name: 'session_level') String sessionLevel, {
