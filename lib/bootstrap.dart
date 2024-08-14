@@ -12,10 +12,7 @@ import 'package:fluttercon/features/auth/cubit/google_sign_in_cubit.dart';
 import 'package:fluttercon/features/auth/cubit/social_auth_sign_in_cubit.dart';
 import 'package:fluttercon/features/feed/cubit/feed_cubit.dart';
 import 'package:fluttercon/features/home/cubit/fetch_organisers_cubit.dart';
-<<<<<<< HEAD
 import 'package:fluttercon/features/home/cubit/fetch_sessions_cubit.dart';
-=======
->>>>>>> origin/main
 import 'package:fluttercon/features/home/cubit/fetch_sponsors_cubit.dart';
 import 'package:fluttercon/firebase_options.dart';
 
@@ -76,14 +73,11 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
               apiRepository: getIt(),
             ),
           ),
-<<<<<<< HEAD
           BlocProvider<FetchSessionsCubit>(
             create: (context) => FetchSessionsCubit(
               apiRepository: getIt(),
             ),
           ),
-=======
->>>>>>> origin/main
         ],
         child: await builder(),
       ),
