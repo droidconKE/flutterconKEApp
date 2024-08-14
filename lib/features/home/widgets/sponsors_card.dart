@@ -24,7 +24,6 @@ class _SponsorsCardState extends State<SponsorsCard> {
 
   @override
   Widget build(BuildContext context) {
-    // final isDark = Theme.of(context).brightness == Brightness.light;
     final size = MediaQuery.of(context).size;
 
     return Container(
@@ -89,7 +88,7 @@ class _SponsorsCardState extends State<SponsorsCard> {
                 message,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: ThemeColors.blueColor,
                       fontSize: 18,
                     ),
               ),
