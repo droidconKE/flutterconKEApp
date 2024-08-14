@@ -41,6 +41,7 @@ dependencies:
   styled_widget: ^0.4.1
   textstyle_extensions: ^2.0.0-nullsafety
   timeago: ^3.7.0
+  timeline_tile: ^2.0.0
 
 dev_dependencies:
   build_runner: ^2.4.12

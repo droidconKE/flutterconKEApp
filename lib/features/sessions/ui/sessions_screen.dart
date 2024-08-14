@@ -1,8 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 
 import 'package:fluttercon/l10n/l10n.dart';
+import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
+import 'package:timeline_tile/timeline_tile.dart';
 
 class SessionsScreen extends StatefulWidget {
   const SessionsScreen({super.key});
@@ -38,8 +42,8 @@ class _SessionsScreenState extends State<SessionsScreen>
       body: DefaultTabController(
         length: 3,
         child: SafeArea(
-          child: CustomScrollView(
-            slivers: [
+          child: NestedScrollView(
+            headerSliverBuilder: (context, innerBoxIsScrolled) => <Widget>[
               SliverToBoxAdapter(
                 child: Row(
                   children: [
@@ -93,20 +97,28 @@ class _SessionsScreenState extends State<SessionsScreen>
                   child: Divider(color: Colors.grey),
                 ),
               ),
-              SliverFillRemaining(
+              const SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: const [
-                      DaySessionsView(),
-                      DaySessionsView(),
-                      DaySessionsView(),
-                    ],
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: Text(
+                    'All Sessions',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: ThemeColors.blueColor,
+                      fontSize: 24,
+                    ),
                   ),
                 ),
               ),
             ],
+            body: TabBarView(
+              controller: _tabController,
+              children: const [
+                DaySessionsView(),
+                DaySessionsView(),
+                DaySessionsView(),
+              ],
+            ),
           ),
         ),
       ),
@@ -142,6 +154,117 @@ class DaySessionsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    final l10n = context.l10n;
+
+    return ListView.separated(
+      padding: EdgeInsets.symmetric(horizontal: 16),
+      itemCount: 5,
+      separatorBuilder: (context, index) {
+        final randomizeColor = Random().nextBool();
+
+        return Padding(
+          padding: const EdgeInsets.only(left: 32) +
+              const EdgeInsets.symmetric(vertical: 4),
+          child: SizedBox(
+            height: 25,
+            child: TimelineTile(
+              afterLineStyle: LineStyle(
+                thickness: 2,
+                color: randomizeColor
+                    ? ThemeColors.orangeColor
+                    : ThemeColors.blueGreenDroidconColor,
+              ),
+              beforeLineStyle: LineStyle(
+                thickness: 2,
+                color: randomizeColor
+                    ? ThemeColors.orangeColor
+                    : ThemeColors.blueGreenDroidconColor,
+              ),
+              indicatorStyle: IndicatorStyle(
+                width: 8,
+                color: randomizeColor
+                    ? ThemeColors.orangeColor
+                    : ThemeColors.blueGreenDroidconColor,
+              ),
+            ),
+          ),
+        );
+      },
+      itemBuilder: (context, index) => Card(
+        elevation: 2,
+        color: Colors.white,
+        child: ListTile(
+          leading: const Column(
+            children: [
+              Text(
+                '8:00',
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+              Text(
+                'AM',
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+            ],
+          ),
+          title: const Text(
+            'Keynote',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+          ),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Registration & Breakfast',
+                style: TextStyle(fontSize: 18),
+                maxLines: 3,
+              ),
+              if (true)
+                Text(
+                  l10n.sessionFullTimeAndVenue(
+                    DateFormat.Hm().format(
+                      DateTime.parse('2022-11-18 19:30:00'),
+                    ),
+                    DateFormat.Hm().format(
+                      DateTime.parse('2022-11-18 19:30:00'),
+                    ),
+                    'Room 2'.toUpperCase(),
+                  ),
+                ),
+              if (true)
+                const Row(
+                  children: [
+                    Icon(
+                      Icons.android_outlined,
+                      color: ThemeColors.blueColor,
+                    ),
+                    SizedBox(width: 8),
+                    Text(
+                      'Greg Fawson',
+                      style: TextStyle(
+                        color: ThemeColors.blueColor,
+                      ),
+                    ),
+                  ],
+                ),
+            ],
+          ),
+          trailing: IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.star_border_outlined,
+              color: ThemeColors.blueColor,
+              size: 32,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

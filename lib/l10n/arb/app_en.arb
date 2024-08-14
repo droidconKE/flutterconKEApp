@@ -12,5 +12,19 @@
                 "type": "String"
             }
         }
+    },
+    "sessionFullTimeAndVenue": "{startTime} - {endTime} | {venue}",
+    "@sessionFullTimeAndVenue": {
+        "placeholders": {
+            "startTime": {
+                "type": "String"
+            },
+            "endTime": {
+                "type": "String"
+            },
+            "venue": {
+                "type": "String"
+            }
+        }
     }
 }

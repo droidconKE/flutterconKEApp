@@ -125,9 +125,7 @@ class _SessionsCardState extends State<SessionsCard> {
                           child: Text(
                             l10n.sessionTimeAndVenue(
                               DateFormat.Hm().format(
-                                DateTime.parse(
-                                  '2012-02-27 ${session.startTime}',
-                                ),
+                                DateTime.parse(session.startDateTime),
                               ),
                               session.rooms
                                   .map((room) => room.title)
