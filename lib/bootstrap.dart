@@ -10,10 +10,9 @@ import 'package:fluttercon/common/repository/hive_repository.dart';
 import 'package:fluttercon/core/di/injectable.dart';
 import 'package:fluttercon/features/auth/cubit/google_sign_in_cubit.dart';
 import 'package:fluttercon/features/auth/cubit/social_auth_sign_in_cubit.dart';
+import 'package:fluttercon/features/feed/cubit/feed_cubit.dart';
 import 'package:fluttercon/features/home/cubit/fetch_organisers_cubit.dart';
 import 'package:fluttercon/firebase_options.dart';
-
-import 'features/feed/cubit/feed_cubit.dart';
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();

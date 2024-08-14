@@ -21,7 +21,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   final List<PageItem> pages = [
     const PageItem(title: 'Home', icon: 'home', screen: HomeScreen()),
-     PageItem(title: 'Feed', icon: 'bell', screen: FeedScreen()),
+    const PageItem(title: 'Feed', icon: 'bell', screen: FeedScreen()),
     const PageItem(title: 'Sessions', icon: 'time', screen: SessionsScreen()),
     const PageItem(title: 'About', icon: 'flower', screen: AboutScreen()),
   ];

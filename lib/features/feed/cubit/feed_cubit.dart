@@ -1,11 +1,11 @@
 import 'package:bloc/bloc.dart';
-import 'package:fluttercon/common/data/models/feed.dart';
 import 'package:fluttercon/common/data/models/failure.dart';
+import 'package:fluttercon/common/data/models/feed.dart';
 import 'package:fluttercon/common/repository/api_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'feed_state.dart';
 part 'feed_cubit.freezed.dart';
+part 'feed_state.dart';
 
 class FetchFeedCubit extends Cubit<FetchFeedState> {
   FetchFeedCubit({

@@ -1,8 +1,7 @@
+import 'package:fluttercon/common/data/models/feed.dart';
 import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/common/utils/network.dart';
 import 'package:injectable/injectable.dart';
-
-import '../data/models/feed.dart';
 
 @singleton
 class ApiRepository {
@@ -18,9 +17,7 @@ class ApiRepository {
       queryParameters: {'per_page': perPage, 'page': page},
     );
 
-    return SpeakerResponse
-        .fromJson(response)
-        .data;
+    return SpeakerResponse.fromJson(response).data;
   }
 
   Future<List<Room>> fetchRooms({
@@ -30,9 +27,7 @@ class ApiRepository {
       '/events/$event/rooms',
     );
 
-    return RoomResponse
-        .fromJson(response)
-        .data;
+    return RoomResponse.fromJson(response).data;
   }
 
   Future<List<Session>> fetchSessions({
@@ -45,9 +40,7 @@ class ApiRepository {
       queryParameters: {'per_page': perPage, 'page': page},
     );
 
-    return SessionResponse
-        .fromJson(response)
-        .data;
+    return SessionResponse.fromJson(response).data;
   }
 
   Future<List<Feed>> fetchFeeds({
@@ -60,9 +53,7 @@ class ApiRepository {
       queryParameters: {'per_page': perPage, 'page': page},
     );
 
-    return FeedResponse
-        .fromJson(response)
-        .data;
+    return FeedResponse.fromJson(response).data;
   }
 
   Future<List<Organiser>> fetchOrganisers({
@@ -77,5 +68,3 @@ class ApiRepository {
     return OrganiserResponse.fromJson(response).data;
   }
 }
-
-

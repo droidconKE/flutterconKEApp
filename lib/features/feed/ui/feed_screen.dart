@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
@@ -43,9 +42,9 @@ class _FeedScreenState extends State<FeedScreen> {
                           color: ThemeColors.blueColor,
                         ),
                       ),
-                       Text(feed.created_at.toString())
+                      Text(feed.createdAt.toString()),
                     ],
-                  )
+                  ),
                 ],
               );
             },

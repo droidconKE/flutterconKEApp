@@ -92,6 +92,7 @@ class Repository {
 
     return SessionResponse.fromJson(response.data!).data;
   }
+
   Future<List<Feed>> fetchFeeds({
     required String event,
     int perPage = 10,
@@ -118,5 +119,4 @@ class Repository {
 
     return FeedResponse.fromJson(response.data!).data;
   }
-
 }
