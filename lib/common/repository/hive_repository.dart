@@ -77,7 +77,10 @@ class HiveRepository {
         .put('sessions', SessionResponse(data: sessions));
   }
 
-  List<Session> retrieveSessions() {
+  List<Session> retrieveSessions({
+    String? sessionLevel,
+    String? sessionType,
+  }) {
     final sessions =
         Hive.box<dynamic>(FlutterConConfig.instance!.values.hiveBox)
             .get('sessions') as SessionResponse?;
@@ -85,6 +88,20 @@ class HiveRepository {
     if (sessions == null) {
       return <Session>[];
     }
-    return sessions.data;
+
+    if (sessionLevel == null && sessionType == null) {
+      return sessions.data;
+    }
+
+    return sessions.data.where((session) {
+      if (sessionLevel != null && sessionType != null) {
+        return session.sessionLevel == sessionLevel &&
+            session.sessionFormat == sessionType;
+      } else if (sessionLevel != null) {
+        return session.sessionLevel == sessionLevel;
+      } else {
+        return session.sessionFormat == sessionType;
+      }
+    }).toList();
   }
 }

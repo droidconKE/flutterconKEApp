@@ -24,6 +24,7 @@ class _SessionsScreenState extends State<SessionsScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   int _currentTab = 0;
+  int _tabs = 1;
 
   void _changeTab() {
     setState(() {
@@ -44,15 +45,27 @@ class _SessionsScreenState extends State<SessionsScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       body: DefaultTabController(
-        length: 3,
+        length: _tabs,
         child: SafeArea(
           child: NestedScrollView(
             headerSliverBuilder: (context, innerBoxIsScrolled) => <Widget>[
               SliverToBoxAdapter(
                 child: Row(
                   children: [
-                    BlocBuilder<FetchGroupedSessionsCubit,
+                    BlocConsumer<FetchGroupedSessionsCubit,
                         FetchGroupedSessionsState>(
+                      listener: (context, state) {
+                        state.maybeWhen(
+                          loaded: (groupedSessions) {
+                            // Set the number of tabs based on the filtered 
+                            // sessions if they exist
+                            setState(() {
+                              _tabs = groupedSessions.keys.length;
+                            });
+                          },
+                          orElse: () {},
+                        );
+                      },
                       builder: (context, state) => state.maybeWhen(
                         orElse: () => const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 16),

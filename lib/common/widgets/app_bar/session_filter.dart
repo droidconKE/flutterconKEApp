@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttercon/bootstrap.dart';
 import 'package:fluttercon/common/data/enums/session_level.dart';
 import 'package:fluttercon/common/data/enums/session_type.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:fluttercon/features/sessions/cubit/fetch_grouped_sessions_cubit.dart';
 
 class SessionFilter extends StatefulWidget {
   const SessionFilter({super.key});
@@ -188,7 +191,17 @@ class _SessionFilterState extends State<SessionFilter> {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () => context
+                  .read<FetchGroupedSessionsCubit>()
+                  .fetchGroupedSessions(
+                    sessionLevel: _level.name,
+                    sessionType: _type.name,
+                  )
+                  .then((_) {
+                if (context.mounted) {
+                  Navigator.of(context).pop();
+                }
+              }),
               style: ElevatedButton.styleFrom(
                 backgroundColor: ThemeColors.blueColor,
                 padding: const EdgeInsets.symmetric(horizontal: 32),

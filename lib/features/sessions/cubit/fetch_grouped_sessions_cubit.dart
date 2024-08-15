@@ -21,11 +21,17 @@ class FetchGroupedSessionsCubit extends Cubit<FetchGroupedSessionsState> {
   late ApiRepository _apiRepository;
   late HiveRepository _hiveRepository;
 
-  Future<void> fetchGroupedSessions() async {
+  Future<void> fetchGroupedSessions({
+    String? sessionLevel,
+    String? sessionType,
+  }) async {
     emit(const FetchGroupedSessionsState.loading());
 
     try {
-      final persistedSessions = _hiveRepository.retrieveSessions();
+      final persistedSessions = _hiveRepository.retrieveSessions(
+        sessionLevel: sessionLevel,
+        sessionType: sessionType,
+      );
       if (persistedSessions.isNotEmpty) {
         final groupedEntries = collection.groupBy<Session, String>(
           persistedSessions,
