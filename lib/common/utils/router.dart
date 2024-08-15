@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttercon/common/data/models/individual_organiser.dart';
 import 'package:fluttercon/common/data/models/models.dart';
+import 'package:fluttercon/features/about/ui/organising_team_details.dart';
 import 'package:fluttercon/features/auth/ui/sign_in.dart';
 import 'package:fluttercon/features/dashboard/ui/dashboard_screen.dart';
 import 'package:fluttercon/features/home/ui/speaker_details/speaker_details.dart';
@@ -65,8 +67,8 @@ class FlutterConRouter {
       GoRoute(
         path: organiserDetailsRoute,
         name: organiserDetailsRoute,
-        builder: (context, state) => SpeakerDetailsPage(
-          speaker: state.extra! as Speaker,
+        builder: (context, state) => OranisingTeamMemberDetailsPage(
+          organiser: state.extra! as IndividualOrganiser,
         ),
       ),
     ],

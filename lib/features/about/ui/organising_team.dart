@@ -64,7 +64,7 @@ class _OrganisingTeamViewState extends State<OrganisingTeamView> {
                     maxLines: 1,
                     style: const TextStyle(fontSize: 12),
                   ),
-                   Text(
+                  Text(
                     individualOrganisers[index].designation,
                     maxLines: 1,
                     style: const TextStyle(fontSize: 12),
