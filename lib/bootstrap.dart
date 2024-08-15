@@ -8,6 +8,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/repository/hive_repository.dart';
 import 'package:fluttercon/core/di/injectable.dart';
+import 'package:fluttercon/features/about/cubit/fetch_individual_organisers_cubit.dart';
 import 'package:fluttercon/features/auth/cubit/google_sign_in_cubit.dart';
 import 'package:fluttercon/features/auth/cubit/social_auth_sign_in_cubit.dart';
 import 'package:fluttercon/features/feed/cubit/feed_cubit.dart';
@@ -85,6 +86,11 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
           ),
           BlocProvider<FetchSpeakersCubit>(
             create: (context) => FetchSpeakersCubit(
+              apiRepository: getIt(),
+            ),
+          ),
+          BlocProvider<FetchIndividualOrganisersCubit>(
+            create: (context) => FetchIndividualOrganisersCubit(
               apiRepository: getIt(),
             ),
           ),
