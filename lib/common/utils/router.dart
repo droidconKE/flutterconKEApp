@@ -11,7 +11,7 @@ class FlutterConRouter {
   static const String decisionRoute = '/';
   static const String signInRoute = '/sign-in';
   static const String dashboardRoute = '/dashboard';
-  static const String speakerListRoute = '/speakerList';
+  static const String speakerListRoute = 'speakerList';
 
   static final GlobalKey<NavigatorState> _globalNavigatorKey =
       GlobalKey<NavigatorState>();
@@ -34,11 +34,13 @@ class FlutterConRouter {
         path: dashboardRoute,
         name: dashboardRoute,
         builder: (context, state) => const DashboardScreen(),
-      ),
-      GoRoute(
-        path: speakerListRoute,
-        name: speakerListRoute,
-        builder: (context, state) => const SpeakerListScreen(),
+        routes: [
+          GoRoute(
+            path: speakerListRoute,
+            name: speakerListRoute,
+            builder: (context, state) => const SpeakerListScreen(),
+          ),
+        ],
       ),
     ],
   );

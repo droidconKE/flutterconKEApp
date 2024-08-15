@@ -44,7 +44,9 @@ class _SpeakerCardState extends State<SpeakerCard> {
                   style: TextStyle(color: ThemeColors.blueColor),
                 ),
               ),
-              onPressed: () => context.push(FlutterConRouter.speakerListRoute),
+              onPressed: () => context.push(
+                '${FlutterConRouter.dashboardRoute}/${FlutterConRouter.speakerListRoute}',
+              ),
               label: const Text('View All'),
             ),
           ],
