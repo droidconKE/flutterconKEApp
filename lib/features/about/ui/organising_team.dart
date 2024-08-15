@@ -22,58 +22,57 @@ class _OrganisingTeamViewState extends State<OrganisingTeamView> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 150,
-      child: BlocBuilder<FetchIndividualOrganisersCubit,
-          FetchIndividualOrganisersState>(
-        builder: (context, state) => state.maybeWhen(
-          loaded: (individualOrganisers) => GridView.builder(
-            itemCount: individualOrganisers.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              crossAxisSpacing: 8,
-              mainAxisSpacing: 8,
+    return BlocBuilder<FetchIndividualOrganisersCubit,
+        FetchIndividualOrganisersState>(
+      builder: (context, state) => state.maybeWhen(
+        loaded: (individualOrganisers) => SliverGrid.builder(
+          itemCount: individualOrganisers.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            crossAxisSpacing: 8,
+            mainAxisSpacing: 8,
+          ),
+          itemBuilder: (context, index) => GestureDetector(
+            onTap: () => GoRouter.of(context).push(
+              FlutterConRouter.organiserDetailsRoute,
+              extra: individualOrganisers[index],
             ),
-            itemBuilder: (context, index) => GestureDetector(
-              onTap: () => GoRouter.of(context).push(
-                FlutterConRouter.organiserDetailsRoute,
-                extra: individualOrganisers[index],
-              ),
-              child: Column(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(25),
-                    child: Container(
-                      constraints: BoxConstraints(
-                        maxWidth: MediaQuery.sizeOf(context).width / 4.5,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: ThemeColors.tealColor,
-                          width: 2,
-                        ),
-                      ),
-                      child: CachedNetworkImage(
-                        fit: BoxFit.cover,
-                        imageUrl: individualOrganisers[index].photo,
+            child: Column(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(25),
+                  child: Container(
+                    constraints: BoxConstraints(
+                      maxWidth: MediaQuery.sizeOf(context).width / 4.5,
+                    ),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: ThemeColors.tealColor,
+                        width: 2,
                       ),
                     ),
+                    child: CachedNetworkImage(
+                      fit: BoxFit.cover,
+                      imageUrl: individualOrganisers[index].photo,
+                    ),
                   ),
-                  Text(
-                    individualOrganisers[index].name,
-                    maxLines: 1,
-                    style: const TextStyle(fontSize: 12),
-                  ),
-                  Text(
-                    individualOrganisers[index].designation,
-                    maxLines: 1,
-                    style: const TextStyle(fontSize: 12),
-                  ),
-                ],
-              ),
+                ),
+                Text(
+                  individualOrganisers[index].name,
+                  maxLines: 1,
+                  style: const TextStyle(fontSize: 12),
+                ),
+                Text(
+                  individualOrganisers[index].designation,
+                  maxLines: 1,
+                  style: const TextStyle(fontSize: 12),
+                ),
+              ],
             ),
           ),
-          orElse: () => const Center(child: CircularProgressIndicator()),
+        ),
+        orElse: () => const SliverToBoxAdapter(
+          child: Center(child: CircularProgressIndicator()),
         ),
       ),
     );
