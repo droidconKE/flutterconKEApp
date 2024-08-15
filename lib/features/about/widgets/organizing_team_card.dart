@@ -55,6 +55,7 @@ class _OrganisingTeamCardState extends State<OrganisingTeamCard> {
                         color: ThemeColors.blueColor,
                         fontSize: 12,
                       ),
+                      textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 4),
                     Text(
@@ -65,6 +66,7 @@ class _OrganisingTeamCardState extends State<OrganisingTeamCard> {
                       ),
                       textAlign: TextAlign.center,
                     ),
+                    const SizedBox(height: 4),
                   ],
                 ),
               ),

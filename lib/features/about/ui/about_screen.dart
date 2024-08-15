@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttercon/common/data/models/organising_team.dart';
 import 'package:fluttercon/common/repository/api_repository.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 
