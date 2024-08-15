@@ -19,8 +19,7 @@ class FetchSpeakersCubit extends Cubit<FetchSpeakersState> {
   Future<void> fetchSpeakers() async {
     emit(const FetchSpeakersState.loading());
     try {
-      final speakers =
-          await _apiRepository.fetchSpeakers(event: 'droidconke-2022-281');
+      final speakers = await _apiRepository.fetchSpeakers();
       emit(
         FetchSpeakersState.loaded(
           speakers: speakers,

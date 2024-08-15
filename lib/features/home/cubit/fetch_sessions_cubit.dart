@@ -19,8 +19,7 @@ class FetchSessionsCubit extends Cubit<FetchSessionsState> {
     emit(const FetchSessionsState.loading());
 
     try {
-      final sessions =
-          await _apiRepository.fetchSessions(event: 'droidconke-2022-281');
+      final sessions = await _apiRepository.fetchSessions();
 
       // Remove service sessions
       final filteredSessions =
