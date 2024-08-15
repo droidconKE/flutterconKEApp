@@ -112,4 +112,29 @@ class HiveRepository {
       }
     }).toList();
   }
+
+  void updateSession({
+    required int sessionId,
+    bool? bookmarkStatus,
+  }) {
+    final sessions =
+        Hive.box<dynamic>(FlutterConConfig.instance!.values.hiveBox)
+            .get('sessions') as SessionResponse?;
+
+    if (sessions == null) {
+      return;
+    }
+
+    final updatedSessions = sessions.data.map((session) {
+      if (session.id == sessionId) {
+        return session.copyWith(
+          isBookmarked: bookmarkStatus ?? session.isBookmarked,
+        );
+      }
+      return session;
+    }).toList();
+
+    Hive.box<dynamic>(FlutterConConfig.instance!.values.hiveBox)
+        .put('sessions', SessionResponse(data: updatedSessions));
+  }
 }
