@@ -37,11 +37,28 @@ class _SpeakerCardState extends State<SpeakerCard> {
             const Spacer(),
             TextButton.icon(
               iconAlignment: IconAlignment.end,
-              icon: const Badge(
+              icon: Badge(
+                largeSize: 10,
+                smallSize: 15,
                 backgroundColor: Colors.blueGrey,
-                label: Text(
-                  '+45',
-                  style: TextStyle(color: ThemeColors.blueColor),
+                label: BlocBuilder<FetchSpeakersCubit, FetchSpeakersState>(
+                  builder: (context, state) => state.maybeWhen(
+                    loaded: (speakers) => Text(
+                      '+ ${speakers.length - 4}',
+                      style: const TextStyle(color: ThemeColors.blueColor),
+                    ),
+                    error: (message) => Text(
+                      message,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: ThemeColors.blueColor,
+                            fontSize: 18,
+                          ),
+                    ),
+                    orElse: () => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
                 ),
               ),
               onPressed: () => context.push(
