@@ -17,8 +17,8 @@ class SpeakerDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
+      body: NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) => [
           SliverAppBar(
             surfaceTintColor: Colors.white,
             floating: true,
@@ -66,98 +66,97 @@ class SpeakerDetailsPage extends StatelessWidget {
               ),
             ),
           ),
-          SliverFillRemaining(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
+        ],
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            children: [
+              const SizedBox(height: 60),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 60),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Flexible(
-                        child: Icon(
-                          Icons.android_outlined,
-                          color: ThemeColors.orangeColor,
-                        ),
-                      ),
-                      SizedBox(width: 8),
-                      Text(
-                        'Speaker:',
-                        style: TextStyle(
-                          color: ThemeColors.orangeColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Text(
-                    speaker.name,
-                    style: const TextStyle(
-                      color: ThemeColors.blueColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                  Flexible(
+                    child: Icon(
+                      Icons.android_outlined,
+                      color: ThemeColors.orangeColor,
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(width: 8),
                   Text(
-                    speaker.tagline ?? '',
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 16,
+                    'Speaker:',
+                    style: TextStyle(
+                      color: ThemeColors.orangeColor,
                     ),
                   ),
-                  const SizedBox(height: 32),
-                  const Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Bio',
+                ],
+              ),
+              Text(
+                speaker.name,
+                style: const TextStyle(
+                  color: ThemeColors.blueColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                speaker.tagline ?? '',
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 32),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Bio',
+                  style: TextStyle(
+                    color: ThemeColors.blueColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  '${speaker.biography} ${speaker.biography}' ,
+                  style: const TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 32),
+              Divider(color: Colors.grey.withOpacity(.5)),
+              const SizedBox(height: 32),
+              if (speaker.twitter != null)
+                Row(
+                  children: [
+                    const Text(
+                      'Twitter Handle',
                       style: TextStyle(
-                        color: ThemeColors.blueColor,
-                        fontWeight: FontWeight.bold,
+                        color: ThemeColors.blackColor,
                         fontSize: 20,
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      speaker.biography,
-                      style: const TextStyle(
-                        fontSize: 16,
+                    const Spacer(),
+                    OutlinedButton(
+                      onPressed: () {},
+                      child: Row(
+                        children: [
+                          // Add a Twitter Icon here
+                          Text(speaker.name),
+                        ],
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 32),
-                  Divider(color: Colors.grey.withOpacity(.5)),
-                  const SizedBox(height: 32),
-                  if (speaker.twitter != null)
-                    Row(
-                      children: [
-                        const Text(
-                          'Twitter Handle',
-                          style: TextStyle(
-                            color: ThemeColors.blackColor,
-                            fontSize: 20,
-                          ),
-                        ),
-                        const Spacer(),
-                        OutlinedButton(
-                          onPressed: () {},
-                          child: Row(
-                            children: [
-                              // Add a Twitter Icon here
-                              Text(speaker.name),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                ],
-              ),
-            ),
+                  ],
+                ),
+                const SizedBox(height: 60),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

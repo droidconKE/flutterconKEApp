@@ -17,8 +17,8 @@ class OranisingTeamMemberDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
+      body: NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) => [
           SliverAppBar(
             surfaceTintColor: Colors.white,
             floating: true,
@@ -66,85 +66,83 @@ class OranisingTeamMemberDetailsPage extends StatelessWidget {
               ),
             ),
           ),
-          SliverFillRemaining(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                children: [
-                  const SizedBox(height: 60),
-                  Text(
-                    organiser.designation,
-                    style: const TextStyle(
-                      color: ThemeColors.orangeColor,
-                    ),
+        ],
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            children: [
+              const SizedBox(height: 60),
+              Text(
+                organiser.designation,
+                style: const TextStyle(
+                  color: ThemeColors.orangeColor,
+                ),
+              ),
+              Text(
+                organiser.name,
+                style: const TextStyle(
+                  color: ThemeColors.blueColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                organiser.tagline,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 32),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Bio',
+                  style: TextStyle(
+                    color: ThemeColors.blueColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
                   ),
-                  Text(
-                    organiser.name,
-                    style: const TextStyle(
-                      color: ThemeColors.blueColor,
-                      fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  organiser.bio,
+                  style: const TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 32),
+              Divider(color: Colors.grey.withOpacity(.5)),
+              const SizedBox(height: 32),
+              Row(
+                children: [
+                  const Text(
+                    'Twitter Handle',
+                    style: TextStyle(
+                      color: ThemeColors.blackColor,
                       fontSize: 20,
                     ),
                   ),
-                  const SizedBox(height: 16),
-                  Text(
-                    organiser.tagline,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 16,
+                  const Spacer(),
+                  OutlinedButton(
+                    onPressed: () {},
+                    child: Row(
+                      children: [
+                        // Add a Twitter Icon here
+                        Text(organiser.name),
+                      ],
                     ),
-                  ),
-                  const SizedBox(height: 32),
-                  const Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Bio',
-                      style: TextStyle(
-                        color: ThemeColors.blueColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      organiser.bio,
-                      style: const TextStyle(
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-                  Divider(color: Colors.grey.withOpacity(.5)),
-                  const SizedBox(height: 32),
-                  Row(
-                    children: [
-                      const Text(
-                        'Twitter Handle',
-                        style: TextStyle(
-                          color: ThemeColors.blackColor,
-                          fontSize: 20,
-                        ),
-                      ),
-                      const Spacer(),
-                      OutlinedButton(
-                        onPressed: () {},
-                        child: Row(
-                          children: [
-                            // Add a Twitter Icon here
-                            Text(organiser.name),
-                          ],
-                        ),
-                      ),
-                    ],
                   ),
                 ],
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
