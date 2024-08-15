@@ -27,7 +27,7 @@ class Misc {
 
       await Dio().download(
         url,
-        tempDir + filePath ,
+        tempDir + filePath,
       );
 
       files.add(XFile(tempDir + filePath));

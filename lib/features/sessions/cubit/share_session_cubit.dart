@@ -20,7 +20,7 @@ class ShareSessionCubit extends Cubit<ShareSessionState> {
           text: '${session.description}\n\nhttps://fluttercon.dev',
         );
       } else {
-      await Share.share('${session.description}\n\nhttps://fluttercon.dev');
+        await Share.share('${session.description}\n\nhttps://fluttercon.dev');
       }
       emit(const ShareSessionState.loaded());
     } catch (e) {
