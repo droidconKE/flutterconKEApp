@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttercon/bootstrap.dart';
 import 'package:fluttercon/common/data/enums/session_level.dart';
 import 'package:fluttercon/common/data/enums/session_type.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
@@ -111,6 +110,16 @@ class _SessionFilterState extends State<SessionFilter> {
               segments: [
                 ButtonSegment<SessionType>(
                   label: Text(
+                    'Session',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall
+                        ?.copyWith(fontSize: 12),
+                  ),
+                  value: SessionType.session,
+                ),
+                ButtonSegment<SessionType>(
+                  label: Text(
                     'Keynote',
                     style: Theme.of(context)
                         .textTheme
@@ -128,16 +137,6 @@ class _SessionFilterState extends State<SessionFilter> {
                         ?.copyWith(fontSize: 12),
                   ),
                   value: SessionType.codelab,
-                ),
-                ButtonSegment<SessionType>(
-                  label: Text(
-                    'Session',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall
-                        ?.copyWith(fontSize: 12),
-                  ),
-                  value: SessionType.session,
                 ),
               ],
               selected: <SessionType>{_type},
@@ -218,6 +217,36 @@ class _SessionFilterState extends State<SessionFilter> {
               ),
             ),
           ),
+          const SizedBox(height: 8),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () => context
+                  .read<FetchGroupedSessionsCubit>()
+                  .fetchGroupedSessions()
+                  .then((_) {
+                if (context.mounted) {
+                  Navigator.of(context).pop();
+                }
+              }),
+              style: ElevatedButton.styleFrom(
+                elevation: 0,
+                backgroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 32),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              child: Text(
+                'Reset'.toUpperCase(),
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
         ],
       ),
     );

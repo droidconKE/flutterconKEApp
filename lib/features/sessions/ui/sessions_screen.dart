@@ -57,7 +57,7 @@ class _SessionsScreenState extends State<SessionsScreen>
                       listener: (context, state) {
                         state.maybeWhen(
                           loaded: (groupedSessions) {
-                            // Set the number of tabs based on the filtered 
+                            // Set the number of tabs based on the filtered
                             // sessions if they exist
                             setState(() {
                               _tabs = groupedSessions.keys.length;
