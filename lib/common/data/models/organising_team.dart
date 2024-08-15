@@ -6,7 +6,6 @@ part 'organising_team.freezed.dart';
 @freezed
 class OrganisingTeam with _$OrganisingTeam {
   factory OrganisingTeam({
-    required int id,
     required String photo,
     required String name,
     required String tagline,
