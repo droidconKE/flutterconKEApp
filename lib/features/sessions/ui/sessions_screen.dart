@@ -2,9 +2,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttercon/common/data/enums/bookmark_status.dart';
 import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:fluttercon/features/sessions/cubit/bookmark_session_cubit.dart';
 import 'package:fluttercon/features/sessions/cubit/fetch_grouped_sessions_cubit.dart';
 
 import 'package:fluttercon/l10n/l10n.dart';
@@ -22,20 +24,14 @@ class SessionsScreen extends StatefulWidget {
 
 class _SessionsScreenState extends State<SessionsScreen>
     with SingleTickerProviderStateMixin {
-  late TabController _tabController;
   int _currentTab = 0;
+  int _availableTabs = 3;
 
-  void _changeTab() {
-    setState(() {
-      _currentTab = _tabController.index;
-    });
-  }
+  bool _isBookmarked = false;
 
   @override
   void initState() {
     context.read<FetchGroupedSessionsCubit>().fetchGroupedSessions();
-    _tabController = TabController(length: 3, vsync: this);
-    _tabController.addListener(_changeTab);
 
     super.initState();
   }
@@ -44,22 +40,30 @@ class _SessionsScreenState extends State<SessionsScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       body: DefaultTabController(
-        length: 3,
+        length: _availableTabs,
         child: SafeArea(
           child: NestedScrollView(
             headerSliverBuilder: (context, innerBoxIsScrolled) => <Widget>[
               SliverToBoxAdapter(
                 child: Row(
                   children: [
-                    BlocBuilder<FetchGroupedSessionsCubit,
+                    BlocConsumer<FetchGroupedSessionsCubit,
                         FetchGroupedSessionsState>(
+                      listener: (context, state) {
+                        state.mapOrNull(
+                          loaded: (loaded) {
+                            setState(() {
+                              _availableTabs = loaded.groupedSessions.length;
+                            });
+                          },
+                        );
+                      },
                       builder: (context, state) => state.maybeWhen(
                         orElse: () => const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 16),
                           child: CircularProgressIndicator(),
                         ),
                         loaded: (groupedSessions) => TabBar(
-                          controller: _tabController,
                           onTap: (value) => setState(() {
                             Logger().d(value);
                             _currentTab = value;
@@ -94,8 +98,26 @@ class _SessionsScreenState extends State<SessionsScreen>
                       child: Column(
                         children: [
                           Switch(
-                            value: false,
-                            onChanged: (_) {},
+                            value: _isBookmarked,
+                            onChanged: (newValue) {
+                              setState(() {
+                                _isBookmarked = newValue;
+                              });
+
+                              if (_isBookmarked) {
+                                context
+                                    .read<FetchGroupedSessionsCubit>()
+                                    .fetchGroupedSessions(
+                                      bookmarkStatus: BookmarkStatus.bookmarked,
+                                    );
+                              }
+
+                              if (!_isBookmarked) {
+                                context
+                                    .read<FetchGroupedSessionsCubit>()
+                                    .fetchGroupedSessions();
+                              }
+                            },
                             trackOutlineWidth: WidgetStateProperty.all(1),
                             trackColor: WidgetStateProperty.all(Colors.black),
                             activeTrackColor: ThemeColors.orangeColor,
@@ -138,11 +160,8 @@ class _SessionsScreenState extends State<SessionsScreen>
             body: BlocBuilder<FetchGroupedSessionsCubit,
                 FetchGroupedSessionsState>(
               builder: (context, state) => state.maybeWhen(
-                orElse: () => const Center(
-                  child: CircularProgressIndicator(),
-                ),
+                orElse: () => const Center(child: CircularProgressIndicator()),
                 loaded: (groupedSessions) => TabBarView(
-                  controller: _tabController,
                   children: groupedSessions.values
                       .map(
                         (dailySessions) => DaySessionsView(
@@ -343,13 +362,76 @@ class DaySessionsView extends StatelessWidget {
                   ),
               ],
             ),
-            trailing: IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.star_border_outlined,
-                color: ThemeColors.blueColor,
-                size: 32,
-              ),
+            trailing: BlocConsumer<BookmarkSessionCubit, BookmarkSessionState>(
+              listener: (context, state) {
+                state.mapOrNull(
+                  loaded: (loaded) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(loaded.message),
+                      ),
+                    );
+                  },
+                );
+              },
+              builder: (context, state) {
+                return state.maybeWhen(
+                  loading: (loadingIndex) => loadingIndex == index
+                      ? const SizedBox(
+                          height: 32,
+                          width: 32,
+                          child: CircularProgressIndicator(),
+                        )
+                      : IconButton(
+                          onPressed: () => context
+                              .read<BookmarkSessionCubit>()
+                              .bookmarkSession(
+                                sessionId: sessions[index].id,
+                                index: index,
+                              )
+                              .then((_) {
+                            if (context.mounted) {
+                              context
+                                  .read<FetchGroupedSessionsCubit>()
+                                  .fetchGroupedSessions();
+                            }
+                          }),
+                          icon: Icon(
+                            sessions[index].isBookmarked
+                                ? Icons.star_rate_rounded
+                                : Icons.star_border_outlined,
+                            color: sessions[index].isBookmarked
+                                ? ThemeColors.orangeColor
+                                : ThemeColors.blueColor,
+                            size: 32,
+                          ),
+                        ),
+                  orElse: () => IconButton(
+                    onPressed: () => context
+                        .read<BookmarkSessionCubit>()
+                        .bookmarkSession(
+                          sessionId: sessions[index].id,
+                          index: index,
+                        )
+                        .then((_) {
+                      if (context.mounted) {
+                        context
+                            .read<FetchGroupedSessionsCubit>()
+                            .fetchGroupedSessions();
+                      }
+                    }),
+                    icon: Icon(
+                      sessions[index].isBookmarked
+                          ? Icons.star_rate_rounded
+                          : Icons.star_border_outlined,
+                      color: sessions[index].isBookmarked
+                          ? ThemeColors.orangeColor
+                          : ThemeColors.blueColor,
+                      size: 32,
+                    ),
+                  ),
+                );
+              },
             ),
           ),
         ),

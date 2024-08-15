@@ -12,9 +12,12 @@ import 'package:fluttercon/features/about/cubit/fetch_individual_organisers_cubi
 import 'package:fluttercon/features/auth/cubit/google_sign_in_cubit.dart';
 import 'package:fluttercon/features/auth/cubit/social_auth_sign_in_cubit.dart';
 import 'package:fluttercon/features/feed/cubit/feed_cubit.dart';
+import 'package:fluttercon/features/feed/cubit/share_feed_post_cubit.dart';
 import 'package:fluttercon/features/home/cubit/fetch_sessions_cubit.dart';
 import 'package:fluttercon/features/home/cubit/home_cubits.dart';
+import 'package:fluttercon/features/sessions/cubit/bookmark_session_cubit.dart';
 import 'package:fluttercon/features/sessions/cubit/fetch_grouped_sessions_cubit.dart';
+import 'package:fluttercon/features/sessions/cubit/share_session_cubit.dart';
 import 'package:fluttercon/firebase_options.dart';
 
 class AppBlocObserver extends BlocObserver {
@@ -82,6 +85,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
           BlocProvider<FetchGroupedSessionsCubit>(
             create: (context) => FetchGroupedSessionsCubit(
               apiRepository: getIt(),
+              hiveRepository: getIt(),
             ),
           ),
           BlocProvider<FetchSpeakersCubit>(
@@ -93,6 +97,18 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
             create: (context) => FetchIndividualOrganisersCubit(
               apiRepository: getIt(),
             ),
+          ),
+          BlocProvider<BookmarkSessionCubit>(
+            create: (context) => BookmarkSessionCubit(
+              apiRepository: getIt(),
+              hiveRepository: getIt(),
+            ),
+          ),
+          BlocProvider<ShareFeedPostCubit>(
+            create: (context) => ShareFeedPostCubit(),
+          ),
+          BlocProvider<ShareSessionCubit>(
+            create: (context) => ShareSessionCubit(),
           ),
         ],
         child: await builder(),

@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttercon/common/data/enums/bookmark_status.dart';
 import 'package:fluttercon/common/data/models/models.dart';
+import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:fluttercon/features/sessions/cubit/bookmark_session_cubit.dart';
+import 'package:fluttercon/features/sessions/cubit/fetch_grouped_sessions_cubit.dart';
+import 'package:fluttercon/features/sessions/cubit/share_session_cubit.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -69,13 +75,62 @@ class SessionDetailsPage extends StatelessWidget {
                       ),
                     ),
                     const Spacer(),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.star_border_outlined,
-                        color: ThemeColors.blueColor,
-                        size: 32,
-                      ),
+                    BlocConsumer<BookmarkSessionCubit, BookmarkSessionState>(
+                      listener: (context, state) {
+                        state.mapOrNull(
+                          loaded: (loaded) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(loaded.message),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      builder: (context, state) {
+                        return state.maybeWhen(
+                          loading: (_) => const SizedBox(
+                            height: 32,
+                            width: 32,
+                            child: CircularProgressIndicator(),
+                          ),
+                          loaded: (message, status) => IconButton(
+                            onPressed: () => context
+                                .read<BookmarkSessionCubit>()
+                                .bookmarkSession(sessionId: session.id),
+                            icon: Icon(
+                              status == BookmarkStatus.bookmarked
+                                  ? Icons.star_rate_rounded
+                                  : Icons.star_border_outlined,
+                              color: status == BookmarkStatus.bookmarked
+                                  ? ThemeColors.orangeColor
+                                  : ThemeColors.blueColor,
+                              size: 32,
+                            ),
+                          ),
+                          orElse: () => IconButton(
+                            onPressed: () => context
+                                .read<BookmarkSessionCubit>()
+                                .bookmarkSession(sessionId: session.id)
+                                .then((_) {
+                              if (context.mounted) {
+                                context
+                                    .read<FetchGroupedSessionsCubit>()
+                                    .fetchGroupedSessions();
+                              }
+                            }),
+                            icon: Icon(
+                              session.isBookmarked
+                                  ? Icons.star_rate_rounded
+                                  : Icons.star_border_outlined,
+                              color: session.isBookmarked
+                                  ? ThemeColors.orangeColor
+                                  : ThemeColors.blueColor,
+                              size: 32,
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -144,11 +199,24 @@ class SessionDetailsPage extends StatelessWidget {
                           ),
                         ),
                         const Spacer(),
-                        OutlinedButton(
-                          onPressed: () {},
+                        ElevatedButton(
+                          onPressed: () {
+                            if (speaker.twitter != null) {
+                              Misc.launchURL(Uri.parse(speaker.twitter!));
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            backgroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              side: const BorderSide(
+                                color: ThemeColors.blueColor,
+                              ),
+                            ),
+                          ),
                           child: Row(
                             children: [
-                              // Add a Twitter Icon here
                               Text(speaker.name),
                             ],
                           ),
@@ -163,8 +231,22 @@ class SessionDetailsPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
         backgroundColor: ThemeColors.orangeColor,
-        child: const Icon(Icons.reply),
-        onPressed: () {},
+        child: BlocBuilder<ShareSessionCubit, ShareSessionState>(
+          builder: (context, state) => state.maybeWhen(
+            orElse: () => const Icon(
+              Icons.reply,
+              color: Colors.white,
+            ),
+            loading: () => const Padding(
+              padding: EdgeInsets.all(16),
+              child: CircularProgressIndicator(
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+        onPressed: () =>
+            context.read<ShareSessionCubit>().shareSession(session),
       ),
     );
   }
