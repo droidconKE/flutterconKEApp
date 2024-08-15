@@ -36,32 +36,47 @@ class _SpeakerCardState extends State<SpeakerCard> {
             ),
             const Spacer(),
             TextButton.icon(
+              label: const Text(
+                'View All',
+                style: TextStyle(color: ThemeColors.blueColor),
+              ),
               iconAlignment: IconAlignment.end,
-              icon: const Badge(
-                backgroundColor: Colors.blueGrey,
-                label: Text(
-                  '+45',
-                  style: TextStyle(color: ThemeColors.blueColor),
+              icon: Container(
+                decoration: BoxDecoration(
+                  color: ThemeColors.blueColor.withOpacity(.11),
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+                child: BlocBuilder<FetchSpeakersCubit, FetchSpeakersState>(
+                  builder: (context, state) => state.maybeWhen(
+                    loaded: (_, extras) => Text('+ $extras'),
+                    orElse: () => const SizedBox(
+                      height: 16,
+                      width: 16,
+                      child: Padding(
+                        padding: EdgeInsets.all(2),
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      ),
+                    ),
+                  ),
                 ),
               ),
               onPressed: () => context.push(
                 '${FlutterConRouter.dashboardRoute}/${FlutterConRouter.speakerListRoute}',
               ),
-              label: const Text('View All'),
             ),
           ],
         ),
         BlocBuilder<FetchSpeakersCubit, FetchSpeakersState>(
           builder: (context, state) => state.maybeWhen(
-            loaded: (speakers) {
+            loaded: (speakers, _) {
               return SizedBox(
                 height: 150,
                 child: ListView.separated(
-                  separatorBuilder: (context, index) => const SizedBox(
-                    width: 4,
-                  ),
-                  itemCount: 4,
-                  physics: const NeverScrollableScrollPhysics(),
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(width: 4),
+                  itemCount: speakers.take(5).length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) => Column(
                     children: [

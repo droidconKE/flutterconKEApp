@@ -21,7 +21,12 @@ class FetchSpeakersCubit extends Cubit<FetchSpeakersState> {
     try {
       final speakers =
           await _apiRepository.fetchSpeakers(event: 'droidconke-2022-281');
-      emit(FetchSpeakersState.loaded(speakers));
+      emit(
+        FetchSpeakersState.loaded(
+          speakers: speakers,
+          extras: speakers.length - 5,
+        ),
+      );
     } on Failure catch (e) {
       emit(FetchSpeakersState.error(e.message));
     } catch (e) {

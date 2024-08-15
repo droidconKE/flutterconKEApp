@@ -13,28 +13,25 @@ class SpeakerListScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {
-            context.pop();
-          },
+          onPressed: () => GoRouter.of(context).pop(),
           icon: const Icon(Icons.arrow_back),
         ),
         title: const Text('Speakers'),
       ),
       body: BlocBuilder<FetchSpeakersCubit, FetchSpeakersState>(
         builder: (context, state) => state.maybeWhen(
-          loaded: (speakers) => Padding(
+          loaded: (speakers, _) => Padding(
             padding: const EdgeInsets.all(10),
             child: GridView.builder(
-              itemCount: speakers.length,
+              itemCount: speakers.take(5).length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 mainAxisSpacing: 4,
                 crossAxisSpacing: 4,
                 childAspectRatio: 9 / 14,
                 crossAxisCount: 2,
               ),
-              itemBuilder: (context, index) {
-                return SpeakerGridTile(speaker: speakers[index]);
-              },
+              itemBuilder: (context, index) =>
+                  SpeakerGridTile(speaker: speakers[index]),
             ),
           ),
           error: (message) => Text(

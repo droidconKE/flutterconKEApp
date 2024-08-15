@@ -13,7 +13,7 @@ class FlutterConRouter {
   static const String decisionRoute = '/';
   static const String signInRoute = '/sign-in';
   static const String dashboardRoute = '/dashboard';
-  static const String speakerListRoute = '/speakers';
+  static const String speakerListRoute = 'speakers';
   static const String sessionDetailsRoute = '/session-details';
 
   static final GlobalKey<NavigatorState> _globalNavigatorKey =

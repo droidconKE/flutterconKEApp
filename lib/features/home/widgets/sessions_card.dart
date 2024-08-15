@@ -35,13 +35,12 @@ class _SessionsCardState extends State<SessionsCard> {
       children: [
         Row(
           children: [
-            const Text(
+             Text(
               'Sessions',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: ThemeColors.blueColor,
-                fontSize: 18,
-              ),
+               style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    color: ThemeColors.blueDroidconColor,
+                    fontWeight: FontWeight.bold,
+                  ),
             ),
             const Spacer(),
             TextButton(
