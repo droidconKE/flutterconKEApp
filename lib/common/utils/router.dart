@@ -4,6 +4,7 @@ import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/features/about/ui/organising_team_details.dart';
 import 'package:fluttercon/features/auth/ui/sign_in.dart';
 import 'package:fluttercon/features/dashboard/ui/dashboard_screen.dart';
+import 'package:fluttercon/features/feedback/ui/feedback_screen.dart';
 import 'package:fluttercon/features/home/ui/speaker_details/speaker_details.dart';
 import 'package:fluttercon/features/home/ui/speakers_list_screen.dart';
 import 'package:fluttercon/features/sessions/ui/session_details/session_details.dart';
@@ -20,6 +21,7 @@ class FlutterConRouter {
   static const String sessionDetailsRoute = '/session-details';
   static const String speakerDetailsRoute = '/speaker-details';
   static const String organiserDetailsRoute = '/organiser-details';
+  static const String feedbackRoute = '/feedback';
 
   static final GlobalKey<NavigatorState> _globalNavigatorKey =
       GlobalKey<NavigatorState>();
@@ -70,6 +72,11 @@ class FlutterConRouter {
         builder: (context, state) => OranisingTeamMemberDetailsPage(
           organiser: state.extra! as IndividualOrganiser,
         ),
+      ),
+      GoRoute(
+        path: feedbackRoute,
+        name: feedbackRoute,
+        builder: (context, state) => const FeedbackScreen(),
       ),
     ],
   );
