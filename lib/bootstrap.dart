@@ -11,6 +11,7 @@ import 'package:fluttercon/core/di/injectable.dart';
 import 'package:fluttercon/features/auth/cubit/google_sign_in_cubit.dart';
 import 'package:fluttercon/features/auth/cubit/social_auth_sign_in_cubit.dart';
 import 'package:fluttercon/features/feed/cubit/feed_cubit.dart';
+import 'package:fluttercon/features/home/cubit/home_cubits.dart';
 import 'package:fluttercon/features/home/cubit/fetch_organisers_cubit.dart';
 import 'package:fluttercon/features/home/cubit/fetch_sessions_cubit.dart';
 import 'package:fluttercon/features/home/cubit/fetch_sponsors_cubit.dart';
@@ -81,6 +82,11 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
           ),
           BlocProvider<FetchGroupedSessionsCubit>(
             create: (context) => FetchGroupedSessionsCubit(
+              apiRepository: getIt(),
+            ),
+          ),
+          BlocProvider<FetchSpeakersCubit>(
+            create: (context) => FetchSpeakersCubit(
               apiRepository: getIt(),
             ),
           ),
