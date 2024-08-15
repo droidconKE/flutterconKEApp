@@ -1,7 +1,7 @@
 name: fluttercon
 description: "A new Flutter project."
 publish_to: 'none'
-version: 1.6.00+1600
+version: 1.7.00+1700
 
 environment:
   sdk: '>=3.3.1 <4.0.0'
