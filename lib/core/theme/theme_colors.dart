@@ -10,6 +10,7 @@ class ThemeColors {
   static const Color greyTextColor = Color(0xff707070);
   static const Color lightGreyTextColor = Color(0xffC3C3C3);
   static const Color blueGreenDroidconColor = Color(0xff00E2C3);
+  static const Color chipBackground = Color(0xff1b01215c);
 
   static const Color blueColor = Color(0xff000CEB);
   static const Color orangeColor = Color(0xffFF6E4D);

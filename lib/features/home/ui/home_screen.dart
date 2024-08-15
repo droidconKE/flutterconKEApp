@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
-import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/home/widgets/organizers_card.dart';
+import 'package:fluttercon/features/home/widgets/speaker_card.dart';
 import 'package:fluttercon/features/home/widgets/sponsors_card.dart';
-import 'package:sizer/sizer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -38,52 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Image.asset(AppAssets.droidconBanner),
               ),
               const SizedBox(height: 24),
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: ThemeColors.tealColor,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      AppAssets.cfsBanner,
-                      width: 20.w,
-                      height: 10.h,
-                    ),
-                    const Spacer(),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Call for Speakers',
-                          style:
-                              Theme.of(context).textTheme.titleMedium?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                    fontSize: 17.sp,
-                                  ),
-                        ),
-                        Text(
-                          'Apply to be a speakers',
-                          style:
-                              Theme.of(context).textTheme.titleMedium?.copyWith(
-                                    fontWeight: FontWeight.normal,
-                                    color: Colors.black,
-                                    fontSize: 10.sp,
-                                  ),
-                        ),
-                      ],
-                    ),
-                    const Spacer(),
-                    const ImageIcon(
-                      AssetImage(AppAssets.playIcon),
-                      color: Colors.white,
-                    ),
-                    const Spacer(),
-                  ],
-                ),
-              ),
+              const SpeakerCard(),
               const SizedBox(height: 24),
               const SponsorsCard(),
               const SizedBox(height: 24),
