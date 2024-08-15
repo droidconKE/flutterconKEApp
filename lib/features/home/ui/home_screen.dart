@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/features/home/widgets/organizers_card.dart';
-import 'package:fluttercon/features/home/widgets/speaker_home_card.dart';
 import 'package:fluttercon/features/home/widgets/sessions_card.dart';
+import 'package:fluttercon/features/home/widgets/speaker_home_card.dart';
 import 'package:fluttercon/features/home/widgets/sponsors_card.dart';
 
 class HomeScreen extends StatefulWidget {
