@@ -19,12 +19,15 @@ class Misc {
     final tempDir = (await getTemporaryDirectory()).path;
 
     for (final url in urls) {
+      // Get file extension
+      final ext = url.split('.').last;
+
       // Download the file
-      final filePath = Random().nextInt(1000).toString();
+      final filePath = '${Random().nextInt(1000)}.$ext';
 
       await Dio().download(
         url,
-        tempDir + filePath,
+        tempDir + filePath ,
       );
 
       files.add(XFile(tempDir + filePath));
