@@ -12,6 +12,7 @@ import 'package:fluttercon/features/about/cubit/fetch_individual_organisers_cubi
 import 'package:fluttercon/features/auth/cubit/google_sign_in_cubit.dart';
 import 'package:fluttercon/features/auth/cubit/social_auth_sign_in_cubit.dart';
 import 'package:fluttercon/features/feed/cubit/feed_cubit.dart';
+import 'package:fluttercon/features/feed/cubit/share_feed_post_cubit.dart';
 import 'package:fluttercon/features/home/cubit/fetch_sessions_cubit.dart';
 import 'package:fluttercon/features/home/cubit/home_cubits.dart';
 import 'package:fluttercon/features/sessions/cubit/bookmark_session_cubit.dart';
@@ -101,6 +102,9 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
               apiRepository: getIt(),
               hiveRepository: getIt(),
             ),
+          ),
+          BlocProvider<ShareFeedPostCubit>(
+            create: (context) => ShareFeedPostCubit(),
           ),
         ],
         child: await builder(),
