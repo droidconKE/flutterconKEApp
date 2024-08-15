@@ -198,15 +198,24 @@ class SessionDetailsPage extends StatelessWidget {
                           ),
                         ),
                         const Spacer(),
-                        OutlinedButton(
+                        ElevatedButton(
                           onPressed: () {
                             if (speaker.twitter != null) {
                               Misc.launchURL(Uri.parse(speaker.twitter!));
                             }
                           },
+                          style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            backgroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              side: const BorderSide(
+                                color: ThemeColors.blueColor,
+                              ),
+                            ),
+                          ),
                           child: Row(
                             children: [
-                              // Add a Twitter Icon here
                               Text(speaker.name),
                             ],
                           ),

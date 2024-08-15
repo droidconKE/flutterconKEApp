@@ -130,9 +130,19 @@ class OranisingTeamMemberDetailsPage extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  OutlinedButton(
+                  ElevatedButton(
                     onPressed: () =>
                         Misc.launchURL(Uri.parse(organiser.twitterHandle)),
+                    style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        side: const BorderSide(
+                          color: ThemeColors.blueColor,
+                        ),
+                      ),
+                    ),
                     child: Row(
                       children: [
                         // Add a Twitter Icon here
