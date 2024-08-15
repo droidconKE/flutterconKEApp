@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 
 import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:fluttercon/features/about/ui/organising_team.dart';
 import 'package:fluttercon/features/home/widgets/organizers_card.dart';
 
 class AboutScreen extends StatefulWidget {
@@ -13,14 +14,7 @@ class AboutScreen extends StatefulWidget {
 
 class _AboutScreenState extends State<AboutScreen> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.light;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -33,11 +27,10 @@ class _AboutScreenState extends State<AboutScreen> {
                 children: [
                   Text(
                     'About',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      color: isDark
-                          ? ThemeColors.tealColor
-                          : ThemeColors.blueDroidconColor,
-                    ),
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          color: ThemeColors.blueDroidconColor,
+                          fontWeight: FontWeight.bold,
+                        ),
                   ),
                   const SizedBox(height: 10),
                   Text(
@@ -55,18 +48,18 @@ class _AboutScreenState extends State<AboutScreen> {
                     'Android development ecosystem, opportunities and services '
                     'as well as meet the engineers and companies who work on '
                     'them.',
-                    style: theme.textTheme.bodyMedium,
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   const SizedBox(height: 20),
                   Text(
                     'Organizing Team',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      color: isDark
-                          ? ThemeColors.tealColor
-                          : ThemeColors.blueDroidconColor,
-                    ),
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          color: ThemeColors.blueDroidconColor,
+                          fontWeight: FontWeight.bold,
+                        ),
                   ),
                   const SizedBox(height: 10),
+                  const OrganisingTeamView(),
                   const SizedBox(height: 10),
                   const OrganizersCard(),
                 ],

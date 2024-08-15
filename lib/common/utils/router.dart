@@ -17,6 +17,7 @@ class FlutterConRouter {
   static const String speakerListRoute = 'speakers';
   static const String sessionDetailsRoute = '/session-details';
   static const String speakerDetailsRoute = '/speaker-details';
+  static const String organiserDetailsRoute = '/organiser-details';
 
   static final GlobalKey<NavigatorState> _globalNavigatorKey =
       GlobalKey<NavigatorState>();
@@ -57,6 +58,13 @@ class FlutterConRouter {
       GoRoute(
         path: speakerDetailsRoute,
         name: speakerDetailsRoute,
+        builder: (context, state) => SpeakerDetailsPage(
+          speaker: state.extra! as Speaker,
+        ),
+      ),
+      GoRoute(
+        path: organiserDetailsRoute,
+        name: organiserDetailsRoute,
         builder: (context, state) => SpeakerDetailsPage(
           speaker: state.extra! as Speaker,
         ),
