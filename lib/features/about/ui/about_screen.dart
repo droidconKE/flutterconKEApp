@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttercon/common/data/models/organising_team.dart';
+import 'package:fluttercon/common/repository/api_repository.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 
 import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:fluttercon/features/about/cubit/fetch_organising_team_cubit.dart';
+import 'package:fluttercon/features/about/widgets/organizing_team_card.dart';
 import 'package:fluttercon/features/home/widgets/organizers_card.dart';
 
 class AboutScreen extends StatefulWidget {
@@ -57,8 +62,15 @@ class _AboutScreenState extends State<AboutScreen> {
                     'them.',
                     style: theme.textTheme.bodyMedium,
                   ),
-                  const SizedBox(height: 20),
-                  Text(
+                ],
+              ),
+            ),
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 20),
+                  child: Text(
                     'Organizing Team',
                     style: theme.textTheme.titleLarge?.copyWith(
                       color: isDark
@@ -66,12 +78,16 @@ class _AboutScreenState extends State<AboutScreen> {
                           : ThemeColors.blueDroidconColor,
                     ),
                   ),
-                  const SizedBox(height: 10),
-                  //individualOrganizers
-                  const SizedBox(height: 40),
-                  const OrganizersCard(),
-                ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            //individualOrganizers
+            BlocProvider(
+              create: (context) => FetchOrganisingTeamCubit(
+                apiRepository: ApiRepository(),
               ),
+              child: const OrganisingTeamCard(),
             ),
           ],
         ),
