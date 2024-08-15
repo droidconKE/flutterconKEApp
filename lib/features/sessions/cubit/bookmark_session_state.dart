@@ -8,7 +8,7 @@ class BookmarkSessionState with _$BookmarkSessionState {
   }) = _Loading;
   const factory BookmarkSessionState.loaded({
     required String message,
-    int? index,
+    BookmarkStatus? status,
   }) = _Loaded;
   const factory BookmarkSessionState.error(String message) = _Error;
 }

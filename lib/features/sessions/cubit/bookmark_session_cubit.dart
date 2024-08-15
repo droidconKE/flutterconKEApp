@@ -37,7 +37,7 @@ class BookmarkSessionCubit extends Cubit<BookmarkSessionState> {
       emit(
         BookmarkSessionState.loaded(
           message: message,
-          index: index,
+          status: bookmarkStatus,
         ),
       );
     } catch (e) {
