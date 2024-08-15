@@ -51,7 +51,7 @@ dev_dependencies:
   flutter_native_splash: ^2.4.1
   flutter_test:
     sdk: flutter
-  freezed: ^2.5.2
+  freezed: ^2.5.7
   hive_generator: ^2.0.1
   icons_launcher: ^2.1.7
   injectable_generator: ^2.6.2

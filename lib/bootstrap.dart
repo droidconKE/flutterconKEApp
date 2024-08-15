@@ -82,6 +82,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
           BlocProvider<FetchGroupedSessionsCubit>(
             create: (context) => FetchGroupedSessionsCubit(
               apiRepository: getIt(),
+              hiveRepository: getIt(),
             ),
           ),
           BlocProvider<FetchSpeakersCubit>(

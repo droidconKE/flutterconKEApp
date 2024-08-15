@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercon/common/data/models/adapters.dart';
-import 'package:fluttercon/common/data/models/auth.dart';
+import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/common/utils/env/flavor_config.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
@@ -10,7 +10,9 @@ class HiveRepository {
   Future<void> initBoxes() async {
     await Hive.initFlutter();
 
-    Hive.registerAdapter(FlutterConUserAdapter());
+    Hive
+      ..registerAdapter(FlutterConUserAdapter())
+      ..registerAdapter(FlutterConSessionAdapter());
 
     await Hive.openBox<dynamic>(FlutterConConfig.instance!.values.hiveBox);
   }
@@ -20,6 +22,7 @@ class HiveRepository {
         .deleteAll(<String>[
       'accessToken',
       'profile',
+      'sessions',
     ]);
   }
 
@@ -65,5 +68,23 @@ class HiveRepository {
       (element) => element.toString() == themeMode,
       orElse: () => ThemeMode.system,
     );
+  }
+
+  void persistSessions({
+    required List<Session> sessions,
+  }) {
+    Hive.box<dynamic>(FlutterConConfig.instance!.values.hiveBox)
+        .put('sessions', SessionResponse(data: sessions));
+  }
+
+  List<Session> retrieveSessions() {
+    final sessions =
+        Hive.box<dynamic>(FlutterConConfig.instance!.values.hiveBox)
+            .get('sessions') as SessionResponse?;
+
+    if (sessions == null) {
+      return <Session>[];
+    }
+    return sessions.data;
   }
 }
