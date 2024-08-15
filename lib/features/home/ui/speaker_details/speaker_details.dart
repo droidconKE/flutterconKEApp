@@ -101,8 +101,10 @@ class SpeakerDetailsPage extends StatelessWidget {
                   const SizedBox(height: 16),
                   Text(
                     speaker.tagline ?? '',
+                    textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 16,
+                      
                     ),
                   ),
                   const SizedBox(height: 32),
@@ -118,10 +120,13 @@ class SpeakerDetailsPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  Text(
-                    speaker.biography,
-                    style: const TextStyle(
-                      fontSize: 16,
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      speaker.biography,
+                      style: const TextStyle(
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 32),
