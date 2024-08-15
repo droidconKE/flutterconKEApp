@@ -16,6 +16,14 @@ class SpeakerListScreen extends StatelessWidget {
         ),
         title: const Text('Speakers'),
       ),
+      body: GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+        ),
+        itemBuilder: (context, index) {
+          return null;
+        },
+      ),
     );
   }
 }

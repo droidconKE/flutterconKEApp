@@ -17,7 +17,6 @@ class _SpeakerCardState extends State<SpeakerCard> {
   @override
   void initState() {
     context.read<FetchSpeakersCubit>().fetchSpeakers();
-    // TODO: implement initState
     super.initState();
   }
 
@@ -36,24 +35,17 @@ class _SpeakerCardState extends State<SpeakerCard> {
                   ),
             ),
             const Spacer(),
-            TextButton(
-              onPressed: () => context.push(FlutterConRouter.speakerListRoute),
-              child: Row(
-                children: [
-                  const Text('View All'),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  Container(
-                    width: 40,
-                    decoration: BoxDecoration(
-                      color: ThemeColors.chipBackground,
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    child: const Text('+45'),
-                  ),
-                ],
+            TextButton.icon(
+              iconAlignment: IconAlignment.end,
+              icon: const Badge(
+                backgroundColor: Colors.blueGrey,
+                label: Text(
+                  '+45',
+                  style: TextStyle(color: ThemeColors.blueColor),
+                ),
               ),
+              onPressed: () => context.push(FlutterConRouter.speakerListRoute),
+              label: const Text('View All'),
             ),
           ],
         ),
