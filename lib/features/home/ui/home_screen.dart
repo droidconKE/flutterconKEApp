@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
-import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/home/widgets/organizers_card.dart';
+import 'package:fluttercon/features/home/widgets/sessions_card.dart';
+import 'package:fluttercon/features/home/widgets/speaker_home_card.dart';
 import 'package:fluttercon/features/home/widgets/sponsors_card.dart';
-import 'package:sizer/sizer.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, this.switchTab});
+
+  final VoidCallback? switchTab;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -15,7 +17,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -28,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 'in Africa',
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w600,
-                      color: isDark ? Colors.black : Colors.white,
+                      color: Colors.black,
                       fontSize: 16,
                     ),
               ),
@@ -38,52 +39,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Image.asset(AppAssets.droidconBanner),
               ),
               const SizedBox(height: 24),
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: ThemeColors.tealColor,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      AppAssets.cfsBanner,
-                      width: 20.w,
-                      height: 10.h,
-                    ),
-                    const Spacer(),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Call for Speakers',
-                          style:
-                              Theme.of(context).textTheme.titleMedium?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                    fontSize: 17.sp,
-                                  ),
-                        ),
-                        Text(
-                          'Apply to be a speakers',
-                          style:
-                              Theme.of(context).textTheme.titleMedium?.copyWith(
-                                    fontWeight: FontWeight.normal,
-                                    color: Colors.black,
-                                    fontSize: 10.sp,
-                                  ),
-                        ),
-                      ],
-                    ),
-                    const Spacer(),
-                    const ImageIcon(
-                      AssetImage(AppAssets.playIcon),
-                      color: Colors.white,
-                    ),
-                    const Spacer(),
-                  ],
-                ),
-              ),
+              SessionsCard(switchTab: widget.switchTab),
+              const SizedBox(height: 24),
+              const SpeakerCard(),
               const SizedBox(height: 24),
               const SponsorsCard(),
               const SizedBox(height: 24),

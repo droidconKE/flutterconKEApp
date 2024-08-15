@@ -19,8 +19,7 @@ class FetchSponsorsCubit extends Cubit<FetchSponsorsState> {
   Future<void> fetchSponsors() async {
     emit(const FetchSponsorsState.loading());
     try {
-      final sponsors =
-          await _apiRepository.fetchSponsors(event: 'droidconke-2022-281');
+      final sponsors = await _apiRepository.fetchSponsors();
       emit(FetchSponsorsState.loaded(sponsors));
     } on Failure catch (e) {
       emit(FetchSponsorsState.error(e.message));
