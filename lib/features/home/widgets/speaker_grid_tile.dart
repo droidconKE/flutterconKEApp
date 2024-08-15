@@ -31,31 +31,50 @@ class SpeakerGridTile extends StatelessWidget {
                 child: CachedNetworkImage(
                   fit: BoxFit.cover,
                   imageUrl: speaker.avatar,
+                  height: 100,
                 ),
               ),
             ),
-            const SizedBox(
-              height: 5,
-            ),
+            const SizedBox(height: 8),
             Text(
               speaker.name,
+              maxLines: 1,
               style: const TextStyle(
                 color: ThemeColors.blueDroidconColor,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(
-              height: 5,
-            ),
+            const SizedBox(height: 8),
             Text(
               speaker.biography,
               overflow: TextOverflow.clip,
               maxLines: 3,
             ),
-            const SizedBox(
-              height: 10,
+            const SizedBox(height: 10),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  side: const BorderSide(
+                    color: ThemeColors.blueGreenDroidconColor,
+                    width: 2,
+                  ),
+                  backgroundColor: Colors.white,
+                ),
+                child: Text(
+                  'Details'.toUpperCase(),
+                  style: const TextStyle(
+                    color: ThemeColors.blueGreenDroidconColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ),
-            OutlinedButton(onPressed: () {}, child: const Text('SESSION')),
           ],
         ),
       ),

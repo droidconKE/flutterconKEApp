@@ -10,7 +10,7 @@ class ApiRepository {
 
   Future<List<Speaker>> fetchSpeakers({
     required String event,
-    int perPage = 15,
+    int perPage = 100,
     int page = 1,
   }) async {
     final response = await _networkUtil.getReq(

@@ -35,9 +35,9 @@ class _SessionsCardState extends State<SessionsCard> {
       children: [
         Row(
           children: [
-             Text(
+            Text(
               'Sessions',
-               style: Theme.of(context).textTheme.titleLarge!.copyWith(
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     color: ThemeColors.blueDroidconColor,
                     fontWeight: FontWeight.bold,
                   ),

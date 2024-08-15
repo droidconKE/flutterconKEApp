@@ -13,17 +13,22 @@ class SpeakerListScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () => GoRouter.of(context).pop(),
           icon: const Icon(Icons.arrow_back),
+          onPressed: () => GoRouter.of(context).pop(),
+          color: Colors.black,
         ),
-        title: const Text('Speakers'),
+        title: const Text(
+          'Speakers',
+          style: TextStyle(color: Colors.black),
+        ),
+        surfaceTintColor: Colors.white,
       ),
       body: BlocBuilder<FetchSpeakersCubit, FetchSpeakersState>(
         builder: (context, state) => state.maybeWhen(
           loaded: (speakers, _) => Padding(
             padding: const EdgeInsets.all(10),
             child: GridView.builder(
-              itemCount: speakers.take(5).length,
+              itemCount: speakers.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 mainAxisSpacing: 4,
                 crossAxisSpacing: 4,
@@ -42,9 +47,7 @@ class SpeakerListScreen extends StatelessWidget {
                   fontSize: 18,
                 ),
           ),
-          orElse: () => const Center(
-            child: CircularProgressIndicator(),
-          ),
+          orElse: () => const Center(child: CircularProgressIndicator()),
         ),
       ),
     );
