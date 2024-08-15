@@ -104,7 +104,6 @@ class SpeakerDetailsPage extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 16,
-                      
                     ),
                   ),
                   const SizedBox(height: 32),
