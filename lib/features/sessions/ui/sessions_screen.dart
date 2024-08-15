@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttercon/common/data/enums/bookmark_status.dart';
 import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
@@ -25,6 +26,8 @@ class _SessionsScreenState extends State<SessionsScreen>
     with SingleTickerProviderStateMixin {
   int _currentTab = 0;
   int _availableTabs = 3;
+
+  bool _isBookmarked = false;
 
   @override
   void initState() {
@@ -95,8 +98,26 @@ class _SessionsScreenState extends State<SessionsScreen>
                       child: Column(
                         children: [
                           Switch(
-                            value: false,
-                            onChanged: (_) {},
+                            value: _isBookmarked,
+                            onChanged: (newValue) {
+                              setState(() {
+                                _isBookmarked = newValue;
+                              });
+
+                              if (_isBookmarked) {
+                                context
+                                    .read<FetchGroupedSessionsCubit>()
+                                    .fetchGroupedSessions(
+                                      bookmarkStatus: BookmarkStatus.bookmarked,
+                                    );
+                              }
+
+                              if (!_isBookmarked) {
+                                context
+                                    .read<FetchGroupedSessionsCubit>()
+                                    .fetchGroupedSessions();
+                              }
+                            },
                             trackOutlineWidth: WidgetStateProperty.all(1),
                             trackColor: WidgetStateProperty.all(Colors.black),
                             activeTrackColor: ThemeColors.orangeColor,
