@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/data/enums/bookmark_status.dart';
 import 'package:fluttercon/common/data/models/models.dart';
+import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/sessions/cubit/bookmark_session_cubit.dart';
 import 'package:fluttercon/features/sessions/cubit/fetch_grouped_sessions_cubit.dart';
@@ -198,7 +199,11 @@ class SessionDetailsPage extends StatelessWidget {
                         ),
                         const Spacer(),
                         OutlinedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (speaker.twitter != null) {
+                              Misc.launchURL(Uri.parse(speaker.twitter!));
+                            }
+                          },
                           child: Row(
                             children: [
                               // Add a Twitter Icon here

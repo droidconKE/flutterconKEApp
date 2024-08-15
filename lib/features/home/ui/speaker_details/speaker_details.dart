@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
+import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:go_router/go_router.dart';
 
@@ -122,7 +123,7 @@ class SpeakerDetailsPage extends StatelessWidget {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  '${speaker.biography} ${speaker.biography}' ,
+                  '${speaker.biography} ${speaker.biography}',
                   style: const TextStyle(
                     fontSize: 16,
                   ),
@@ -143,7 +144,11 @@ class SpeakerDetailsPage extends StatelessWidget {
                     ),
                     const Spacer(),
                     OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (speaker.twitter != null) {
+                          Misc.launchURL(Uri.parse(speaker.twitter!));
+                        }
+                      },
                       child: Row(
                         children: [
                           // Add a Twitter Icon here
@@ -153,7 +158,7 @@ class SpeakerDetailsPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 60),
+              const SizedBox(height: 60),
             ],
           ),
         ),

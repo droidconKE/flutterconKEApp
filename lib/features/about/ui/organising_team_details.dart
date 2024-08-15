@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttercon/common/data/models/individual_organiser.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
+import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:go_router/go_router.dart';
 
@@ -130,7 +131,8 @@ class OranisingTeamMemberDetailsPage extends StatelessWidget {
                   ),
                   const Spacer(),
                   OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () =>
+                        Misc.launchURL(Uri.parse(organiser.twitterHandle)),
                     child: Row(
                       children: [
                         // Add a Twitter Icon here
