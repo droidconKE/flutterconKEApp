@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttercon/common/data/models/individual_organiser.dart';
 import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/features/about/ui/organising_team_details.dart';
+import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/features/auth/ui/sign_in.dart';
 import 'package:fluttercon/features/dashboard/ui/dashboard_screen.dart';
 import 'package:fluttercon/features/home/ui/speaker_details/speaker_details.dart';
