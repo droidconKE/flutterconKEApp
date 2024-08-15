@@ -77,6 +77,14 @@ class HiveRepository {
         .put('sessions', SessionResponse(data: sessions));
   }
 
+  bool hasSessions() {
+    final sessions =
+        Hive.box<dynamic>(FlutterConConfig.instance!.values.hiveBox)
+            .get('sessions') as SessionResponse?;
+    if (sessions == null) return false;
+    return sessions.data.isNotEmpty;
+  }
+
   List<Session> retrieveSessions({
     String? sessionLevel,
     String? sessionType,

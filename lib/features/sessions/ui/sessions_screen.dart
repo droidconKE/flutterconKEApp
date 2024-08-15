@@ -22,21 +22,12 @@ class SessionsScreen extends StatefulWidget {
 
 class _SessionsScreenState extends State<SessionsScreen>
     with SingleTickerProviderStateMixin {
-  late TabController _tabController;
   int _currentTab = 0;
-  int _tabs = 1;
-
-  void _changeTab() {
-    setState(() {
-      _currentTab = _tabController.index;
-    });
-  }
+  int _availableTabs = 3;
 
   @override
   void initState() {
     context.read<FetchGroupedSessionsCubit>().fetchGroupedSessions();
-    _tabController = TabController(length: 3, vsync: this);
-    _tabController.addListener(_changeTab);
 
     super.initState();
   }
@@ -45,7 +36,7 @@ class _SessionsScreenState extends State<SessionsScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       body: DefaultTabController(
-        length: _tabs,
+        length: _availableTabs,
         child: SafeArea(
           child: NestedScrollView(
             headerSliverBuilder: (context, innerBoxIsScrolled) => <Widget>[
@@ -55,15 +46,12 @@ class _SessionsScreenState extends State<SessionsScreen>
                     BlocConsumer<FetchGroupedSessionsCubit,
                         FetchGroupedSessionsState>(
                       listener: (context, state) {
-                        state.maybeWhen(
-                          loaded: (groupedSessions) {
-                            // Set the number of tabs based on the filtered
-                            // sessions if they exist
+                        state.mapOrNull(
+                          loaded: (loaded) {
                             setState(() {
-                              _tabs = groupedSessions.keys.length;
+                              _availableTabs = loaded.groupedSessions.length;
                             });
                           },
-                          orElse: () {},
                         );
                       },
                       builder: (context, state) => state.maybeWhen(
@@ -72,7 +60,6 @@ class _SessionsScreenState extends State<SessionsScreen>
                           child: CircularProgressIndicator(),
                         ),
                         loaded: (groupedSessions) => TabBar(
-                          controller: _tabController,
                           onTap: (value) => setState(() {
                             Logger().d(value);
                             _currentTab = value;
@@ -151,11 +138,8 @@ class _SessionsScreenState extends State<SessionsScreen>
             body: BlocBuilder<FetchGroupedSessionsCubit,
                 FetchGroupedSessionsState>(
               builder: (context, state) => state.maybeWhen(
-                orElse: () => const Center(
-                  child: CircularProgressIndicator(),
-                ),
+                orElse: () => const Center(child: CircularProgressIndicator()),
                 loaded: (groupedSessions) => TabBarView(
-                  controller: _tabController,
                   children: groupedSessions.values
                       .map(
                         (dailySessions) => DaySessionsView(

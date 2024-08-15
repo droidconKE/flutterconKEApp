@@ -28,11 +28,13 @@ class FetchGroupedSessionsCubit extends Cubit<FetchGroupedSessionsState> {
     emit(const FetchGroupedSessionsState.loading());
 
     try {
-      final persistedSessions = _hiveRepository.retrieveSessions(
-        sessionLevel: sessionLevel,
-        sessionType: sessionType,
-      );
-      if (persistedSessions.isNotEmpty) {
+      final hasPeristedSessions = _hiveRepository.hasSessions();
+      if (hasPeristedSessions) {
+        final persistedSessions = _hiveRepository.retrieveSessions(
+          sessionLevel: sessionLevel,
+          sessionType: sessionType,
+        );
+
         final groupedEntries = collection.groupBy<Session, String>(
           persistedSessions,
           (Session entry) => DateFormat.yMd().format(entry.startDateTime),
