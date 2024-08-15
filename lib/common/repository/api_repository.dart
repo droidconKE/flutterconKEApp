@@ -16,83 +16,123 @@ class ApiRepository {
     int perPage = 100,
     int page = 1,
   }) async {
-    final response = await _networkUtil.getReq(
-      '/events/$_eventSlug/speakers',
-      queryParameters: {'per_page': perPage, 'page': page},
-    );
+    try {
+      final response = await _networkUtil.getReq(
+        '/events/$_eventSlug/speakers',
+        queryParameters: {'per_page': perPage, 'page': page},
+      );
 
-    return SpeakerResponse.fromJson(response).data;
+      return SpeakerResponse.fromJson(response).data;
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future<List<Room>> fetchRooms() async {
-    final response = await _networkUtil.getReq(
-      '/events/$_eventSlug/rooms',
-    );
+    try {
+      final response = await _networkUtil.getReq(
+        '/events/$_eventSlug/rooms',
+      );
 
-    return RoomResponse.fromJson(response).data;
+      return RoomResponse.fromJson(response).data;
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future<List<Session>> fetchSessions({
     int perPage = 20,
     int page = 1,
   }) async {
-    final response = await _networkUtil.getReq(
-      '/events/$_eventSlug/schedule',
-      queryParameters: {'per_page': perPage, 'page': page},
-    );
+    try {
+      final response = await _networkUtil.getReq(
+        '/events/$_eventSlug/schedule',
+        queryParameters: {'per_page': perPage, 'page': page},
+      );
 
-    return SessionResponse.fromJson(response).data;
+      return SessionResponse.fromJson(response).data;
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future<List<Feed>> fetchFeeds({
     int perPage = 10,
     int page = 1,
   }) async {
-    final response = await _networkUtil.getReq(
-      '/events/$_eventSlug/feeds',
-      queryParameters: {'per_page': perPage, 'page': page},
-    );
+    try {
+      final response = await _networkUtil.getReq(
+        '/events/$_eventSlug/feeds',
+        queryParameters: {'per_page': perPage, 'page': page},
+      );
 
-    return FeedResponse.fromJson(response).data;
+      return FeedResponse.fromJson(response).data;
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future<List<Organiser>> fetchOrganisers({
     int perPage = 20,
     int page = 1,
   }) async {
-    final response = await _networkUtil.getReq(
-      '/organizers',
-      queryParameters: {'per_page': perPage, 'page': page},
-    );
+    try {
+      final response = await _networkUtil.getReq(
+        '/organizers',
+        queryParameters: {'per_page': perPage, 'page': page},
+      );
 
-    return OrganiserResponse.fromJson(response).data;
+      return OrganiserResponse.fromJson(response).data;
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future<List<Sponsor>> fetchSponsors({
     int perPage = 20,
     int page = 1,
   }) async {
-    final response = await _networkUtil.getReq(
-      '/events/$_eventSlug/sponsors',
-      queryParameters: {'per_page': perPage, 'page': page},
-    );
+    try {
+      final response = await _networkUtil.getReq(
+        '/events/$_eventSlug/sponsors',
+        queryParameters: {'per_page': perPage, 'page': page},
+      );
 
-    return SponsorResponse.fromJson(response).data;
+      return SponsorResponse.fromJson(response).data;
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future<List<IndividualOrganiser>> fetchIndividualOrganisers({
     int perPage = 20,
     int page = 1,
   }) async {
-    final response = await _networkUtil.getReq(
-      '/organizers/droidcon-ke-645/team',
-      queryParameters: {
-        'per_page': perPage,
-        'page': page,
-        'type': 'individual',
-      },
-    );
+    try {
+      final response = await _networkUtil.getReq(
+        '/organizers/droidcon-ke-645/team',
+        queryParameters: {
+          'per_page': perPage,
+          'page': page,
+          'type': 'individual',
+        },
+      );
 
-    return IndividualOrganiserResponse.fromJson(response).data;
+      return IndividualOrganiserResponse.fromJson(response).data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<String> bookmarkSession(int sessionId) async {
+    try {
+      final response = await _networkUtil.postReq(
+        '/events/$_eventSlug/bookmark_schedule/$sessionId',
+      );
+
+      return response['message'] as String;
+    } catch (e) {
+      rethrow;
+    }
   }
 }

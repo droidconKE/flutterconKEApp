@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:collection/collection.dart' as collection;
+import 'package:fluttercon/common/data/enums/bookmark_status.dart';
 import 'package:fluttercon/common/data/models/session.dart';
 import 'package:fluttercon/common/repository/api_repository.dart';
 import 'package:fluttercon/common/repository/hive_repository.dart';
@@ -22,6 +23,7 @@ class FetchGroupedSessionsCubit extends Cubit<FetchGroupedSessionsState> {
   late HiveRepository _hiveRepository;
 
   Future<void> fetchGroupedSessions({
+    BookmarkStatus? bookmarkStatus,
     String? sessionLevel,
     String? sessionType,
   }) async {
@@ -33,6 +35,9 @@ class FetchGroupedSessionsCubit extends Cubit<FetchGroupedSessionsState> {
         final persistedSessions = _hiveRepository.retrieveSessions(
           sessionLevel: sessionLevel,
           sessionType: sessionType,
+          bookmarkStatus: (bookmarkStatus != null)
+              ? bookmarkStatus == BookmarkStatus.bookmarked
+              : null,
         );
 
         final groupedEntries = collection.groupBy<Session, String>(

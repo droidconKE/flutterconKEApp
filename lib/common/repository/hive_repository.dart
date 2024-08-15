@@ -88,6 +88,7 @@ class HiveRepository {
   List<Session> retrieveSessions({
     String? sessionLevel,
     String? sessionType,
+    bool? bookmarkStatus,
   }) {
     final sessions =
         Hive.box<dynamic>(FlutterConConfig.instance!.values.hiveBox)
@@ -97,19 +98,49 @@ class HiveRepository {
       return <Session>[];
     }
 
-    if (sessionLevel == null && sessionType == null) {
+    if (sessionLevel == null && sessionType == null && bookmarkStatus == null) {
       return sessions.data;
     }
 
     return sessions.data.where((session) {
-      if (sessionLevel != null && sessionType != null) {
+      if (sessionLevel != null &&
+          sessionType != null &&
+          bookmarkStatus != null) {
         return session.sessionLevel == sessionLevel &&
-            session.sessionFormat == sessionType;
+            session.sessionFormat == sessionType &&
+            session.isBookmarked == bookmarkStatus;
       } else if (sessionLevel != null) {
         return session.sessionLevel == sessionLevel;
+      } else if (bookmarkStatus != null) {
+        return session.isBookmarked == bookmarkStatus;
       } else {
         return session.sessionFormat == sessionType;
       }
     }).toList();
+  }
+
+  void updateSession({
+    required int sessionId,
+    bool? bookmarkStatus,
+  }) {
+    final sessions =
+        Hive.box<dynamic>(FlutterConConfig.instance!.values.hiveBox)
+            .get('sessions') as SessionResponse?;
+
+    if (sessions == null) {
+      return;
+    }
+
+    final updatedSessions = sessions.data.map((session) {
+      if (session.id == sessionId) {
+        return session.copyWith(
+          isBookmarked: bookmarkStatus ?? session.isBookmarked,
+        );
+      }
+      return session;
+    }).toList();
+
+    Hive.box<dynamic>(FlutterConConfig.instance!.values.hiveBox)
+        .put('sessions', SessionResponse(data: updatedSessions));
   }
 }
