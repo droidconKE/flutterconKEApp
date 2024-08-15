@@ -123,4 +123,16 @@ class ApiRepository {
       rethrow;
     }
   }
+
+  Future<String> bookmarkSession(int sessionId) async {
+    try {
+      final response = await _networkUtil.postReq(
+        '/events/$_eventSlug/bookmark_schedule/$sessionId',
+      );
+
+      return response['message'] as String;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

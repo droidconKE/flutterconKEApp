@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:fluttercon/features/sessions/cubit/bookmark_session_cubit.dart';
 import 'package:fluttercon/features/sessions/cubit/fetch_grouped_sessions_cubit.dart';
 
 import 'package:fluttercon/l10n/l10n.dart';
@@ -340,13 +341,68 @@ class DaySessionsView extends StatelessWidget {
                   ),
               ],
             ),
-            trailing: IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.star_border_outlined,
-                color: ThemeColors.blueColor,
-                size: 32,
-              ),
+            trailing: BlocConsumer<BookmarkSessionCubit, BookmarkSessionState>(
+              listener: (context, state) {
+                state.mapOrNull(
+                  loaded: (loaded) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(loaded.message),
+                      ),
+                    );
+                  },
+                );
+              },
+              builder: (context, state) {
+                return state.maybeWhen(
+                  loading: (loadingIndex) => loadingIndex == index
+                      ? SizedBox(
+                          height: 32,
+                          width: 32,
+                          child: const CircularProgressIndicator(),
+                        )
+                      : IconButton(
+                          onPressed: () => context
+                              .read<BookmarkSessionCubit>()
+                              .bookmarkSession(
+                                sessionId: sessions[index].id,
+                                index: index,
+                              )
+                              .then((_) {
+                            if (context.mounted) {
+                              context
+                                  .read<FetchGroupedSessionsCubit>()
+                                  .fetchGroupedSessions();
+                            }
+                          }),
+                          icon: const Icon(
+                            Icons.star_border_outlined,
+                            color: ThemeColors.blueColor,
+                            size: 32,
+                          ),
+                        ),
+                  orElse: () => IconButton(
+                    onPressed: () => context
+                        .read<BookmarkSessionCubit>()
+                        .bookmarkSession(
+                          sessionId: sessions[index].id,
+                          index: index,
+                        )
+                        .then((_) {
+                      if (context.mounted) {
+                        context
+                            .read<FetchGroupedSessionsCubit>()
+                            .fetchGroupedSessions();
+                      }
+                    }),
+                    icon: const Icon(
+                      Icons.star_border_outlined,
+                      color: ThemeColors.blueColor,
+                      size: 32,
+                    ),
+                  ),
+                );
+              },
             ),
           ),
         ),
