@@ -131,8 +131,13 @@ class OranisingTeamMemberDetailsPage extends StatelessWidget {
                   ),
                   const Spacer(),
                   ElevatedButton(
-                    onPressed: () =>
-                        Misc.launchURL(Uri.parse(organiser.twitterHandle)),
+                    onPressed: () => Misc.launchURL(
+                      Uri(
+                        scheme: 'https',
+                        host: 'twitter.com',
+                        path: organiser.twitterHandle,
+                      ),
+                    ),
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
                       backgroundColor: Colors.white,
