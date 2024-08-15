@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttercon/common/data/models/session.dart';
 import 'package:fluttercon/features/auth/ui/sign_in.dart';
 import 'package:fluttercon/features/dashboard/ui/dashboard_screen.dart';
+import 'package:fluttercon/features/sessions/ui/session_details/session_details.dart';
 import 'package:fluttercon/features/splash/splash_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -10,6 +12,7 @@ class FlutterConRouter {
   static const String decisionRoute = '/';
   static const String signInRoute = '/sign-in';
   static const String dashboardRoute = '/dashboard';
+  static const String sessionDetailsRoute = '/session-details';
 
   static final GlobalKey<NavigatorState> _globalNavigatorKey =
       GlobalKey<NavigatorState>();
@@ -32,6 +35,13 @@ class FlutterConRouter {
         path: dashboardRoute,
         name: dashboardRoute,
         builder: (context, state) => const DashboardScreen(),
+      ),
+      GoRoute(
+        path: sessionDetailsRoute,
+        name: sessionDetailsRoute,
+        builder: (context, state) => SessionDetailsPage(
+          session: state.extra! as Session,
+        ),
       ),
     ],
   );

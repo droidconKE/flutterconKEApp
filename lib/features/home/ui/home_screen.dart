@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/home/widgets/organizers_card.dart';
+import 'package:fluttercon/features/home/widgets/sessions_card.dart';
 import 'package:fluttercon/features/home/widgets/sponsors_card.dart';
 import 'package:sizer/sizer.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, this.switchTab});
+
+  final VoidCallback? switchTab;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -37,6 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 borderRadius: BorderRadius.circular(10),
                 child: Image.asset(AppAssets.droidconBanner),
               ),
+              const SizedBox(height: 24),
+              SessionsCard(switchTab: widget.switchTab),
               const SizedBox(height: 24),
               Container(
                 padding: const EdgeInsets.all(10),

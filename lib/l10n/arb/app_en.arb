@@ -1,5 +1,30 @@
 {
     "@@locale": "en",
     "feedback": "Feedback",
-    "@feedback": {}
+    "@feedback": {},
+    "sessionTimeAndVenue": "@ {time} | {venue}",
+    "@sessionTimeAndVenue": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            },
+            "venue": {
+                "type": "String"
+            }
+        }
+    },
+    "sessionFullTimeAndVenue": "{startTime} - {endTime} | {venue}",
+    "@sessionFullTimeAndVenue": {
+        "placeholders": {
+            "startTime": {
+                "type": "String"
+            },
+            "endTime": {
+                "type": "String"
+            },
+            "venue": {
+                "type": "String"
+            }
+        }
+    }
 }
