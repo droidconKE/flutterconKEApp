@@ -396,9 +396,13 @@ class DaySessionsView extends StatelessWidget {
                                   .fetchGroupedSessions();
                             }
                           }),
-                          icon: const Icon(
-                            Icons.star_border_outlined,
-                            color: ThemeColors.blueColor,
+                          icon: Icon(
+                            sessions[index].isBookmarked
+                                ? Icons.star_rate_rounded
+                                : Icons.star_border_outlined,
+                            color: sessions[index].isBookmarked
+                                ? ThemeColors.orangeColor
+                                : ThemeColors.blueColor,
                             size: 32,
                           ),
                         ),

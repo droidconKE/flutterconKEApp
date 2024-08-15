@@ -35,7 +35,9 @@ class FetchGroupedSessionsCubit extends Cubit<FetchGroupedSessionsState> {
         final persistedSessions = _hiveRepository.retrieveSessions(
           sessionLevel: sessionLevel,
           sessionType: sessionType,
-          bookmarkStatus: bookmarkStatus == BookmarkStatus.bookmarked,
+          bookmarkStatus: (bookmarkStatus != null)
+              ? bookmarkStatus == BookmarkStatus.bookmarked
+              : null,
         );
 
         final groupedEntries = collection.groupBy<Session, String>(
