@@ -37,7 +37,7 @@ class ApiRepository {
     int page = 1,
   }) async {
     final response = await _networkUtil.getReq(
-      '/events/$event/sessions',
+      '/events/$event/schedule',
       queryParameters: {'per_page': perPage, 'page': page},
     );
 

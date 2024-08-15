@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:fluttercon/common/data/models/session.dart';
 import 'package:fluttercon/features/auth/ui/sign_in.dart';
 import 'package:fluttercon/features/dashboard/ui/dashboard_screen.dart';
 import 'package:fluttercon/features/home/ui/speakers_list_screen.dart';
+import 'package:fluttercon/features/sessions/ui/session_details/session_details.dart';
 import 'package:fluttercon/features/splash/splash_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -11,7 +13,8 @@ class FlutterConRouter {
   static const String decisionRoute = '/';
   static const String signInRoute = '/sign-in';
   static const String dashboardRoute = '/dashboard';
-  static const String speakerListRoute = 'speakerList';
+  static const String speakerListRoute = '/speakers';
+  static const String sessionDetailsRoute = '/session-details';
 
   static final GlobalKey<NavigatorState> _globalNavigatorKey =
       GlobalKey<NavigatorState>();
@@ -41,6 +44,13 @@ class FlutterConRouter {
             builder: (context, state) => const SpeakerListScreen(),
           ),
         ],
+      ),
+      GoRoute(
+        path: sessionDetailsRoute,
+        name: sessionDetailsRoute,
+        builder: (context, state) => SessionDetailsPage(
+          session: state.extra! as Session,
+        ),
       ),
     ],
   );
