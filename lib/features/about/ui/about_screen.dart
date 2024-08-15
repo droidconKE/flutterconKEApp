@@ -45,20 +45,24 @@ class _AboutScreenState extends State<AboutScreen> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                'Droidcon is a global conference focused on the engineering'
-                ' of Android applications. Droidcon provides a forum for '
-                'developers to network with other developers, share '
-                'techniques, announce apps and products, and to learn and '
-                'teach.\n\n'
-                'This three-day developer focused gathering will be held '
-                'in Nairobi Kenya on November 16th to 18th 2022 and will '
-                'be the largest of its kind in Africa.\n\n'
-                'It will have workshops and codelabs focused on the '
-                'building of Android applications and will give '
-                'participants an excellent chance to learn about the local '
-                'Android development ecosystem, opportunities and services '
-                'as well as meet the engineers and companies who work on '
-                'them.',
+                'Fluttercon Kenya is the first event of its kind in Africa, '
+                'launching the Fluttercon conference on the continent. It '
+                'will feature tech talks, workshops, and panels led by '
+                'industry experts, Google Developer Experts, and seasoned '
+                'Flutter specialists, all focusing on the latest '
+                'advancements in Flutter and Dart technologies.\n\n'
+                'Organized by the same team behind four successful editions'
+                ' of Droidcon Kenya, Fluttercon Kenya promises to maintain '
+                'a high standard of excellence. With a history of hosting '
+                'over 3,000 attendees and curating 200 sessions, the team '
+                'brings unmatched expertise to this event.\n\n'
+                "Co-located with Droidcon Kenya, Africa's top Android "
+                'developer conference, Fluttercon Kenya will run from '
+                'November 6th to 8th, 2024. The joint event will gather '
+                'hundreds of Flutter and Android developers, offering a '
+                'packed program of tech talks, workshops, and panels, '
+                "forming one of the continent's largest mobile developer "
+                'gatherings.',
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             ),

@@ -43,7 +43,6 @@ To get started with this project, you need to have Flutter installed on your mac
     ```
 
 ## Features
-
 App will have the following features:
 
 - Sessions
