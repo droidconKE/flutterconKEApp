@@ -17,7 +17,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -30,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 'in Africa',
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w600,
-                      color: isDark ? Colors.black : Colors.white,
+                      color: Colors.black,
                       fontSize: 16,
                     ),
               ),

@@ -78,35 +78,41 @@ class _SpeakerCardState extends State<SpeakerCard> {
                       const SizedBox(width: 4),
                   itemCount: speakers.take(5).length,
                   scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => Column(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(25),
-                        child: Container(
-                          constraints: BoxConstraints(
-                            maxWidth: MediaQuery.sizeOf(context).width / 4.5,
-                          ),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: ThemeColors.tealColor,
-                              width: 2,
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: () => GoRouter.of(context).push(
+                      FlutterConRouter.speakerDetailsRoute,
+                      extra: speakers[index],
+                    ),
+                    child: Column(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(25),
+                          child: Container(
+                            constraints: BoxConstraints(
+                              maxWidth: MediaQuery.sizeOf(context).width / 4.5,
+                            ),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: ThemeColors.tealColor,
+                                width: 2,
+                              ),
+                            ),
+                            child: CachedNetworkImage(
+                              fit: BoxFit.cover,
+                              imageUrl: speakers[index].avatar,
                             ),
                           ),
-                          child: CachedNetworkImage(
-                            fit: BoxFit.cover,
-                            imageUrl: speakers[index].avatar,
+                        ),
+                        SizedBox(
+                          width: MediaQuery.sizeOf(context).width / 5,
+                          child: Text(
+                            speakers[index].name,
+                            maxLines: 2,
+                            softWrap: true,
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        width: MediaQuery.sizeOf(context).width / 5,
-                        child: Text(
-                          speakers[index].name,
-                          maxLines: 2,
-                          softWrap: true,
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               );

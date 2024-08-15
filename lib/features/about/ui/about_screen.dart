@@ -67,8 +67,7 @@ class _AboutScreenState extends State<AboutScreen> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  //individualOrganizers
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 10),
                   const OrganizersCard(),
                 ],
               ),
