@@ -52,4 +52,6 @@ class AppAssets {
   static const session1 = 'assets/images/session1.png';
   static const session2 = 'assets/images/session2.png';
   static const teamPhoto = 'assets/images/team.png';
+
+  static const speakerBackground = 'assets/images/speaker_background.svg';
 }

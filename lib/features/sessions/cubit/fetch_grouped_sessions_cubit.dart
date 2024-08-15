@@ -21,8 +21,7 @@ class FetchGroupedSessionsCubit extends Cubit<FetchGroupedSessionsState> {
     emit(const FetchGroupedSessionsState.loading());
 
     try {
-      final sessions =
-          await _apiRepository.fetchSessions(event: 'droidconke-2022-281');
+      final sessions = await _apiRepository.fetchSessions();
 
       final groupedEntries = collection.groupBy<Session, String>(
         sessions,

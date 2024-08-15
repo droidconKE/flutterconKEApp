@@ -36,62 +36,83 @@ class _SpeakerCardState extends State<SpeakerCard> {
             ),
             const Spacer(),
             TextButton.icon(
+              label: const Text(
+                'View All',
+                style: TextStyle(color: ThemeColors.blueColor),
+              ),
               iconAlignment: IconAlignment.end,
-              icon: const Badge(
-                backgroundColor: Colors.blueGrey,
-                label: Text(
-                  '+45',
-                  style: TextStyle(color: ThemeColors.blueColor),
+              icon: Container(
+                decoration: BoxDecoration(
+                  color: ThemeColors.blueColor.withOpacity(.11),
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+                child: BlocBuilder<FetchSpeakersCubit, FetchSpeakersState>(
+                  builder: (context, state) => state.maybeWhen(
+                    loaded: (_, extras) => Text('+ $extras'),
+                    orElse: () => const SizedBox(
+                      height: 16,
+                      width: 16,
+                      child: Padding(
+                        padding: EdgeInsets.all(2),
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      ),
+                    ),
+                  ),
                 ),
               ),
               onPressed: () => context.push(
                 '${FlutterConRouter.dashboardRoute}/${FlutterConRouter.speakerListRoute}',
               ),
-              label: const Text('View All'),
             ),
           ],
         ),
         BlocBuilder<FetchSpeakersCubit, FetchSpeakersState>(
           builder: (context, state) => state.maybeWhen(
-            loaded: (speakers) {
+            loaded: (speakers, _) {
               return SizedBox(
                 height: 150,
                 child: ListView.separated(
-                  separatorBuilder: (context, index) => const SizedBox(
-                    width: 4,
-                  ),
-                  itemCount: 4,
-                  physics: const NeverScrollableScrollPhysics(),
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(width: 4),
+                  itemCount: speakers.take(5).length,
                   scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => Column(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(25),
-                        child: Container(
-                          constraints: BoxConstraints(
-                            maxWidth: MediaQuery.sizeOf(context).width / 4.5,
-                          ),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: ThemeColors.tealColor,
-                              width: 2,
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: () => GoRouter.of(context).push(
+                      FlutterConRouter.speakerDetailsRoute,
+                      extra: speakers[index],
+                    ),
+                    child: Column(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(25),
+                          child: Container(
+                            constraints: BoxConstraints(
+                              maxWidth: MediaQuery.sizeOf(context).width / 4.5,
+                            ),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: ThemeColors.tealColor,
+                                width: 2,
+                              ),
+                            ),
+                            child: CachedNetworkImage(
+                              fit: BoxFit.cover,
+                              imageUrl: speakers[index].avatar,
                             ),
                           ),
-                          child: CachedNetworkImage(
-                            fit: BoxFit.cover,
-                            imageUrl: speakers[index].avatar,
+                        ),
+                        SizedBox(
+                          width: MediaQuery.sizeOf(context).width / 5,
+                          child: Text(
+                            speakers[index].name,
+                            maxLines: 2,
+                            softWrap: true,
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        width: MediaQuery.sizeOf(context).width / 5,
-                        child: Text(
-                          speakers[index].name,
-                          maxLines: 2,
-                          softWrap: true,
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               );

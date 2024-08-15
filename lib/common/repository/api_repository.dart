@@ -1,6 +1,7 @@
 import 'package:fluttercon/common/data/models/feed.dart';
 import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/common/data/models/sponsor.dart';
+import 'package:fluttercon/common/utils/env/flavor_config.dart';
 import 'package:fluttercon/common/utils/network.dart';
 import 'package:injectable/injectable.dart';
 
@@ -8,36 +9,34 @@ import 'package:injectable/injectable.dart';
 class ApiRepository {
   final _networkUtil = NetworkUtil();
 
+  final _eventSlug = FlutterConConfig.instance!.values.eventSlug;
+
   Future<List<Speaker>> fetchSpeakers({
-    required String event,
-    int perPage = 15,
+    int perPage = 100,
     int page = 1,
   }) async {
     final response = await _networkUtil.getReq(
-      '/events/$event/speakers',
+      '/events/$_eventSlug/speakers',
       queryParameters: {'per_page': perPage, 'page': page},
     );
 
     return SpeakerResponse.fromJson(response).data;
   }
 
-  Future<List<Room>> fetchRooms({
-    required String event,
-  }) async {
+  Future<List<Room>> fetchRooms() async {
     final response = await _networkUtil.getReq(
-      '/events/$event/rooms',
+      '/events/$_eventSlug/rooms',
     );
 
     return RoomResponse.fromJson(response).data;
   }
 
   Future<List<Session>> fetchSessions({
-    required String event,
     int perPage = 20,
     int page = 1,
   }) async {
     final response = await _networkUtil.getReq(
-      '/events/$event/schedule',
+      '/events/$_eventSlug/schedule',
       queryParameters: {'per_page': perPage, 'page': page},
     );
 
@@ -45,12 +44,11 @@ class ApiRepository {
   }
 
   Future<List<Feed>> fetchFeeds({
-    required String event,
     int perPage = 10,
     int page = 1,
   }) async {
     final response = await _networkUtil.getReq(
-      '/events/$event/feeds',
+      '/events/$_eventSlug/feeds',
       queryParameters: {'per_page': perPage, 'page': page},
     );
 
@@ -70,12 +68,11 @@ class ApiRepository {
   }
 
   Future<List<Sponsor>> fetchSponsors({
-    required String event,
     int perPage = 20,
     int page = 1,
   }) async {
     final response = await _networkUtil.getReq(
-      '/events/$event/sponsors',
+      '/events/$_eventSlug/sponsors',
       queryParameters: {'per_page': perPage, 'page': page},
     );
 

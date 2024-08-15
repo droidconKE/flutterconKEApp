@@ -4,6 +4,9 @@ part of 'fetch_speakers_cubit.dart';
 class FetchSpeakersState with _$FetchSpeakersState {
   const factory FetchSpeakersState.initial() = _Initial;
   const factory FetchSpeakersState.loading() = _Loading;
-  const factory FetchSpeakersState.loaded(List<Speaker> speakers) = _Loaded;
+  const factory FetchSpeakersState.loaded({
+    required List<Speaker> speakers,
+    required int extras,
+  }) = _Loaded;
   const factory FetchSpeakersState.error(String message) = _Error;
 }
