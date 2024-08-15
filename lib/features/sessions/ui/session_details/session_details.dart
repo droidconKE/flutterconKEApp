@@ -6,6 +6,7 @@ import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/sessions/cubit/bookmark_session_cubit.dart';
 import 'package:fluttercon/features/sessions/cubit/fetch_grouped_sessions_cubit.dart';
+import 'package:fluttercon/features/sessions/cubit/share_session_cubit.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -230,8 +231,22 @@ class SessionDetailsPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
         backgroundColor: ThemeColors.orangeColor,
-        child: const Icon(Icons.reply),
-        onPressed: () {},
+        child: BlocBuilder<ShareSessionCubit, ShareSessionState>(
+          builder: (context, state) => state.maybeWhen(
+            orElse: () => const Icon(
+              Icons.reply,
+              color: Colors.white,
+            ),
+            loading: () => const Padding(
+              padding: EdgeInsets.all(16),
+              child: CircularProgressIndicator(
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+        onPressed: () =>
+            context.read<ShareSessionCubit>().shareSession(session),
       ),
     );
   }

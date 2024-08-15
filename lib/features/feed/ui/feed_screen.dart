@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/feed/cubit/feed_cubit.dart';
+import 'package:fluttercon/features/feed/cubit/share_feed_post_cubit.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class FeedScreen extends StatefulWidget {
@@ -55,28 +56,39 @@ class _FeedScreenState extends State<FeedScreen> {
                   Row(
                     children: [
                       GestureDetector(
-                        onTap: () {},
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Text(
-                              'Share',
-                              style: TextStyle(
-                                color: ThemeColors.blueColor,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
+                        onTap: () async =>
+                            context.read<ShareFeedPostCubit>().sharePost(feed),
+                        child:
+                            BlocBuilder<ShareFeedPostCubit, ShareFeedPostState>(
+                          builder: (context, state) => state.maybeWhen(
+                            loading: () => const SizedBox(
+                              height: 16,
+                              width: 16,
+                              child: CircularProgressIndicator(),
                             ),
-                            const SizedBox(width: 8),
-                            SvgPicture.asset(
-                              AppAssets.iconShare,
-                              colorFilter: const ColorFilter.mode(
-                                ThemeColors.blueColor,
-                                BlendMode.srcIn,
-                              ),
-                              height: 32,
+                            orElse: () => Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Text(
+                                  'Share',
+                                  style: TextStyle(
+                                    color: ThemeColors.blueColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                SvgPicture.asset(
+                                  AppAssets.iconShare,
+                                  colorFilter: const ColorFilter.mode(
+                                    ThemeColors.blueColor,
+                                    BlendMode.srcIn,
+                                  ),
+                                  height: 32,
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
                       ),
                       const Spacer(),
