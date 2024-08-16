@@ -1,7 +1,7 @@
 name: fluttercon
 description: "A new Flutter project."
 publish_to: 'none'
-version: 1.8.00+1800
+version: 1.8.01+1801
 
 environment:
   sdk: '>=3.3.1 <4.0.0'
@@ -9,7 +9,6 @@ environment:
 dependencies:
   auth_buttons: ^3.0.3
   bloc: ^8.1.4
-  bloc_concurrency: ^0.2.5
   cached_network_image: ^3.4.0
   collection: ^1.18.0
   cupertino_icons: ^1.0.8
@@ -37,12 +36,8 @@ dependencies:
   logger: ^2.4.0
   path_provider: ^2.1.4
   pretty_dio_logger: ^1.4.0
-  rxdart: ^0.28.0
   share_plus: ^10.0.0
   sizer: ^3.0.3
-  stream_transform: ^2.1.0
-  styled_widget: ^0.4.1
-  textstyle_extensions: ^2.0.0-nullsafety
   timeago: ^3.7.0
   timeline_tile: ^2.0.0
   url_launcher: ^6.3.0
