@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:fluttercon/common/data/models/feedback_dto.dart';
 import 'package:fluttercon/common/repository/api_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -15,15 +16,15 @@ class SendFeedbackCubit extends Cubit<SendFeedbackState> {
 
   Future<void> sendFeedback({
     required String feedback,
-    int? index,
-    int? rating,
+    required int rating,
   }) async {
     try {
-      emit(SendFeedbackState.loading(index: index));
+      emit(const SendFeedbackState.loading());
       final message = await _apiRepository.submitFeedback(
+          feedbackDTO: FeedbackDTO(
         feedback: feedback,
         rating: rating,
-      );
+      ));
 
       emit(
         SendFeedbackState.loaded(

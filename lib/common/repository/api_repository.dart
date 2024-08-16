@@ -1,4 +1,5 @@
 import 'package:fluttercon/common/data/models/feed.dart';
+import 'package:fluttercon/common/data/models/feedback_dto.dart';
 import 'package:fluttercon/common/data/models/individual_organiser.dart';
 import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/common/data/models/sponsor.dart';
@@ -137,17 +138,11 @@ class ApiRepository {
   }
 
 // Submit feedback as form data
-  Future<String> submitFeedback({
-    required String feedback,
-    int? rating,
-  }) async {
+  Future<String> submitFeedback({required FeedbackDTO feedbackDTO}) async {
     try {
       final response = await _networkUtil.postReq(
         '/events/$_eventSlug/feedback',
-        body: {
-          'rating': rating?.toString() ?? '0',
-          'feedback': feedback,
-        },
+        body: feedbackDTO.toJson(),
       );
 
       return response['message'] as String;
