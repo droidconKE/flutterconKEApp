@@ -3,8 +3,8 @@ import 'package:fluttercon/core/theme/theme_colors.dart';
 
 class EmojiContainer extends StatelessWidget {
   const EmojiContainer({
-    super.key,
     required this.path,
+    super.key,
     this.onTap,
     this.isSelected = false,
   });

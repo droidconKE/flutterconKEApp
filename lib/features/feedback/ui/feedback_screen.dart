@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttercon/common/repository/api_repository.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/feedback/cubit/send_feedback_cubit.dart';
-import 'package:fluttercon/features/feedback/widgets/back_button.dart';
-import 'package:fluttercon/features/feedback/widgets/feedback_custom_appbar.dart';
 import 'package:fluttercon/features/feedback/widgets/emoji_container.dart';
-import 'package:fluttercon/common/repository/api_repository.dart';
+import 'package:fluttercon/features/feedback/widgets/feedback_custom_appbar.dart';
 import 'package:go_router/go_router.dart';
 
 class FeedbackScreen extends StatefulWidget {
@@ -157,10 +156,11 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                      content: Text(
-                    'Please ensure you have selected a rating and '
-                    'written your feedback',
-                  )),
+                    content: Text(
+                      'Please ensure you have selected a rating and '
+                      'written your feedback',
+                    ),
+                  ),
                 );
               }
             },
