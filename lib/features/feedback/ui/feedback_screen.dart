@@ -15,13 +15,12 @@ class FeedbackScreen extends StatefulWidget {
 }
 
 class _FeedbackScreenState extends State<FeedbackScreen> {
-  final TextEditingController feedbackController = TextEditingController();
+  final feedbackController = TextEditingController();
   int? selectedRating;
   int? selectedEmojiIndex;
 
   @override
   void dispose() {
-    // Dispose of the controller to avoid memory leaks
     feedbackController.dispose();
     super.dispose();
   }
@@ -120,9 +119,55 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                         },
                       );
                     },
-                    builder: (context, state) {
-                      return _buildSubmitButton(context);
-                    },
+                    builder: (context, state) => state.maybeWhen(
+                      orElse: () => Row(
+                        children: [
+                          Expanded(
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: ThemeColors.blueColor,
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 32),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                              onPressed: () {
+                                final feedback = feedbackController.text;
+                                if (feedback.isNotEmpty &&
+                                    selectedRating != null) {
+                                  context
+                                      .read<SendFeedbackCubit>()
+                                      .sendFeedback(
+                                        feedback: feedback,
+                                        rating: selectedRating!,
+                                      );
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                        'Please ensure you have selected a'
+                                        ' rating and written your feedback',
+                                      ),
+                                    ),
+                                  );
+                                }
+                              },
+                              child: const Text(
+                                'SUBMIT FEEDBACK',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      loading: (index) =>
+                          const Center(child: CircularProgressIndicator()),
+                    ),
                   ),
                 ],
               ),
@@ -130,50 +175,6 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildSubmitButton(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: ThemeColors.blueColor,
-              padding: const EdgeInsets.symmetric(horizontal: 32),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
-            onPressed: () {
-              final feedback = feedbackController.text;
-              if (feedback.isNotEmpty && selectedRating != null) {
-                context.read<SendFeedbackCubit>().sendFeedback(
-                      feedback: feedback,
-                      rating: selectedRating!,
-                    );
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text(
-                      'Please ensure you have selected a rating and '
-                      'written your feedback',
-                    ),
-                  ),
-                );
-              }
-            },
-            child: const Text(
-              'SUBMIT FEEDBACK',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
