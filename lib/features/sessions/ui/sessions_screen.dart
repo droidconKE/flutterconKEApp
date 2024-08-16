@@ -1,24 +1,14 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/data/enums/bookmark_status.dart';
-import 'package:fluttercon/common/data/models/models.dart';
-import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/common/widgets/app_bar/app_bar.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
-import 'package:fluttercon/features/sessions/cubit/bookmark_session_cubit.dart';
 import 'package:fluttercon/features/sessions/cubit/fetch_grouped_sessions_cubit.dart';
-import 'package:fluttercon/features/sessions/ui/widgets/compact_view_card.dart';
 import 'package:fluttercon/features/sessions/ui/widgets/day_sessions_view.dart';
 import 'package:fluttercon/features/sessions/ui/widgets/day_tab_view.dart';
-import 'package:fluttercon/features/sessions/ui/widgets/schedule_view_card.dart';
 
-import 'package:fluttercon/l10n/l10n.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
-import 'package:timeline_tile/timeline_tile.dart';
 
 class SessionsScreen extends StatefulWidget {
   const SessionsScreen({super.key});
@@ -195,7 +185,3 @@ class _SessionsScreenState extends State<SessionsScreen>
     );
   }
 }
-
-
-
-

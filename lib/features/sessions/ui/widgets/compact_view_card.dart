@@ -9,9 +9,9 @@ import 'package:intl/intl.dart';
 
 class CompactViewCard extends StatelessWidget {
   const CompactViewCard({
-    super.key,
     required this.session,
     required this.listIndex,
+    super.key,
   });
 
   final Session session;

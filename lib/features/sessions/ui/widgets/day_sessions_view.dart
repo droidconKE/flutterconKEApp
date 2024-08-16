@@ -12,8 +12,8 @@ import 'package:timeline_tile/timeline_tile.dart';
 class DaySessionsView extends StatelessWidget {
   const DaySessionsView({
     required this.sessions,
-    super.key,
     required this.isCompactView,
+    super.key,
   });
 
   final List<Session> sessions;
@@ -73,4 +73,3 @@ class DaySessionsView extends StatelessWidget {
     );
   }
 }
-

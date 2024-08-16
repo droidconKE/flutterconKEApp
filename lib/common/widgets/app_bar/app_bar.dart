@@ -27,6 +27,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
+      surfaceTintColor: Colors.white,
       title: Row(
         children: [
           GestureDetector(
@@ -60,7 +61,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   onTap: () => onScheduleTapped?.call(),
                   child: SvgPicture.asset(
                     AppAssets.viewAgendaIcon,
-                    colorFilter:  ColorFilter.mode(
+                    colorFilter: ColorFilter.mode(
                       selectedScheduleIndex == 1
                           ? ThemeColors.blueColor
                           : Colors.grey,
