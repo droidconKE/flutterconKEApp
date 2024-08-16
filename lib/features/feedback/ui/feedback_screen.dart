@@ -155,7 +155,11 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                     );
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Please select a rating')),
+                  const SnackBar(
+                      content: Text(
+                    'Please ensure you have selected a rating and '
+                    'written your feedback',
+                  )),
                 );
               }
             },
