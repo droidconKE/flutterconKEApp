@@ -57,4 +57,5 @@ class AppAssets {
   static const listAltIcon = 'assets/images/list_alt.svg';
   static const viewAgendaIcon = 'assets/images/view_agenda.svg';
   static const filterIcon = 'assets/images/filter.svg';
+  static const backIcon = 'assets/images/back.svg';
 }

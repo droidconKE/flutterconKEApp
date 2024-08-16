@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:go_router/go_router.dart';
 
 Widget backButton(BuildContext context) {
   return InkWell(
     child: SvgPicture.asset(
-      'assets/images/back.svg',
-      semanticsLabel: 'Doctors',
+      AppAssets.backIcon,
       width: 40,
       height: 40,
     ),
