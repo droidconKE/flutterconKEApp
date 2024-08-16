@@ -29,110 +29,106 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => SendFeedbackCubit(apiRepository: ApiRepository()),
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              const FeedbackCustomAppBar(),
-              const SizedBox(height: 10),
-              Center(
-                child: Text(
-                  'Your feedback helps us improve',
-                  style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                        color: ThemeColors.blueDroidconColor,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w900,
-                      ),
-                ),
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const FeedbackCustomAppBar(),
+            const SizedBox(height: 20),
+            Center(
+              child: Text(
+                'Your feedback helps us improve',
+                style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                      color: ThemeColors.blueDroidconColor,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w900,
+                    ),
               ),
-              const SizedBox(height: 20),
-              const Center(child: Text('How is/was the event?')),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            ),
+            const SizedBox(height: 20),
+            const Center(child: Text('How is/was the event?')),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                EmojiContainer(
+                  path: AppAssets.sadEmoji,
+                  isSelected: selectedEmojiIndex == 1,
+                  onTap: () {
+                    setState(() {
+                      selectedRating = 1;
+                      selectedEmojiIndex = 1;
+                    });
+                  },
+                ),
+                EmojiContainer(
+                  path: AppAssets.neutralEmoji,
+                  isSelected: selectedEmojiIndex == 2,
+                  onTap: () {
+                    setState(() {
+                      selectedRating = 2;
+                      selectedEmojiIndex = 2;
+                    });
+                  },
+                ),
+                EmojiContainer(
+                  path: AppAssets.happyEmoji,
+                  isSelected: selectedEmojiIndex == 3,
+                  onTap: () {
+                    setState(() {
+                      selectedRating = 3;
+                      selectedEmojiIndex = 3;
+                    });
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(height: 30),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
                 children: [
-                  EmojiContainer(
-                    path: AppAssets.sadEmoji,
-                    isSelected: selectedEmojiIndex == 1,
-                    onTap: () {
-                      setState(() {
-                        selectedRating = 1;
-                        selectedEmojiIndex = 1;
-                      });
-                    },
+                  TextField(
+                    controller: feedbackController,
+                    decoration: const InputDecoration(
+                      fillColor: Color.fromRGBO(245, 245, 245, 1),
+                      hintText: 'Type message here',
+                      hintStyle: TextStyle(
+                        color: Color.fromRGBO(112, 112, 112, 1),
+                        fontSize: 14,
+                      ),
+                    ),
+                    maxLines: 5,
                   ),
-                  EmojiContainer(
-                    path: AppAssets.neutralEmoji,
-                    isSelected: selectedEmojiIndex == 2,
-                    onTap: () {
-                      setState(() {
-                        selectedRating = 2;
-                        selectedEmojiIndex = 2;
-                      });
+                  const SizedBox(height: 10),
+                  BlocConsumer<SendFeedbackCubit, SendFeedbackState>(
+                    listener: (context, state) {
+                      state.whenOrNull(
+                        loaded: (feedback, rating) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Feedback submitted successfully!'),
+                            ),
+                          );
+                          context.pop();
+                        },
+                        error: (message) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Error: $message'),
+                            ),
+                          );
+                        },
+                      );
                     },
-                  ),
-                  EmojiContainer(
-                    path: AppAssets.happyEmoji,
-                    isSelected: selectedEmojiIndex == 3,
-                    onTap: () {
-                      setState(() {
-                        selectedRating = 3;
-                        selectedEmojiIndex = 3;
-                      });
+                    builder: (context, state) {
+                      return _buildSubmitButton(context);
                     },
                   ),
                 ],
               ),
-              const SizedBox(height: 30),
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  children: [
-                    TextField(
-                      controller: feedbackController,
-                      decoration: const InputDecoration(
-                        fillColor: Color.fromRGBO(245, 245, 245, 1),
-                        hintText: 'Type message here',
-                        hintStyle: TextStyle(
-                          color: Color.fromRGBO(112, 112, 112, 1),
-                          fontSize: 14,
-                        ),
-                      ),
-                      maxLines: 5,
-                    ),
-                    const SizedBox(height: 10),
-                    BlocConsumer<SendFeedbackCubit, SendFeedbackState>(
-                      listener: (context, state) {
-                        state.whenOrNull(
-                          loaded: (feedback, rating) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content:
-                                    Text('Feedback submitted successfully!'),
-                              ),
-                            );
-                            context.pop();
-                          },
-                          error: (message) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text('Error: $message'),
-                              ),
-                            );
-                          },
-                        );
-                      },
-                      builder: (context, state) {
-                        return _buildSubmitButton(context);
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -144,14 +140,18 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
         Expanded(
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: ThemeColors.blueDroidconColor,
+              backgroundColor: ThemeColors.blueColor,
+              padding: const EdgeInsets.symmetric(horizontal: 32),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
             ),
             onPressed: () {
               final feedback = feedbackController.text;
               if (feedback.isNotEmpty && selectedRating != null) {
                 context.read<SendFeedbackCubit>().sendFeedback(
                       feedback: feedback,
-                      rating: selectedRating,
+                      rating: selectedRating!,
                     );
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -165,10 +165,11 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               }
             },
             child: const Text(
-              'Submit',
+              'SUBMIT FEEDBACK',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),

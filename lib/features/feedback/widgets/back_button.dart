@@ -7,8 +7,8 @@ Widget backButton(BuildContext context) {
   return InkWell(
     child: SvgPicture.asset(
       AppAssets.backIcon,
-      width: 40,
-      height: 40,
+      width: 25,
+      height: 25,
     ),
     onTap: () => context.pop(),
   );
