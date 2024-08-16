@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
+import 'package:fluttercon/common/widgets/app_bar/app_bar.dart';
 
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/about/cubit/fetch_individual_organisers_cubit.dart';
@@ -24,6 +25,7 @@ class _AboutScreenState extends State<AboutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(selectedIndex: 3),
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(child: Image.asset(AppAssets.teamPhoto)),
