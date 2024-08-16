@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttercon/common/widgets/bottom_nav/app_nav_icon.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/l10n/l10n.dart';
+import 'package:go_router/go_router.dart';
 
 class FeedbackButton extends StatelessWidget {
   const FeedbackButton({required this.selectedIndex, super.key});
@@ -15,7 +16,7 @@ class FeedbackButton extends StatelessWidget {
         ? const SizedBox()
         : InkWell(
             onTap: () {
-              //context.pushNamed(FeedbackScreen.routeName);
+              context.pushNamed('/feedback');
             },
             child: Container(
               height: 30,

@@ -53,8 +53,14 @@ class AppAssets {
   static const session2 = 'assets/images/session2.png';
   static const teamPhoto = 'assets/images/team.png';
 
+  static const sadEmoji = 'assets/images/sad_emoji.png';
+  static const neutralEmoji = 'assets/images/neutral_emoji.png';
+  static const happyEmoji = 'assets/images/happy_emoji.png';
+  static const feedbackBanner = 'assets/images/feedback_appbar.svg';
+
   static const speakerBackground = 'assets/images/speaker_background.svg';
   static const listAltIcon = 'assets/images/list_alt.svg';
   static const viewAgendaIcon = 'assets/images/view_agenda.svg';
   static const filterIcon = 'assets/images/filter.svg';
+  static const backIcon = 'assets/images/back.svg';
 }
