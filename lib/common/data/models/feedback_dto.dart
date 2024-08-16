@@ -7,7 +7,7 @@ part 'feedback_dto.g.dart';
 class FeedbackDTO with _$FeedbackDTO {
   factory FeedbackDTO({
     required String feedback,
-    int? rating,
+    required int rating,
   }) = _FeedbackDTO;
 
   factory FeedbackDTO.fromJson(Map<String, dynamic> json) =>
