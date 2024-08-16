@@ -130,7 +130,7 @@ class ApiRepository {
         '/events/$_eventSlug/bookmark_schedule/$sessionId',
       );
 
-      return response['feedback'] as String;
+      return response['message'] as String;
     } catch (e) {
       rethrow;
     }
