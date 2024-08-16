@@ -11,8 +11,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
     required this.selectedIndex,
     super.key,
+    this.onCompactTapped,
+    this.onScheduleTapped,
+    this.selectedScheduleIndex = 0,
   });
   final int selectedIndex;
+  final void Function()? onCompactTapped;
+  final void Function()? onScheduleTapped;
+  final int? selectedScheduleIndex;
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -38,22 +44,26 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             Row(
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () => onCompactTapped?.call(),
                   child: SvgPicture.asset(
                     AppAssets.listAltIcon,
-                    colorFilter: const ColorFilter.mode(
-                      Colors.grey,
+                    colorFilter: ColorFilter.mode(
+                      selectedScheduleIndex == 0
+                          ? ThemeColors.blueColor
+                          : Colors.grey,
                       BlendMode.srcIn,
                     ),
                   ),
                 ),
                 const SizedBox(width: 24),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () => onScheduleTapped?.call(),
                   child: SvgPicture.asset(
                     AppAssets.viewAgendaIcon,
-                    colorFilter: const ColorFilter.mode(
-                      Colors.grey,
+                    colorFilter:  ColorFilter.mode(
+                      selectedScheduleIndex == 1
+                          ? ThemeColors.blueColor
+                          : Colors.grey,
                       BlendMode.srcIn,
                     ),
                   ),

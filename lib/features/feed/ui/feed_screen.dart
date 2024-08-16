@@ -27,7 +27,7 @@ class _FeedScreenState extends State<FeedScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(selectedIndex: 1),
+      appBar: const CustomAppBar(selectedIndex: 1),
       body: BlocBuilder<FetchFeedCubit, FetchFeedState>(
         builder: (context, state) => state.maybeWhen(
           loaded: (fetchedFeeds) => ListView.separated(
@@ -59,10 +59,11 @@ class _FeedScreenState extends State<FeedScreen> {
                     Row(
                       children: [
                         GestureDetector(
-                          onTap: () async =>
-                              context.read<ShareFeedPostCubit>().sharePost(feed),
-                          child:
-                              BlocBuilder<ShareFeedPostCubit, ShareFeedPostState>(
+                          onTap: () async => context
+                              .read<ShareFeedPostCubit>()
+                              .sharePost(feed),
+                          child: BlocBuilder<ShareFeedPostCubit,
+                              ShareFeedPostState>(
                             builder: (context, state) => state.maybeWhen(
                               loading: () => const SizedBox(
                                 height: 16,

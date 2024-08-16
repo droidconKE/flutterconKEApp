@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttercon/common/widgets/app_bar/app_bar.dart';
 import 'package:fluttercon/common/widgets/bottom_nav/bottom_nav_bar.dart';
 import 'package:fluttercon/common/widgets/page_item.dart';
 import 'package:fluttercon/features/about/ui/about_screen.dart';

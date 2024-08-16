@@ -25,7 +25,7 @@ class _AboutScreenState extends State<AboutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(selectedIndex: 3),
+      appBar: const CustomAppBar(selectedIndex: 3),
       body: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(child: Image.asset(AppAssets.teamPhoto)),
