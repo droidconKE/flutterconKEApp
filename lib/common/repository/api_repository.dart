@@ -130,6 +130,26 @@ class ApiRepository {
         '/events/$_eventSlug/bookmark_schedule/$sessionId',
       );
 
+      return response['feedback'] as String;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+// Submit feedback as form data
+  Future<String> submitFeedback({
+    required String feedback,
+    int? rating,
+  }) async {
+    try {
+      final response = await _networkUtil.postReq(
+        '/events/$_eventSlug/feedback',
+        body: {
+          'rating': rating?.toString() ?? '0',
+          'feedback': feedback,
+        },
+      );
+
       return response['message'] as String;
     } catch (e) {
       rethrow;
