@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/feedback/cubit/send_feedback_cubit.dart';
 import 'package:fluttercon/features/feedback/widgets/back_button.dart';
@@ -54,7 +55,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   EmojiContainer(
-                    path: 'assets/images/sad_emoji.png',
+                    path: AppAssets.sadEmoji,
                     isSelected: selectedEmojiIndex == 1,
                     onTap: () {
                       setState(() {
@@ -64,7 +65,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                     },
                   ),
                   EmojiContainer(
-                    path: 'assets/images/neutral_emoji.png',
+                    path: AppAssets.neutralEmoji,
                     isSelected: selectedEmojiIndex == 2,
                     onTap: () {
                       setState(() {
@@ -74,7 +75,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                     },
                   ),
                   EmojiContainer(
-                    path: 'assets/images/happy_emoji.png',
+                    path: AppAssets.happyEmoji,
                     isSelected: selectedEmojiIndex == 3,
                     onTap: () {
                       setState(() {
