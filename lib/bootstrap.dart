@@ -13,6 +13,7 @@ import 'package:fluttercon/features/auth/cubit/google_sign_in_cubit.dart';
 import 'package:fluttercon/features/auth/cubit/social_auth_sign_in_cubit.dart';
 import 'package:fluttercon/features/feed/cubit/feed_cubit.dart';
 import 'package:fluttercon/features/feed/cubit/share_feed_post_cubit.dart';
+import 'package:fluttercon/features/feedback/cubit/send_feedback_cubit.dart';
 import 'package:fluttercon/features/home/cubit/fetch_sessions_cubit.dart';
 import 'package:fluttercon/features/home/cubit/home_cubits.dart';
 import 'package:fluttercon/features/sessions/cubit/bookmark_session_cubit.dart';
@@ -110,6 +111,9 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
           BlocProvider<ShareSessionCubit>(
             create: (context) => ShareSessionCubit(),
           ),
+          BlocProvider<SendFeedbackCubit>(
+            create: (context) => SendFeedbackCubit(apiRepository: getIt()),
+          )
         ],
         child: await builder(),
       ),
