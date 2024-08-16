@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
+import 'package:fluttercon/common/widgets/app_bar/app_bar.dart';
 import 'package:fluttercon/features/home/widgets/organizers_card.dart';
 import 'package:fluttercon/features/home/widgets/sessions_card.dart';
 import 'package:fluttercon/features/home/widgets/speaker_home_card.dart';
@@ -18,6 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const CustomAppBar(selectedIndex: 0),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 16),
