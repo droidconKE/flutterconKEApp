@@ -19,6 +19,10 @@ class AppAssets {
   static const String iconPlay = '$assetsIcons/play.svg';
   static const String iconTiskos = '$assetsIcons/tiskos.svg';
   static const String iconShare = '$assetsIcons/share.svg';
+  static const String iconTwitter = '$assetsIcons/social-media/twitter.svg';
+  static const String iconFacebook = '$assetsIcons/social-media/facebook.svg';
+  static const String iconTelegram = '$assetsIcons/social-media/telegram.svg';
+  static const String iconWhatsApp = '$assetsIcons/social-media/whatsapp.svg';
 
   // Images
   static const assetsImages = 'assets/images';
