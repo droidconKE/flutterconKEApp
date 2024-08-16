@@ -21,10 +21,11 @@ class SendFeedbackCubit extends Cubit<SendFeedbackState> {
     try {
       emit(const SendFeedbackState.loading());
       final message = await _apiRepository.submitFeedback(
-          feedbackDTO: FeedbackDTO(
-        feedback: feedback,
-        rating: rating,
-      ));
+        feedbackDTO: FeedbackDTO(
+          feedback: feedback,
+          rating: rating,
+        ),
+      );
 
       emit(
         SendFeedbackState.loaded(

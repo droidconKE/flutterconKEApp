@@ -113,7 +113,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
           ),
           BlocProvider<SendFeedbackCubit>(
             create: (context) => SendFeedbackCubit(apiRepository: getIt()),
-          )
+          ),
         ],
         child: await builder(),
       ),
