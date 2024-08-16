@@ -21,7 +21,6 @@ class FeedbackCustomAppBar extends StatelessWidget {
           padding:
               const EdgeInsets.symmetric(horizontal: 10, vertical: 10.0 * 3),
           child: Row(
-            // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 10),
               backButton(context),
