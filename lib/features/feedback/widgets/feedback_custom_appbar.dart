@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
+import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/features/feedback/widgets/back_button.dart';
 
 class FeedbackCustomAppBar extends StatelessWidget {
@@ -12,7 +13,7 @@ class FeedbackCustomAppBar extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10.0 * 3),
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: Svg('assets/images/feedback_appbar.svg'),
+          image: Svg(AppAssets.feedbackBanner),
           fit: BoxFit.cover,
         ),
       ),
