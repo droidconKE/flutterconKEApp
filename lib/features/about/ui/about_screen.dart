@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
+import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/widgets/app_bar/app_bar.dart';
-
-import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/about/cubit/fetch_individual_organisers_cubit.dart';
 import 'package:fluttercon/features/about/ui/organising_team.dart';
 import 'package:fluttercon/features/home/widgets/organizers_card.dart';
@@ -18,13 +17,16 @@ class AboutScreen extends StatefulWidget {
 class _AboutScreenState extends State<AboutScreen> {
   @override
   void initState() {
-    context.read<FetchIndividualOrganisersCubit>().fetchIndividualOrganisers();
     super.initState();
+
+    context.read<FetchIndividualOrganisersCubit>().fetchIndividualOrganisers();
   }
 
   @override
   Widget build(BuildContext context) {
+    final (_, colorScheme) = Misc.getTheme(context);
     return Scaffold(
+      backgroundColor: colorScheme.surface,
       appBar: const CustomAppBar(selectedIndex: 3),
       body: CustomScrollView(
         slivers: [
@@ -36,7 +38,7 @@ class _AboutScreenState extends State<AboutScreen> {
               child: Text(
                 'About',
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      color: ThemeColors.blueDroidconColor,
+                      color: colorScheme.primary,
                       fontWeight: FontWeight.bold,
                     ),
               ),
@@ -65,7 +67,9 @@ class _AboutScreenState extends State<AboutScreen> {
                 'packed program of tech talks, workshops, and panels, '
                 "forming one of the continent's largest mobile developer "
                 'gatherings.',
-                style: Theme.of(context).textTheme.bodyMedium,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: colorScheme.onSurface,
+                    ),
               ),
             ),
           ),
@@ -76,7 +80,7 @@ class _AboutScreenState extends State<AboutScreen> {
               child: Text(
                 'Organizing Team',
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      color: ThemeColors.blueDroidconColor,
+                      color: colorScheme.primary,
                       fontWeight: FontWeight.bold,
                     ),
               ),
