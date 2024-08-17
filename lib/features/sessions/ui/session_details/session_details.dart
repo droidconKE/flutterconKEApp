@@ -271,32 +271,32 @@ class SessionDetailsPage extends StatelessWidget {
                           ),
                           child: state.maybeWhen(
                             error: (message) {
-                              // Show the dialog in a microtask to ensure it is triggered after the build
                               Future.microtask(() {
-                                WoltModalSheet.show<void>(
-                                  context: context,
-                                  pageListBuilder: (bottomSheetContext) => [
-                                    WoltModalSheetPage(
-                                      pageTitle: const Text(
-                                        'Error',
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(20),
-                                        child: Text(
-                                          message,
-                                          style: const TextStyle(
-                                            color: Colors.red,
+                                if (context.mounted) {
+                                  WoltModalSheet.show<void>(
+                                    context: context,
+                                    pageListBuilder: (bottomSheetContext) => [
+                                      WoltModalSheetPage(
+                                        pageTitle: const Text(
+                                          'Error',
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(20),
+                                          child: Text(
+                                            message,
+                                            style: const TextStyle(
+                                              color: Colors.red,
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                  modalTypeBuilder: (context) =>
-                                      const WoltAlertDialogType(),
-                                );
+                                    ],
+                                    modalTypeBuilder: (context) =>
+                                        const WoltAlertDialogType(),
+                                  );
+                                }
                               });
-                              return const SizedBox
-                                  .shrink(); // Return an empty widget to avoid further build issues
+                              return const SizedBox.shrink();
                             },
                             loading: () => const Center(
                               child: Column(

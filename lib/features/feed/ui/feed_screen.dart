@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttercon/common/data/enums/social_platform.dart';
+import 'package:fluttercon/common/data/models/feed.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/widgets/app_bar/app_bar.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
@@ -74,225 +75,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                   hasTopBarLayer: false,
                                   backgroundColor: const Color(0xFFF6F6F8),
                                   mainContentSliversBuilder: (context) =>
-                                      <Widget>[
-                                    SliverToBoxAdapter(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(20),
-                                        child: BlocBuilder<ShareFeedPostCubit,
-                                            ShareFeedPostState>(
-                                          builder: (context, state) {
-                                            return Container(
-                                              constraints: const BoxConstraints(
-                                                minHeight: 250,
-                                              ),
-                                              child: state.maybeWhen(
-                                                error: (message) {
-                                                  // Show the dialog in a microtask to ensure it is triggered after the build
-                                                  Future.microtask(() {
-                                                    WoltModalSheet.show<void>(
-                                                      context: context,
-                                                      pageListBuilder:
-                                                          (bottomSheetContext) =>
-                                                              [
-                                                        WoltModalSheetPage(
-                                                          pageTitle: const Text(
-                                                            'Error',
-                                                          ),
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(20),
-                                                            child: Text(
-                                                              message,
-                                                              style:
-                                                                  const TextStyle(
-                                                                color:
-                                                                    Colors.red,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                      modalTypeBuilder: (context) =>
-                                                          const WoltAlertDialogType(),
-                                                    );
-                                                  });
-                                                  return const SizedBox
-                                                      .shrink(); // Return an empty widget to avoid further build issues
-                                                },
-                                                loading: () => const Center(
-                                                  child: Column(
-                                                    children: [
-                                                      CircularProgressIndicator(
-                                                        strokeWidth: 3,
-                                                      ),
-                                                      SizedBox(height: 20),
-                                                      Text(
-                                                        'Gathering content to share...',
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                orElse: () => Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: <Widget>[
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: <Widget>[
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          children: [
-                                                            SvgPicture.asset(
-                                                              AppAssets
-                                                                  .iconShare,
-                                                              colorFilter:
-                                                                  const ColorFilter
-                                                                      .mode(
-                                                                ThemeColors
-                                                                    .blackColor,
-                                                                BlendMode.srcIn,
-                                                              ),
-                                                              height: 32,
-                                                            ),
-                                                            const SizedBox(
-                                                              width: 8,
-                                                            ),
-                                                            const Text(
-                                                              'Share',
-                                                              style: TextStyle(
-                                                                color: ThemeColors
-                                                                    .blackColor,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w800,
-                                                                fontSize: 18,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        InkWell(
-                                                          onTap: () =>
-                                                              Navigator.of(
-                                                            context,
-                                                          ).pop(),
-                                                          child: const Text(
-                                                            'CANCEL',
-                                                            style: TextStyle(
-                                                              color: ThemeColors
-                                                                  .greyTextColor,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    const SizedBox(height: 50),
-                                                    Row(
-                                                      children: <Widget>[
-                                                        SocialMediaButton(
-                                                          callBack: () async =>
-                                                              context
-                                                                  .read<
-                                                                      ShareFeedPostCubit>()
-                                                                  .sharePost(
-                                                                    body: feed
-                                                                        .body,
-                                                                    fileUrl: feed
-                                                                        .image,
-                                                                    platform:
-                                                                        SocialPlatform
-                                                                            .twitter,
-                                                                  ),
-                                                          label: 'Twitter',
-                                                          iconPath: AppAssets
-                                                              .iconTwitter,
-                                                        ),
-                                                        const SizedBox(
-                                                          width: 24,
-                                                        ),
-                                                        SocialMediaButton(
-                                                          callBack: () async =>
-                                                              context
-                                                                  .read<
-                                                                      ShareFeedPostCubit>()
-                                                                  .sharePost(
-                                                                    body: feed
-                                                                        .body,
-                                                                    fileUrl: feed
-                                                                        .image,
-                                                                    platform:
-                                                                        SocialPlatform
-                                                                            .facebook,
-                                                                  ),
-                                                          label: 'Facebook',
-                                                          iconPath: AppAssets
-                                                              .iconFacebook,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    const SizedBox(height: 30),
-                                                    Row(
-                                                      children: <Widget>[
-                                                        SocialMediaButton(
-                                                          callBack: () async =>
-                                                              context
-                                                                  .read<
-                                                                      ShareFeedPostCubit>()
-                                                                  .sharePost(
-                                                                    body: feed
-                                                                        .body,
-                                                                    fileUrl: feed
-                                                                        .image,
-                                                                    platform:
-                                                                        SocialPlatform
-                                                                            .whatsapp,
-                                                                  ),
-                                                          label: 'WhatsApp',
-                                                          iconPath: AppAssets
-                                                              .iconWhatsApp,
-                                                        ),
-                                                        const SizedBox(
-                                                          width: 24,
-                                                        ),
-                                                        SocialMediaButton(
-                                                          callBack: () async =>
-                                                              context
-                                                                  .read<
-                                                                      ShareFeedPostCubit>()
-                                                                  .sharePost(
-                                                                    body: feed
-                                                                        .body,
-                                                                    fileUrl: feed
-                                                                        .image,
-                                                                    platform:
-                                                                        SocialPlatform
-                                                                            .telegram,
-                                                                  ),
-                                                          label: 'Telegram',
-                                                          iconPath: AppAssets
-                                                              .iconTelegram,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    const SizedBox(height: 30),
-                                                  ],
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                      <Widget>[_buildPage(feed)],
                                 ),
                               ],
                             );
@@ -348,4 +131,161 @@ class _FeedScreenState extends State<FeedScreen> {
       ),
     );
   }
+
+  Widget _buildPage(Feed feed) => SliverToBoxAdapter(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: BlocConsumer<ShareFeedPostCubit, ShareFeedPostState>(
+            listener: (context, state) => state.maybeWhen(
+              error: (message) => WoltModalSheet.show<void>(
+                context: context,
+                pageListBuilder: (bottomSheetContext) => [
+                  WoltModalSheetPage(
+                    pageTitle: const Text(
+                      'Error',
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Text(
+                        message,
+                        style: const TextStyle(
+                          color: Colors.red,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+                modalTypeBuilder: (context) => const WoltAlertDialogType(),
+              ),
+              orElse: SizedBox.shrink,
+            ),
+            builder: (context, state) {
+              return Container(
+                constraints: const BoxConstraints(
+                  minHeight: 250,
+                ),
+                child: state.maybeWhen(
+                  loading: () => const Center(
+                    child: Column(
+                      children: [
+                        CircularProgressIndicator(
+                          strokeWidth: 3,
+                        ),
+                        SizedBox(height: 20),
+                        Text(
+                          'Gathering content to share...',
+                        ),
+                      ],
+                    ),
+                  ),
+                  orElse: () => Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SvgPicture.asset(
+                                AppAssets.iconShare,
+                                colorFilter: const ColorFilter.mode(
+                                  ThemeColors.blackColor,
+                                  BlendMode.srcIn,
+                                ),
+                                height: 32,
+                              ),
+                              const SizedBox(
+                                width: 8,
+                              ),
+                              const Text(
+                                'Share',
+                                style: TextStyle(
+                                  color: ThemeColors.blackColor,
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ],
+                          ),
+                          InkWell(
+                            onTap: () => Navigator.of(
+                              context,
+                            ).pop(),
+                            child: const Text(
+                              'CANCEL',
+                              style: TextStyle(
+                                color: ThemeColors.greyTextColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 50),
+                      Row(
+                        children: <Widget>[
+                          SocialMediaButton(
+                            callBack: () async =>
+                                context.read<ShareFeedPostCubit>().sharePost(
+                                      body: feed.body,
+                                      fileUrl: feed.image,
+                                      platform: SocialPlatform.twitter,
+                                    ),
+                            label: 'Twitter',
+                            iconPath: AppAssets.iconTwitter,
+                          ),
+                          const SizedBox(
+                            width: 24,
+                          ),
+                          SocialMediaButton(
+                            callBack: () async =>
+                                context.read<ShareFeedPostCubit>().sharePost(
+                                      body: feed.body,
+                                      fileUrl: feed.image,
+                                      platform: SocialPlatform.facebook,
+                                    ),
+                            label: 'Facebook',
+                            iconPath: AppAssets.iconFacebook,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 30),
+                      Row(
+                        children: <Widget>[
+                          SocialMediaButton(
+                            callBack: () async =>
+                                context.read<ShareFeedPostCubit>().sharePost(
+                                      body: feed.body,
+                                      fileUrl: feed.image,
+                                      platform: SocialPlatform.whatsapp,
+                                    ),
+                            label: 'WhatsApp',
+                            iconPath: AppAssets.iconWhatsApp,
+                          ),
+                          const SizedBox(
+                            width: 24,
+                          ),
+                          SocialMediaButton(
+                            callBack: () async =>
+                                context.read<ShareFeedPostCubit>().sharePost(
+                                      body: feed.body,
+                                      fileUrl: feed.image,
+                                      platform: SocialPlatform.telegram,
+                                    ),
+                            label: 'Telegram',
+                            iconPath: AppAssets.iconTelegram,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 30),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      );
 }
