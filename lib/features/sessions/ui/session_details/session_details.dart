@@ -375,7 +375,8 @@ class SessionDetailsPage extends StatelessWidget {
                                       //     .sharePost(
                                       //       body: session.description,
                                       //       fileUrl: session.sessionImage,
-                                    //       platform: SocialPlatform.facebook,
+                                      //       platform: SocialPlatform.
+                                      //       facebook,
                                       //     ),
                                       label: 'Facebook',
                                       iconPath: AppAssets.iconFacebook,
