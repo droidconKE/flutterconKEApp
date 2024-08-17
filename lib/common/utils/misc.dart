@@ -37,6 +37,7 @@ class Misc {
     return files;
   }
 
+  /// Returns (isLightMode, colorScheme)
   static (bool, ColorScheme) getTheme(BuildContext context) {
     final isLightMode = Theme.of(context).brightness == Brightness.light;
     final colorScheme = Theme.of(context).colorScheme;
