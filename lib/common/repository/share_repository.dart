@@ -9,33 +9,36 @@ class ShareRepository {
     return appinioSocialShare.getInstalledApps();
   }
 
-  Future<void> shareToTelegram(String message, String? filePath) async {
+  Future<String> shareToTelegram(String message, String? filePath) async {
     try {
-      await appinioSocialShare.android.shareToTelegram(message, filePath);
+      return await appinioSocialShare.android
+          .shareToTelegram(message, filePath);
     } catch (e) {
       rethrow;
     }
   }
 
-  Future<void> shareToWhatsApp(String message, String? filePath) async {
+  Future<String> shareToWhatsApp(String message, String? filePath) async {
     try {
-      await appinioSocialShare.android.shareToWhatsapp(message, filePath);
+      return await appinioSocialShare.android
+          .shareToWhatsapp(message, filePath);
     } catch (e) {
       rethrow;
     }
   }
 
-  Future<void> shareToFacebook(String message, String filePath) async {
+  Future<String> shareToFacebook(String message, String filePath) async {
     try {
-      await appinioSocialShare.android.shareToFacebook(message, [filePath]);
+      return await appinioSocialShare.android
+          .shareToFacebook(message, [filePath]);
     } catch (e) {
       rethrow;
     }
   }
 
-  Future<void> shareToTwitter(String message, String? filePath) async {
+  Future<String> shareToTwitter(String message, String? filePath) async {
     try {
-      await appinioSocialShare.android.shareToTwitter(message, filePath);
+      return await appinioSocialShare.android.shareToTwitter(message, filePath);
     } catch (e) {
       rethrow;
     }
