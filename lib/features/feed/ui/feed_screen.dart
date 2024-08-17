@@ -229,12 +229,18 @@ class _FeedScreenState extends State<FeedScreen> {
                             width: 24,
                           ),
                           SocialMediaButton(
-                            callBack: () async =>
-                                context.read<ShareFeedPostCubit>().sharePost(
-                                      body: feed.body,
-                                      fileUrl: feed.image,
-                                      platform: SocialPlatform.facebook,
-                                    ),
+                            callBack: () =>
+                                ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Coming soon!'),
+                              ),
+                            ),
+                            // callBack: () async =>
+                            //     context.read<ShareFeedPostCubit>().sharePost(
+                            //           body: feed.body,
+                            //           fileUrl: feed.image,
+                            //           platform: SocialPlatform.facebook,
+                            //         ),
                             label: 'Facebook',
                             iconPath: AppAssets.iconFacebook,
                           ),

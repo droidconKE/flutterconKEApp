@@ -363,13 +363,20 @@ class SessionDetailsPage extends StatelessWidget {
                                       width: 24,
                                     ),
                                     SocialMediaButton(
-                                      callBack: () async => context
-                                          .read<ShareFeedPostCubit>()
-                                          .sharePost(
-                                            body: session.description,
-                                            fileUrl: session.sessionImage,
-                                            platform: SocialPlatform.facebook,
-                                          ),
+                                      callBack: () =>
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                        const SnackBar(
+                                          content: Text('Coming soon!'),
+                                        ),
+                                      ),
+                                      // callBack: () async => context
+                                      //     .read<ShareFeedPostCubit>()
+                                      //     .sharePost(
+                                      //       body: session.description,
+                                      //       fileUrl: session.sessionImage,
+                                    //       platform: SocialPlatform.facebook,
+                                      //     ),
                                       label: 'Facebook',
                                       iconPath: AppAssets.iconFacebook,
                                     ),
