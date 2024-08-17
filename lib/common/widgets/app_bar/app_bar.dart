@@ -33,8 +33,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           GestureDetector(
             onTap: () {},
             child: Image.asset(
-              AppAssets.droidconLogo,
-              scale: 2,
+              AppAssets.flutterConKeLogo,
+              scale: 5,
             ),
           ),
           const Spacer(),

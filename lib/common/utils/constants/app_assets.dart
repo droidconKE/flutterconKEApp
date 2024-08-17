@@ -45,6 +45,7 @@ class AppAssets {
   static const aboutIcon = 'assets/images/about_icon.png';
   static const lockIcon = 'assets/images/lock_icon.png';
   static const playIcon = 'assets/images/play_icon.png';
+  static const flutterConKeLogo = 'assets/images/flutterconke_logo.png';
 
   static const smileyIcon = 'assets/images/smiley.png';
   static const profilePhoto = 'assets/images/profile_photo.png';
