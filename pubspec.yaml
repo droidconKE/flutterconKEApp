@@ -1,12 +1,13 @@
 name: fluttercon
 description: "A new Flutter project."
 publish_to: 'none'
-version: 1.9.01+1901
+version: 1.9.02+1902
 
 environment:
   sdk: '>=3.3.1 <4.0.0'
 
 dependencies:
+  appinio_social_share: ^0.3.2
   auth_buttons: ^3.0.3
   bloc: ^8.1.4
   cached_network_image: ^3.4.0
@@ -62,5 +63,6 @@ flutter:
   uses-material-design: true
   assets:
     - assets/icons/
+    - assets/icons/social-media/
     - assets/images/
     - assets/google_fonts/
