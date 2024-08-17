@@ -18,7 +18,6 @@ import 'package:fluttercon/features/home/cubit/fetch_sessions_cubit.dart';
 import 'package:fluttercon/features/home/cubit/home_cubits.dart';
 import 'package:fluttercon/features/sessions/cubit/bookmark_session_cubit.dart';
 import 'package:fluttercon/features/sessions/cubit/fetch_grouped_sessions_cubit.dart';
-import 'package:fluttercon/features/sessions/cubit/share_session_cubit.dart';
 import 'package:fluttercon/firebase_options.dart';
 
 class AppBlocObserver extends BlocObserver {
@@ -106,10 +105,9 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
             ),
           ),
           BlocProvider<ShareFeedPostCubit>(
-            create: (context) => ShareFeedPostCubit(),
-          ),
-          BlocProvider<ShareSessionCubit>(
-            create: (context) => ShareSessionCubit(),
+            create: (context) => ShareFeedPostCubit(
+              shareRepository: getIt(),
+            ),
           ),
           BlocProvider<SendFeedbackCubit>(
             create: (context) => SendFeedbackCubit(apiRepository: getIt()),

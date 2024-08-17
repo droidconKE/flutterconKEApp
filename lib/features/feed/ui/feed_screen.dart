@@ -204,9 +204,11 @@ class _FeedScreenState extends State<FeedScreen> {
                                                                   .read<
                                                                       ShareFeedPostCubit>()
                                                                   .sharePost(
-                                                                    feed,
-                                                                    Platform
-                                                                        .twitter,
+                                                                    body: feed.body,
+                                                                    fileUrl: feed.image,
+                                                                    platform:
+                                                                        Platform
+                                                                            .twitter,
                                                                   ),
                                                           label: 'Twitter',
                                                           iconPath: AppAssets
@@ -221,9 +223,11 @@ class _FeedScreenState extends State<FeedScreen> {
                                                                   .read<
                                                                       ShareFeedPostCubit>()
                                                                   .sharePost(
-                                                                    feed,
-                                                                    Platform
-                                                                        .facebook,
+                                                                    body: feed.body,
+                                                                    fileUrl: feed.image,
+                                                                    platform:
+                                                                        Platform
+                                                                            .facebook,
                                                                   ),
                                                           label: 'Facebook',
                                                           iconPath: AppAssets
@@ -240,9 +244,11 @@ class _FeedScreenState extends State<FeedScreen> {
                                                                   .read<
                                                                       ShareFeedPostCubit>()
                                                                   .sharePost(
-                                                                    feed,
-                                                                    Platform
-                                                                        .whatsapp,
+                                                                    body: feed.body,
+                                                                    fileUrl: feed.image,
+                                                                    platform:
+                                                                        Platform
+                                                                            .whatsapp,
                                                                   ),
                                                           label: 'WhatsApp',
                                                           iconPath: AppAssets
@@ -257,9 +263,11 @@ class _FeedScreenState extends State<FeedScreen> {
                                                                   .read<
                                                                       ShareFeedPostCubit>()
                                                                   .sharePost(
-                                                                    feed,
-                                                                    Platform
-                                                                        .telegram,
+                                                                   body: feed.body,
+                                                                    fileUrl: feed.image,
+                                                                    platform:
+                                                                        Platform
+                                                                            .telegram,
                                                                   ),
                                                           label: 'Telegram',
                                                           iconPath: AppAssets
