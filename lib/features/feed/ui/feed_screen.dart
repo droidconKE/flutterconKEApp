@@ -204,8 +204,10 @@ class _FeedScreenState extends State<FeedScreen> {
                                                                   .read<
                                                                       ShareFeedPostCubit>()
                                                                   .sharePost(
-                                                                    body: feed.body,
-                                                                    fileUrl: feed.image,
+                                                                    body: feed
+                                                                        .body,
+                                                                    fileUrl: feed
+                                                                        .image,
                                                                     platform:
                                                                         Platform
                                                                             .twitter,
@@ -223,8 +225,10 @@ class _FeedScreenState extends State<FeedScreen> {
                                                                   .read<
                                                                       ShareFeedPostCubit>()
                                                                   .sharePost(
-                                                                    body: feed.body,
-                                                                    fileUrl: feed.image,
+                                                                    body: feed
+                                                                        .body,
+                                                                    fileUrl: feed
+                                                                        .image,
                                                                     platform:
                                                                         Platform
                                                                             .facebook,
@@ -244,8 +248,10 @@ class _FeedScreenState extends State<FeedScreen> {
                                                                   .read<
                                                                       ShareFeedPostCubit>()
                                                                   .sharePost(
-                                                                    body: feed.body,
-                                                                    fileUrl: feed.image,
+                                                                    body: feed
+                                                                        .body,
+                                                                    fileUrl: feed
+                                                                        .image,
                                                                     platform:
                                                                         Platform
                                                                             .whatsapp,
@@ -263,8 +269,10 @@ class _FeedScreenState extends State<FeedScreen> {
                                                                   .read<
                                                                       ShareFeedPostCubit>()
                                                                   .sharePost(
-                                                                   body: feed.body,
-                                                                    fileUrl: feed.image,
+                                                                    body: feed
+                                                                        .body,
+                                                                    fileUrl: feed
+                                                                        .image,
                                                                     platform:
                                                                         Platform
                                                                             .telegram,

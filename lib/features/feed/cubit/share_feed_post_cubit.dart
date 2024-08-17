@@ -1,6 +1,4 @@
-import 'package:appinio_social_share/appinio_social_share.dart';
 import 'package:bloc/bloc.dart';
-import 'package:fluttercon/common/data/models/feed.dart';
 import 'package:fluttercon/common/repository/share_repository.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/features/feed/cubit/platform.dart';
@@ -26,7 +24,7 @@ class ShareFeedPostCubit extends Cubit<ShareFeedPostState> {
     emit(const ShareFeedPostState.loading());
 
     try {
-      final message = '${body}\n\nhttps://fluttercon.dev';
+      final message = '$body\n\nhttps://fluttercon.dev';
       String? filePath;
 
       if (fileUrl != null) {
