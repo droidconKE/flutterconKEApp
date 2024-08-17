@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/widgets/bottom_nav/app_nav_icon.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/l10n/l10n.dart';
@@ -11,7 +12,7 @@ class FeedbackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-
+    final (_, colorScheme) = Misc.getTheme(context);
     return selectedIndex == 0
         ? const SizedBox()
         : InkWell(
@@ -31,16 +32,14 @@ class FeedbackButton extends StatelessWidget {
                   AppNavIcon(
                     'smiley-outline',
                     height: 12,
-                    color: Theme.of(context).brightness == Brightness.light
-                        ? Colors.white
-                        : Colors.black,
+                    color: colorScheme.onSurface,
                   ),
                   Text(
                     l10n.feedback,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium
-                        ?.copyWith(fontSize: 12),
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontSize: 12,
+                          color: colorScheme.onSurface,
+                        ),
                   ),
                   const AppNavIcon(
                     'send',
