@@ -3,6 +3,7 @@ import 'package:fluttercon/common/data/enums/social_platform.dart';
 import 'package:fluttercon/common/repository/share_repository.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:logger/logger.dart';
 
 part 'share_feed_post_state.dart';
 part 'share_feed_post_cubit.freezed.dart';
@@ -35,43 +36,81 @@ class ShareFeedPostCubit extends Cubit<ShareFeedPostState> {
       }
 
       final installedApps = await _shareRepository.getInstalledApps();
+      Logger().i(installedApps);
 
       switch (platform) {
         case SocialPlatform.telegram:
-          if (installedApps.containsKey('telegram')) {
-            await _shareRepository.shareToTelegram(message, filePath);
-          } else {
+          if (!installedApps.containsKey('telegram') ||
+              installedApps['telegram'] == false) {
             emit(const ShareFeedPostState.error('Telegram is not installed.'));
+            return;
           }
+          try {
+            final s = await _shareRepository.shareToTelegram(message, filePath);
+            Logger().d(s);
+            emit(const ShareFeedPostState.loaded());
+          } catch (e) {
+            return;
+          }
+
         case SocialPlatform.whatsapp:
-          if (installedApps.containsKey('whatsapp')) {
-            await _shareRepository.shareToWhatsApp(message, filePath);
-          } else {
+          if (!installedApps.containsKey('whatsapp') ||
+              installedApps['whatsapp'] == false) {
             emit(const ShareFeedPostState.error('WhatsApp is not installed.'));
+            return;
           }
+          try {
+            final s = await _shareRepository.shareToWhatsApp(message, filePath);
+            Logger().d(s);
+            emit(const ShareFeedPostState.loaded());
+          } catch (e) {
+            emit(
+              const ShareFeedPostState.error('WhatsApp is not installed.'),
+            );
+            return;
+          }
+
         case SocialPlatform.twitter:
-          if (installedApps.containsKey('twitter')) {
-            await _shareRepository.shareToTwitter(message, filePath);
-          } else {
+          if (!installedApps.containsKey('twitter') ||
+              installedApps['twitter'] == false) {
             emit(const ShareFeedPostState.error('Twitter is not installed.'));
+            return;
           }
+          try {
+            final s = await _shareRepository.shareToTwitter(message, filePath);
+            Logger().d(s);
+            emit(const ShareFeedPostState.loaded());
+          } catch (e) {
+            emit(const ShareFeedPostState.error('Twitter is not installed.'));
+            return;
+          }
+
         case SocialPlatform.facebook:
-          if (installedApps.containsKey('facebook')) {
-            if (filePath == null) {
-              emit(
-                const ShareFeedPostState.error(
-                  'Failed to share post. Kindly share a post with an image.',
-                ),
-              );
-            } else {
-              await _shareRepository.shareToFacebook(message, filePath);
-            }
-          } else {
+          if (!installedApps.containsKey('facebook') ||
+              installedApps['facebook'] == false) {
             emit(const ShareFeedPostState.error('Facebook is not installed.'));
+            return;
+          }
+          if (filePath == null) {
+            emit(
+              const ShareFeedPostState.error(
+                'Failed to share post. Kindly share a post with an image.',
+              ),
+            );
+          } else {
+            try {
+              final s =
+                  await _shareRepository.shareToFacebook(message, filePath);
+              Logger().d(s);
+              emit(const ShareFeedPostState.loaded());
+            } catch (e) {
+              emit(
+                const ShareFeedPostState.error('Facebook is not installed.'),
+              );
+              return;
+            }
           }
       }
-
-      emit(const ShareFeedPostState.loaded());
     } catch (e) {
       emit(ShareFeedPostState.error('Failed to share post: $e'));
     }

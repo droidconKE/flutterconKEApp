@@ -263,41 +263,29 @@ class SessionDetailsPage extends StatelessWidget {
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.all(20),
-                    child: BlocBuilder<ShareFeedPostCubit, ShareFeedPostState>(
+                    child: BlocConsumer<ShareFeedPostCubit, ShareFeedPostState>(
+                      listener: (context, state) {
+                        state.mapOrNull(
+                          loaded: (_) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Post shared successfully.'),
+                              ),
+                            );
+                          },
+                          error: (message) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(message.message)),
+                            );
+                          },
+                        );
+                      },
                       builder: (context, state) {
                         return Container(
                           constraints: const BoxConstraints(
                             minHeight: 250,
                           ),
                           child: state.maybeWhen(
-                            error: (message) {
-                              Future.microtask(() {
-                                if (context.mounted) {
-                                  WoltModalSheet.show<void>(
-                                    context: context,
-                                    pageListBuilder: (bottomSheetContext) => [
-                                      WoltModalSheetPage(
-                                        pageTitle: const Text(
-                                          'Error',
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(20),
-                                          child: Text(
-                                            message,
-                                            style: const TextStyle(
-                                              color: Colors.red,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                    modalTypeBuilder: (context) =>
-                                        const WoltAlertDialogType(),
-                                  );
-                                }
-                              });
-                              return const SizedBox.shrink();
-                            },
                             loading: () => const Center(
                               child: Column(
                                 children: [

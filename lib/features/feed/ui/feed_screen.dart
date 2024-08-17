@@ -124,9 +124,7 @@ class _FeedScreenState extends State<FeedScreen> {
                   fontSize: 18,
                 ),
           ),
-          orElse: () => const Center(
-            child: CircularProgressIndicator(),
-          ),
+          orElse: () => const Center(child: CircularProgressIndicator()),
         ),
       ),
     );
@@ -136,34 +134,25 @@ class _FeedScreenState extends State<FeedScreen> {
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: BlocConsumer<ShareFeedPostCubit, ShareFeedPostState>(
-            listener: (context, state) => state.maybeWhen(
-              error: (message) => WoltModalSheet.show<void>(
-                context: context,
-                pageListBuilder: (bottomSheetContext) => [
-                  WoltModalSheetPage(
-                    pageTitle: const Text(
-                      'Error',
+            listener: (context, state) {
+              state.mapOrNull(
+                loaded: (_) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Post shared successfully.'),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Text(
-                        message,
-                        style: const TextStyle(
-                          color: Colors.red,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-                modalTypeBuilder: (context) => const WoltAlertDialogType(),
-              ),
-              orElse: SizedBox.shrink,
-            ),
+                  );
+                },
+                error: (message) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(message.message)),
+                  );
+                },
+              );
+            },
             builder: (context, state) {
               return Container(
-                constraints: const BoxConstraints(
-                  minHeight: 250,
-                ),
+                constraints: const BoxConstraints(minHeight: 250),
                 child: state.maybeWhen(
                   loading: () => const Center(
                     child: Column(
