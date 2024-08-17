@@ -46,8 +46,9 @@ class ShareFeedPostCubit extends Cubit<ShareFeedPostState> {
             return;
           }
           try {
-            final s = await _shareRepository.shareToTelegram(message, filePath);
-            Logger().d(s);
+            final result =
+                await _shareRepository.shareToTelegram(message, filePath);
+            Logger().d(result);
             emit(const ShareFeedPostState.loaded());
           } catch (e) {
             return;
@@ -60,8 +61,9 @@ class ShareFeedPostCubit extends Cubit<ShareFeedPostState> {
             return;
           }
           try {
-            final s = await _shareRepository.shareToWhatsApp(message, filePath);
-            Logger().d(s);
+            final result =
+                await _shareRepository.shareToWhatsApp(message, filePath);
+            Logger().d(result);
             emit(const ShareFeedPostState.loaded());
           } catch (e) {
             emit(
@@ -77,8 +79,9 @@ class ShareFeedPostCubit extends Cubit<ShareFeedPostState> {
             return;
           }
           try {
-            final s = await _shareRepository.shareToTwitter(message, filePath);
-            Logger().d(s);
+            final result =
+                await _shareRepository.shareToTwitter(message, filePath);
+            Logger().d(result);
             emit(const ShareFeedPostState.loaded());
           } catch (e) {
             emit(const ShareFeedPostState.error('Twitter is not installed.'));
@@ -99,9 +102,9 @@ class ShareFeedPostCubit extends Cubit<ShareFeedPostState> {
             );
           } else {
             try {
-              final s =
+              final result =
                   await _shareRepository.shareToFacebook(message, filePath);
-              Logger().d(s);
+              Logger().d(result);
               emit(const ShareFeedPostState.loaded());
             } catch (e) {
               emit(
