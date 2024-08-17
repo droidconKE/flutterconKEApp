@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:fluttercon/common/data/enums/social_platform.dart';
 import 'package:fluttercon/common/repository/share_repository.dart';
 import 'package:fluttercon/common/utils/misc.dart';
-import 'package:fluttercon/features/feed/cubit/platform.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'share_feed_post_state.dart';
@@ -18,7 +18,7 @@ class ShareFeedPostCubit extends Cubit<ShareFeedPostState> {
 
   Future<void> sharePost({
     required String body,
-    required Platform platform,
+    required SocialPlatform platform,
     String? fileUrl,
   }) async {
     emit(const ShareFeedPostState.loading());
@@ -37,25 +37,25 @@ class ShareFeedPostCubit extends Cubit<ShareFeedPostState> {
       final installedApps = await _shareRepository.getInstalledApps();
 
       switch (platform) {
-        case Platform.telegram:
+        case SocialPlatform.telegram:
           if (installedApps.containsKey('telegram')) {
             await _shareRepository.shareToTelegram(message, filePath);
           } else {
             emit(const ShareFeedPostState.error('Telegram is not installed.'));
           }
-        case Platform.whatsapp:
+        case SocialPlatform.whatsapp:
           if (installedApps.containsKey('whatsapp')) {
             await _shareRepository.shareToWhatsApp(message, filePath);
           } else {
             emit(const ShareFeedPostState.error('WhatsApp is not installed.'));
           }
-        case Platform.twitter:
+        case SocialPlatform.twitter:
           if (installedApps.containsKey('twitter')) {
             await _shareRepository.shareToTwitter(message, filePath);
           } else {
             emit(const ShareFeedPostState.error('Twitter is not installed.'));
           }
-        case Platform.facebook:
+        case SocialPlatform.facebook:
           if (installedApps.containsKey('facebook')) {
             if (filePath == null) {
               emit(

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttercon/common/data/enums/social_platform.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/widgets/app_bar/app_bar.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/feed/cubit/feed_cubit.dart';
-import 'package:fluttercon/features/feed/cubit/platform.dart';
 import 'package:fluttercon/features/feed/cubit/share_feed_post_cubit.dart';
 import 'package:fluttercon/features/feed/widgets/social_media_button.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -209,7 +209,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                                                     fileUrl: feed
                                                                         .image,
                                                                     platform:
-                                                                        Platform
+                                                                        SocialPlatform
                                                                             .twitter,
                                                                   ),
                                                           label: 'Twitter',
@@ -230,7 +230,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                                                     fileUrl: feed
                                                                         .image,
                                                                     platform:
-                                                                        Platform
+                                                                        SocialPlatform
                                                                             .facebook,
                                                                   ),
                                                           label: 'Facebook',
@@ -253,7 +253,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                                                     fileUrl: feed
                                                                         .image,
                                                                     platform:
-                                                                        Platform
+                                                                        SocialPlatform
                                                                             .whatsapp,
                                                                   ),
                                                           label: 'WhatsApp',
@@ -274,7 +274,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                                                     fileUrl: feed
                                                                         .image,
                                                                     platform:
-                                                                        Platform
+                                                                        SocialPlatform
                                                                             .telegram,
                                                                   ),
                                                           label: 'Telegram',

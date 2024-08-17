@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttercon/common/data/enums/bookmark_status.dart';
+import 'package:fluttercon/common/data/enums/social_platform.dart';
 import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
-import 'package:fluttercon/features/feed/cubit/platform.dart';
 import 'package:fluttercon/features/feed/cubit/share_feed_post_cubit.dart';
 import 'package:fluttercon/features/feed/widgets/social_media_button.dart';
 import 'package:fluttercon/features/sessions/cubit/bookmark_session_cubit.dart';
@@ -366,7 +366,7 @@ class SessionDetailsPage extends StatelessWidget {
                                           .sharePost(
                                             body: session.description,
                                             fileUrl: session.sessionImage,
-                                            platform: Platform.twitter,
+                                            platform: SocialPlatform.twitter,
                                           ),
                                       label: 'Twitter',
                                       iconPath: AppAssets.iconTwitter,
@@ -380,7 +380,7 @@ class SessionDetailsPage extends StatelessWidget {
                                           .sharePost(
                                             body: session.description,
                                             fileUrl: session.sessionImage,
-                                            platform: Platform.facebook,
+                                            platform: SocialPlatform.facebook,
                                           ),
                                       label: 'Facebook',
                                       iconPath: AppAssets.iconFacebook,
@@ -396,7 +396,7 @@ class SessionDetailsPage extends StatelessWidget {
                                           .sharePost(
                                             body: session.description,
                                             fileUrl: session.sessionImage,
-                                            platform: Platform.whatsapp,
+                                            platform: SocialPlatform.whatsapp,
                                           ),
                                       label: 'WhatsApp',
                                       iconPath: AppAssets.iconWhatsApp,
@@ -410,7 +410,7 @@ class SessionDetailsPage extends StatelessWidget {
                                           .sharePost(
                                             body: session.description,
                                             fileUrl: session.sessionImage,
-                                            platform: Platform.telegram,
+                                            platform: SocialPlatform.telegram,
                                           ),
                                       label: 'Telegram',
                                       iconPath: AppAssets.iconTelegram,
