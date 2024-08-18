@@ -79,6 +79,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
           BlocProvider<FetchSponsorsCubit>(
             create: (context) => FetchSponsorsCubit(
               apiRepository: getIt(),
+              localDatabaseRepository: getIt(),
             ),
           ),
           BlocProvider<FetchSessionsCubit>(

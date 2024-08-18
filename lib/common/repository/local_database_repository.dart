@@ -4,8 +4,10 @@ import 'package:fluttercon/common/data/models/local/local_feed.dart';
 import 'package:fluttercon/common/data/models/local/local_individual_organiser.dart';
 import 'package:fluttercon/common/data/models/local/local_organiser.dart';
 import 'package:fluttercon/common/data/models/local/local_speaker.dart';
+import 'package:fluttercon/common/data/models/local/local_sponsor.dart';
 import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/common/data/models/speaker.dart';
+import 'package:fluttercon/common/data/models/sponsor.dart';
 import 'package:fluttercon/core/di/injectable.dart';
 import 'package:injectable/injectable.dart';
 import 'package:isar/isar.dart';
@@ -21,6 +23,7 @@ class LocalDatabaseRepository {
         LocalSpeakerSchema,
         LocalOrganiserSchema,
         LocalIndividualOrganiserSchema,
+        LocalSponsorSchema,
       ],
       directory: dir.path,
     );
@@ -141,5 +144,32 @@ class LocalDatabaseRepository {
 
   Future<List<LocalIndividualOrganiser>> fetchIndividualOrganisers() async {
     return localDB.localIndividualOrganisers.where().findAll();
+  }
+
+  Future<void> persistSponsors({
+    required List<Sponsor> sponsors,
+  }) async {
+    await localDB.writeTxn(() async {
+      final localSponsors = <LocalSponsor>[];
+
+      for (final sponsor in sponsors) {
+        localSponsors.add(
+          LocalSponsor(
+            name: sponsor.name,
+            logo: sponsor.logo,
+            tagline: sponsor.tagline,
+            link: sponsor.link,
+            sponsorType: sponsor.sponsorType,
+            createdAt: sponsor.createdAt,
+          ),
+        );
+      }
+
+      await localDB.localSponsors.putAll(localSponsors);
+    });
+  }
+
+  Future<List<LocalSponsor>> fetchSponsors() async {
+    return localDB.localSponsors.where().findAll();
   }
 }
