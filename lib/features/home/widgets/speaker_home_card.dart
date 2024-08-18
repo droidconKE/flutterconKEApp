@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/home/cubit/fetch_speakers_cubit.dart';
+import 'package:fluttercon/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
 
 class SpeakerCard extends StatefulWidget {
@@ -22,13 +23,15 @@ class _SpeakerCardState extends State<SpeakerCard> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return Column(
       children: [
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Speakers',
+              l10n.speakers,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     color: ThemeColors.blueDroidconColor,
                     fontWeight: FontWeight.bold,
@@ -36,9 +39,9 @@ class _SpeakerCardState extends State<SpeakerCard> {
             ),
             const Spacer(),
             TextButton.icon(
-              label: const Text(
-                'View All',
-                style: TextStyle(color: ThemeColors.blueColor),
+              label: Text(
+                l10n.viewAll,
+                style: const TextStyle(color: ThemeColors.blueColor),
               ),
               iconAlignment: IconAlignment.end,
               icon: Container(

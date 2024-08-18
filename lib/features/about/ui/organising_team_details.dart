@@ -5,6 +5,7 @@ import 'package:fluttercon/common/data/models/local/local_individual_organiser.d
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:fluttercon/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
 
 class OranisingTeamMemberDetailsPage extends StatelessWidget {
@@ -17,6 +18,8 @@ class OranisingTeamMemberDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
@@ -42,9 +45,9 @@ class OranisingTeamMemberDetailsPage extends StatelessWidget {
                         onPressed: () => GoRouter.of(context).pop(),
                         color: Colors.white,
                       ),
-                      const Text(
-                        'Team',
-                        style: TextStyle(
+                      Text(
+                        l10n.organisingTeam,
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
@@ -96,11 +99,11 @@ class OranisingTeamMemberDetailsPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 32),
-              const Align(
+              Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Bio',
-                  style: TextStyle(
+                  l10n.bio,
+                  style: const TextStyle(
                     color: ThemeColors.blueColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
@@ -122,9 +125,9 @@ class OranisingTeamMemberDetailsPage extends StatelessWidget {
               const SizedBox(height: 32),
               Row(
                 children: [
-                  const Text(
-                    'Twitter Handle',
-                    style: TextStyle(
+                  Text(
+                    l10n.twitterHandle,
+                    style: const TextStyle(
                       color: ThemeColors.blackColor,
                       fontSize: 20,
                     ),

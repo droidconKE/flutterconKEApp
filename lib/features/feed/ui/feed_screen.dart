@@ -9,6 +9,7 @@ import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/feed/cubit/feed_cubit.dart';
 import 'package:fluttercon/features/feed/cubit/share_feed_post_cubit.dart';
 import 'package:fluttercon/features/feed/widgets/social_media_button.dart';
+import 'package:fluttercon/l10n/l10n.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
@@ -30,6 +31,8 @@ class _FeedScreenState extends State<FeedScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return Scaffold(
       appBar: const CustomAppBar(selectedIndex: 1),
       body: RefreshIndicator(
@@ -78,7 +81,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                     hasTopBarLayer: false,
                                     backgroundColor: const Color(0xFFF6F6F8),
                                     mainContentSliversBuilder: (context) =>
-                                        <Widget>[_buildPage(feed)],
+                                        <Widget>[_buildPage(feed, l10n)],
                                   ),
                                 ],
                               );
@@ -86,9 +89,9 @@ class _FeedScreenState extends State<FeedScreen> {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                const Text(
-                                  'Share',
-                                  style: TextStyle(
+                                Text(
+                                  l10n.share,
+                                  style: const TextStyle(
                                     color: ThemeColors.blueColor,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
@@ -134,7 +137,8 @@ class _FeedScreenState extends State<FeedScreen> {
     );
   }
 
-  Widget _buildPage(LocalFeedEntry feed) => SliverToBoxAdapter(
+  Widget _buildPage(LocalFeedEntry feed, AppLocalizations l10n) =>
+      SliverToBoxAdapter(
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: BlocConsumer<ShareFeedPostCubit, ShareFeedPostState>(
@@ -142,8 +146,8 @@ class _FeedScreenState extends State<FeedScreen> {
               state.mapOrNull(
                 loaded: (_) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Post shared successfully.'),
+                    SnackBar(
+                      content: Text(l10n.postShared),
                     ),
                   );
                 },
@@ -159,17 +163,7 @@ class _FeedScreenState extends State<FeedScreen> {
                 constraints: const BoxConstraints(minHeight: 250),
                 child: state.maybeWhen(
                   loading: () => const Center(
-                    child: Column(
-                      children: [
-                        CircularProgressIndicator(
-                          strokeWidth: 3,
-                        ),
-                        SizedBox(height: 20),
-                        Text(
-                          'Gathering content to share...',
-                        ),
-                      ],
-                    ),
+                    child: CircularProgressIndicator(strokeWidth: 3),
                   ),
                   orElse: () => Column(
                     mainAxisSize: MainAxisSize.min,
@@ -189,12 +183,10 @@ class _FeedScreenState extends State<FeedScreen> {
                                 ),
                                 height: 32,
                               ),
-                              const SizedBox(
-                                width: 8,
-                              ),
-                              const Text(
-                                'Share',
-                                style: TextStyle(
+                              const SizedBox(width: 8),
+                              Text(
+                                l10n.share,
+                                style: const TextStyle(
                                   color: ThemeColors.blackColor,
                                   fontWeight: FontWeight.w800,
                                   fontSize: 18,
@@ -203,12 +195,10 @@ class _FeedScreenState extends State<FeedScreen> {
                             ],
                           ),
                           InkWell(
-                            onTap: () => Navigator.of(
-                              context,
-                            ).pop(),
-                            child: const Text(
-                              'CANCEL',
-                              style: TextStyle(
+                            onTap: () => Navigator.of(context).pop(),
+                            child: Text(
+                              l10n.cancel.toUpperCase(),
+                              style: const TextStyle(
                                 color: ThemeColors.greyTextColor,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -226,7 +216,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                       fileUrl: feed.image,
                                       platform: SocialPlatform.twitter,
                                     ),
-                            label: 'Twitter',
+                            label: l10n.twitter,
                             iconPath: AppAssets.iconTwitter,
                           ),
                           const SizedBox(
@@ -235,8 +225,8 @@ class _FeedScreenState extends State<FeedScreen> {
                           SocialMediaButton(
                             callBack: () =>
                                 ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Coming soon!'),
+                              SnackBar(
+                                content: Text(l10n.comingSoon),
                               ),
                             ),
                             // callBack: () async =>
@@ -245,7 +235,7 @@ class _FeedScreenState extends State<FeedScreen> {
                             //           fileUrl: feed.image,
                             //           platform: SocialPlatform.facebook,
                             //         ),
-                            label: 'Facebook',
+                            label: l10n.facebook,
                             iconPath: AppAssets.iconFacebook,
                           ),
                         ],
@@ -260,7 +250,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                       fileUrl: feed.image,
                                       platform: SocialPlatform.whatsapp,
                                     ),
-                            label: 'WhatsApp',
+                            label: l10n.whatsApp,
                             iconPath: AppAssets.iconWhatsApp,
                           ),
                           const SizedBox(
@@ -273,7 +263,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                       fileUrl: feed.image,
                                       platform: SocialPlatform.telegram,
                                     ),
-                            label: 'Telegram',
+                            label: l10n.telegram,
                             iconPath: AppAssets.iconTelegram,
                           ),
                         ],

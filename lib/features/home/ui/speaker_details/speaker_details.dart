@@ -5,6 +5,7 @@ import 'package:fluttercon/common/data/models/local/local_speaker.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:fluttercon/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
 
 class SpeakerDetailsPage extends StatelessWidget {
@@ -17,6 +18,8 @@ class SpeakerDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
@@ -42,9 +45,9 @@ class SpeakerDetailsPage extends StatelessWidget {
                         onPressed: () => GoRouter.of(context).pop(),
                         color: Colors.white,
                       ),
-                      const Text(
-                        'Speaker',
-                        style: TextStyle(
+                      Text(
+                        l10n.speaker,
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
@@ -57,9 +60,7 @@ class SpeakerDetailsPage extends StatelessWidget {
                       height: 110,
                       width: 110,
                       child: ClipOval(
-                        child: CachedNetworkImage(
-                          imageUrl: speaker.avatar,
-                        ),
+                        child: CachedNetworkImage(imageUrl: speaker.avatar),
                       ),
                     ),
                   ),
@@ -73,19 +74,19 @@ class SpeakerDetailsPage extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(height: 60),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Flexible(
+                  const Flexible(
                     child: Icon(
                       Icons.android_outlined,
                       color: ThemeColors.orangeColor,
                     ),
                   ),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   Text(
-                    'Speaker:',
-                    style: TextStyle(
+                    l10n.speaker,
+                    style: const TextStyle(
                       color: ThemeColors.orangeColor,
                     ),
                   ),
@@ -108,11 +109,11 @@ class SpeakerDetailsPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 32),
-              const Align(
+              Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Bio',
-                  style: TextStyle(
+                  l10n.bio,
+                  style: const TextStyle(
                     color: ThemeColors.blueColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
@@ -135,9 +136,9 @@ class SpeakerDetailsPage extends StatelessWidget {
               if (speaker.twitter != null)
                 Row(
                   children: [
-                    const Text(
-                      'Twitter Handle',
-                      style: TextStyle(
+                    Text(
+                      l10n.twitterHandle,
+                      style: const TextStyle(
                         color: ThemeColors.blackColor,
                         fontSize: 20,
                       ),

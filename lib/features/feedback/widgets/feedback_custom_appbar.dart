@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/features/feedback/widgets/back_button.dart';
+import 'package:fluttercon/l10n/l10n.dart';
 
 class FeedbackCustomAppBar extends StatelessWidget {
   const FeedbackCustomAppBar({super.key});
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = context.l10n;
 
     return Stack(
       children: [
@@ -30,7 +32,7 @@ class FeedbackCustomAppBar extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      'Feedback',
+                      l10n.feedback,
                       style: theme.textTheme.headlineMedium
                           ?.copyWith(color: Colors.white, fontSize: 20),
                     ),
