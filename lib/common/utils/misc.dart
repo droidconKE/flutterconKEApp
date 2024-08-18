@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -36,5 +37,13 @@ class Misc {
     }
 
     return files;
+  }
+
+  /// Returns (isLightMode, colorScheme)
+  static (bool, ColorScheme) getTheme(BuildContext context) {
+    final isLightMode = Theme.of(context).brightness == Brightness.light;
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return (isLightMode, colorScheme);
   }
 }

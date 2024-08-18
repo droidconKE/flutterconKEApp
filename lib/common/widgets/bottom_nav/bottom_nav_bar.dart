@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/widgets/bottom_nav/app_nav_icon.dart';
 import 'package:fluttercon/common/widgets/page_item.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
@@ -79,6 +80,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
+    final (_, colorScheme) = Misc.getTheme(context);
     return GestureDetector(
       onHorizontalDragStart: _handleDragStart,
       onHorizontalDragUpdate: _handleDragUpdate,
@@ -89,10 +91,10 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           : null,
       child: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
+        backgroundColor: colorScheme.surface,
         currentIndex: widget.selectedIndex,
         selectedItemColor: ThemeColors.orangeDroidconColor,
-        unselectedItemColor: ThemeColors.greyDarkThemeBackground,
+        unselectedItemColor: colorScheme.onSurface,
         unselectedLabelStyle: const TextStyle(fontSize: 12),
         selectedLabelStyle: const TextStyle(fontSize: 12),
         onTap: widget.onPageChange,
@@ -104,9 +106,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
               padding: const EdgeInsets.all(8),
               child: AppNavIcon(
                 page.icon,
-                color: isActive
-                    ? ThemeColors.blueDroidconColor
-                    : ThemeColors.greyTextColor,
+                color: isActive ? colorScheme.primary : colorScheme.onSurface,
               ),
             ),
           );

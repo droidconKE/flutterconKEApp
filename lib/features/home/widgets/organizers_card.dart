@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttercon/common/data/models/models.dart';
-import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/features/home/cubit/fetch_organisers_cubit.dart';
 
 class OrganizersCard extends StatefulWidget {
@@ -16,12 +16,14 @@ class OrganizersCard extends StatefulWidget {
 class _OrganizersCardState extends State<OrganizersCard> {
   @override
   void initState() {
-    context.read<FetchOrganisersCubit>().fetchOrganisers();
     super.initState();
+
+    context.read<FetchOrganisersCubit>().fetchOrganisers();
   }
 
   @override
   Widget build(BuildContext context) {
+    final (_, colorScheme) = Misc.getTheme(context);
     final size =
         MediaQuery.sizeOf(context); //Widget to only rebuild when size changes
 
@@ -31,16 +33,16 @@ class _OrganizersCardState extends State<OrganizersCard> {
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: ThemeColors.lightGrayColor,
+        color: colorScheme.secondaryContainer,
       ),
       child: Column(
         children: [
           const Spacer(),
-          const Text(
+          Text(
             'Organised by:',
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: ThemeColors.blueColor,
+              color: colorScheme.primary,
               fontSize: 18,
             ),
           ),
@@ -61,7 +63,7 @@ class _OrganizersCardState extends State<OrganizersCard> {
                 message,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: ThemeColors.blueColor,
+                      color: colorScheme.primary,
                       fontSize: 18,
                     ),
               ),
