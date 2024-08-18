@@ -87,32 +87,6 @@ class ShareFeedPostCubit extends Cubit<ShareFeedPostState> {
             emit(const ShareFeedPostState.error('Twitter is not installed.'));
             return;
           }
-
-        case SocialPlatform.facebook:
-          if (!installedApps.containsKey('facebook') ||
-              installedApps['facebook'] == false) {
-            emit(const ShareFeedPostState.error('Facebook is not installed.'));
-            return;
-          }
-          if (filePath == null) {
-            emit(
-              const ShareFeedPostState.error(
-                'Failed to share post. Kindly share a post with an image.',
-              ),
-            );
-          } else {
-            try {
-              final result =
-                  await _shareRepository.shareToFacebook(message, filePath);
-              Logger().d(result);
-              emit(const ShareFeedPostState.loaded());
-            } catch (e) {
-              emit(
-                const ShareFeedPostState.error('Facebook is not installed.'),
-              );
-              return;
-            }
-          }
       }
     } catch (e) {
       emit(ShareFeedPostState.error('Failed to share post: $e'));
