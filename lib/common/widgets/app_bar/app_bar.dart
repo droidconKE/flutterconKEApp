@@ -34,7 +34,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             onTap: () {},
             child: Image.asset(
               AppAssets.flutterConKeLogo,
-              scale: 5,
+              scale: 4.7,
             ),
           ),
           const Spacer(),
