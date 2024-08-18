@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttercon/common/data/models/models.dart';
+import 'package:fluttercon/common/data/models/local/local_session.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/sessions/cubit/bookmark_session_cubit.dart';
 import 'package:fluttercon/features/sessions/cubit/fetch_grouped_sessions_cubit.dart';
@@ -14,7 +14,7 @@ class CompactViewCard extends StatelessWidget {
     super.key,
   });
 
-  final Session session;
+  final LocalSession session;
   final int listIndex;
 
   @override
@@ -123,7 +123,7 @@ class CompactViewCard extends StatelessWidget {
                       onPressed: () => context
                           .read<BookmarkSessionCubit>()
                           .bookmarkSession(
-                            sessionId: session.id,
+                            sessionId: session.serverId,
                             index: listIndex,
                           )
                           .then((_) {
@@ -147,7 +147,7 @@ class CompactViewCard extends StatelessWidget {
                 onPressed: () => context
                     .read<BookmarkSessionCubit>()
                     .bookmarkSession(
-                      sessionId: session.id,
+                      sessionId: session.serverId,
                       index: listIndex,
                     )
                     .then((_) {

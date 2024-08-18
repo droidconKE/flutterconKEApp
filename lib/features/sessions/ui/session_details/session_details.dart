@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttercon/common/data/enums/bookmark_status.dart';
 import 'package:fluttercon/common/data/enums/social_platform.dart';
-import 'package:fluttercon/common/data/models/models.dart';
+import 'package:fluttercon/common/data/models/local/local_session.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
@@ -22,7 +22,7 @@ class SessionDetailsPage extends StatelessWidget {
     super.key,
   });
 
-  final Session session;
+  final LocalSession session;
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +102,7 @@ class SessionDetailsPage extends StatelessWidget {
                           loaded: (message, status) => IconButton(
                             onPressed: () => context
                                 .read<BookmarkSessionCubit>()
-                                .bookmarkSession(sessionId: session.id),
+                                .bookmarkSession(sessionId: session.serverId),
                             icon: Icon(
                               status == BookmarkStatus.bookmarked
                                   ? Icons.star_rate_rounded
@@ -116,7 +116,7 @@ class SessionDetailsPage extends StatelessWidget {
                           orElse: () => IconButton(
                             onPressed: () => context
                                 .read<BookmarkSessionCubit>()
-                                .bookmarkSession(sessionId: session.id)
+                                .bookmarkSession(sessionId: session.serverId)
                                 .then((_) {
                               if (context.mounted) {
                                 context
@@ -222,7 +222,7 @@ class SessionDetailsPage extends StatelessWidget {
                           ),
                           child: Row(
                             children: [
-                              Text(speaker.name),
+                              Text(speaker.name!),
                             ],
                           ),
                         ),

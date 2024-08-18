@@ -5,7 +5,7 @@ class FetchIndividualOrganisersState with _$FetchIndividualOrganisersState {
   const factory FetchIndividualOrganisersState.initial() = _Initial;
   const factory FetchIndividualOrganisersState.loading() = _Loading;
   const factory FetchIndividualOrganisersState.loaded({
-    required List<IndividualOrganiser> individualOrganisers,
+    required List<LocalIndividualOrganiser> individualOrganisers,
   }) = _Loaded;
   const factory FetchIndividualOrganisersState.error(String message) = _Error;
 }
