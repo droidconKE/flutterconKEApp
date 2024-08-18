@@ -1,12 +1,13 @@
+import 'package:fluttercon/common/data/enums/bookmark_status.dart';
 import 'package:fluttercon/common/data/models/feed.dart';
 import 'package:fluttercon/common/data/models/individual_organiser.dart';
 import 'package:fluttercon/common/data/models/local/local_feed.dart';
 import 'package:fluttercon/common/data/models/local/local_individual_organiser.dart';
 import 'package:fluttercon/common/data/models/local/local_organiser.dart';
+import 'package:fluttercon/common/data/models/local/local_session.dart';
 import 'package:fluttercon/common/data/models/local/local_speaker.dart';
 import 'package:fluttercon/common/data/models/local/local_sponsor.dart';
 import 'package:fluttercon/common/data/models/models.dart';
-import 'package:fluttercon/common/data/models/speaker.dart';
 import 'package:fluttercon/common/data/models/sponsor.dart';
 import 'package:fluttercon/core/di/injectable.dart';
 import 'package:injectable/injectable.dart';
@@ -24,6 +25,7 @@ class LocalDatabaseRepository {
         LocalOrganiserSchema,
         LocalIndividualOrganiserSchema,
         LocalSponsorSchema,
+        LocalSessionSchema,
       ],
       directory: dir.path,
     );
@@ -171,5 +173,108 @@ class LocalDatabaseRepository {
 
   Future<List<LocalSponsor>> fetchSponsors() async {
     return localDB.localSponsors.where().findAll();
+  }
+
+  Future<void> persistSessions({
+    required List<Session> sessions,
+  }) async {
+    await localDB.writeTxn(() async {
+      final localSessions = <LocalSession>[];
+
+      for (final session in sessions) {
+        localSessions.add(
+          LocalSession(
+            serverId: session.id,
+            title: session.title,
+            description: session.description,
+            startTime: session.startTime,
+            endTime: session.endTime,
+            startDateTime: session.startDateTime,
+            endDateTime: session.endDateTime,
+            slug: session.slug,
+            sessionCategory: session.sessionCategory,
+            sessionFormat: session.sessionFormat,
+            sessionLevel: session.sessionLevel,
+            isKeynote: session.isKeynote,
+            isBookmarked: session.isBookmarked,
+            isServiceSession: session.isServiceSession,
+            sessionImage: session.sessionImage,
+            speakers: session.speakers
+                .map(
+                  (speaker) => EmbeddedSpeaker(
+                    name: speaker.name,
+                    biography: speaker.biography,
+                    avatar: speaker.avatar,
+                    tagline: speaker.tagline,
+                    twitter: speaker.twitter,
+                    facebook: speaker.facebook,
+                    linkedin: speaker.linkedin,
+                    instagram: speaker.instagram,
+                    blog: speaker.blog,
+                    companyWebsite: speaker.companyWebsite,
+                  ),
+                )
+                .toList(),
+            rooms: session.rooms
+                .map(
+                  (room) => LocalRoom(
+                    title: room.title,
+                    id: room.id,
+                  ),
+                )
+                .toList(),
+          ),
+        );
+      }
+
+      await localDB.localSessions.putAll(localSessions);
+    });
+  }
+
+  Future<List<LocalSession>> fetchSessions({
+    BookmarkStatus? bookmarkStatus,
+    String? sessionLevel,
+    String? sessionType,
+  }) async {
+    return localDB.localSessions
+        .where()
+        .filter()
+        .optional(
+          bookmarkStatus != null,
+          (q) => q
+              .isBookmarkedEqualTo(bookmarkStatus == BookmarkStatus.bookmarked),
+        )
+        .optional(
+          sessionLevel != null,
+          (q) => q.sessionLevelEqualTo(sessionLevel!),
+        )
+        .optional(
+          sessionType != null,
+          (q) => q.sessionFormatEqualTo(sessionType!),
+        )
+        .findAll();
+  }
+
+  bool hasSessions() {
+    return localDB.localSessions.where().countSync() > 0;
+  }
+
+  Future<void> updateSession({
+    required int sessionId,
+    bool? bookmarkStatus,
+  }) async {
+    await localDB.writeTxn(() async {
+      final session = await localDB.localSessions
+          .where()
+          .serverIdEqualTo(sessionId)
+          .findFirst();
+      if (session == null) return;
+
+      if (bookmarkStatus != null) {
+        session.isBookmarked = bookmarkStatus;
+      }
+
+      await localDB.localSessions.put(session);
+    });
   }
 }

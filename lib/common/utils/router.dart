@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercon/common/data/models/individual_organiser.dart';
+import 'package:fluttercon/common/data/models/local/local_session.dart';
 import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/features/about/ui/organising_team_details.dart';
 import 'package:fluttercon/features/auth/ui/sign_in.dart';
@@ -56,7 +57,7 @@ class FlutterConRouter {
         path: sessionDetailsRoute,
         name: sessionDetailsRoute,
         builder: (context, state) => SessionDetailsPage(
-          session: state.extra! as Session,
+          session: state.extra! as LocalSession,
         ),
       ),
       GoRoute(

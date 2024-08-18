@@ -85,12 +85,13 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
           BlocProvider<FetchSessionsCubit>(
             create: (context) => FetchSessionsCubit(
               apiRepository: getIt(),
+              localDatabaseRepository: getIt(),
             ),
           ),
           BlocProvider<FetchGroupedSessionsCubit>(
             create: (context) => FetchGroupedSessionsCubit(
               apiRepository: getIt(),
-              hiveRepository: getIt(),
+              localDatabaseRepository: getIt(),
             ),
           ),
           BlocProvider<FetchSpeakersCubit>(
@@ -108,7 +109,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
           BlocProvider<BookmarkSessionCubit>(
             create: (context) => BookmarkSessionCubit(
               apiRepository: getIt(),
-              hiveRepository: getIt(),
+              localDatabaseRepository: getIt(),
             ),
           ),
           BlocProvider<ShareFeedPostCubit>(
