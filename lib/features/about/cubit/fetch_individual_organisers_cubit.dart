@@ -36,15 +36,12 @@ class FetchIndividualOrganisersCubit
             individualOrganisers: localIndividualOrganisers,
           ),
         );
+        await _networkFetch();
         return;
       }
 
       if (localIndividualOrganisers.isEmpty || forceRefresh) {
-        final individualOrganisers =
-            await _apiRepository.fetchIndividualOrganisers();
-        await _dBRepository.persistIndividualOrganisers(
-          organisers: individualOrganisers,
-        );
+        await _networkFetch();
         final localIndividualOrganisers =
             await _dBRepository.fetchIndividualOrganisers();
         emit(
@@ -59,5 +56,13 @@ class FetchIndividualOrganisersCubit
     } catch (e) {
       emit(FetchIndividualOrganisersState.error(e.toString()));
     }
+  }
+
+  Future<void> _networkFetch() async {
+    final individualOrganisers =
+        await _apiRepository.fetchIndividualOrganisers();
+    await _dBRepository.persistIndividualOrganisers(
+      organisers: individualOrganisers,
+    );
   }
 }

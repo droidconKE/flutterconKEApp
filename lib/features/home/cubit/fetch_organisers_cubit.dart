@@ -28,14 +28,12 @@ class FetchOrganisersCubit extends Cubit<FetchOrganisersState> {
       final localOrganisers = await _dBRepository.fetchOrganisers();
       if (localOrganisers.isNotEmpty && !forceRefresh) {
         emit(FetchOrganisersState.loaded(organisers: localOrganisers));
+        await _networkFetch();
         return;
       }
 
       if (localOrganisers.isEmpty || forceRefresh) {
-        final organisers = await _apiRepository.fetchOrganisers();
-        await _dBRepository.persistOrganisers(
-          organisers: organisers,
-        );
+        await _networkFetch();
         final localOrganisers = await _dBRepository.fetchOrganisers();
         emit(FetchOrganisersState.loaded(organisers: localOrganisers));
         return;
@@ -45,5 +43,10 @@ class FetchOrganisersCubit extends Cubit<FetchOrganisersState> {
     } catch (e) {
       emit(FetchOrganisersState.error(e.toString()));
     }
+  }
+
+  Future<void> _networkFetch() async {
+    final organisers = await _apiRepository.fetchOrganisers();
+    await _dBRepository.persistOrganisers(organisers: organisers);
   }
 }

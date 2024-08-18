@@ -45,12 +45,12 @@ class FetchGroupedSessionsCubit extends Cubit<FetchGroupedSessionsState> {
         );
 
         emit(FetchGroupedSessionsState.loaded(groupedSessions: groupedEntries));
+        await _networkFetch();
         return;
       }
 
       if (!hasSessions || forceRefresh) {
-        final sessions = await _apiRepository.fetchSessions();
-        await _dBRepository.persistSessions(sessions: sessions);
+        await _networkFetch();
         final localSessions = await _dBRepository.fetchSessions(
           sessionLevel: sessionLevel,
           sessionType: sessionType,
@@ -68,5 +68,10 @@ class FetchGroupedSessionsCubit extends Cubit<FetchGroupedSessionsState> {
     } catch (e) {
       emit(FetchGroupedSessionsState.error(e.toString()));
     }
+  }
+
+  Future<void> _networkFetch() async {
+    final sessions = await _apiRepository.fetchSessions();
+    await _dBRepository.persistSessions(sessions: sessions);
   }
 }

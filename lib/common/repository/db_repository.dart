@@ -37,7 +37,7 @@ class DBRepository {
     });
   }
 
-  Future<void> persistLocalFeedEntries({
+  Future<void> persistFeedEntries({
     required List<Feed> entries,
   }) async {
     await localDB.writeTxn(() async {
@@ -60,11 +60,11 @@ class DBRepository {
     });
   }
 
-  Future<List<LocalFeedEntry>> fetchLocalFeedEntries() async {
+  Future<List<LocalFeedEntry>> fetchFeedEntries() async {
     return localDB.localFeedEntrys.where().findAll();
   }
 
-  Future<void> persistLocalSpeakers({
+  Future<void> persistSpeakers({
     required List<Speaker> speakers,
   }) async {
     await localDB.writeTxn(() async {
@@ -91,7 +91,7 @@ class DBRepository {
     });
   }
 
-  Future<List<LocalSpeaker>> fetchLocalSpeakers() async {
+  Future<List<LocalSpeaker>> fetchSpeakers() async {
     return localDB.localSpeakers.where().findAll();
   }
 

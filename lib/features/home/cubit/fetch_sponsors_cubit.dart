@@ -28,12 +28,12 @@ class FetchSponsorsCubit extends Cubit<FetchSponsorsState> {
       final localSponsors = await _dBRepository.fetchSponsors();
       if (localSponsors.isNotEmpty && !forceRefresh) {
         emit(FetchSponsorsState.loaded(sponsors: localSponsors));
+        await _networkFetch();
         return;
       }
 
       if (localSponsors.isEmpty || forceRefresh) {
-        final sponsors = await _apiRepository.fetchSponsors();
-        await _dBRepository.persistSponsors(sponsors: sponsors);
+        await _networkFetch();
         final localSponsors = await _dBRepository.fetchSponsors();
         emit(FetchSponsorsState.loaded(sponsors: localSponsors));
         return;
@@ -43,5 +43,10 @@ class FetchSponsorsCubit extends Cubit<FetchSponsorsState> {
     } catch (e) {
       emit(FetchSponsorsState.error(e.toString()));
     }
+  }
+
+  Future<void> _networkFetch() async {
+    final sponsors = await _apiRepository.fetchSponsors();
+    await _dBRepository.persistSponsors(sponsors: sponsors);
   }
 }

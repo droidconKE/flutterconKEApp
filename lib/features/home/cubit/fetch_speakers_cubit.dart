@@ -25,7 +25,7 @@ class FetchSpeakersCubit extends Cubit<FetchSpeakersState> {
   }) async {
     emit(const FetchSpeakersState.loading());
     try {
-      final localSpeakers = await _dBRepository.fetchLocalSpeakers();
+      final localSpeakers = await _dBRepository.fetchSpeakers();
       if (localSpeakers.isNotEmpty && !forceRefresh) {
         emit(
           FetchSpeakersState.loaded(
@@ -33,13 +33,13 @@ class FetchSpeakersCubit extends Cubit<FetchSpeakersState> {
             extras: localSpeakers.length - 5,
           ),
         );
+        await _networkFetch();
         return;
       }
 
       if (localSpeakers.isEmpty || forceRefresh) {
-        final speakers = await _apiRepository.fetchSpeakers();
-        await _dBRepository.persistLocalSpeakers(speakers: speakers);
-        final localSpeakers = await _dBRepository.fetchLocalSpeakers();
+        await _networkFetch();
+        final localSpeakers = await _dBRepository.fetchSpeakers();
         emit(
           FetchSpeakersState.loaded(
             speakers: localSpeakers,
@@ -53,5 +53,10 @@ class FetchSpeakersCubit extends Cubit<FetchSpeakersState> {
     } catch (e) {
       emit(FetchSpeakersState.error(e.toString()));
     }
+  }
+
+  Future<void> _networkFetch() async {
+    final speakers = await _apiRepository.fetchSpeakers();
+    await _dBRepository.persistSpeakers(speakers: speakers);
   }
 }

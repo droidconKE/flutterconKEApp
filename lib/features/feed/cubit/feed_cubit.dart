@@ -26,17 +26,17 @@ class FetchFeedCubit extends Cubit<FetchFeedState> {
     emit(const FetchFeedState.loading());
     try {
       // Fetch feed entries from local database
-      final feedEntries = await _dBRepository.fetchLocalFeedEntries();
+      final feedEntries = await _dBRepository.fetchFeedEntries();
       if (feedEntries.isNotEmpty && !forceRefresh) {
         emit(FetchFeedState.loaded(fetchedFeed: feedEntries));
+        await _networkFetch();
         return;
       }
 
       // Fetch feed entries from API if local database is empty and persist them
       if (feedEntries.isEmpty || forceRefresh) {
-        final feeds = await _apiRepository.fetchFeeds();
-        await _dBRepository.persistLocalFeedEntries(entries: feeds);
-        final feedEntries = await _dBRepository.fetchLocalFeedEntries();
+        await _networkFetch();
+        final feedEntries = await _dBRepository.fetchFeedEntries();
         emit(FetchFeedState.loaded(fetchedFeed: feedEntries));
         return;
       }
@@ -45,5 +45,10 @@ class FetchFeedCubit extends Cubit<FetchFeedState> {
     } catch (e) {
       emit(FetchFeedState.error(e.toString()));
     }
+  }
+
+  Future<void> _networkFetch() async {
+    final feeds = await _apiRepository.fetchFeeds();
+    await _dBRepository.persistFeedEntries(entries: feeds);
   }
 }

@@ -38,12 +38,13 @@ class FetchSessionsCubit extends Cubit<FetchSessionsState> {
             extras: localSessions.length - 5,
           ),
         );
+        await _networkFetch();
         return;
       }
 
       if (localSessions.isEmpty || forceRefresh) {
-        final sessions = await _apiRepository.fetchSessions();
-        await _databaseRepository.persistSessions(sessions: sessions);
+        await _networkFetch();
+
         final localSessions = await _databaseRepository.fetchSessions();
         final filteredSessions = localSessions
             .where((session) => !session.isServiceSession)
@@ -61,5 +62,10 @@ class FetchSessionsCubit extends Cubit<FetchSessionsState> {
     } catch (e) {
       emit(FetchSessionsState.error(e.toString()));
     }
+  }
+
+  Future<void> _networkFetch() async {
+    final sessions = await _apiRepository.fetchSessions();
+    await _databaseRepository.persistSessions(sessions: sessions);
   }
 }
