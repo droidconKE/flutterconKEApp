@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:fluttercon/common/data/models/local/local_session.dart';
 import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/common/repository/api_repository.dart';
-import 'package:fluttercon/common/repository/local_database_repository.dart';
+import 'package:fluttercon/common/repository/db_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'fetch_sessions_state.dart';
@@ -11,14 +11,14 @@ part 'fetch_sessions_cubit.freezed.dart';
 class FetchSessionsCubit extends Cubit<FetchSessionsState> {
   FetchSessionsCubit({
     required ApiRepository apiRepository,
-    required LocalDatabaseRepository localDatabaseRepository,
+    required DBRepository dBRepository,
   }) : super(const FetchSessionsState.initial()) {
     _apiRepository = apiRepository;
-    _databaseRepository = localDatabaseRepository;
+    _databaseRepository = dBRepository;
   }
 
   late ApiRepository _apiRepository;
-  late LocalDatabaseRepository _databaseRepository;
+  late DBRepository _databaseRepository;
 
   Future<void> fetchSessions({
     bool forceRefresh = false,

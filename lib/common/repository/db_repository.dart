@@ -15,7 +15,7 @@ import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
 @singleton
-class LocalDatabaseRepository {
+class DBRepository {
   Future<Isar> init() async {
     final dir = await path_provider.getApplicationDocumentsDirectory();
     return Isar.open(

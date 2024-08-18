@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:fluttercon/common/data/models/failure.dart';
 import 'package:fluttercon/common/data/models/local/local_sponsor.dart';
 import 'package:fluttercon/common/repository/api_repository.dart';
-import 'package:fluttercon/common/repository/local_database_repository.dart';
+import 'package:fluttercon/common/repository/db_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'fetch_sponsors_state.dart';
@@ -11,21 +11,21 @@ part 'fetch_sponsors_cubit.freezed.dart';
 class FetchSponsorsCubit extends Cubit<FetchSponsorsState> {
   FetchSponsorsCubit({
     required ApiRepository apiRepository,
-    required LocalDatabaseRepository localDatabaseRepository,
+    required DBRepository dBRepository,
   }) : super(const FetchSponsorsState.initial()) {
     _apiRepository = apiRepository;
-    _localDatabaseRepository = localDatabaseRepository;
+    _dBRepository = dBRepository;
   }
 
   late ApiRepository _apiRepository;
-  late LocalDatabaseRepository _localDatabaseRepository;
+  late DBRepository _dBRepository;
 
   Future<void> fetchSponsors({
     bool forceRefresh = false,
   }) async {
     emit(const FetchSponsorsState.loading());
     try {
-      final localSponsors = await _localDatabaseRepository.fetchSponsors();
+      final localSponsors = await _dBRepository.fetchSponsors();
       if (localSponsors.isNotEmpty && !forceRefresh) {
         emit(FetchSponsorsState.loaded(sponsors: localSponsors));
         return;
@@ -33,8 +33,8 @@ class FetchSponsorsCubit extends Cubit<FetchSponsorsState> {
 
       if (localSponsors.isEmpty || forceRefresh) {
         final sponsors = await _apiRepository.fetchSponsors();
-        await _localDatabaseRepository.persistSponsors(sponsors: sponsors);
-        final localSponsors = await _localDatabaseRepository.fetchSponsors();
+        await _dBRepository.persistSponsors(sponsors: sponsors);
+        final localSponsors = await _dBRepository.fetchSponsors();
         emit(FetchSponsorsState.loaded(sponsors: localSponsors));
         return;
       }
