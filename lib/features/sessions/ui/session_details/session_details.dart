@@ -348,7 +348,7 @@ class SessionDetailsPage extends StatelessWidget {
                                       iconPath: AppAssets.iconTwitter,
                                     ),
                                     const SizedBox(
-                                      width: 24
+                                      width: 24,
                                     ),
                                     SocialMediaButton(
                                       callBack: () async => context
@@ -366,8 +366,6 @@ class SessionDetailsPage extends StatelessWidget {
                                 const SizedBox(height: 30),
                                 Row(
                                   children: <Widget>[
-                                    
-                                    
                                     SocialMediaButton(
                                       callBack: () async => context
                                           .read<ShareFeedPostCubit>()
@@ -380,9 +378,9 @@ class SessionDetailsPage extends StatelessWidget {
                                       iconPath: AppAssets.iconTelegram,
                                     ),
                                     const SizedBox(
-                                      width: 24
+                                      width: 24,
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                   ],
                                 ),
                                 const SizedBox(height: 30),

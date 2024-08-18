@@ -235,7 +235,6 @@ class _FeedScreenState extends State<FeedScreen> {
                       const SizedBox(height: 30),
                       Row(
                         children: <Widget>[
-                          
                           SocialMediaButton(
                             callBack: () async =>
                                 context.read<ShareFeedPostCubit>().sharePost(
