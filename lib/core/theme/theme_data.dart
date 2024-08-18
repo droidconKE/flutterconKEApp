@@ -6,6 +6,18 @@ import 'package:google_fonts/google_fonts.dart';
 class AppTheme {
   AppTheme._();
 
+  // On the colorScheme, add the color for light the theme
+  // And the corresponding color for dark theme on the same property
+  // Example:
+  //
+  // Light theme
+  // surface: Colors.white,
+  // onSurface: Colors.black,
+  //
+  // Dark theme
+  // surface: ThemeColors.blackColor,
+  // onSurface: Colors.white,
+
   static ThemeData lightTheme() {
     return ThemeData(
       scaffoldBackgroundColor: Colors.white,
@@ -15,9 +27,9 @@ class AppTheme {
         primaryContainer: ThemeColors.blueDroidconColor,
         onPrimary: Colors.white,
         secondary: ThemeColors.blueGreenDroidconColor,
-        secondaryContainer: ThemeColors.blueGreenDroidconColor,
+        secondaryContainer: ThemeColors.lightGrayColor,
         onSecondary: Colors.black,
-        surface: Colors.grey,
+        surface: Colors.white,
         onSurface: Colors.black,
         error: Colors.red,
         onError: Colors.white,
@@ -45,14 +57,14 @@ class AppTheme {
     return ThemeData(
       scaffoldBackgroundColor: ThemeColors.greyDarkThemeBackground,
       colorScheme: const ColorScheme(
-        brightness: Brightness.light,
-        primary: ThemeColors.blueDroidconColor,
+        brightness: Brightness.dark,
+        primary: ThemeColors.blueGreenDroidconColor,
         primaryContainer: ThemeColors.blueDroidconColor,
         onPrimary: Colors.black,
-        secondary: ThemeColors.blueGreenDroidconColor,
-        secondaryContainer: ThemeColors.blueGreenDroidconColor,
+        secondary: ThemeColors.blueDroidconColor,
+        secondaryContainer: Colors.black,
         onSecondary: Colors.white,
-        surface: Colors.grey,
+        surface: ThemeColors.blackColor,
         onSurface: Colors.white,
         error: Colors.red,
         onError: Colors.white,

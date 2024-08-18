@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
+import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/widgets/app_bar/feedback_button.dart';
 import 'package:fluttercon/common/widgets/app_bar/session_filter.dart';
 import 'package:fluttercon/common/widgets/app_bar/user_profile_icon.dart';
@@ -25,16 +26,20 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final (isLightMode, colorScheme) = Misc.getTheme(context);
     return AppBar(
       automaticallyImplyLeading: false,
-      surfaceTintColor: Colors.white,
+      surfaceTintColor: colorScheme.surface,
+      backgroundColor: colorScheme.surface,
       title: Row(
         children: [
           GestureDetector(
             onTap: () {},
             child: Image.asset(
-              AppAssets.flutterConKeLogo,
-              scale: 4.7,
+              isLightMode
+                  ? AppAssets.droidconLogo
+                  : AppAssets.droidconLogoWhite,
+              scale: 2,
             ),
           ),
           const Spacer(),

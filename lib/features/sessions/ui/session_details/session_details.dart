@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fluttercon/common/data/enums/bookmark_status.dart';
+import 'package:fluttercon/common/data/enums/social_platform.dart';
 import 'package:fluttercon/common/data/models/models.dart';
+import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:fluttercon/features/feed/cubit/share_feed_post_cubit.dart';
+import 'package:fluttercon/features/feed/widgets/social_media_button.dart';
 import 'package:fluttercon/features/sessions/cubit/bookmark_session_cubit.dart';
 import 'package:fluttercon/features/sessions/cubit/fetch_grouped_sessions_cubit.dart';
-import 'package:fluttercon/features/sessions/cubit/share_session_cubit.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 class SessionDetailsPage extends StatelessWidget {
   const SessionDetailsPage({
@@ -231,7 +236,7 @@ class SessionDetailsPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
         backgroundColor: ThemeColors.orangeColor,
-        child: BlocBuilder<ShareSessionCubit, ShareSessionState>(
+        child: BlocBuilder<ShareFeedPostCubit, ShareFeedPostState>(
           builder: (context, state) => state.maybeWhen(
             orElse: () => const Icon(
               Icons.reply,
@@ -245,8 +250,182 @@ class SessionDetailsPage extends StatelessWidget {
             ),
           ),
         ),
-        onPressed: () =>
-            context.read<ShareSessionCubit>().shareSession(session),
+        onPressed: () => WoltModalSheet.show<dynamic>(
+          context: context,
+          showDragHandle: false,
+          modalTypeBuilder: (_) => WoltModalType.bottomSheet(),
+          pageListBuilder: (bottomSheetContext) => [
+            SliverWoltModalSheetPage(
+              useSafeArea: true,
+              hasTopBarLayer: false,
+              backgroundColor: const Color(0xFFF6F6F8),
+              mainContentSliversBuilder: (context) => <Widget>[
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: BlocConsumer<ShareFeedPostCubit, ShareFeedPostState>(
+                      listener: (context, state) {
+                        state.mapOrNull(
+                          loaded: (_) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Post shared successfully.'),
+                              ),
+                            );
+                          },
+                          error: (message) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(message.message)),
+                            );
+                          },
+                        );
+                      },
+                      builder: (context, state) {
+                        return Container(
+                          constraints: const BoxConstraints(
+                            minHeight: 250,
+                          ),
+                          child: state.maybeWhen(
+                            loading: () => const Center(
+                              child: Column(
+                                children: [
+                                  CircularProgressIndicator(
+                                    strokeWidth: 3,
+                                  ),
+                                  SizedBox(height: 20),
+                                  Text(
+                                    'Gathering content to share...',
+                                  ),
+                                ],
+                              ),
+                            ),
+                            orElse: () => Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        SvgPicture.asset(
+                                          AppAssets.iconShare,
+                                          colorFilter: const ColorFilter.mode(
+                                            ThemeColors.blackColor,
+                                            BlendMode.srcIn,
+                                          ),
+                                          height: 32,
+                                        ),
+                                        const SizedBox(
+                                          width: 8,
+                                        ),
+                                        const Text(
+                                          'Share',
+                                          style: TextStyle(
+                                            color: ThemeColors.blackColor,
+                                            fontWeight: FontWeight.w800,
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    InkWell(
+                                      onTap: () => Navigator.of(
+                                        context,
+                                      ).pop(),
+                                      child: const Text(
+                                        'CANCEL',
+                                        style: TextStyle(
+                                          color: ThemeColors.greyTextColor,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 50),
+                                Row(
+                                  children: <Widget>[
+                                    SocialMediaButton(
+                                      callBack: () async => context
+                                          .read<ShareFeedPostCubit>()
+                                          .sharePost(
+                                            body: session.description,
+                                            fileUrl: session.sessionImage,
+                                            platform: SocialPlatform.twitter,
+                                          ),
+                                      label: 'Twitter',
+                                      iconPath: AppAssets.iconTwitter,
+                                    ),
+                                    const SizedBox(
+                                      width: 24,
+                                    ),
+                                    SocialMediaButton(
+                                      callBack: () =>
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                        const SnackBar(
+                                          content: Text('Coming soon!'),
+                                        ),
+                                      ),
+                                      // callBack: () async => context
+                                      //     .read<ShareFeedPostCubit>()
+                                      //     .sharePost(
+                                      //       body: session.description,
+                                      //       fileUrl: session.sessionImage,
+                                      //       platform: SocialPlatform.
+                                      //       facebook,
+                                      //     ),
+                                      label: 'Facebook',
+                                      iconPath: AppAssets.iconFacebook,
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 30),
+                                Row(
+                                  children: <Widget>[
+                                    SocialMediaButton(
+                                      callBack: () async => context
+                                          .read<ShareFeedPostCubit>()
+                                          .sharePost(
+                                            body: session.description,
+                                            fileUrl: session.sessionImage,
+                                            platform: SocialPlatform.whatsapp,
+                                          ),
+                                      label: 'WhatsApp',
+                                      iconPath: AppAssets.iconWhatsApp,
+                                    ),
+                                    const SizedBox(
+                                      width: 24,
+                                    ),
+                                    SocialMediaButton(
+                                      callBack: () async => context
+                                          .read<ShareFeedPostCubit>()
+                                          .sharePost(
+                                            body: session.description,
+                                            fileUrl: session.sessionImage,
+                                            platform: SocialPlatform.telegram,
+                                          ),
+                                      label: 'Telegram',
+                                      iconPath: AppAssets.iconTelegram,
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 30),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
