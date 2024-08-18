@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/data/enums/bookmark_status.dart';
-import 'package:fluttercon/common/data/models/models.dart';
+import 'package:fluttercon/common/data/models/local/local_session.dart';
 import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/sessions/cubit/bookmark_session_cubit.dart';
@@ -18,7 +18,7 @@ class ScheduleViewCard extends StatelessWidget {
     super.key,
   });
 
-  final Session session;
+  final LocalSession session;
   final int listIndex;
   @override
   Widget build(BuildContext context) {
@@ -102,7 +102,7 @@ class ScheduleViewCard extends StatelessWidget {
                                 ),
                                 child: CachedNetworkImage(
                                   fit: BoxFit.cover,
-                                  imageUrl: speaker.avatar,
+                                  imageUrl: speaker.avatar!,
                                 ),
                               ),
                             ),
@@ -132,7 +132,7 @@ class ScheduleViewCard extends StatelessWidget {
                         loaded: (message, status) => IconButton(
                           onPressed: () => context
                               .read<BookmarkSessionCubit>()
-                              .bookmarkSession(sessionId: session.id),
+                              .bookmarkSession(sessionId: session.serverId),
                           icon: Icon(
                             status == BookmarkStatus.bookmarked
                                 ? Icons.star_rate_rounded
@@ -146,7 +146,7 @@ class ScheduleViewCard extends StatelessWidget {
                         orElse: () => IconButton(
                           onPressed: () => context
                               .read<BookmarkSessionCubit>()
-                              .bookmarkSession(sessionId: session.id)
+                              .bookmarkSession(sessionId: session.serverId)
                               .then((_) {
                             if (context.mounted) {
                               context

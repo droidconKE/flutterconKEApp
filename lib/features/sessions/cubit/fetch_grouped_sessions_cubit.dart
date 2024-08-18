@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:collection/collection.dart' as collection;
 import 'package:fluttercon/common/data/enums/bookmark_status.dart';
-import 'package:fluttercon/common/data/models/session.dart';
+import 'package:fluttercon/common/data/models/local/local_session.dart';
 import 'package:fluttercon/common/repository/api_repository.dart';
-import 'package:fluttercon/common/repository/hive_repository.dart';
+import 'package:fluttercon/common/repository/db_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
 
@@ -13,47 +13,53 @@ part 'fetch_grouped_sessions_state.dart';
 class FetchGroupedSessionsCubit extends Cubit<FetchGroupedSessionsState> {
   FetchGroupedSessionsCubit({
     required ApiRepository apiRepository,
-    required HiveRepository hiveRepository,
+    required DBRepository dBRepository,
   }) : super(const FetchGroupedSessionsState.initial()) {
     _apiRepository = apiRepository;
-    _hiveRepository = hiveRepository;
+    _dBRepository = dBRepository;
   }
 
   late ApiRepository _apiRepository;
-  late HiveRepository _hiveRepository;
+  late DBRepository _dBRepository;
 
   Future<void> fetchGroupedSessions({
     BookmarkStatus? bookmarkStatus,
     String? sessionLevel,
     String? sessionType,
+    bool forceRefresh = false,
   }) async {
     emit(const FetchGroupedSessionsState.loading());
 
     try {
-      final hasPeristedSessions = _hiveRepository.hasSessions();
-      if (hasPeristedSessions) {
-        final persistedSessions = _hiveRepository.retrieveSessions(
+      final hasSessions = _dBRepository.hasSessions();
+      if (hasSessions && !forceRefresh) {
+        final localSessions = await _dBRepository.fetchSessions(
           sessionLevel: sessionLevel,
           sessionType: sessionType,
-          bookmarkStatus: (bookmarkStatus != null)
-              ? bookmarkStatus == BookmarkStatus.bookmarked
-              : null,
+          bookmarkStatus: bookmarkStatus,
         );
 
-        final groupedEntries = collection.groupBy<Session, String>(
-          persistedSessions,
-          (Session entry) => DateFormat.yMd().format(entry.startDateTime),
+        final groupedEntries = collection.groupBy<LocalSession, String>(
+          localSessions,
+          (LocalSession entry) => DateFormat.yMd().format(entry.startDateTime),
         );
 
         emit(FetchGroupedSessionsState.loaded(groupedSessions: groupedEntries));
+        await _networkFetch();
         return;
-      } else {
-        final sessions = await _apiRepository.fetchSessions();
-        _hiveRepository.persistSessions(sessions: sessions);
+      }
 
-        final groupedEntries = collection.groupBy<Session, String>(
-          sessions,
-          (Session entry) => DateFormat.yMd().format(entry.startDateTime),
+      if (!hasSessions || forceRefresh) {
+        await _networkFetch();
+        final localSessions = await _dBRepository.fetchSessions(
+          sessionLevel: sessionLevel,
+          sessionType: sessionType,
+          bookmarkStatus: bookmarkStatus,
+        );
+
+        final groupedEntries = collection.groupBy<LocalSession, String>(
+          localSessions,
+          (LocalSession entry) => DateFormat.yMd().format(entry.startDateTime),
         );
 
         emit(FetchGroupedSessionsState.loaded(groupedSessions: groupedEntries));
@@ -62,5 +68,10 @@ class FetchGroupedSessionsCubit extends Cubit<FetchGroupedSessionsState> {
     } catch (e) {
       emit(FetchGroupedSessionsState.error(e.toString()));
     }
+  }
+
+  Future<void> _networkFetch() async {
+    final sessions = await _apiRepository.fetchSessions();
+    await _dBRepository.persistSessions(sessions: sessions);
   }
 }

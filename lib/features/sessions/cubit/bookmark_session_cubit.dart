@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:fluttercon/common/data/enums/bookmark_status.dart';
 import 'package:fluttercon/common/repository/api_repository.dart';
-import 'package:fluttercon/common/repository/hive_repository.dart';
+import 'package:fluttercon/common/repository/db_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'bookmark_session_state.dart';
@@ -10,14 +10,14 @@ part 'bookmark_session_cubit.freezed.dart';
 class BookmarkSessionCubit extends Cubit<BookmarkSessionState> {
   BookmarkSessionCubit({
     required ApiRepository apiRepository,
-    required HiveRepository hiveRepository,
+    required DBRepository dBRepository,
   }) : super(const BookmarkSessionState.initial()) {
     _apiRepository = apiRepository;
-    _hiveRepository = hiveRepository;
+    _dBRepository = dBRepository;
   }
 
   late ApiRepository _apiRepository;
-  late HiveRepository _hiveRepository;
+  late DBRepository _dBRepository;
 
   Future<void> bookmarkSession({
     required int sessionId,
@@ -29,7 +29,7 @@ class BookmarkSessionCubit extends Cubit<BookmarkSessionState> {
 
       final bookmarkStatus = BookmarkStatus.fromString(message);
 
-      _hiveRepository.updateSession(
+      await _dBRepository.updateSession(
         sessionId: sessionId,
         bookmarkStatus: bookmarkStatus == BookmarkStatus.bookmarked,
       );

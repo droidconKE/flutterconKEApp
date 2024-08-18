@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fluttercon/common/data/models/models.dart';
+import 'package:fluttercon/common/data/models/local/local_organiser.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/features/home/cubit/fetch_organisers_cubit.dart';
 
@@ -52,7 +52,7 @@ class _OrganizersCardState extends State<OrganizersCard> {
               loaded: (organisers) => Wrap(
                 spacing: 10,
                 children: [
-                  for (final Organiser organiser in organisers)
+                  for (final organiser in organisers)
                     SizedBox(
                       width: size.width / 4,
                       child: resolveImage(organiser),
@@ -78,7 +78,7 @@ class _OrganizersCardState extends State<OrganizersCard> {
     );
   }
 
-  Widget resolveImage(Organiser organiser) {
+  Widget resolveImage(LocalOrganiser organiser) {
     return organiser.logo.contains('.svg')
         ? SvgPicture.network(organiser.logo)
         : CachedNetworkImage(imageUrl: organiser.logo);

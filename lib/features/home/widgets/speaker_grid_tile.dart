@@ -1,13 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttercon/common/data/models/speaker.dart';
+import 'package:fluttercon/common/data/models/local/local_speaker.dart';
 import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:go_router/go_router.dart';
 
 class SpeakerGridTile extends StatelessWidget {
   const SpeakerGridTile({required this.speaker, super.key});
-  final Speaker speaker;
+  final LocalSpeaker speaker;
 
   @override
   Widget build(BuildContext context) {

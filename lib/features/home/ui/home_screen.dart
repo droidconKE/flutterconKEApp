@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 15),
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.asset(AppAssets.droidconBanner),
+                child: Image.asset(AppAssets.flutterConBanner),
               ),
               const SizedBox(height: 24),
               SessionsCard(switchTab: widget.switchTab),

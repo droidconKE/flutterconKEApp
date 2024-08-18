@@ -6,6 +6,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttercon/common/repository/db_repository.dart';
 import 'package:fluttercon/common/repository/hive_repository.dart';
 import 'package:fluttercon/core/di/injectable.dart';
 import 'package:fluttercon/features/about/cubit/fetch_individual_organisers_cubit.dart';
@@ -46,6 +47,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
 
     await configureDependencies();
     await getIt<HiveRepository>().initBoxes();
+    localDB = await getIt<DBRepository>().init();
 
     runApp(
       MultiBlocProvider(
@@ -59,6 +61,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
           BlocProvider(
             create: (_) => FetchOrganisersCubit(
               apiRepository: getIt(),
+              dBRepository: getIt(),
             ),
           ),
           BlocProvider<SocialAuthSignInCubit>(
@@ -70,38 +73,43 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
           BlocProvider<FetchFeedCubit>(
             create: (_) => FetchFeedCubit(
               apiRepository: getIt(),
+              dBRepository: getIt(),
             ),
           ),
           BlocProvider<FetchSponsorsCubit>(
             create: (context) => FetchSponsorsCubit(
               apiRepository: getIt(),
+              dBRepository: getIt(),
             ),
           ),
           BlocProvider<FetchSessionsCubit>(
             create: (context) => FetchSessionsCubit(
               apiRepository: getIt(),
+              dBRepository: getIt(),
             ),
           ),
           BlocProvider<FetchGroupedSessionsCubit>(
             create: (context) => FetchGroupedSessionsCubit(
               apiRepository: getIt(),
-              hiveRepository: getIt(),
+              dBRepository: getIt(),
             ),
           ),
           BlocProvider<FetchSpeakersCubit>(
             create: (context) => FetchSpeakersCubit(
               apiRepository: getIt(),
+              dBRepository: getIt(),
             ),
           ),
           BlocProvider<FetchIndividualOrganisersCubit>(
             create: (context) => FetchIndividualOrganisersCubit(
               apiRepository: getIt(),
+              dBRepository: getIt(),
             ),
           ),
           BlocProvider<BookmarkSessionCubit>(
             create: (context) => BookmarkSessionCubit(
               apiRepository: getIt(),
-              hiveRepository: getIt(),
+              dBRepository: getIt(),
             ),
           ),
           BlocProvider<ShareFeedPostCubit>(
