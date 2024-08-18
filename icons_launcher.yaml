@@ -1,8 +1,7 @@
 icons_launcher:
-  image_path: "assets/images/launcher.png"
+  image_path: "assets/images/flutterconke_launcher.png"
   platforms:
     android:
       enable: false
     ios:
       enable: true
-  
