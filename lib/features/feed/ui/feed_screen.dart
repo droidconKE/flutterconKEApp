@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttercon/common/data/enums/social_platform.dart';
-import 'package:fluttercon/common/data/models/feed.dart';
+import 'package:fluttercon/common/data/models/local/local_feed.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/widgets/app_bar/app_bar.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
@@ -130,7 +130,7 @@ class _FeedScreenState extends State<FeedScreen> {
     );
   }
 
-  Widget _buildPage(Feed feed) => SliverToBoxAdapter(
+  Widget _buildPage(LocalFeedEntry feed) => SliverToBoxAdapter(
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: BlocConsumer<ShareFeedPostCubit, ShareFeedPostState>(

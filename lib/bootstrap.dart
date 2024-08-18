@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/repository/hive_repository.dart';
+import 'package:fluttercon/common/repository/local_database_repository.dart';
 import 'package:fluttercon/core/di/injectable.dart';
 import 'package:fluttercon/features/about/cubit/fetch_individual_organisers_cubit.dart';
 import 'package:fluttercon/features/auth/cubit/google_sign_in_cubit.dart';
@@ -46,6 +47,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
 
     await configureDependencies();
     await getIt<HiveRepository>().initBoxes();
+    localDB = await getIt<LocalDatabaseRepository>().init();
 
     runApp(
       MultiBlocProvider(
@@ -70,6 +72,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
           BlocProvider<FetchFeedCubit>(
             create: (_) => FetchFeedCubit(
               apiRepository: getIt(),
+              localDatabaseRepository: getIt(),
             ),
           ),
           BlocProvider<FetchSponsorsCubit>(
