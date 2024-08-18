@@ -61,6 +61,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
           BlocProvider(
             create: (_) => FetchOrganisersCubit(
               apiRepository: getIt(),
+              localDatabaseRepository: getIt(),
             ),
           ),
           BlocProvider<SocialAuthSignInCubit>(
@@ -100,6 +101,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
           BlocProvider<FetchIndividualOrganisersCubit>(
             create: (context) => FetchIndividualOrganisersCubit(
               apiRepository: getIt(),
+              localDatabaseRepository: getIt(),
             ),
           ),
           BlocProvider<BookmarkSessionCubit>(

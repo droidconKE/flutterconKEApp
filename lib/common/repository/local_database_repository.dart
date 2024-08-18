@@ -1,6 +1,10 @@
 import 'package:fluttercon/common/data/models/feed.dart';
+import 'package:fluttercon/common/data/models/individual_organiser.dart';
 import 'package:fluttercon/common/data/models/local/local_feed.dart';
+import 'package:fluttercon/common/data/models/local/local_individual_organiser.dart';
+import 'package:fluttercon/common/data/models/local/local_organiser.dart';
 import 'package:fluttercon/common/data/models/local/local_speaker.dart';
+import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/common/data/models/speaker.dart';
 import 'package:fluttercon/core/di/injectable.dart';
 import 'package:injectable/injectable.dart';
@@ -15,6 +19,8 @@ class LocalDatabaseRepository {
       [
         LocalFeedEntrySchema,
         LocalSpeakerSchema,
+        LocalOrganiserSchema,
+        LocalIndividualOrganiserSchema,
       ],
       directory: dir.path,
     );
@@ -57,7 +63,6 @@ class LocalDatabaseRepository {
     required List<Speaker> speakers,
   }) async {
     await localDB.writeTxn(() async {
-      
       final localSpeakers = <LocalSpeaker>[];
 
       for (final speaker in speakers) {
@@ -83,5 +88,58 @@ class LocalDatabaseRepository {
 
   Future<List<LocalSpeaker>> fetchLocalSpeakers() async {
     return localDB.localSpeakers.where().findAll();
+  }
+
+  Future<void> persistOrganisers({
+    required List<Organiser> organisers,
+  }) async {
+    await localDB.writeTxn(() async {
+      final localOrganisers = <LocalOrganiser>[];
+
+      for (final organiser in organisers) {
+        localOrganisers.add(
+          LocalOrganiser(
+            name: organiser.name,
+            serverId: organiser.id,
+            logo: organiser.logo,
+          ),
+        );
+      }
+
+      await localDB.localOrganisers.putAll(localOrganisers);
+    });
+  }
+
+  Future<List<LocalOrganiser>> fetchOrganisers() async {
+    return localDB.localOrganisers.where().findAll();
+  }
+
+  Future<void> persistIndividualOrganisers({
+    required List<IndividualOrganiser> organisers,
+  }) async {
+    await localDB.writeTxn(() async {
+      final localIndividualOrganisers = <LocalIndividualOrganiser>[];
+
+      for (final organiser in organisers) {
+        localIndividualOrganisers.add(
+          LocalIndividualOrganiser(
+            name: organiser.name,
+            tagline: organiser.tagline,
+            link: organiser.link,
+            type: organiser.type,
+            bio: organiser.bio,
+            designation: organiser.designation,
+            photo: organiser.photo,
+            twitterHandle: organiser.twitterHandle,
+          ),
+        );
+      }
+
+      await localDB.localIndividualOrganisers.putAll(localIndividualOrganisers);
+    });
+  }
+
+  Future<List<LocalIndividualOrganiser>> fetchIndividualOrganisers() async {
+    return localDB.localIndividualOrganisers.where().findAll();
   }
 }
