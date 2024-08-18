@@ -6,6 +6,7 @@ import 'package:fluttercon/common/widgets/app_bar/feedback_button.dart';
 import 'package:fluttercon/common/widgets/app_bar/session_filter.dart';
 import 'package:fluttercon/common/widgets/app_bar/user_profile_icon.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:fluttercon/l10n/l10n.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -27,6 +28,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final (isLightMode, colorScheme) = Misc.getTheme(context);
+    final l10n = context.l10n;
     return AppBar(
       automaticallyImplyLeading: false,
       surfaceTintColor: colorScheme.surface,
@@ -95,7 +97,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                                 ),
                                 const SizedBox(width: 8),
                                 Text(
-                                  'Filter',
+                                  l10n.filter,
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleLarge
@@ -114,7 +116,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                             child: Padding(
                               padding: const EdgeInsets.only(right: 16),
                               child: Text(
-                                'Cancel'.toUpperCase(),
+                                l10n.cancel.toUpperCase(),
                                 style: const TextStyle(
                                   color: Colors.grey,
                                   fontWeight: FontWeight.bold,
@@ -132,7 +134,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     children: [
                       const SizedBox(width: 32),
                       Text(
-                        'Filter',
+                        l10n.filter,
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                               fontWeight: FontWeight.bold,
                               color: Colors.grey,

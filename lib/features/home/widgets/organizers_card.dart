@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttercon/common/data/models/local/local_organiser.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/features/home/cubit/fetch_organisers_cubit.dart';
+import 'package:fluttercon/l10n/l10n.dart';
 
 class OrganizersCard extends StatefulWidget {
   const OrganizersCard({super.key});
@@ -24,8 +25,8 @@ class _OrganizersCardState extends State<OrganizersCard> {
   @override
   Widget build(BuildContext context) {
     final (_, colorScheme) = Misc.getTheme(context);
-    final size =
-        MediaQuery.sizeOf(context); //Widget to only rebuild when size changes
+    final size = MediaQuery.sizeOf(context);
+    final l10n = context.l10n;
 
     return Container(
       width: double.infinity,
@@ -39,7 +40,7 @@ class _OrganizersCardState extends State<OrganizersCard> {
         children: [
           const Spacer(),
           Text(
-            'Organised by:',
+            l10n.organisedBy,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: colorScheme.primary,
@@ -67,9 +68,7 @@ class _OrganizersCardState extends State<OrganizersCard> {
                       fontSize: 18,
                     ),
               ),
-              orElse: () => const Center(
-                child: CircularProgressIndicator(),
-              ),
+              orElse: () => const Center(child: CircularProgressIndicator()),
             ),
           ),
           const Spacer(),

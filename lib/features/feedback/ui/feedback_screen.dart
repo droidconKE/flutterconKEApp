@@ -5,6 +5,7 @@ import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/feedback/cubit/send_feedback_cubit.dart';
 import 'package:fluttercon/features/feedback/widgets/emoji_container.dart';
 import 'package:fluttercon/features/feedback/widgets/feedback_custom_appbar.dart';
+import 'package:fluttercon/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
 
 class FeedbackScreen extends StatefulWidget {
@@ -27,6 +28,8 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -35,7 +38,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
             const SizedBox(height: 20),
             Center(
               child: Text(
-                'Your feedback helps us improve',
+                l10n.yourFeedback,
                 style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                       color: ThemeColors.blueDroidconColor,
                       fontSize: 18,
@@ -44,7 +47,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               ),
             ),
             const SizedBox(height: 20),
-            const Center(child: Text('How is/was the event?')),
+            Center(child: Text(l10n.howWasFluttercon)),
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -88,10 +91,10 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                 children: [
                   TextField(
                     controller: feedbackController,
-                    decoration: const InputDecoration(
-                      fillColor: Color.fromRGBO(245, 245, 245, 1),
-                      hintText: 'Type message here',
-                      hintStyle: TextStyle(
+                    decoration: InputDecoration(
+                      fillColor: const Color.fromRGBO(245, 245, 245, 1),
+                      hintText: l10n.typeYourFeedback,
+                      hintStyle: const TextStyle(
                         color: Color.fromRGBO(112, 112, 112, 1),
                         fontSize: 14,
                       ),
@@ -104,17 +107,13 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                       state.whenOrNull(
                         loaded: (feedback, rating) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Feedback submitted successfully!'),
-                            ),
+                            SnackBar(content: Text(l10n.feedbackSubmitted)),
                           );
                           context.pop();
                         },
                         error: (message) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Error: $message'),
-                            ),
+                            SnackBar(content: Text(message)),
                           );
                         },
                       );
@@ -144,18 +143,15 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                                       );
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text(
-                                        'Please ensure you have selected a'
-                                        ' rating and written your feedback',
-                                      ),
+                                    SnackBar(
+                                      content: Text(l10n.feedbackError),
                                     ),
                                   );
                                 }
                               },
-                              child: const Text(
-                                'SUBMIT FEEDBACK',
-                                style: TextStyle(
+                              child: Text(
+                                l10n.submitFeedback.toUpperCase(),
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,

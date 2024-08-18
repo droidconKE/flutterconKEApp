@@ -36,7 +36,7 @@ class _SessionsCardState extends State<SessionsCard> {
         Row(
           children: [
             Text(
-              'Sessions',
+              l10n.sessions,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     color: ThemeColors.blueDroidconColor,
                     fontWeight: FontWeight.bold,
@@ -47,9 +47,9 @@ class _SessionsCardState extends State<SessionsCard> {
               onPressed: widget.switchTab,
               child: Row(
                 children: [
-                  const Text(
-                    'View All',
-                    style: TextStyle(
+                  Text(
+                    l10n.viewAll,
+                    style: const TextStyle(
                       color: ThemeColors.blueColor,
                     ),
                   ),
