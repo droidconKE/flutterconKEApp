@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
@@ -17,21 +16,24 @@ class Misc {
     // Download files from the internet
     final files = <XFile>[];
 
+    // Get the path to the temporary directory
     final tempDir = (await getTemporaryDirectory()).path;
 
     for (final url in urls) {
       // Get file extension
       final ext = url.split('.').last;
 
-      // Download the file
-      final filePath = '${Random().nextInt(1000)}.$ext';
+      // Generate a file name and create the full path
+      final filePath = '$tempDir/${Random().nextInt(1000)}.$ext';
 
+      // Download the file
       await Dio().download(
         url,
-        tempDir + filePath,
+        filePath,
       );
 
-      files.add(XFile(tempDir + filePath));
+      // Add the file to the list of XFiles
+      files.add(XFile(filePath));
     }
 
     return files;
