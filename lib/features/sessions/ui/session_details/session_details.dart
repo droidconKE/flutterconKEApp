@@ -35,8 +35,8 @@ class SessionDetailsPage extends StatelessWidget {
           onPressed: () => GoRouter.of(context).pop(),
           color: Colors.black,
         ),
-        title: const Text(
-          'Session Details',
+        title: Text(
+          l10n.sessionDetails,
           style: TextStyle(color: Colors.black),
         ),
         surfaceTintColor: Colors.white,
@@ -50,7 +50,7 @@ class SessionDetailsPage extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Row(
+                Row(
                   children: [
                     Flexible(
                       child: Icon(
@@ -60,7 +60,7 @@ class SessionDetailsPage extends StatelessWidget {
                     ),
                     SizedBox(width: 8),
                     Text(
-                      'Speaker',
+                      l10n.speaker,
                       style: TextStyle(
                         color: ThemeColors.orangeColor,
                       ),
@@ -196,8 +196,8 @@ class SessionDetailsPage extends StatelessWidget {
                   .map(
                     (speaker) => Row(
                       children: [
-                        const Text(
-                          'Twitter Handle',
+                        Text(
+                          l10n.twitterHandle,
                           style: TextStyle(
                             color: ThemeColors.blackColor,
                             fontSize: 20,
@@ -268,8 +268,8 @@ class SessionDetailsPage extends StatelessWidget {
                         state.mapOrNull(
                           loaded: (_) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Post shared successfully.'),
+                              SnackBar(
+                                content: Text(l10n.postShared),
                               ),
                             );
                           },
@@ -287,17 +287,7 @@ class SessionDetailsPage extends StatelessWidget {
                           ),
                           child: state.maybeWhen(
                             loading: () => const Center(
-                              child: Column(
-                                children: [
-                                  CircularProgressIndicator(
-                                    strokeWidth: 3,
-                                  ),
-                                  SizedBox(height: 20),
-                                  Text(
-                                    'Gathering content to share...',
-                                  ),
-                                ],
-                              ),
+                              child: CircularProgressIndicator(strokeWidth: 3),
                             ),
                             orElse: () => Column(
                               mainAxisSize: MainAxisSize.min,
@@ -318,11 +308,9 @@ class SessionDetailsPage extends StatelessWidget {
                                           ),
                                           height: 32,
                                         ),
-                                        const SizedBox(
-                                          width: 8,
-                                        ),
-                                        const Text(
-                                          'Share',
+                                        const SizedBox(width: 8),
+                                        Text(
+                                          l10n.share,
                                           style: TextStyle(
                                             color: ThemeColors.blackColor,
                                             fontWeight: FontWeight.w800,
@@ -335,8 +323,8 @@ class SessionDetailsPage extends StatelessWidget {
                                       onTap: () => Navigator.of(
                                         context,
                                       ).pop(),
-                                      child: const Text(
-                                        'CANCEL',
+                                      child: Text(
+                                        l10n.cancel.toUpperCase(),
                                         style: TextStyle(
                                           color: ThemeColors.greyTextColor,
                                           fontWeight: FontWeight.bold,
@@ -356,7 +344,7 @@ class SessionDetailsPage extends StatelessWidget {
                                             fileUrl: session.sessionImage,
                                             platform: SocialPlatform.twitter,
                                           ),
-                                      label: 'Twitter',
+                                      label: l10n.twitter,
                                       iconPath: AppAssets.iconTwitter,
                                     ),
                                     const SizedBox(
@@ -366,8 +354,8 @@ class SessionDetailsPage extends StatelessWidget {
                                       callBack: () =>
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
-                                        const SnackBar(
-                                          content: Text('Coming soon!'),
+                                        SnackBar(
+                                          content: Text(l10n.comingSoon),
                                         ),
                                       ),
                                       // callBack: () async => context
@@ -378,7 +366,7 @@ class SessionDetailsPage extends StatelessWidget {
                                       //       platform: SocialPlatform.
                                       //       facebook,
                                       //     ),
-                                      label: 'Facebook',
+                                      label: l10n.facebook,
                                       iconPath: AppAssets.iconFacebook,
                                     ),
                                   ],
@@ -394,7 +382,7 @@ class SessionDetailsPage extends StatelessWidget {
                                             fileUrl: session.sessionImage,
                                             platform: SocialPlatform.whatsapp,
                                           ),
-                                      label: 'WhatsApp',
+                                      label: l10n.whatsApp,
                                       iconPath: AppAssets.iconWhatsApp,
                                     ),
                                     const SizedBox(
@@ -408,7 +396,7 @@ class SessionDetailsPage extends StatelessWidget {
                                             fileUrl: session.sessionImage,
                                             platform: SocialPlatform.telegram,
                                           ),
-                                      label: 'Telegram',
+                                      label: l10n.telegram,
                                       iconPath: AppAssets.iconTelegram,
                                     ),
                                   ],

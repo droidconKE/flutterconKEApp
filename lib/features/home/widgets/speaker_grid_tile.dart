@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttercon/common/data/models/local/local_speaker.dart';
 import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:fluttercon/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
 
 class SpeakerGridTile extends StatelessWidget {
@@ -11,6 +12,8 @@ class SpeakerGridTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    
     return Card(
       elevation: 4,
       color: ThemeColors.lightGrayBackgroundColor,
@@ -70,7 +73,7 @@ class SpeakerGridTile extends StatelessWidget {
                   backgroundColor: Colors.white,
                 ),
                 child: Text(
-                  'Details'.toUpperCase(),
+                 l10n.details.toUpperCase(),
                   style: const TextStyle(
                     color: ThemeColors.blueGreenDroidconColor,
                     fontWeight: FontWeight.bold,

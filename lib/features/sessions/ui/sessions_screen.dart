@@ -6,6 +6,7 @@ import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/sessions/cubit/fetch_grouped_sessions_cubit.dart';
 import 'package:fluttercon/features/sessions/ui/widgets/day_sessions_view.dart';
 import 'package:fluttercon/features/sessions/ui/widgets/day_tab_view.dart';
+import 'package:fluttercon/l10n/l10n.dart';
 
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
@@ -34,6 +35,8 @@ class _SessionsScreenState extends State<SessionsScreen>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return Scaffold(
       appBar: CustomAppBar(
         selectedIndex: 2,
@@ -133,8 +136,8 @@ class _SessionsScreenState extends State<SessionsScreen>
                               const Icon(Icons.star_border_rounded),
                             ),
                           ),
-                          const Text(
-                            'My Sessions',
+                           Text(
+                            l10n.mySessions,
                             style: TextStyle(fontSize: 10),
                           ),
                         ],
@@ -153,7 +156,7 @@ class _SessionsScreenState extends State<SessionsScreen>
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
-                    _isBookmarked ? 'My Sessions' : 'All Sessions',
+                    _isBookmarked ? l10n.mySessions : l10n.allSessions,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: ThemeColors.blueColor,

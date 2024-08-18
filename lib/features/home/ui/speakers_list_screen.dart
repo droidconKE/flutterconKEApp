@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/home/cubit/fetch_speakers_cubit.dart';
 import 'package:fluttercon/features/home/widgets/speaker_grid_tile.dart';
+import 'package:fluttercon/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
 
 class SpeakerListScreen extends StatelessWidget {
@@ -10,6 +11,8 @@ class SpeakerListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -17,8 +20,8 @@ class SpeakerListScreen extends StatelessWidget {
           onPressed: () => GoRouter.of(context).pop(),
           color: Colors.black,
         ),
-        title: const Text(
-          'Speakers',
+        title:  Text(
+          l10n.speakers,
           style: TextStyle(color: Colors.black),
         ),
         surfaceTintColor: Colors.white,

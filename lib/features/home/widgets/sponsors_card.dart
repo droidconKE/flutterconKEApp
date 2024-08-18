@@ -7,6 +7,7 @@ import 'package:fluttercon/common/data/models/local/local_sponsor.dart';
 
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/home/cubit/fetch_sponsors_cubit.dart';
+import 'package:fluttercon/l10n/l10n.dart';
 
 class SponsorsCard extends StatefulWidget {
   const SponsorsCard({super.key});
@@ -25,6 +26,7 @@ class _SponsorsCardState extends State<SponsorsCard> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final l10n = context.l10n;
 
     return Container(
       width: double.infinity,
@@ -37,8 +39,8 @@ class _SponsorsCardState extends State<SponsorsCard> {
       child: Column(
         children: [
           const Spacer(),
-          const Text(
-            'Sponsors',
+           Text(
+           l10n.sponsors,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: ThemeColors.blueColor,

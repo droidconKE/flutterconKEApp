@@ -5,6 +5,7 @@ import 'package:fluttercon/features/home/widgets/organizers_card.dart';
 import 'package:fluttercon/features/home/widgets/sessions_card.dart';
 import 'package:fluttercon/features/home/widgets/speaker_home_card.dart';
 import 'package:fluttercon/features/home/widgets/sponsors_card.dart';
+import 'package:fluttercon/l10n/l10n.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, this.switchTab});
@@ -18,6 +19,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return Scaffold(
       appBar: const CustomAppBar(selectedIndex: 0),
       body: SafeArea(
@@ -27,8 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               const SizedBox(height: 15),
               Text(
-                'Welcome to the largest Focused Android Developer community '
-                'in Africa',
+               l10n.welcomeToFlutterCon ,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                       color: Colors.black,

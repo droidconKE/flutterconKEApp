@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:fluttercon/l10n/l10n.dart';
 
 class DayTabView extends StatelessWidget {
   const DayTabView({
@@ -15,6 +16,8 @@ class DayTabView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return Tab(
       height: 80,
       child: Container(
@@ -37,7 +40,7 @@ class DayTabView extends StatelessWidget {
             ),
             const SizedBox(height: 4),
             Text(
-              'Day $day',
+              l10n.day(day),
               style: TextStyle(
                 fontSize: 16,
                 color: isActive ? Colors.white : Colors.black,
