@@ -37,8 +37,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             onTap: () {},
             child: Image.asset(
               isLightMode
-                  ? AppAssets.droidconLogo
-                  : AppAssets.droidconLogoWhite,
+                  ? AppAssets.flutterConKeLogo
+                  : AppAssets.flutterConKeLogo,
               scale: 2,
             ),
           ),
