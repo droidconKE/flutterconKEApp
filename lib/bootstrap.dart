@@ -94,6 +94,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
           BlocProvider<FetchSpeakersCubit>(
             create: (context) => FetchSpeakersCubit(
               apiRepository: getIt(),
+              localDatabaseRepository: getIt(),
             ),
           ),
           BlocProvider<FetchIndividualOrganisersCubit>(
