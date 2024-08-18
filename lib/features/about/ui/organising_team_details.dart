@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fluttercon/common/data/models/individual_organiser.dart';
+import 'package:fluttercon/common/data/models/local/local_individual_organiser.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
@@ -13,7 +13,7 @@ class OranisingTeamMemberDetailsPage extends StatelessWidget {
     super.key,
   });
 
-  final IndividualOrganiser organiser;
+  final LocalIndividualOrganiser organiser;
 
   @override
   Widget build(BuildContext context) {
