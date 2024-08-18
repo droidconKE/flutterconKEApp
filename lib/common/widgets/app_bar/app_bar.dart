@@ -39,7 +39,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               isLightMode
                   ? AppAssets.flutterConKeLogo
                   : AppAssets.flutterConKeLogo,
-              scale: 2,
+              scale: 4.5,
             ),
           ),
           const Spacer(),
