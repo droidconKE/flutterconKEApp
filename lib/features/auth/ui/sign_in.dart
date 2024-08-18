@@ -49,7 +49,7 @@ class SignInScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Spacer(),
-                    const Image(image: AssetImage(AppAssets.droidconLogo)),
+                    const Image(image: AssetImage(AppAssets.flutterConKeLogo)),
                     const SizedBox(height: 64),
                     BlocBuilder<GoogleSignInCubit, GoogleSignInState>(
                       builder: (context, state) {
