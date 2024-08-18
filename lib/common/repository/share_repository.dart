@@ -27,15 +27,6 @@ class ShareRepository {
     }
   }
 
-  Future<String> shareToFacebook(String message, String filePath) async {
-    try {
-      return await appinioSocialShare.android
-          .shareToFacebook(message, [filePath]);
-    } catch (e) {
-      rethrow;
-    }
-  }
-
   Future<String> shareToTwitter(String message, String? filePath) async {
     try {
       return await appinioSocialShare.android.shareToTwitter(message, filePath);

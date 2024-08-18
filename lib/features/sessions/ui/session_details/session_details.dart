@@ -351,23 +351,15 @@ class SessionDetailsPage extends StatelessWidget {
                                       width: 24,
                                     ),
                                     SocialMediaButton(
-                                      callBack: () =>
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                        SnackBar(
-                                          content: Text(l10n.comingSoon),
-                                        ),
-                                      ),
-                                      // callBack: () async => context
-                                      //     .read<ShareFeedPostCubit>()
-                                      //     .sharePost(
-                                      //       body: session.description,
-                                      //       fileUrl: session.sessionImage,
-                                      //       platform: SocialPlatform.
-                                      //       facebook,
-                                      //     ),
-                                      label: l10n.facebook,
-                                      iconPath: AppAssets.iconFacebook,
+                                      callBack: () async => context
+                                          .read<ShareFeedPostCubit>()
+                                          .sharePost(
+                                            body: session.description,
+                                            fileUrl: session.sessionImage,
+                                            platform: SocialPlatform.whatsapp,
+                                          ),
+                                      label: l10n.whatsApp,
+                                      iconPath: AppAssets.iconWhatsApp,
                                     ),
                                   ],
                                 ),
@@ -380,25 +372,15 @@ class SessionDetailsPage extends StatelessWidget {
                                           .sharePost(
                                             body: session.description,
                                             fileUrl: session.sessionImage,
-                                            platform: SocialPlatform.whatsapp,
-                                          ),
-                                      label: l10n.whatsApp,
-                                      iconPath: AppAssets.iconWhatsApp,
-                                    ),
-                                    const SizedBox(
-                                      width: 24,
-                                    ),
-                                    SocialMediaButton(
-                                      callBack: () async => context
-                                          .read<ShareFeedPostCubit>()
-                                          .sharePost(
-                                            body: session.description,
-                                            fileUrl: session.sessionImage,
                                             platform: SocialPlatform.telegram,
                                           ),
                                       label: l10n.telegram,
                                       iconPath: AppAssets.iconTelegram,
                                     ),
+                                    const SizedBox(
+                                      width: 24,
+                                    ),
+                                    const Spacer(),
                                   ],
                                 ),
                                 const SizedBox(height: 30),

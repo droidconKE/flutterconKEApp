@@ -35,8 +35,6 @@
 				<key>CFBundleURLSchemes</key>
 				<array>
 					<string>com.googleusercontent.apps.602867001820-p21jqotknhl6gcinm7lv9tmubhv30gh9</string>
-					<string>fb[your_facebook_app_id]</string>
-					<!-- Add your Facebook App ID -->
 				</array>
 			</dict>
 		</array>
@@ -71,15 +69,6 @@
 		<false/>
 		<key>LSApplicationQueriesSchemes</key>
 		<array>
-			<string>instagram</string>
-			<string>fb</string>
-			<string>fbauth2</string>
-			<string>fbshareextension</string>
-			<string>fbapi</string>
-			<string>facebook-reels</string>
-			<string>facebook-stories</string>
-			<string>fb-messenger-share-api</string>
-			<string>fb-messenger</string>
 			<string>tg</string>
 			<string>whatsapp</string>
 			<string>twitter</string>
@@ -92,12 +81,6 @@
 		<string>$(FLAVOR_APP_NAME) requires access to the camera.</string>
 		<key>NSAppleMusicUsageDescription</key>
 		<string>$(FLAVOR_APP_NAME) requires access to play music</string>
-		<key>FacebookAppID</key>
-		<string>[your_facebook_app_id]</string>
-		<key>FacebookClientToken</key>
-		<string>[your_facebook_client_token]</string>
-		<key>FacebookDisplayName</key>
-		<string>[your_facebook_app_display_name]</string>
 		<key>NSBonjourServices</key>
 		<array>
 			<string>_dartobservatory._tcp</string>

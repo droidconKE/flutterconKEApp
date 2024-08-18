@@ -219,24 +219,16 @@ class _FeedScreenState extends State<FeedScreen> {
                             label: l10n.twitter,
                             iconPath: AppAssets.iconTwitter,
                           ),
-                          const SizedBox(
-                            width: 24,
-                          ),
+                          const SizedBox(width: 24),
                           SocialMediaButton(
-                            callBack: () =>
-                                ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(l10n.comingSoon),
-                              ),
-                            ),
-                            // callBack: () async =>
-                            //     context.read<ShareFeedPostCubit>().sharePost(
-                            //           body: feed.body,
-                            //           fileUrl: feed.image,
-                            //           platform: SocialPlatform.facebook,
-                            //         ),
-                            label: l10n.facebook,
-                            iconPath: AppAssets.iconFacebook,
+                            callBack: () async =>
+                                context.read<ShareFeedPostCubit>().sharePost(
+                                      body: feed.body,
+                                      fileUrl: feed.image,
+                                      platform: SocialPlatform.whatsapp,
+                                    ),
+                            label: l10n.whatsApp,
+                            iconPath: AppAssets.iconWhatsApp,
                           ),
                         ],
                       ),
@@ -248,24 +240,13 @@ class _FeedScreenState extends State<FeedScreen> {
                                 context.read<ShareFeedPostCubit>().sharePost(
                                       body: feed.body,
                                       fileUrl: feed.image,
-                                      platform: SocialPlatform.whatsapp,
-                                    ),
-                            label: l10n.whatsApp,
-                            iconPath: AppAssets.iconWhatsApp,
-                          ),
-                          const SizedBox(
-                            width: 24,
-                          ),
-                          SocialMediaButton(
-                            callBack: () async =>
-                                context.read<ShareFeedPostCubit>().sharePost(
-                                      body: feed.body,
-                                      fileUrl: feed.image,
                                       platform: SocialPlatform.telegram,
                                     ),
                             label: l10n.telegram,
                             iconPath: AppAssets.iconTelegram,
                           ),
+                          const SizedBox(width: 24),
+                          const Spacer(),
                         ],
                       ),
                       const SizedBox(height: 30),
