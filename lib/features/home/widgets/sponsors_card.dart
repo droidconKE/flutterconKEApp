@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttercon/common/data/enums/sponsor_type.dart';
 import 'package:fluttercon/common/data/models/local/local_sponsor.dart';
-import 'package:fluttercon/common/data/models/sponsor.dart';
 
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/home/cubit/fetch_sponsors_cubit.dart';

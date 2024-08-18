@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:fluttercon/common/data/models/failure.dart';
 import 'package:fluttercon/common/data/models/local/local_speaker.dart';
-import 'package:fluttercon/common/data/models/speaker.dart';
 import 'package:fluttercon/common/repository/api_repository.dart';
 import 'package:fluttercon/common/repository/local_database_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';

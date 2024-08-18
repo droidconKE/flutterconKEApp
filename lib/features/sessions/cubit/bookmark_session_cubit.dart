@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:fluttercon/common/data/enums/bookmark_status.dart';
 import 'package:fluttercon/common/repository/api_repository.dart';
-import 'package:fluttercon/common/repository/hive_repository.dart';
 import 'package:fluttercon/common/repository/local_database_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

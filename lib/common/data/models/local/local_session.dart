@@ -19,9 +19,9 @@ class LocalSession {
     required this.isKeynote,
     required this.isBookmarked,
     required this.isServiceSession,
-    this.sessionImage,
     required this.speakers,
     required this.rooms,
+    this.sessionImage,
   });
   Id id = Isar.autoIncrement;
   @Index(unique: true, replace: true)

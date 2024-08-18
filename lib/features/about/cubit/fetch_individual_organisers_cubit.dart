@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:fluttercon/common/data/models/individual_organiser.dart';
 import 'package:fluttercon/common/data/models/local/local_individual_organiser.dart';
 import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/common/repository/api_repository.dart';
@@ -55,8 +54,6 @@ class FetchIndividualOrganisersCubit
         );
         return;
       }
-
-
     } on Failure catch (e) {
       emit(FetchIndividualOrganisersState.error(e.message));
     } catch (e) {
