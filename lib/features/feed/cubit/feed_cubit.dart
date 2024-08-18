@@ -20,19 +20,21 @@ class FetchFeedCubit extends Cubit<FetchFeedState> {
   late ApiRepository _apiRepository;
   late LocalDatabaseRepository _localDatabaseRepository;
 
-  Future<void> fetchFeeds() async {
+  Future<void> fetchFeeds({
+    bool forceRefresh = false,
+  }) async {
     emit(const FetchFeedState.loading());
     try {
       // Fetch feed entries from local database
       final feedEntries =
           await _localDatabaseRepository.fetchLocalFeedEntries();
-      if (feedEntries.isNotEmpty) {
+      if (feedEntries.isNotEmpty && !forceRefresh) {
         emit(FetchFeedState.loaded(fetchedFeed: feedEntries));
         return;
       }
 
       // Fetch feed entries from API if local database is empty and persist them
-      if (feedEntries.isEmpty) {
+      if (feedEntries.isEmpty || forceRefresh) {
         final feeds = await _apiRepository.fetchFeeds();
         await _localDatabaseRepository.persistLocalFeedEntries(entries: feeds);
         final feedEntries =
