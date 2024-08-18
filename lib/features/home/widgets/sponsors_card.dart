@@ -39,9 +39,9 @@ class _SponsorsCardState extends State<SponsorsCard> {
       child: Column(
         children: [
           const Spacer(),
-           Text(
-           l10n.sponsors,
-            style: TextStyle(
+          Text(
+            l10n.sponsors,
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               color: ThemeColors.blueColor,
               fontSize: 18,

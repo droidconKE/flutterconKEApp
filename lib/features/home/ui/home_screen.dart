@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               const SizedBox(height: 15),
               Text(
-               l10n.welcomeToFlutterCon ,
+                l10n.welcomeToFlutterCon,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                       color: Colors.black,

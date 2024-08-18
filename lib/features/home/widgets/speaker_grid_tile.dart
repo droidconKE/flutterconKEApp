@@ -13,7 +13,7 @@ class SpeakerGridTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    
+
     return Card(
       elevation: 4,
       color: ThemeColors.lightGrayBackgroundColor,
@@ -73,7 +73,7 @@ class SpeakerGridTile extends StatelessWidget {
                   backgroundColor: Colors.white,
                 ),
                 child: Text(
-                 l10n.details.toUpperCase(),
+                  l10n.details.toUpperCase(),
                   style: const TextStyle(
                     color: ThemeColors.blueGreenDroidconColor,
                     fontWeight: FontWeight.bold,

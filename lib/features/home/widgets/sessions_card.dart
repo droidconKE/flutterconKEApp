@@ -47,9 +47,9 @@ class _SessionsCardState extends State<SessionsCard> {
               onPressed: widget.switchTab,
               child: Row(
                 children: [
-                   Text(
+                  Text(
                     l10n.viewAll,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: ThemeColors.blueColor,
                     ),
                   ),

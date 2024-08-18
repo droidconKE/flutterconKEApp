@@ -45,9 +45,9 @@ class OranisingTeamMemberDetailsPage extends StatelessWidget {
                         onPressed: () => GoRouter.of(context).pop(),
                         color: Colors.white,
                       ),
-                       Text(
-                      l10n.organisingTeam  ,
-                        style: TextStyle(
+                      Text(
+                        l10n.organisingTeam,
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
@@ -99,11 +99,11 @@ class OranisingTeamMemberDetailsPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 32),
-               Align(
+              Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                 l10n.bio ,
-                  style: TextStyle(
+                  l10n.bio,
+                  style: const TextStyle(
                     color: ThemeColors.blueColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
@@ -125,9 +125,9 @@ class OranisingTeamMemberDetailsPage extends StatelessWidget {
               const SizedBox(height: 32),
               Row(
                 children: [
-                   Text(
+                  Text(
                     l10n.twitterHandle,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: ThemeColors.blackColor,
                       fontSize: 20,
                     ),

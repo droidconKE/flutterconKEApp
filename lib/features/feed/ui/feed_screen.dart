@@ -91,7 +91,7 @@ class _FeedScreenState extends State<FeedScreen> {
                               children: [
                                 Text(
                                   l10n.share,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: ThemeColors.blueColor,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
@@ -186,7 +186,7 @@ class _FeedScreenState extends State<FeedScreen> {
                               const SizedBox(width: 8),
                               Text(
                                 l10n.share,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: ThemeColors.blackColor,
                                   fontWeight: FontWeight.w800,
                                   fontSize: 18,
@@ -198,7 +198,7 @@ class _FeedScreenState extends State<FeedScreen> {
                             onTap: () => Navigator.of(context).pop(),
                             child: Text(
                               l10n.cancel.toUpperCase(),
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: ThemeColors.greyTextColor,
                                 fontWeight: FontWeight.bold,
                               ),

@@ -136,9 +136,9 @@ class _SessionsScreenState extends State<SessionsScreen>
                               const Icon(Icons.star_border_rounded),
                             ),
                           ),
-                           Text(
+                          Text(
                             l10n.mySessions,
-                            style: TextStyle(fontSize: 10),
+                            style: const TextStyle(fontSize: 10),
                           ),
                         ],
                       ),

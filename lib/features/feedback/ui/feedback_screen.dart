@@ -92,9 +92,9 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                   TextField(
                     controller: feedbackController,
                     decoration: InputDecoration(
-                      fillColor: Color.fromRGBO(245, 245, 245, 1),
+                      fillColor: const Color.fromRGBO(245, 245, 245, 1),
                       hintText: l10n.typeYourFeedback,
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                         color: Color.fromRGBO(112, 112, 112, 1),
                         fontSize: 14,
                       ),
@@ -151,7 +151,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                               },
                               child: Text(
                                 l10n.submitFeedback.toUpperCase(),
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,

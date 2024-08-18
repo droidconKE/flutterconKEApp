@@ -39,9 +39,9 @@ class _SpeakerCardState extends State<SpeakerCard> {
             ),
             const Spacer(),
             TextButton.icon(
-              label:  Text(
+              label: Text(
                 l10n.viewAll,
-                style: TextStyle(color: ThemeColors.blueColor),
+                style: const TextStyle(color: ThemeColors.blueColor),
               ),
               iconAlignment: IconAlignment.end,
               icon: Container(

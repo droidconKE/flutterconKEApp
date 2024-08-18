@@ -37,7 +37,7 @@ class SessionDetailsPage extends StatelessWidget {
         ),
         title: Text(
           l10n.sessionDetails,
-          style: TextStyle(color: Colors.black),
+          style: const TextStyle(color: Colors.black),
         ),
         surfaceTintColor: Colors.white,
       ),
@@ -52,16 +52,16 @@ class SessionDetailsPage extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Flexible(
+                    const Flexible(
                       child: Icon(
                         Icons.android_outlined,
                         color: ThemeColors.orangeColor,
                       ),
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     Text(
                       l10n.speaker,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: ThemeColors.orangeColor,
                       ),
                     ),
@@ -198,7 +198,7 @@ class SessionDetailsPage extends StatelessWidget {
                       children: [
                         Text(
                           l10n.twitterHandle,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: ThemeColors.blackColor,
                             fontSize: 20,
                           ),
@@ -311,7 +311,7 @@ class SessionDetailsPage extends StatelessWidget {
                                         const SizedBox(width: 8),
                                         Text(
                                           l10n.share,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: ThemeColors.blackColor,
                                             fontWeight: FontWeight.w800,
                                             fontSize: 18,
@@ -325,7 +325,7 @@ class SessionDetailsPage extends StatelessWidget {
                                       ).pop(),
                                       child: Text(
                                         l10n.cancel.toUpperCase(),
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: ThemeColors.greyTextColor,
                                           fontWeight: FontWeight.bold,
                                         ),

@@ -20,9 +20,9 @@ class SpeakerListScreen extends StatelessWidget {
           onPressed: () => GoRouter.of(context).pop(),
           color: Colors.black,
         ),
-        title:  Text(
+        title: Text(
           l10n.speakers,
-          style: TextStyle(color: Colors.black),
+          style: const TextStyle(color: Colors.black),
         ),
         surfaceTintColor: Colors.white,
       ),
