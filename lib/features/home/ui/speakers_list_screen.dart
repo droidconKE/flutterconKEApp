@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/features/home/cubit/fetch_speakers_cubit.dart';
 import 'package:fluttercon/features/home/widgets/speaker_grid_tile.dart';
 import 'package:fluttercon/l10n/l10n.dart';
@@ -12,19 +12,19 @@ class SpeakerListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final (isLightMode, colorScheme) = Misc.getTheme(context);
 
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => GoRouter.of(context).pop(),
-          color: Colors.black,
+          color: colorScheme.onSurface,
         ),
         title: Text(
           l10n.speakers,
-          style: const TextStyle(color: Colors.black),
+          style: TextStyle(color: colorScheme.onSurface),
         ),
-        surfaceTintColor: Colors.white,
       ),
       body: BlocBuilder<FetchSpeakersCubit, FetchSpeakersState>(
         builder: (context, state) => state.maybeWhen(
@@ -46,7 +46,7 @@ class SpeakerListScreen extends StatelessWidget {
             message,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: ThemeColors.blueColor,
+                  color: colorScheme.primary,
                   fontSize: 18,
                 ),
           ),

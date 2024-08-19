@@ -31,7 +31,7 @@ class OranisingTeamMemberDetailsPage extends StatelessWidget {
             flexibleSpace: FlexibleSpaceBar(
               background: SvgPicture.asset(
                 AppAssets.speakerBackground,
-                fit: BoxFit.fitHeight,
+                fit: BoxFit.fitWidth,
               ),
             ),
             expandedHeight: 100,
