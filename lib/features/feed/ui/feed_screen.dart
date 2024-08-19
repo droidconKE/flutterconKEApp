@@ -85,7 +85,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                         : Colors.black,
                                     mainContentSliversBuilder: (context) =>
                                         <Widget>[
-                                      ShareSheet(feed: feed, l10n: l10n),
+                                      ShareSheet(feed: feed),
                                     ],
                                   ),
                                 ],
