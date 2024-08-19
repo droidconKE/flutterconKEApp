@@ -24,7 +24,7 @@ class SocialHandleBody extends StatelessWidget {
     return Row(
       children: [
         Text(
-          twitterUrl != null ? l10n.twitterHandle : 'LinkedIn',
+          twitterUrl != null ? l10n.twitterHandle : l10n.linkedin,
           style: TextStyle(
             color: colorScheme.onSurface,
             fontSize: 20,

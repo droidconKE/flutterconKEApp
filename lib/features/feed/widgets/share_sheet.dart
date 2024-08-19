@@ -13,15 +13,14 @@ import 'package:fluttercon/l10n/l10n.dart';
 class ShareSheet extends StatelessWidget {
   const ShareSheet({
     required this.feed,
-    required this.l10n,
     super.key,
   });
 
   final LocalFeedEntry feed;
-  final AppLocalizations l10n;
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final (isLightMode, colorScheme) = Misc.getTheme(context);
     return SliverToBoxAdapter(
       child: Padding(
