@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/features/auth/cubit/log_out_cubit.dart';
+import 'package:fluttercon/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
 
 class LogOutDialog extends StatefulWidget {
@@ -15,6 +16,7 @@ class LogOutDialog extends StatefulWidget {
 class _LogOutDialogState extends State<LogOutDialog> {
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final (isLightMode, colorScheme) = Misc.getTheme(context);
 
     return Padding(
@@ -34,7 +36,7 @@ class _LogOutDialogState extends State<LogOutDialog> {
         child: Column(
           children: [
             Text(
-              'Are you sure\nyou want to log out?',
+              l10n.areYouSureLogOut,
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     color: colorScheme.onSurface,
                     fontWeight: FontWeight.bold,
@@ -43,7 +45,7 @@ class _LogOutDialogState extends State<LogOutDialog> {
             ),
             const SizedBox(height: 20),
             Text(
-              '''Logging out will end your current session. You can always log back in to pick up right where you left off.''',
+              l10n.logoutDesc,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: colorScheme.onSurface,
                     fontWeight: FontWeight.bold,
@@ -66,7 +68,7 @@ class _LogOutDialogState extends State<LogOutDialog> {
                   builder: (context, state) {
                     return state.maybeWhen(
                       loading: () => Text(
-                        'LOGGING OUT...',
+                        l10n.logoutLoading.toUpperCase(),
                         style:
                             Theme.of(context).textTheme.titleMedium?.copyWith(
                                   color: Colors.white,
@@ -74,7 +76,7 @@ class _LogOutDialogState extends State<LogOutDialog> {
                                 ),
                       ),
                       orElse: () => Text(
-                        'YES, LOG OUT',
+                        l10n.confirmLogout.toUpperCase(),
                         style:
                             Theme.of(context).textTheme.titleMedium?.copyWith(
                                   color: Colors.white,
@@ -100,7 +102,7 @@ class _LogOutDialogState extends State<LogOutDialog> {
                   ),
                 ),
                 child: Text(
-                  'CANCEL',
+                  l10n.cancel.toUpperCase(),
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         color: colorScheme.onSurface,
                         fontWeight: FontWeight.bold,
