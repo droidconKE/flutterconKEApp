@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttercon/common/data/models/local/local_speaker.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/misc.dart';
+import 'package:fluttercon/common/widgets/twiiter_handle.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
@@ -19,17 +20,17 @@ class SpeakerDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final (isLightMode, colorScheme) = Misc.getTheme(context);
 
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           SliverAppBar(
-            surfaceTintColor: Colors.white,
             floating: true,
             flexibleSpace: FlexibleSpaceBar(
               background: SvgPicture.asset(
                 AppAssets.speakerBackground,
-                fit: BoxFit.fitHeight,
+                fit: BoxFit.fitWidth,
               ),
             ),
             expandedHeight: 100,
@@ -94,8 +95,8 @@ class SpeakerDetailsPage extends StatelessWidget {
               ),
               Text(
                 speaker.name,
-                style: const TextStyle(
-                  color: ThemeColors.blueColor,
+                style: TextStyle(
+                  color: colorScheme.primary,
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                 ),
@@ -106,6 +107,7 @@ class SpeakerDetailsPage extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 16,
+                  color: Colors.grey,
                 ),
               ),
               const SizedBox(height: 32),
@@ -113,8 +115,8 @@ class SpeakerDetailsPage extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   l10n.bio,
-                  style: const TextStyle(
-                    color: ThemeColors.blueColor,
+                  style: TextStyle(
+                    color: colorScheme.primary,
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                   ),
@@ -124,9 +126,12 @@ class SpeakerDetailsPage extends StatelessWidget {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  '${speaker.biography} ${speaker.biography}',
-                  style: const TextStyle(
+                  speaker.biography,
+                  style: TextStyle(
                     fontSize: 16,
+                    color: isLightMode
+                        ? colorScheme.onSurface
+                        : ThemeColors.lightGrayBackgroundColor,
                   ),
                 ),
               ),
@@ -134,37 +139,9 @@ class SpeakerDetailsPage extends StatelessWidget {
               Divider(color: Colors.grey.withOpacity(.5)),
               const SizedBox(height: 32),
               if (speaker.twitter != null)
-                Row(
-                  children: [
-                    Text(
-                      l10n.twitterHandle,
-                      style: const TextStyle(
-                        color: ThemeColors.blackColor,
-                        fontSize: 20,
-                      ),
-                    ),
-                    const Spacer(),
-                    ElevatedButton(
-                      onPressed: () {
-                        if (speaker.twitter != null) {
-                          Misc.launchURL(Uri.parse(speaker.twitter!));
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        elevation: 0,
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          side: const BorderSide(color: ThemeColors.blueColor),
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          Text(speaker.name),
-                        ],
-                      ),
-                    ),
-                  ],
+                TwitterHandleBody(
+                  name: speaker.name,
+                  twitterUrl: speaker.twitter,
                 ),
               const SizedBox(height: 60),
             ],
