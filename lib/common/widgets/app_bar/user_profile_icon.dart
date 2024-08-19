@@ -72,6 +72,19 @@ class _UserProfileIconState extends State<UserProfileIcon> {
                   imageUrl: profile.avatar,
                   height: 100,
                   width: 100,
+                  placeholder: (_, __) => const SizedBox(
+                    height: 150,
+                    width: double.infinity,
+                    child: Center(child: CircularProgressIndicator()),
+                  ),
+                  errorWidget: (_, __, ___) => const SizedBox(
+                    height: 150,
+                    width: double.infinity,
+                    child: Icon(
+                      Icons.error,
+                      color: Colors.red,
+                    ),
+                  ),
                 ),
               );
             }

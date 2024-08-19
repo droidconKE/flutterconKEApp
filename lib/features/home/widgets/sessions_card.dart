@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/utils/misc.dart';
@@ -125,12 +126,26 @@ class _SessionsCardState extends State<SessionsCard> {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(10),
-                            child: Image.network(
-                              session.sessionImage ??
+                            child: CachedNetworkImage(
+                              imageUrl: session.sessionImage ??
                                   'https://via.placeholder.com/150',
                               height: 150,
                               width: double.infinity,
                               fit: BoxFit.cover,
+                              placeholder: (_, __) => const SizedBox(
+                                height: 150,
+                                width: double.infinity,
+                                child:
+                                    Center(child: CircularProgressIndicator()),
+                              ),
+                              errorWidget: (_, __, ___) => const SizedBox(
+                                height: 150,
+                                width: double.infinity,
+                                child: Icon(
+                                  Icons.error,
+                                  color: Colors.red,
+                                ),
+                              ),
                             ),
                           ),
                           const SizedBox(height: 16),
