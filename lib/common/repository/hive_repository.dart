@@ -10,9 +10,7 @@ class HiveRepository {
   Future<void> initBoxes() async {
     await Hive.initFlutter();
 
-    Hive
-      ..registerAdapter(FlutterConUserAdapter())
-      ..registerAdapter(FlutterConSessionAdapter());
+    Hive.registerAdapter(FlutterConUserAdapter());
 
     await Hive.openBox<dynamic>(FlutterConConfig.instance!.values.hiveBox);
   }
