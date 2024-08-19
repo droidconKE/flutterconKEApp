@@ -1,9 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:fluttercon/common/data/models/local/local_organiser.dart';
 import 'package:fluttercon/common/utils/misc.dart';
+import 'package:fluttercon/common/widgets/resolved_image.dart';
 import 'package:fluttercon/features/home/cubit/fetch_organisers_cubit.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 
@@ -56,7 +54,7 @@ class _OrganizersCardState extends State<OrganizersCard> {
                   for (final organiser in organisers)
                     SizedBox(
                       width: size.width / 4,
-                      child: resolveImage(organiser),
+                      child: ResolvedImage(imageUrl: organiser.logo),
                     ),
                 ],
               ),
@@ -75,11 +73,5 @@ class _OrganizersCardState extends State<OrganizersCard> {
         ],
       ),
     );
-  }
-
-  Widget resolveImage(LocalOrganiser organiser) {
-    return organiser.logo.contains('.svg')
-        ? SvgPicture.network(organiser.logo)
-        : CachedNetworkImage(imageUrl: organiser.logo);
   }
 }
