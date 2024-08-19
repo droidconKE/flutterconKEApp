@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttercon/common/data/enums/social_platform.dart';
 import 'package:fluttercon/common/data/models/local/local_feed.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
+import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/widgets/app_bar/app_bar.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/feed/cubit/feed_cubit.dart';
@@ -24,14 +25,15 @@ class _FeedScreenState extends State<FeedScreen> {
   @override
   void initState() {
     super.initState();
+
     context.read<FetchFeedCubit>().fetchFeeds();
   }
-
-  bool isDark = false;
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+
+    final (isLightMode, colorScheme) = Misc.getTheme(context);
 
     return Scaffold(
       appBar: const CustomAppBar(selectedIndex: 1),
@@ -53,7 +55,10 @@ class _FeedScreenState extends State<FeedScreen> {
                     children: [
                       Text(
                         feed.body,
-                        style: const TextStyle(fontSize: 16),
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: colorScheme.onSurface,
+                        ),
                       ),
                       const SizedBox(height: 16),
                       Container(
@@ -81,7 +86,9 @@ class _FeedScreenState extends State<FeedScreen> {
                                     hasTopBarLayer: false,
                                     backgroundColor: const Color(0xFFF6F6F8),
                                     mainContentSliversBuilder: (context) =>
-                                        <Widget>[_buildPage(feed, l10n)],
+                                        <Widget>[
+                                      ShareContent(feed: feed, l10n: l10n),
+                                    ],
                                   ),
                                 ],
                               );
@@ -91,8 +98,8 @@ class _FeedScreenState extends State<FeedScreen> {
                               children: [
                                 Text(
                                   l10n.share,
-                                  style: const TextStyle(
-                                    color: ThemeColors.blueColor,
+                                  style: TextStyle(
+                                    color: colorScheme.primary,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
                                   ),
@@ -100,8 +107,8 @@ class _FeedScreenState extends State<FeedScreen> {
                                 const SizedBox(width: 8),
                                 SvgPicture.asset(
                                   AppAssets.iconShare,
-                                  colorFilter: const ColorFilter.mode(
-                                    ThemeColors.blueColor,
+                                  colorFilter: ColorFilter.mode(
+                                    colorScheme.primary,
                                     BlendMode.srcIn,
                                   ),
                                   height: 32,
@@ -110,7 +117,12 @@ class _FeedScreenState extends State<FeedScreen> {
                             ),
                           ),
                           const Spacer(),
-                          Text(timeago.format(feed.createdAt)),
+                          Text(
+                            timeago.format(feed.createdAt),
+                            style: TextStyle(
+                              color: colorScheme.onSurface,
+                            ),
+                          ),
                         ],
                       ),
                     ],
@@ -126,136 +138,153 @@ class _FeedScreenState extends State<FeedScreen> {
               message,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: isDark ? Colors.white : ThemeColors.blueColor,
+                    color: colorScheme.primary,
                     fontSize: 18,
                   ),
             ),
-            orElse: () => const Center(child: CircularProgressIndicator()),
+            orElse: () => Center(
+              child: CircularProgressIndicator(
+                backgroundColor: colorScheme.primary,
+              ),
+            ),
           ),
         ),
       ),
     );
   }
+}
 
-  Widget _buildPage(LocalFeedEntry feed, AppLocalizations l10n) =>
-      SliverToBoxAdapter(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: BlocConsumer<ShareFeedPostCubit, ShareFeedPostState>(
-            listener: (context, state) {
-              state.mapOrNull(
-                loaded: (_) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(l10n.postShared),
-                    ),
-                  );
-                },
-                error: (message) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(message.message)),
-                  );
-                },
-              );
-            },
-            builder: (context, state) {
-              return Container(
-                constraints: const BoxConstraints(minHeight: 250),
-                child: state.maybeWhen(
-                  loading: () => const Center(
-                    child: CircularProgressIndicator(strokeWidth: 3),
+class ShareContent extends StatelessWidget {
+  const ShareContent({
+    required this.feed,
+    required this.l10n,
+    super.key,
+  });
+
+  final LocalFeedEntry feed;
+  final AppLocalizations l10n;
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: BlocConsumer<ShareFeedPostCubit, ShareFeedPostState>(
+          listener: (context, state) {
+            state.mapOrNull(
+              loaded: (_) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(l10n.postShared),
                   ),
-                  orElse: () => Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              SvgPicture.asset(
-                                AppAssets.iconShare,
-                                colorFilter: const ColorFilter.mode(
-                                  ThemeColors.blackColor,
-                                  BlendMode.srcIn,
-                                ),
-                                height: 32,
+                );
+              },
+              error: (message) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(message.message)),
+                );
+              },
+            );
+          },
+          builder: (context, state) {
+            return Container(
+              constraints: const BoxConstraints(minHeight: 250),
+              child: state.maybeWhen(
+                loading: () => const Center(
+                  child: CircularProgressIndicator(strokeWidth: 3),
+                ),
+                orElse: () => Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SvgPicture.asset(
+                              AppAssets.iconShare,
+                              colorFilter: const ColorFilter.mode(
+                                ThemeColors.blackColor,
+                                BlendMode.srcIn,
                               ),
-                              const SizedBox(width: 8),
-                              Text(
-                                l10n.share,
-                                style: const TextStyle(
-                                  color: ThemeColors.blackColor,
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ],
-                          ),
-                          InkWell(
-                            onTap: () => Navigator.of(context).pop(),
-                            child: Text(
-                              l10n.cancel.toUpperCase(),
+                              height: 32,
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              l10n.share,
                               style: const TextStyle(
-                                color: ThemeColors.greyTextColor,
-                                fontWeight: FontWeight.bold,
+                                color: ThemeColors.blackColor,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 18,
                               ),
                             ),
+                          ],
+                        ),
+                        InkWell(
+                          onTap: () => Navigator.of(context).pop(),
+                          child: Text(
+                            l10n.cancel.toUpperCase(),
+                            style: const TextStyle(
+                              color: ThemeColors.greyTextColor,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ],
-                      ),
-                      const SizedBox(height: 50),
-                      Row(
-                        children: <Widget>[
-                          SocialMediaButton(
-                            callBack: () async =>
-                                context.read<ShareFeedPostCubit>().sharePost(
-                                      body: feed.body,
-                                      fileUrl: feed.image,
-                                      platform: SocialPlatform.twitter,
-                                    ),
-                            label: l10n.twitter,
-                            iconPath: AppAssets.iconTwitter,
-                          ),
-                          const SizedBox(width: 24),
-                          SocialMediaButton(
-                            callBack: () async =>
-                                context.read<ShareFeedPostCubit>().sharePost(
-                                      body: feed.body,
-                                      fileUrl: feed.image,
-                                      platform: SocialPlatform.whatsapp,
-                                    ),
-                            label: l10n.whatsApp,
-                            iconPath: AppAssets.iconWhatsApp,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 30),
-                      Row(
-                        children: <Widget>[
-                          SocialMediaButton(
-                            callBack: () async =>
-                                context.read<ShareFeedPostCubit>().sharePost(
-                                      body: feed.body,
-                                      fileUrl: feed.image,
-                                      platform: SocialPlatform.telegram,
-                                    ),
-                            label: l10n.telegram,
-                            iconPath: AppAssets.iconTelegram,
-                          ),
-                          const SizedBox(width: 24),
-                          const Spacer(),
-                        ],
-                      ),
-                      const SizedBox(height: 30),
-                    ],
-                  ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 50),
+                    Row(
+                      children: <Widget>[
+                        SocialMediaButton(
+                          callBack: () async =>
+                              context.read<ShareFeedPostCubit>().sharePost(
+                                    body: feed.body,
+                                    fileUrl: feed.image,
+                                    platform: SocialPlatform.twitter,
+                                  ),
+                          label: l10n.twitter,
+                          iconPath: AppAssets.iconTwitter,
+                        ),
+                        const SizedBox(width: 24),
+                        SocialMediaButton(
+                          callBack: () async =>
+                              context.read<ShareFeedPostCubit>().sharePost(
+                                    body: feed.body,
+                                    fileUrl: feed.image,
+                                    platform: SocialPlatform.whatsapp,
+                                  ),
+                          label: l10n.whatsApp,
+                          iconPath: AppAssets.iconWhatsApp,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 30),
+                    Row(
+                      children: <Widget>[
+                        SocialMediaButton(
+                          callBack: () async =>
+                              context.read<ShareFeedPostCubit>().sharePost(
+                                    body: feed.body,
+                                    fileUrl: feed.image,
+                                    platform: SocialPlatform.telegram,
+                                  ),
+                          label: l10n.telegram,
+                          iconPath: AppAssets.iconTelegram,
+                        ),
+                        const SizedBox(width: 24),
+                        const Spacer(),
+                      ],
+                    ),
+                    const SizedBox(height: 30),
+                  ],
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
-      );
+      ),
+    );
+  }
 }
