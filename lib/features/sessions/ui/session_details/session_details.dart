@@ -36,6 +36,7 @@ class SessionDetailsPage extends StatelessWidget {
           onPressed: () => GoRouter.of(context).pop(),
           color: colorScheme.onSurface,
         ),
+        surfaceTintColor: colorScheme.surface,
         title: Text(
           l10n.sessionDetails,
           style: TextStyle(color: colorScheme.onSurface),

@@ -26,7 +26,7 @@ class OranisingTeamMemberDetailsPage extends StatelessWidget {
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           SliverAppBar(
-            surfaceTintColor: Colors.white,
+            surfaceTintColor: colorScheme.surface,
             floating: true,
             flexibleSpace: FlexibleSpaceBar(
               background: SvgPicture.asset(
