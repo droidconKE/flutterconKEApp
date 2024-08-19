@@ -234,7 +234,7 @@ class SessionDetailsPage extends StatelessWidget {
             SliverWoltModalSheetPage(
               useSafeArea: true,
               hasTopBarLayer: false,
-              backgroundColor: const Color(0xFFF6F6F8),
+              backgroundColor: colorScheme.secondaryContainer,
               mainContentSliversBuilder: (context) => <Widget>[
                 SliverToBoxAdapter(
                   child: Padding(
@@ -278,8 +278,8 @@ class SessionDetailsPage extends StatelessWidget {
                                       children: [
                                         SvgPicture.asset(
                                           AppAssets.iconShare,
-                                          colorFilter: const ColorFilter.mode(
-                                            ThemeColors.blackColor,
+                                          colorFilter: ColorFilter.mode(
+                                            colorScheme.onSurface,
                                             BlendMode.srcIn,
                                           ),
                                           height: 32,
@@ -287,8 +287,8 @@ class SessionDetailsPage extends StatelessWidget {
                                         const SizedBox(width: 8),
                                         Text(
                                           l10n.share,
-                                          style: const TextStyle(
-                                            color: ThemeColors.blackColor,
+                                          style: TextStyle(
+                                            color: colorScheme.onSurface,
                                             fontWeight: FontWeight.w800,
                                             fontSize: 18,
                                           ),
