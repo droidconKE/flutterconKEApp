@@ -1,11 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:fluttercon/common/data/enums/sponsor_type.dart';
-import 'package:fluttercon/common/data/models/local/local_sponsor.dart';
-
-import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:fluttercon/common/utils/misc.dart';
+import 'package:fluttercon/common/widgets/resolved_image.dart';
 import 'package:fluttercon/features/home/cubit/fetch_sponsors_cubit.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 
@@ -27,6 +24,7 @@ class _SponsorsCardState extends State<SponsorsCard> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final l10n = context.l10n;
+    final (_, colorScheme) = Misc.getTheme(context);
 
     return Container(
       width: double.infinity,
@@ -34,16 +32,16 @@ class _SponsorsCardState extends State<SponsorsCard> {
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: ThemeColors.lightGrayColor,
+        color: colorScheme.secondaryContainer,
       ),
       child: Column(
         children: [
           const Spacer(),
           Text(
             l10n.sponsors,
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: ThemeColors.blueColor,
+              color: colorScheme.primary,
               fontSize: 18,
             ),
           ),
@@ -62,12 +60,14 @@ class _SponsorsCardState extends State<SponsorsCard> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 32),
-                      child: resolveImage(
-                        sponsors.firstWhere(
-                          (sponsor) =>
-                              SponsorType.fromValue(sponsor.sponsorType) ==
-                              SponsorType.platinum,
-                        ),
+                      child: ResolvedImage(
+                        imageUrl: sponsors
+                            .firstWhere(
+                              (sponsor) =>
+                                  SponsorType.fromValue(sponsor.sponsorType) ==
+                                  SponsorType.platinum,
+                            )
+                            .logo,
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -79,7 +79,9 @@ class _SponsorsCardState extends State<SponsorsCard> {
                         itemCount: nonPlatinumSponsors.length,
                         itemBuilder: (context, index) => SizedBox(
                           width: size.width / 4,
-                          child: resolveImage(nonPlatinumSponsors[index]),
+                          child: ResolvedImage(
+                            imageUrl: nonPlatinumSponsors[index].logo,
+                          ),
                         ),
                       ),
                     ),
@@ -90,7 +92,7 @@ class _SponsorsCardState extends State<SponsorsCard> {
                 message,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: ThemeColors.blueColor,
+                      color: colorScheme.primary,
                       fontSize: 18,
                     ),
               ),
@@ -103,11 +105,5 @@ class _SponsorsCardState extends State<SponsorsCard> {
         ],
       ),
     );
-  }
-
-  Widget resolveImage(LocalSponsor sponsor) {
-    return sponsor.logo.contains('.svg')
-        ? SvgPicture.network(sponsor.logo)
-        : CachedNetworkImage(imageUrl: sponsor.logo);
   }
 }

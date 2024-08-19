@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
-import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/features/feedback/cubit/send_feedback_cubit.dart';
 import 'package:fluttercon/features/feedback/widgets/emoji_container.dart';
 import 'package:fluttercon/features/feedback/widgets/feedback_custom_appbar.dart';
@@ -29,6 +29,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final (isLightMode, colorScheme) = Misc.getTheme(context);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -40,14 +41,21 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               child: Text(
                 l10n.yourFeedback,
                 style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                      color: ThemeColors.blueDroidconColor,
+                      color: colorScheme.primary,
                       fontSize: 18,
                       fontWeight: FontWeight.w900,
                     ),
               ),
             ),
             const SizedBox(height: 20),
-            Center(child: Text(l10n.howWasFluttercon)),
+            Center(
+              child: Text(
+                l10n.howWasFluttercon,
+                style: TextStyle(
+                  color: colorScheme.onSurface,
+                ),
+              ),
+            ),
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -99,6 +107,9 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                         fontSize: 14,
                       ),
                     ),
+                    style: TextStyle(
+                      color: colorScheme.onSurface,
+                    ),
                     maxLines: 5,
                   ),
                   const SizedBox(height: 10),
@@ -124,7 +135,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                           Expanded(
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: ThemeColors.blueColor,
+                                backgroundColor: colorScheme.primary,
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 32),
                                 shape: RoundedRectangleBorder(
@@ -151,8 +162,8 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                               },
                               child: Text(
                                 l10n.submitFeedback.toUpperCase(),
-                                style: const TextStyle(
-                                  color: Colors.white,
+                                style: TextStyle(
+                                  color: colorScheme.surface,
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
+import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/widgets/app_bar/app_bar.dart';
 import 'package:fluttercon/features/home/widgets/organizers_card.dart';
 import 'package:fluttercon/features/home/widgets/sessions_card.dart';
@@ -20,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-
+    final (_, colorScheme) = Misc.getTheme(context);
     return Scaffold(
       appBar: const CustomAppBar(selectedIndex: 0),
       body: SafeArea(
@@ -33,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 l10n.welcomeToFlutterCon,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w600,
-                      color: Colors.black,
+                      color: colorScheme.onSurface,
                       fontSize: 16,
                     ),
               ),

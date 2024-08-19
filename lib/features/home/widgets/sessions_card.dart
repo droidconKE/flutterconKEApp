@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/home/cubit/fetch_sessions_cubit.dart';
@@ -21,15 +22,16 @@ class SessionsCard extends StatefulWidget {
 class _SessionsCardState extends State<SessionsCard> {
   @override
   void initState() {
-    context.read<FetchSessionsCubit>().fetchSessions();
     super.initState();
+
+    context.read<FetchSessionsCubit>().fetchSessions();
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-
     final size = MediaQuery.of(context).size;
+    final (isLightMode, colorScheme) = Misc.getTheme(context);
 
     return Column(
       children: [
@@ -38,7 +40,9 @@ class _SessionsCardState extends State<SessionsCard> {
             Text(
               l10n.sessions,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    color: ThemeColors.blueDroidconColor,
+                    color: isLightMode
+                        ? colorScheme.primary
+                        : colorScheme.onSurface,
                     fontWeight: FontWeight.bold,
                   ),
             ),
@@ -49,21 +53,33 @@ class _SessionsCardState extends State<SessionsCard> {
                 children: [
                   Text(
                     l10n.viewAll,
-                    style: const TextStyle(
-                      color: ThemeColors.blueColor,
+                    style: TextStyle(
+                      color: isLightMode
+                          ? colorScheme.primary
+                          : colorScheme.onSurface,
                     ),
                   ),
                   const SizedBox(width: 8),
                   Container(
                     decoration: BoxDecoration(
-                      color: ThemeColors.blueColor.withOpacity(.11),
+                      color: (isLightMode
+                              ? ThemeColors.blueColor
+                              : ThemeColors.lightGrayColor)
+                          .withOpacity(.11),
                       borderRadius: BorderRadius.circular(50),
                     ),
                     padding:
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
                     child: BlocBuilder<FetchSessionsCubit, FetchSessionsState>(
                       builder: (context, state) => state.maybeWhen(
-                        loaded: (_, extras) => Text('+ $extras'),
+                        loaded: (_, extras) => Text(
+                          '+ $extras',
+                          style: TextStyle(
+                            color: isLightMode
+                                ? colorScheme.primary
+                                : ThemeColors.lightGrayColor,
+                          ),
+                        ),
                         orElse: () => const SizedBox(
                           height: 16,
                           width: 16,
@@ -102,7 +118,7 @@ class _SessionsCardState extends State<SessionsCard> {
                       margin: const EdgeInsets.only(right: 10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: ThemeColors.lightGrayColor,
+                        color: colorScheme.secondaryContainer,
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -123,8 +139,9 @@ class _SessionsCardState extends State<SessionsCard> {
                             child: Text(
                               session.title,
                               maxLines: 2,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontWeight: FontWeight.bold,
+                                color: colorScheme.onSurface,
                                 fontSize: 16,
                               ),
                             ),

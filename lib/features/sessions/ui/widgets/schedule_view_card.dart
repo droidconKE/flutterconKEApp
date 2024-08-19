@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/data/enums/bookmark_status.dart';
 import 'package:fluttercon/common/data/models/local/local_session.dart';
+import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:fluttercon/core/theme/theme_styles.dart';
 import 'package:fluttercon/features/sessions/cubit/bookmark_session_cubit.dart';
 import 'package:fluttercon/features/sessions/cubit/fetch_grouped_sessions_cubit.dart';
 import 'package:fluttercon/l10n/l10n.dart';
@@ -23,10 +25,11 @@ class ScheduleViewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final (isLightMode, colorScheme) = Misc.getTheme(context);
 
     return Card(
       elevation: 0,
-      color: ThemeColors.lightGrayBackgroundColor,
+      color: colorScheme.secondaryContainer,
       shadowColor: Colors.transparent,
       child: SizedBox(
         width: double.infinity,
@@ -68,9 +71,10 @@ class ScheduleViewCard extends StatelessWidget {
               child: Text(
                 session.title,
                 maxLines: 2,
-                style: const TextStyle(
+                style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
+                  color: colorScheme.onSurface,
                 ),
               ),
             ),
@@ -84,22 +88,24 @@ class ScheduleViewCard extends StatelessWidget {
                   Row(
                     children: session.speakers
                         .map(
-                          (speaker) => ClipOval(
-                            child: GestureDetector(
-                              onTap: () => GoRouter.of(context).push(
-                                FlutterConRouter.speakerDetailsRoute,
-                                extra: speaker,
-                              ),
-                              child: Container(
-                                height: 50,
-                                width: 50,
-                                margin: const EdgeInsets.only(right: 8),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: ThemeColors.tealColor,
-                                    width: 2,
-                                  ),
+                          (speaker) => GestureDetector(
+                            onTap: () => GoRouter.of(context).push(
+                              FlutterConRouter.speakerDetailsRoute,
+                              extra: speaker,
+                            ),
+                            child: Container(
+                              height: 50,
+                              width: 50,
+                              margin: const EdgeInsets.only(right: 8),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: ThemeColors.tealColor,
+                                  width: 2,
                                 ),
+                                borderRadius: Corners.s12Border,
+                              ),
+                              child: ClipRRect(
+                                borderRadius: Corners.s10Border,
                                 child: CachedNetworkImage(
                                   fit: BoxFit.cover,
                                   imageUrl: speaker.avatar!,
@@ -139,7 +145,7 @@ class ScheduleViewCard extends StatelessWidget {
                                 : Icons.star_border_outlined,
                             color: status == BookmarkStatus.bookmarked
                                 ? ThemeColors.orangeColor
-                                : ThemeColors.blueColor,
+                                : colorScheme.primary,
                             size: 32,
                           ),
                         ),
@@ -160,7 +166,7 @@ class ScheduleViewCard extends StatelessWidget {
                                 : Icons.star_border_outlined,
                             color: session.isBookmarked
                                 ? ThemeColors.orangeColor
-                                : ThemeColors.blueColor,
+                                : colorScheme.primary,
                             size: 32,
                           ),
                         ),

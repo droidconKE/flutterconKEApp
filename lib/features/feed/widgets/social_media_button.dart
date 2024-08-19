@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 
 class SocialMediaButton extends StatelessWidget {
@@ -16,13 +17,14 @@ class SocialMediaButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final (isLightMode, _) = Misc.getTheme(context);
     return Expanded(
       child: InkWell(
         onTap: callBack,
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: isLightMode ? Colors.white : Colors.black,
             border: Border.all(color: const Color(0xFF7DE1C3)),
             borderRadius: BorderRadius.circular(10),
           ),
@@ -31,8 +33,10 @@ class SocialMediaButton extends StatelessWidget {
             children: [
               SvgPicture.asset(
                 iconPath,
-                colorFilter: const ColorFilter.mode(
-                  ThemeColors.blackColor,
+                colorFilter: ColorFilter.mode(
+                  isLightMode
+                      ? ThemeColors.blackColor
+                      : const Color(0xFF7DE1C3),
                   BlendMode.srcIn,
                 ),
                 height: 24,
@@ -40,8 +44,10 @@ class SocialMediaButton extends StatelessWidget {
               const SizedBox(width: 8),
               Text(
                 label,
-                style: const TextStyle(
-                  color: ThemeColors.blackColor,
+                style: TextStyle(
+                  color: isLightMode
+                      ? ThemeColors.blackColor
+                      : const Color(0xFF7DE1C3),
                   fontWeight: FontWeight.bold,
                 ),
               ),

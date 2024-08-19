@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 class AppTheme {
   AppTheme._();
 
-  // On the colorScheme, add the color for light the theme
+  // On the colorScheme, add the color for light theme
   // And the corresponding color for dark theme on the same property
   // Example:
   //

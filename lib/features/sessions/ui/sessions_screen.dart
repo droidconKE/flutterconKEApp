@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/data/enums/bookmark_status.dart';
+import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/widgets/app_bar/app_bar.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/sessions/cubit/fetch_grouped_sessions_cubit.dart';
 import 'package:fluttercon/features/sessions/ui/widgets/day_sessions_view.dart';
 import 'package:fluttercon/features/sessions/ui/widgets/day_tab_view.dart';
 import 'package:fluttercon/l10n/l10n.dart';
-
 import 'package:intl/intl.dart';
-import 'package:logger/logger.dart';
 
 class SessionsScreen extends StatefulWidget {
   const SessionsScreen({super.key});
@@ -28,14 +27,15 @@ class _SessionsScreenState extends State<SessionsScreen>
 
   @override
   void initState() {
-    context.read<FetchGroupedSessionsCubit>().fetchGroupedSessions();
-
     super.initState();
+
+    context.read<FetchGroupedSessionsCubit>().fetchGroupedSessions();
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final (isLightMode, colorScheme) = Misc.getTheme(context);
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -74,13 +74,12 @@ class _SessionsScreenState extends State<SessionsScreen>
                         ),
                         loaded: (groupedSessions) => TabBar(
                           onTap: (value) => setState(() {
-                            Logger().d(value);
                             _currentTab = value;
                           }),
-                          dividerColor: Colors.white,
                           isScrollable: true,
                           tabAlignment: TabAlignment.start,
-                          indicatorColor: Colors.white,
+                          indicatorColor: Colors.transparent,
+                          dividerColor: Colors.transparent,
                           overlayColor:
                               WidgetStateProperty.all(Colors.transparent),
                           tabs: [
@@ -138,7 +137,10 @@ class _SessionsScreenState extends State<SessionsScreen>
                           ),
                           Text(
                             l10n.mySessions,
-                            style: const TextStyle(fontSize: 10),
+                            style: const TextStyle(
+                              fontSize: 10,
+                              color: Colors.grey,
+                            ),
                           ),
                         ],
                       ),
@@ -157,9 +159,9 @@ class _SessionsScreenState extends State<SessionsScreen>
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
                     _isBookmarked ? l10n.mySessions : l10n.allSessions,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: ThemeColors.blueColor,
+                      color: colorScheme.primary,
                       fontSize: 24,
                     ),
                   ),

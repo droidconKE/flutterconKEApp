@@ -71,6 +71,8 @@
     "@postShared": {},
     "twitter": "Twitter",
     "@twitter": {},
+    "linkedin": "LinkedIn",
+    "@linkedin": {},
     "comingSoon": "Coming Soon",
     "@comingSoon": {},
     "facebook": "Facebook",
@@ -120,5 +122,13 @@
     "mySessions": "My Sessions",
     "@mySessions": {},
     "allSessions": "All Sessions",
-    "@allSessions": {}
+    "@allSessions": {},
+    "areYouSureLogOut": "Are you sure\nyou want to log out?",
+    "@areYouSureLogOut": {},
+    "logoutDesc": "Logging out will end your current session. You can always log back in to pick up right where you left off.",
+    "@logoutDesc": {},
+    "logoutLoading": "logging out...",
+    "@logoutLoading": {},
+    "confirmLogout": "yes, log out",
+    "@confirmLogout": {}
 }

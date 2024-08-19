@@ -6,6 +6,7 @@ import 'package:fluttercon/common/data/enums/social_platform.dart';
 import 'package:fluttercon/common/data/models/local/local_session.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/misc.dart';
+import 'package:fluttercon/common/widgets/social_handle.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/feed/cubit/share_feed_post_cubit.dart';
 import 'package:fluttercon/features/feed/widgets/social_media_button.dart';
@@ -27,19 +28,18 @@ class SessionDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-
+    final (isLightMode, colorScheme) = Misc.getTheme(context);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => GoRouter.of(context).pop(),
-          color: Colors.black,
+          color: colorScheme.onSurface,
         ),
         title: Text(
           l10n.sessionDetails,
-          style: const TextStyle(color: Colors.black),
+          style: TextStyle(color: colorScheme.onSurface),
         ),
-        surfaceTintColor: Colors.white,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -73,8 +73,8 @@ class SessionDetailsPage extends StatelessWidget {
                       session.speakers
                           .map((speaker) => speaker.name)
                           .join(', '),
-                      style: const TextStyle(
-                        color: ThemeColors.blueColor,
+                      style: TextStyle(
+                        color: colorScheme.primary,
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                       ),
@@ -109,7 +109,7 @@ class SessionDetailsPage extends StatelessWidget {
                                   : Icons.star_border_outlined,
                               color: status == BookmarkStatus.bookmarked
                                   ? ThemeColors.orangeColor
-                                  : ThemeColors.blueColor,
+                                  : colorScheme.primary,
                               size: 32,
                             ),
                           ),
@@ -130,7 +130,7 @@ class SessionDetailsPage extends StatelessWidget {
                                   : Icons.star_border_outlined,
                               color: session.isBookmarked
                                   ? ThemeColors.orangeColor
-                                  : ThemeColors.blueColor,
+                                  : colorScheme.primary,
                               size: 32,
                             ),
                           ),
@@ -144,16 +144,18 @@ class SessionDetailsPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               session.title,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
+                color: colorScheme.onSurface,
               ),
             ),
             const SizedBox(height: 16),
             Text(
               session.description,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 18,
+                color: colorScheme.onSurface,
               ),
             ),
             const SizedBox(height: 16),
@@ -178,12 +180,13 @@ class SessionDetailsPage extends StatelessWidget {
                       .join(', ')
                       .toUpperCase(),
                 ),
+                style: TextStyle(color: colorScheme.onSurface),
               ),
             Chip(
               label: Text('#${session.sessionLevel.toUpperCase()}'),
               side: BorderSide.none,
-              backgroundColor: ThemeColors.blackColor,
-              labelStyle: const TextStyle(color: Colors.white),
+              backgroundColor: colorScheme.onSurface,
+              labelStyle: TextStyle(color: colorScheme.surface),
             ),
             const SizedBox(height: 16),
             Divider(color: Colors.grey.withOpacity(.5)),
@@ -194,39 +197,9 @@ class SessionDetailsPage extends StatelessWidget {
               ...session.speakers
                   .where((speaker) => speaker.twitter != null)
                   .map(
-                    (speaker) => Row(
-                      children: [
-                        Text(
-                          l10n.twitterHandle,
-                          style: const TextStyle(
-                            color: ThemeColors.blackColor,
-                            fontSize: 20,
-                          ),
-                        ),
-                        const Spacer(),
-                        ElevatedButton(
-                          onPressed: () {
-                            if (speaker.twitter != null) {
-                              Misc.launchURL(Uri.parse(speaker.twitter!));
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                            elevation: 0,
-                            backgroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              side: const BorderSide(
-                                color: ThemeColors.blueColor,
-                              ),
-                            ),
-                          ),
-                          child: Row(
-                            children: [
-                              Text(speaker.name!),
-                            ],
-                          ),
-                        ),
-                      ],
+                    (speaker) => SocialHandleBody(
+                      name: speaker.name!,
+                      twitterUrl: speaker.twitter,
                     ),
                   ),
             const SizedBox(height: 128),
@@ -238,9 +211,12 @@ class SessionDetailsPage extends StatelessWidget {
         backgroundColor: ThemeColors.orangeColor,
         child: BlocBuilder<ShareFeedPostCubit, ShareFeedPostState>(
           builder: (context, state) => state.maybeWhen(
-            orElse: () => const Icon(
-              Icons.reply,
-              color: Colors.white,
+            orElse: () => Transform.flip(
+              flipX: true,
+              child: const Icon(
+                Icons.reply,
+                color: Colors.white,
+              ),
             ),
             loading: () => const Padding(
               padding: EdgeInsets.all(16),
@@ -258,7 +234,7 @@ class SessionDetailsPage extends StatelessWidget {
             SliverWoltModalSheetPage(
               useSafeArea: true,
               hasTopBarLayer: false,
-              backgroundColor: const Color(0xFFF6F6F8),
+              backgroundColor: colorScheme.secondaryContainer,
               mainContentSliversBuilder: (context) => <Widget>[
                 SliverToBoxAdapter(
                   child: Padding(
@@ -302,8 +278,8 @@ class SessionDetailsPage extends StatelessWidget {
                                       children: [
                                         SvgPicture.asset(
                                           AppAssets.iconShare,
-                                          colorFilter: const ColorFilter.mode(
-                                            ThemeColors.blackColor,
+                                          colorFilter: ColorFilter.mode(
+                                            colorScheme.onSurface,
                                             BlendMode.srcIn,
                                           ),
                                           height: 32,
@@ -311,8 +287,8 @@ class SessionDetailsPage extends StatelessWidget {
                                         const SizedBox(width: 8),
                                         Text(
                                           l10n.share,
-                                          style: const TextStyle(
-                                            color: ThemeColors.blackColor,
+                                          style: TextStyle(
+                                            color: colorScheme.onSurface,
                                             fontWeight: FontWeight.w800,
                                             fontSize: 18,
                                           ),

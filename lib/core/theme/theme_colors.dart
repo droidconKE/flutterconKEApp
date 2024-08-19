@@ -16,4 +16,5 @@ class ThemeColors {
   static const Color blackColor = Color(0xff20201E);
   static const Color tealColor = Color(0xff00E2C3);
   static const Color lightGrayColor = Color(0xffF5F5F5);
+  static const Color greyAccentColor = Color(0xffB1B1B1);
 }

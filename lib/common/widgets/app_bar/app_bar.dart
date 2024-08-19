@@ -83,15 +83,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       barrierDismissible: true,
                       pageListBuilder: (context) => [
                         WoltModalSheetPage(
-                          backgroundColor: const Color(0xFFF6F6F8),
+                          backgroundColor: colorScheme.secondaryContainer,
                           leadingNavBarWidget: Padding(
                             padding: const EdgeInsets.only(left: 16),
                             child: Row(
                               children: [
                                 SvgPicture.asset(
                                   AppAssets.filterIcon,
-                                  colorFilter: const ColorFilter.mode(
-                                    ThemeColors.blueColor,
+                                  colorFilter: ColorFilter.mode(
+                                    colorScheme.primary,
                                     BlendMode.srcIn,
                                   ),
                                 ),
@@ -103,7 +103,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                                       .titleLarge
                                       ?.copyWith(
                                         fontWeight: FontWeight.bold,
-                                        color: ThemeColors.blueColor,
+                                        color: colorScheme.primary,
                                       ),
                                 ),
                               ],

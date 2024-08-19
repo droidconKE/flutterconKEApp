@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 
 class EmojiContainer extends StatelessWidget {
@@ -15,6 +16,7 @@ class EmojiContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final (isLightMode, colorScheme) = Misc.getTheme(context);
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
@@ -22,13 +24,12 @@ class EmojiContainer extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: isSelected
-              ? ThemeColors.blueDroidconColor
-              : ThemeColors.lightGrayColor,
+          color: isSelected ? colorScheme.primary : ThemeColors.lightGrayColor,
           boxShadow: [
             if (onTap != null)
               BoxShadow(
-                color: Colors.black.withOpacity(0.5),
+                color: (isLightMode ? Colors.black : Colors.white)
+                    .withOpacity(0.5),
                 blurRadius: 4,
                 offset: const Offset(0, 2),
               ),
