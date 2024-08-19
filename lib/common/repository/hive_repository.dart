@@ -60,10 +60,6 @@ class HiveRepository {
         Hive.box<dynamic>(FlutterConConfig.instance!.values.hiveBox)
             .get('themeMode') as String?;
 
-    if (themeMode == null) {
-      return ThemeMode.light;
-    }
-
     return ThemeMode.values.firstWhere(
       (element) => element.toString() == themeMode,
       orElse: () => ThemeMode.system,
