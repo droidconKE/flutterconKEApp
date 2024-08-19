@@ -2,6 +2,7 @@ import 'package:auth_buttons/auth_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
+import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/features/auth/cubit/google_sign_in_cubit.dart';
 import 'package:fluttercon/features/auth/cubit/social_auth_sign_in_cubit.dart';
@@ -12,6 +13,7 @@ class SignInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final (isLightMode, colorScheme) = Misc.getTheme(context);
     return BlocListener<GoogleSignInCubit, GoogleSignInState>(
       listener: (context, state) {
         state.maybeWhen(
@@ -41,6 +43,7 @@ class SignInScreen extends StatelessWidget {
           );
         },
         child: Scaffold(
+          backgroundColor: colorScheme.surface,
           body: SafeArea(
             child: Center(
               child: Padding(
@@ -56,6 +59,8 @@ class SignInScreen extends StatelessWidget {
                         return state.maybeWhen(
                           loading: () => const CircularProgressIndicator(),
                           orElse: () => GoogleAuthButton(
+                            themeMode:
+                                isLightMode ? ThemeMode.dark : ThemeMode.light,
                             onPressed: () async => context
                                 .read<GoogleSignInCubit>()
                                 .signInWithGoogle(),
