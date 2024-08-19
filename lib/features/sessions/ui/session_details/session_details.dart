@@ -27,17 +27,17 @@ class SessionDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-
+    final (isLightMode, colorScheme) = Misc.getTheme(context);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => GoRouter.of(context).pop(),
-          color: Colors.black,
+          color: colorScheme.onSurface,
         ),
         title: Text(
           l10n.sessionDetails,
-          style: const TextStyle(color: Colors.black),
+          style: TextStyle(color: colorScheme.onSurface),
         ),
         surfaceTintColor: Colors.white,
       ),
@@ -73,8 +73,8 @@ class SessionDetailsPage extends StatelessWidget {
                       session.speakers
                           .map((speaker) => speaker.name)
                           .join(', '),
-                      style: const TextStyle(
-                        color: ThemeColors.blueColor,
+                      style: TextStyle(
+                        color: colorScheme.primary,
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                       ),
@@ -109,7 +109,7 @@ class SessionDetailsPage extends StatelessWidget {
                                   : Icons.star_border_outlined,
                               color: status == BookmarkStatus.bookmarked
                                   ? ThemeColors.orangeColor
-                                  : ThemeColors.blueColor,
+                                  : colorScheme.primary,
                               size: 32,
                             ),
                           ),
@@ -130,7 +130,7 @@ class SessionDetailsPage extends StatelessWidget {
                                   : Icons.star_border_outlined,
                               color: session.isBookmarked
                                   ? ThemeColors.orangeColor
-                                  : ThemeColors.blueColor,
+                                  : colorScheme.primary,
                               size: 32,
                             ),
                           ),
@@ -144,16 +144,18 @@ class SessionDetailsPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               session.title,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
+                color: colorScheme.onSurface,
               ),
             ),
             const SizedBox(height: 16),
             Text(
               session.description,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 18,
+                color: colorScheme.onSurface,
               ),
             ),
             const SizedBox(height: 16),
@@ -178,12 +180,13 @@ class SessionDetailsPage extends StatelessWidget {
                       .join(', ')
                       .toUpperCase(),
                 ),
+                style: TextStyle(color: colorScheme.onSurface),
               ),
             Chip(
               label: Text('#${session.sessionLevel.toUpperCase()}'),
               side: BorderSide.none,
-              backgroundColor: ThemeColors.blackColor,
-              labelStyle: const TextStyle(color: Colors.white),
+              backgroundColor: colorScheme.onSurface,
+              labelStyle: TextStyle(color: colorScheme.surface),
             ),
             const SizedBox(height: 16),
             Divider(color: Colors.grey.withOpacity(.5)),
@@ -198,8 +201,8 @@ class SessionDetailsPage extends StatelessWidget {
                       children: [
                         Text(
                           l10n.twitterHandle,
-                          style: const TextStyle(
-                            color: ThemeColors.blackColor,
+                          style: TextStyle(
+                            color: colorScheme.onSurface,
                             fontSize: 20,
                           ),
                         ),
@@ -212,16 +215,26 @@ class SessionDetailsPage extends StatelessWidget {
                           },
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
-                            backgroundColor: Colors.white,
+                            backgroundColor: colorScheme.surface,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
-                              side: const BorderSide(
-                                color: ThemeColors.blueColor,
+                              side: BorderSide(
+                                color: colorScheme.primary,
                               ),
                             ),
                           ),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
+                              SvgPicture.asset(
+                                AppAssets.iconTwitter,
+                                colorFilter: ColorFilter.mode(
+                                  colorScheme.primary,
+                                  BlendMode.srcIn,
+                                ),
+                                height: 20,
+                              ),
+                              const SizedBox(width: 3),
                               Text(speaker.name!),
                             ],
                           ),
@@ -238,9 +251,12 @@ class SessionDetailsPage extends StatelessWidget {
         backgroundColor: ThemeColors.orangeColor,
         child: BlocBuilder<ShareFeedPostCubit, ShareFeedPostState>(
           builder: (context, state) => state.maybeWhen(
-            orElse: () => const Icon(
-              Icons.reply,
-              color: Colors.white,
+            orElse: () => Transform.flip(
+              flipX: true,
+              child: const Icon(
+                Icons.reply,
+                color: Colors.white,
+              ),
             ),
             loading: () => const Padding(
               padding: EdgeInsets.all(16),
