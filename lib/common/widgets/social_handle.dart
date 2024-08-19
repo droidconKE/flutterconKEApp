@@ -4,15 +4,17 @@ import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 
-class TwitterHandleBody extends StatelessWidget {
-  const TwitterHandleBody({
+class SocialHandleBody extends StatelessWidget {
+  const SocialHandleBody({
     required this.name,
     this.twitterUrl,
+    this.linkedinUrl,
     super.key,
   });
 
-  final String? twitterUrl;
   final String name;
+  final String? twitterUrl;
+  final String? linkedinUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class TwitterHandleBody extends StatelessWidget {
     return Row(
       children: [
         Text(
-          l10n.twitterHandle,
+          twitterUrl != null ? l10n.twitterHandle : 'LinkedIn',
           style: TextStyle(
             color: colorScheme.onSurface,
             fontSize: 20,
@@ -31,8 +33,8 @@ class TwitterHandleBody extends StatelessWidget {
         const Spacer(),
         ElevatedButton(
           onPressed: () {
-            if (twitterUrl != null) {
-              Misc.launchURL(Uri.parse(twitterUrl!));
+            if (twitterUrl != null || linkedinUrl != null) {
+              Misc.launchURL(Uri.parse(twitterUrl ?? linkedinUrl ?? ''));
             }
           },
           style: ElevatedButton.styleFrom(
@@ -48,14 +50,15 @@ class TwitterHandleBody extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset(
-                AppAssets.iconTwitter,
-                colorFilter: ColorFilter.mode(
-                  colorScheme.primary,
-                  BlendMode.srcIn,
+              if (twitterUrl != null)
+                SvgPicture.asset(
+                  AppAssets.iconTwitter,
+                  colorFilter: ColorFilter.mode(
+                    colorScheme.primary,
+                    BlendMode.srcIn,
+                  ),
+                  height: 20,
                 ),
-                height: 20,
-              ),
               const SizedBox(width: 3),
               Text(name),
             ],

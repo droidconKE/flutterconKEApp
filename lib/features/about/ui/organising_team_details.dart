@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttercon/common/data/models/local/local_individual_organiser.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/misc.dart';
+import 'package:fluttercon/common/widgets/social_handle.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
@@ -19,6 +20,7 @@ class OranisingTeamMemberDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final (isLightMode, colorScheme) = Misc.getTheme(context);
 
     return Scaffold(
       body: NestedScrollView(
@@ -84,8 +86,8 @@ class OranisingTeamMemberDetailsPage extends StatelessWidget {
               ),
               Text(
                 organiser.name,
-                style: const TextStyle(
-                  color: ThemeColors.blueColor,
+                style: TextStyle(
+                  color: colorScheme.primary,
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                 ),
@@ -96,6 +98,7 @@ class OranisingTeamMemberDetailsPage extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 16,
+                  color: Colors.grey,
                 ),
               ),
               const SizedBox(height: 32),
@@ -103,8 +106,8 @@ class OranisingTeamMemberDetailsPage extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   l10n.bio,
-                  style: const TextStyle(
-                    color: ThemeColors.blueColor,
+                  style: TextStyle(
+                    color: colorScheme.primary,
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                   ),
@@ -115,50 +118,20 @@ class OranisingTeamMemberDetailsPage extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   organiser.bio,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
+                    color: isLightMode
+                        ? colorScheme.onSurface
+                        : ThemeColors.lightGrayBackgroundColor,
                   ),
                 ),
               ),
               const SizedBox(height: 32),
               Divider(color: Colors.grey.withOpacity(.5)),
               const SizedBox(height: 32),
-              Row(
-                children: [
-                  Text(
-                    l10n.twitterHandle,
-                    style: const TextStyle(
-                      color: ThemeColors.blackColor,
-                      fontSize: 20,
-                    ),
-                  ),
-                  const Spacer(),
-                  ElevatedButton(
-                    onPressed: () => Misc.launchURL(
-                      Uri(
-                        scheme: 'https',
-                        host: 'twitter.com',
-                        path: organiser.twitterHandle,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      elevation: 0,
-                      backgroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        side: const BorderSide(
-                          color: ThemeColors.blueColor,
-                        ),
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        // Add a Twitter Icon here
-                        Text(organiser.name),
-                      ],
-                    ),
-                  ),
-                ],
+              SocialHandleBody(
+                name: organiser.name,
+                linkedinUrl: organiser.link,
               ),
             ],
           ),

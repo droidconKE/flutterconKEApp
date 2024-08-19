@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttercon/common/data/models/local/local_speaker.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/misc.dart';
-import 'package:fluttercon/common/widgets/twiiter_handle.dart';
+import 'package:fluttercon/common/widgets/social_handle.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
@@ -139,7 +139,7 @@ class SpeakerDetailsPage extends StatelessWidget {
               Divider(color: Colors.grey.withOpacity(.5)),
               const SizedBox(height: 32),
               if (speaker.twitter != null)
-                TwitterHandleBody(
+                SocialHandleBody(
                   name: speaker.name,
                   twitterUrl: speaker.twitter,
                 ),
