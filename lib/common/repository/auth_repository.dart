@@ -60,4 +60,12 @@ class AuthRepository {
       rethrow;
     }
   }
+
+  Future<void> logOut() async {
+    try {
+      await _networkUtil.postReq('/logout');
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
