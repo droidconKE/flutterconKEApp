@@ -6,6 +6,7 @@ import 'package:fluttercon/common/data/enums/social_platform.dart';
 import 'package:fluttercon/common/data/models/local/local_session.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/misc.dart';
+import 'package:fluttercon/common/widgets/twiiter_handle.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/feed/cubit/share_feed_post_cubit.dart';
 import 'package:fluttercon/features/feed/widgets/social_media_button.dart';
@@ -197,49 +198,9 @@ class SessionDetailsPage extends StatelessWidget {
               ...session.speakers
                   .where((speaker) => speaker.twitter != null)
                   .map(
-                    (speaker) => Row(
-                      children: [
-                        Text(
-                          l10n.twitterHandle,
-                          style: TextStyle(
-                            color: colorScheme.onSurface,
-                            fontSize: 20,
-                          ),
-                        ),
-                        const Spacer(),
-                        ElevatedButton(
-                          onPressed: () {
-                            if (speaker.twitter != null) {
-                              Misc.launchURL(Uri.parse(speaker.twitter!));
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                            elevation: 0,
-                            backgroundColor: colorScheme.surface,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              side: BorderSide(
-                                color: colorScheme.primary,
-                              ),
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                AppAssets.iconTwitter,
-                                colorFilter: ColorFilter.mode(
-                                  colorScheme.primary,
-                                  BlendMode.srcIn,
-                                ),
-                                height: 20,
-                              ),
-                              const SizedBox(width: 3),
-                              Text(speaker.name!),
-                            ],
-                          ),
-                        ),
-                      ],
+                    (speaker) => TwitterHandleBody(
+                      name: speaker.name!,
+                      twitterUrl: speaker.twitter,
                     ),
                   ),
             const SizedBox(height: 128),
