@@ -40,7 +40,6 @@ class SessionDetailsPage extends StatelessWidget {
           l10n.sessionDetails,
           style: TextStyle(color: colorScheme.onSurface),
         ),
-        surfaceTintColor: Colors.white,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 16),

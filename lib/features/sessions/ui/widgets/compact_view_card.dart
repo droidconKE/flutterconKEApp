@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/data/models/local/local_session.dart';
+import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/sessions/cubit/bookmark_session_cubit.dart';
 import 'package:fluttercon/features/sessions/cubit/fetch_grouped_sessions_cubit.dart';
@@ -20,10 +21,11 @@ class CompactViewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final (isLightMode, colorScheme) = Misc.getTheme(context);
 
     return Card(
       elevation: 2,
-      color: Colors.white,
+      color: isLightMode ? colorScheme.surface : colorScheme.secondaryContainer,
       child: ListTile(
         leading: Column(
           children: [
@@ -37,15 +39,19 @@ class CompactViewCard extends StatelessWidget {
               DateTime.parse('2022-01-01 ${session.startTime}').hour > 11
                   ? 'PM'
                   : 'AM',
-              style: const TextStyle(fontSize: 18),
+              style: TextStyle(
+                fontSize: 18,
+                color: colorScheme.onSurface,
+              ),
             ),
           ],
         ),
         title: Text(
           session.title,
-          style: const TextStyle(
+          style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 16,
+            color: colorScheme.onSurface,
           ),
         ),
         subtitle: Column(
@@ -54,7 +60,10 @@ class CompactViewCard extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               session.description,
-              style: const TextStyle(fontSize: 16),
+              style: TextStyle(
+                fontSize: 16,
+                color: colorScheme.onSurface,
+              ),
               maxLines: 3,
             ),
             if (session.rooms.isNotEmpty) const SizedBox(height: 8),
@@ -72,15 +81,18 @@ class CompactViewCard extends StatelessWidget {
                       .join(', ')
                       .toUpperCase(),
                 ),
+                style: TextStyle(
+                  color: colorScheme.onSurface,
+                ),
               ),
             if (session.speakers.isNotEmpty) const SizedBox(height: 8),
             if (session.speakers.isNotEmpty)
               Row(
                 children: [
-                  const Flexible(
+                  Flexible(
                     child: Icon(
                       Icons.android_outlined,
-                      color: ThemeColors.blueColor,
+                      color: colorScheme.primary,
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -90,8 +102,8 @@ class CompactViewCard extends StatelessWidget {
                       session.speakers
                           .map((speaker) => speaker.name)
                           .join(', '),
-                      style: const TextStyle(
-                        color: ThemeColors.blueColor,
+                      style: TextStyle(
+                        color: colorScheme.primary,
                       ),
                     ),
                   ),
@@ -139,7 +151,7 @@ class CompactViewCard extends StatelessWidget {
                             : Icons.star_border_outlined,
                         color: session.isBookmarked
                             ? ThemeColors.orangeColor
-                            : ThemeColors.blueColor,
+                            : colorScheme.primary,
                         size: 32,
                       ),
                     ),
@@ -163,7 +175,7 @@ class CompactViewCard extends StatelessWidget {
                       : Icons.star_border_outlined,
                   color: session.isBookmarked
                       ? ThemeColors.orangeColor
-                      : ThemeColors.blueColor,
+                      : colorScheme.primary,
                   size: 32,
                 ),
               ),

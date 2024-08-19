@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/data/enums/session_level.dart';
 import 'package:fluttercon/common/data/enums/session_type.dart';
-import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/features/sessions/cubit/fetch_grouped_sessions_cubit.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 
@@ -20,6 +20,7 @@ class _SessionFilterState extends State<SessionFilter> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final (isLightMode, colorScheme) = Misc.getTheme(context);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16) +
@@ -31,7 +32,7 @@ class _SessionFilterState extends State<SessionFilter> {
             child: Text(
               l10n.level,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: ThemeColors.blackColor,
+                    color: colorScheme.onSurface,
                     fontWeight: FontWeight.bold,
                   ),
             ),
@@ -40,7 +41,6 @@ class _SessionFilterState extends State<SessionFilter> {
           SizedBox(
             width: double.infinity,
             child: SegmentedButton<SessionLevel>(
-              selectedIcon: const SizedBox.shrink(),
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
@@ -51,10 +51,10 @@ class _SessionFilterState extends State<SessionFilter> {
                   icon: const SizedBox.shrink(),
                   label: Text(
                     l10n.beginner,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall
-                        ?.copyWith(fontSize: 11.5),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontSize: 11.5,
+                          color: colorScheme.onSurface,
+                        ),
                   ),
                   value: SessionLevel.beginner,
                 ),
@@ -62,10 +62,10 @@ class _SessionFilterState extends State<SessionFilter> {
                   icon: const SizedBox.shrink(),
                   label: Text(
                     l10n.intermediate,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall
-                        ?.copyWith(fontSize: 11.5),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontSize: 11.5,
+                          color: colorScheme.onSurface,
+                        ),
                   ),
                   value: SessionLevel.intermediate,
                 ),
@@ -73,10 +73,10 @@ class _SessionFilterState extends State<SessionFilter> {
                   icon: const SizedBox.shrink(),
                   label: Text(
                     l10n.expert,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall
-                        ?.copyWith(fontSize: 11.5),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontSize: 11.5,
+                          color: colorScheme.onSurface,
+                        ),
                   ),
                   value: SessionLevel.advanced,
                 ),
@@ -95,7 +95,7 @@ class _SessionFilterState extends State<SessionFilter> {
             child: Text(
               l10n.sessionType,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: ThemeColors.blackColor,
+                    color: colorScheme.onSurface,
                     fontWeight: FontWeight.bold,
                   ),
             ),
@@ -104,7 +104,6 @@ class _SessionFilterState extends State<SessionFilter> {
           SizedBox(
             width: double.infinity,
             child: SegmentedButton<SessionType>(
-              selectedIcon: const SizedBox.shrink(),
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
@@ -114,30 +113,30 @@ class _SessionFilterState extends State<SessionFilter> {
                 ButtonSegment<SessionType>(
                   label: Text(
                     l10n.session,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall
-                        ?.copyWith(fontSize: 12),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontSize: 12,
+                          color: colorScheme.onSurface,
+                        ),
                   ),
                   value: SessionType.session,
                 ),
                 ButtonSegment<SessionType>(
                   label: Text(
                     l10n.keynote,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall
-                        ?.copyWith(fontSize: 12),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontSize: 12,
+                          color: colorScheme.onSurface,
+                        ),
                   ),
                   value: SessionType.keynote,
                 ),
                 ButtonSegment<SessionType>(
                   label: Text(
                     l10n.codeLab,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall
-                        ?.copyWith(fontSize: 12),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontSize: 12,
+                          color: colorScheme.onSurface,
+                        ),
                   ),
                   value: SessionType.codelab,
                 ),
@@ -153,7 +152,6 @@ class _SessionFilterState extends State<SessionFilter> {
           SizedBox(
             width: double.infinity,
             child: SegmentedButton<SessionType>(
-              selectedIcon: const SizedBox.shrink(),
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
@@ -163,20 +161,20 @@ class _SessionFilterState extends State<SessionFilter> {
                 ButtonSegment<SessionType>(
                   label: Text(
                     l10n.lightningTalk,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall
-                        ?.copyWith(fontSize: 12),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontSize: 12,
+                          color: colorScheme.onSurface,
+                        ),
                   ),
                   value: SessionType.lightningTalk,
                 ),
                 ButtonSegment<SessionType>(
                   label: Text(
                     l10n.workshop,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall
-                        ?.copyWith(fontSize: 12),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontSize: 12,
+                          color: colorScheme.onSurface,
+                        ),
                   ),
                   value: SessionType.workshop,
                 ),
@@ -205,7 +203,7 @@ class _SessionFilterState extends State<SessionFilter> {
                 }
               }),
               style: ElevatedButton.styleFrom(
-                backgroundColor: ThemeColors.blueColor,
+                backgroundColor: colorScheme.primary,
                 padding: const EdgeInsets.symmetric(horizontal: 32),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
@@ -214,7 +212,7 @@ class _SessionFilterState extends State<SessionFilter> {
               child: Text(
                 l10n.filter.toUpperCase(),
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: Colors.white,
+                      color: colorScheme.surface,
                       fontWeight: FontWeight.bold,
                     ),
               ),
@@ -234,7 +232,7 @@ class _SessionFilterState extends State<SessionFilter> {
               }),
               style: ElevatedButton.styleFrom(
                 elevation: 0,
-                backgroundColor: Colors.white,
+                backgroundColor: colorScheme.surface,
                 padding: const EdgeInsets.symmetric(horizontal: 32),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
@@ -243,7 +241,7 @@ class _SessionFilterState extends State<SessionFilter> {
               child: Text(
                 l10n.reset.toUpperCase(),
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: Colors.black,
+                      color: colorScheme.onSurface,
                       fontWeight: FontWeight.bold,
                     ),
               ),

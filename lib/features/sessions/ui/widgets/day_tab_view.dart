@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 
@@ -17,6 +18,7 @@ class DayTabView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final (isLightMode, colorScheme) = Misc.getTheme(context);
 
     return Tab(
       height: 80,
@@ -35,7 +37,11 @@ class DayTabView extends StatelessWidget {
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 24,
-                color: isActive ? Colors.white : Colors.black,
+                color: isActive
+                    ? Colors.white
+                    : isLightMode
+                        ? Colors.black
+                        : Colors.white,
               ),
             ),
             const SizedBox(height: 4),
@@ -43,7 +49,11 @@ class DayTabView extends StatelessWidget {
               l10n.day(day),
               style: TextStyle(
                 fontSize: 16,
-                color: isActive ? Colors.white : Colors.black,
+                color: isActive
+                    ? Colors.white
+                    : isLightMode
+                        ? Colors.black
+                        : Colors.white,
               ),
             ),
           ],
