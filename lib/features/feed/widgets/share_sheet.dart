@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttercon/common/data/enums/social_platform.dart';
 import 'package:fluttercon/common/data/models/local/local_feed.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
+import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/feed/cubit/share_feed_post_cubit.dart';
 import 'package:fluttercon/features/feed/widgets/social_media_button.dart';
@@ -21,6 +22,7 @@ class ShareSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final (isLightMode, colorScheme) = Misc.getTheme(context);
     return SliverToBoxAdapter(
       child: Padding(
         padding: const EdgeInsets.all(20),
@@ -60,8 +62,8 @@ class ShareSheet extends StatelessWidget {
                           children: [
                             SvgPicture.asset(
                               AppAssets.iconShare,
-                              colorFilter: const ColorFilter.mode(
-                                ThemeColors.blackColor,
+                              colorFilter: ColorFilter.mode(
+                                colorScheme.onSurface,
                                 BlendMode.srcIn,
                               ),
                               height: 32,
@@ -69,8 +71,8 @@ class ShareSheet extends StatelessWidget {
                             const SizedBox(width: 8),
                             Text(
                               l10n.share,
-                              style: const TextStyle(
-                                color: ThemeColors.blackColor,
+                              style: TextStyle(
+                                color: colorScheme.onSurface,
                                 fontWeight: FontWeight.w800,
                                 fontSize: 18,
                               ),

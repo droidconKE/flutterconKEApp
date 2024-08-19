@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/widgets/app_bar/app_bar.dart';
+import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/feed/cubit/feed_cubit.dart';
 import 'package:fluttercon/features/feed/widgets/share_sheet.dart';
 import 'package:fluttercon/l10n/l10n.dart';
@@ -28,7 +29,6 @@ class _FeedScreenState extends State<FeedScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-
     final (isLightMode, colorScheme) = Misc.getTheme(context);
 
     return Scaffold(
@@ -80,7 +80,9 @@ class _FeedScreenState extends State<FeedScreen> {
                                   SliverWoltModalSheetPage(
                                     useSafeArea: true,
                                     hasTopBarLayer: false,
-                                    backgroundColor: const Color(0xFFF6F6F8),
+                                    backgroundColor: isLightMode
+                                        ? ThemeColors.lightGrayBackgroundColor
+                                        : Colors.black,
                                     mainContentSliversBuilder: (context) =>
                                         <Widget>[
                                       ShareSheet(feed: feed, l10n: l10n),
