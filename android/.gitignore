@@ -9,3 +9,4 @@ GeneratedPluginRegistrant.java
 key.properties
 **/*.keystore
 **/*.jks
+!public-dev-keystore.jks

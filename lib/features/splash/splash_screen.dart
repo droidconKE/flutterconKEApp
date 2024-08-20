@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fluttercon/common/repository/hive_repository.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
-import 'package:fluttercon/core/navigator/route_names.dart';
+import 'package:fluttercon/common/utils/misc.dart';
+import 'package:fluttercon/common/utils/router.dart';
+import 'package:fluttercon/core/di/injectable.dart';
+import 'package:go_router/go_router.dart';
+import 'package:logger/logger.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -10,32 +15,43 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-    nextAction();
-  }
-
-  Future<void> nextAction() async {
-    await Future.delayed(const Duration(seconds: 3), () {});
-    if (!mounted) return;
-    await Navigator.pushNamedAndRemoveUntil(
-      context,
-      RouteNames.dashboard,
-      (route) => false,
+  void _redirectToPage(
+    BuildContext context,
+    String routeName,
+  ) {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => GoRouter.of(context).goNamed(routeName),
     );
   }
 
   @override
+  void initState() {
+    final accessToken = getIt<HiveRepository>().retrieveToken();
+    Logger().d(accessToken);
+
+    if (accessToken == null) {
+      _redirectToPage(
+        context,
+        FlutterConRouter.signInRoute,
+      );
+    } else {
+      _redirectToPage(
+        context,
+        FlutterConRouter.dashboardRoute,
+      );
+    }
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final (_, colorScheme) = Misc.getTheme(context);
     return Scaffold(
-      body: Container(
-        margin: const EdgeInsets.all(40),
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(AppAssets.imgDroidcon),
-            fit: BoxFit.fitWidth,
-          ),
+      backgroundColor: colorScheme.surface,
+      body: const Center(
+        child: Image(
+          image: AssetImage(AppAssets.imgDroidcon),
         ),
       ),
     );

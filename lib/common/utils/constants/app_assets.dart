@@ -18,6 +18,11 @@ class AppAssets {
   static const String iconLocked = '$assetsIcons/locked.svg';
   static const String iconPlay = '$assetsIcons/play.svg';
   static const String iconTiskos = '$assetsIcons/tiskos.svg';
+  static const String iconShare = '$assetsIcons/share.svg';
+  static const String iconTwitter = '$assetsIcons/social-media/twitter.svg';
+  static const String iconFacebook = '$assetsIcons/social-media/facebook.svg';
+  static const String iconTelegram = '$assetsIcons/social-media/telegram.svg';
+  static const String iconWhatsApp = '$assetsIcons/social-media/whatsapp.svg';
 
   // Images
   static const assetsImages = 'assets/images';
@@ -44,6 +49,8 @@ class AppAssets {
   static const aboutIcon = 'assets/images/about_icon.png';
   static const lockIcon = 'assets/images/lock_icon.png';
   static const playIcon = 'assets/images/play_icon.png';
+  static const flutterConKeLogo = 'assets/images/flutterconke_logo.png';
+  static const flutterConBanner = 'assets/images/flutterconke_banner.png';
 
   static const smileyIcon = 'assets/images/smiley.png';
   static const profilePhoto = 'assets/images/profile_photo.png';
@@ -51,4 +58,15 @@ class AppAssets {
   static const session1 = 'assets/images/session1.png';
   static const session2 = 'assets/images/session2.png';
   static const teamPhoto = 'assets/images/team.png';
+
+  static const sadEmoji = 'assets/images/sad_emoji.png';
+  static const neutralEmoji = 'assets/images/neutral_emoji.png';
+  static const happyEmoji = 'assets/images/happy_emoji.png';
+  static const feedbackBanner = 'assets/images/feedback_appbar.svg';
+
+  static const speakerBackground = 'assets/images/speaker_background.svg';
+  static const listAltIcon = 'assets/images/list_alt.svg';
+  static const viewAgendaIcon = 'assets/images/view_agenda.svg';
+  static const filterIcon = 'assets/images/filter.svg';
+  static const backIcon = 'assets/images/back.svg';
 }

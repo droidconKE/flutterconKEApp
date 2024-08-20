@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/widgets/bottom_nav/app_nav_icon.dart';
 import 'package:fluttercon/common/widgets/page_item.dart';
-import 'package:fluttercon/core/di/injectable.dart';
-import 'package:fluttercon/core/local_storage.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 
 /// Custom Bottom Navigation Bar that will handles the page to be displayed on
@@ -26,7 +25,7 @@ class CustomBottomNavigationBar extends StatefulWidget {
 
 class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   /// This is used for the swipe drag gesture on the bottom nav bar
-  LocalStorage localStorage = getIt<LocalStorage>();
+
   bool bottomNavBarSwipeGestures = false;
   bool bottomNavBarDoubleTapGestures = false;
 
@@ -81,9 +80,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDarkTheme = theme.brightness == Brightness.light;
-
+    final (_, colorScheme) = Misc.getTheme(context);
     return GestureDetector(
       onHorizontalDragStart: _handleDragStart,
       onHorizontalDragUpdate: _handleDragUpdate,
@@ -94,12 +91,10 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           : null,
       child: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: isDarkTheme ? Colors.black : Colors.white,
+        backgroundColor: colorScheme.surface,
         currentIndex: widget.selectedIndex,
         selectedItemColor: ThemeColors.orangeDroidconColor,
-        unselectedItemColor: isDarkTheme
-            ? ThemeColors.greyTextColor
-            : ThemeColors.greyDarkThemeBackground,
+        unselectedItemColor: colorScheme.onSurface,
         unselectedLabelStyle: const TextStyle(fontSize: 12),
         selectedLabelStyle: const TextStyle(fontSize: 12),
         onTap: widget.onPageChange,
@@ -111,13 +106,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
               padding: const EdgeInsets.all(8),
               child: AppNavIcon(
                 page.icon,
-                color: isActive
-                    ? isDarkTheme
-                        ? ThemeColors.blueGreenDroidconColor
-                        : ThemeColors.blueDroidconColor
-                    : isDarkTheme
-                        ? ThemeColors.lightGreyTextColor
-                        : ThemeColors.greyTextColor,
+                color: isActive ? colorScheme.primary : colorScheme.onSurface,
               ),
             ),
           );

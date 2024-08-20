@@ -2,11 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 	<dict>
-		<key>CFBundleLocalizations</key>
-		<array>
-			<string>en</string>
-			<string>es</string>
-		</array>
+		<key>CADisableMinimumFrameDurationOnPhone</key>
+		<true/>
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>
@@ -17,6 +14,11 @@
 		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 		<key>CFBundleInfoDictionaryVersion</key>
 		<string>6.0</string>
+		<key>CFBundleLocalizations</key>
+		<array>
+			<string>en</string>
+			<string>es</string>
+		</array>
 		<key>CFBundleName</key>
 		<string>$(FLAVOR_APP_NAME)</string>
 		<key>CFBundlePackageType</key>
@@ -25,14 +27,31 @@
 		<string>$(FLUTTER_BUILD_NAME)</string>
 		<key>CFBundleSignature</key>
 		<string>????</string>
+		<key>CFBundleURLTypes</key>
+		<array>
+			<dict>
+				<key>CFBundleTypeRole</key>
+				<string>Editor</string>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>com.googleusercontent.apps.602867001820-p21jqotknhl6gcinm7lv9tmubhv30gh9</string>
+				</array>
+			</dict>
+		</array>
 		<key>CFBundleVersion</key>
 		<string>$(FLUTTER_BUILD_NUMBER)</string>
+		<key>GIDClientID</key>
+		<string>602867001820-p21jqotknhl6gcinm7lv9tmubhv30gh9.apps.googleusercontent.com</string>
 		<key>LSRequiresIPhoneOS</key>
+		<true/>
+		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true/>
 		<key>UILaunchStoryboardName</key>
 		<string>LaunchScreen</string>
 		<key>UIMainStoryboardFile</key>
 		<string>Main</string>
+		<key>UIStatusBarHidden</key>
+		<false/>
 		<key>UISupportedInterfaceOrientations</key>
 		<array>
 			<string>UIInterfaceOrientationPortrait</string>
@@ -48,11 +67,23 @@
 		</array>
 		<key>UIViewControllerBasedStatusBarAppearance</key>
 		<false/>
-		<key>CADisableMinimumFrameDurationOnPhone</key>
-		<true/>
-		<key>UIApplicationSupportsIndirectInputEvents</key>
-		<true/>
-		<key>UIStatusBarHidden</key>
-		<false/>
+		<key>LSApplicationQueriesSchemes</key>
+		<array>
+			<string>tg</string>
+			<string>whatsapp</string>
+			<string>twitter</string>
+		</array>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>$(FLAVOR_APP_NAME) needs permission to access photos and videos on your device</string>
+		<key>NSMicrophoneUsageDescription</key>
+		<string>$(FLAVOR_APP_NAME) does not require access to the microphone.</string>
+		<key>NSCameraUsageDescription</key>
+		<string>$(FLAVOR_APP_NAME) requires access to the camera.</string>
+		<key>NSAppleMusicUsageDescription</key>
+		<string>$(FLAVOR_APP_NAME) requires access to play music</string>
+		<key>NSBonjourServices</key>
+		<array>
+			<string>_dartobservatory._tcp</string>
+		</array>
 	</dict>
 </plist>

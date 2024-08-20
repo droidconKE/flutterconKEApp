@@ -2,10 +2,14 @@ class FlutterConValues {
   FlutterConValues({
     required this.urlScheme,
     required this.baseDomain,
+    required this.hiveBox,
+    required this.eventSlug,
   });
 
   final String urlScheme;
   final String baseDomain;
+  final String hiveBox;
+  final String eventSlug;
 
   String get baseUrl => '$urlScheme://$baseDomain';
 }

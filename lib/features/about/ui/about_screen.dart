@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
-
-import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:fluttercon/common/utils/misc.dart';
+import 'package:fluttercon/common/widgets/app_bar/app_bar.dart';
+import 'package:fluttercon/features/about/cubit/fetch_individual_organisers_cubit.dart';
+import 'package:fluttercon/features/about/ui/organising_team.dart';
 import 'package:fluttercon/features/home/widgets/organizers_card.dart';
+import 'package:fluttercon/l10n/l10n.dart';
 
 class AboutScreen extends StatefulWidget {
   const AboutScreen({super.key});
@@ -15,66 +19,69 @@ class _AboutScreenState extends State<AboutScreen> {
   @override
   void initState() {
     super.initState();
+
+    context.read<FetchIndividualOrganisersCubit>().fetchIndividualOrganisers();
   }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.light;
+    final (_, colorScheme) = Misc.getTheme(context);
+    final l10n = context.l10n;
+
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Image.asset(AppAssets.teamPhoto),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'About',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      color: isDark
-                          ? ThemeColors.tealColor
-                          : ThemeColors.blueDroidconColor,
+      backgroundColor: colorScheme.surface,
+      appBar: const CustomAppBar(selectedIndex: 3),
+      body: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(child: Image.asset(AppAssets.teamPhoto)),
+          const SliverToBoxAdapter(child: SizedBox(height: 16)),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                l10n.about,
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      color: colorScheme.primary,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    'Droidcon is a global conference focused on the engineering'
-                    ' of Android applications. Droidcon provides a forum for '
-                    'developers to network with other developers, share '
-                    'techniques, announce apps and products, and to learn and '
-                    'teach.\n\n'
-                    'This three-day developer focused gathering will be held '
-                    'in Nairobi Kenya on November 16th to 18th 2022 and will '
-                    'be the largest of its kind in Africa.\n\n'
-                    'It will have workshops and codelabs focused on the '
-                    'building of Android applications and will give '
-                    'participants an excellent chance to learn about the local '
-                    'Android development ecosystem, opportunities and services '
-                    'as well as meet the engineers and companies who work on '
-                    'them.',
-                    style: theme.textTheme.bodyMedium,
-                  ),
-                  const SizedBox(height: 20),
-                  Text(
-                    'Organizing Team',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      color: isDark
-                          ? ThemeColors.tealColor
-                          : ThemeColors.blueDroidconColor,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  //individualOrganizers
-                  const SizedBox(height: 40),
-                  const OrganizersCard(),
-                ],
               ),
             ),
-          ],
-        ),
+          ),
+          const SliverToBoxAdapter(child: SizedBox(height: 16)),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                l10n.aboutFluttercon,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: colorScheme.onSurface,
+                    ),
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(child: SizedBox(height: 16)),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                l10n.organisingTeam,
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      color: colorScheme.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(child: SizedBox(height: 16)),
+          const OrganisingTeamView(),
+          const SliverToBoxAdapter(child: SizedBox(height: 16)),
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: OrganizersCard(),
+            ),
+          ),
+        ],
       ),
     );
   }

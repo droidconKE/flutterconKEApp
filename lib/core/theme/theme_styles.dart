@@ -109,4 +109,11 @@ class Corners {
   static BorderRadius get s10Border => BorderRadius.all(s10Radius);
 
   static Radius get s10Radius => const Radius.circular(s10);
+
+  /// XLarge
+  static const double s12 = 12;
+
+  static BorderRadius get s12Border => BorderRadius.all(s12Radius);
+
+  static Radius get s12Radius => const Radius.circular(s12);
 }
