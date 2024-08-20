@@ -1,0 +1,54 @@
+name: Generate Production AAB
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:   
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+
+      - name: 📚 Git Checkout       
+        uses: actions/checkout@v4
+
+      - name: 🐦 Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3"
+
+      - name: 📦 Install Dependencies
+        run: flutter packages get
+
+      - name: ✨ Check Formatting
+        run: dart format --set-exit-if-changed lib test
+
+      - name: ⚙️ Code Generation
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      - name: 🕵️ Analyze
+        run: flutter analyze lib
+
+      - name: ⚙️ Download Android keystore
+        id: android_keystore
+        uses: timheuer/base64-to-file@v1.2
+        with:
+          fileName: key.jks
+          encodedString: ${{ secrets.PROD_KEYSTORE }}
+
+      - name: 🔐 Create key.properties
+        run: |
+          echo "storeFile=${{ steps.android_keystore.outputs.filePath }}" > android/key.properties
+          echo "storePassword=${{ secrets.PROD_KEYSTORE_PASSPHRASE }}" >> android/key.properties
+          echo "keyPassword=${{ secrets.PROD_KEYSTORE_PASSWORD }}" >> android/key.properties
+          echo "keyAlias=${{ secrets.PROD_KEYSTORE_ALIAS }}" >> android/key.properties
+
+      - name: ⚙️ Build AAB
+        run: flutter build appbundle  --flavor production --target lib/main_production.dart -vv
