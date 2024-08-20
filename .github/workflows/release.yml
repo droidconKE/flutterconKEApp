@@ -1,9 +1,6 @@
 name: Generate Production AAB
 
 on:
-  push:
-    branches:
-      - main
   release:
     types:
       - published
