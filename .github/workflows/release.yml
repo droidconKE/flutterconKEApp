@@ -1,6 +1,9 @@
 name: Generate Production AAB
 
 on:
+  push:
+    branches:
+      - main
   release:
     types:
       - published
@@ -52,3 +55,9 @@ jobs:
 
       - name: ⚙️ Build AAB
         run: flutter build appbundle  --flavor production --target lib/main_production.dart -vv
+
+      - name: 📦 Upload AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-artifact
+          path: build/app/outputs/bundle/productionRelease/app-production-release.aab
