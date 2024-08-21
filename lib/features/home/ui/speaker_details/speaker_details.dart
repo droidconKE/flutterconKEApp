@@ -35,7 +35,7 @@ class SpeakerDetailsPage extends StatelessWidget {
             ),
             expandedHeight: 100,
             bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(0),
+              preferredSize: const Size.fromHeight(120),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

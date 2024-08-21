@@ -27,24 +27,30 @@ class CompactViewCard extends StatelessWidget {
       elevation: 2,
       color: isLightMode ? colorScheme.surface : colorScheme.secondaryContainer,
       child: ListTile(
-        leading: Column(
-          children: [
-            Text(
-              DateFormat.Hm().format(
-                DateTime.parse('2022-01-01 ${session.startTime}'),
+        leading: Text.rich(
+          TextSpan(
+            children: [
+              TextSpan(
+                text: '${DateFormat.Hm().format(
+                  DateTime.parse(
+                    '2022-01-01 ${session.startTime}',
+                  ),
+                )}\n',
+                style: const TextStyle(fontSize: 18),
               ),
-              style: const TextStyle(fontSize: 18),
-            ),
-            Text(
-              DateTime.parse('2022-01-01 ${session.startTime}').hour > 11
-                  ? 'PM'
-                  : 'AM',
-              style: TextStyle(
-                fontSize: 18,
-                color: colorScheme.onSurface,
+              TextSpan(
+                text:
+                    DateTime.parse('2022-01-01 ${session.startTime}').hour > 11
+                        ? 'PM'
+                        : 'AM',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: colorScheme.onSurface,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
+          textAlign: TextAlign.center,
         ),
         title: Text(
           session.title,

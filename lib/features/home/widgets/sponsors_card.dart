@@ -35,8 +35,8 @@ class _SponsorsCardState extends State<SponsorsCard> {
         color: colorScheme.secondaryContainer,
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          const Spacer(),
           Text(
             l10n.sponsors,
             style: TextStyle(
@@ -45,7 +45,6 @@ class _SponsorsCardState extends State<SponsorsCard> {
               fontSize: 18,
             ),
           ),
-          const Spacer(),
           BlocBuilder<FetchSponsorsCubit, FetchSponsorsState>(
             builder: (context, state) => state.maybeWhen(
               loaded: (sponsors) {
@@ -101,7 +100,6 @@ class _SponsorsCardState extends State<SponsorsCard> {
               ),
             ),
           ),
-          const Spacer(),
         ],
       ),
     );
