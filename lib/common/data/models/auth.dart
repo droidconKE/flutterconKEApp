@@ -8,9 +8,9 @@ class FlutterConUser with _$FlutterConUser {
   const factory FlutterConUser(
     String name,
     String email,
-    String avatar,
-    @JsonKey(name: 'created_at') String createdAt,
-  ) = _FlutterConUser;
+    @JsonKey(name: 'created_at') String createdAt, {
+    @Default('https://via.placeholder.com/150') String avatar,
+  }) = _FlutterConUser;
 
   factory FlutterConUser.fromJson(Map<String, Object?> json) =>
       _$FlutterConUserFromJson(json);
