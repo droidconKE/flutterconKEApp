@@ -16,10 +16,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -51,7 +48,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBY00roSeNZOq5AaLnHWYkSN-FnxtkUrrc',
-    appId: '1:602867001820:android:689e781aad67bd0b710719',
+    appId: '1:602867001820:android:701a8a8c597d0465710719',
     messagingSenderId: '602867001820',
     projectId: 'droidconke-70d60',
     databaseURL: 'https://droidconke-70d60.firebaseio.com',
@@ -70,5 +67,16 @@ class DefaultFirebaseOptions {
     iosClientId: '602867001820-p21jqotknhl6gcinm7lv9tmubhv30gh9'
         '.apps.googleusercontent.com',
     iosBundleId: 'dev.flutterconke.fluttercon',
+  );
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyDxZ_1QpImc-FiQbP3i7N93pNr5jFQSYjk',
+    appId: '1:602867001820:web:07bc3b91b0c4728b710719',
+    messagingSenderId: '602867001820',
+    projectId: 'droidconke-70d60',
+    authDomain: 'droidconke-70d60.firebaseapp.com',
+    databaseURL: 'https://droidconke-70d60.firebaseio.com',
+    storageBucket: 'droidconke-70d60.appspot.com',
+    measurementId: 'G-V7B7TFD1ZY',
   );
 }

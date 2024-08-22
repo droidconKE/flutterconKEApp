@@ -1,9 +1,9 @@
-name: Generate Production AAB
+name: Generate Production APK
 
 on:
-  release:
-    types:
-      - published
+  push:
+    branches:
+      - hotfix/social-auth
 
 jobs:
   build:
@@ -50,11 +50,11 @@ jobs:
           echo "keyPassword=${{ secrets.PROD_KEYSTORE_PASSWORD }}" >> android/key.properties
           echo "keyAlias=${{ secrets.PROD_KEYSTORE_ALIAS }}" >> android/key.properties
 
-      - name: ⚙️ Build AAB
-        run: flutter build appbundle  --flavor production --target lib/main_production.dart -vv
+      - name: ⚙️ Build APK
+        run: flutter build apk --flavor production --target lib/main_production.dart -v
 
-      - name: 📦 Upload AAB
+      - name: 📦 Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: production-aab
-          path: build/app/outputs/bundle/productionRelease/app-production-release.aab
+          name: production-apk
+          path: build/app/outputs/apk/production/release/app-production-release.apk
