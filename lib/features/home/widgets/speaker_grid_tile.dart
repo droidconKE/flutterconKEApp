@@ -67,7 +67,7 @@ class SpeakerGridTile extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 8),
+            const Spacer(),
             Text(
               speaker.tagline ?? '',
               overflow: TextOverflow.clip,
@@ -77,7 +77,7 @@ class SpeakerGridTile extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 10),
+            const Spacer(),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(

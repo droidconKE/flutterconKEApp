@@ -31,6 +31,7 @@ class _OrganisingTeamViewState extends State<OrganisingTeamView> {
             crossAxisCount: 3,
             crossAxisSpacing: 8,
             mainAxisSpacing: 8,
+            mainAxisExtent: 150,
           ),
           itemBuilder: (context, index) => PersonnelWidget(
             imageUrl: individualOrganisers[index].photo,

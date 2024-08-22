@@ -55,94 +55,103 @@ class _SessionsScreenState extends State<SessionsScreen>
             headerSliverBuilder: (context, innerBoxIsScrolled) => <Widget>[
               SliverToBoxAdapter(
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    BlocConsumer<FetchGroupedSessionsCubit,
-                        FetchGroupedSessionsState>(
-                      listener: (context, state) {
-                        state.mapOrNull(
-                          loaded: (loaded) {
-                            setState(() {
-                              _availableTabs = loaded.groupedSessions.length;
-                            });
-                          },
-                        );
-                      },
-                      builder: (context, state) => state.maybeWhen(
-                        orElse: () => const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16),
-                          child: CircularProgressIndicator(),
-                        ),
-                        loaded: (groupedSessions) => TabBar(
-                          onTap: (value) => setState(() {
-                            _currentTab = value;
-                          }),
-                          isScrollable: true,
-                          tabAlignment: TabAlignment.start,
-                          indicatorColor: Colors.transparent,
-                          dividerColor: Colors.transparent,
-                          overlayColor:
-                              WidgetStateProperty.all(Colors.transparent),
-                          tabs: [
-                            ...groupedSessions.keys.map(
-                              (date) => DayTabView(
-                                date: DateFormat.d().format(
-                                  DateFormat('MM/dd/yyyy').parse(date),
+                    Flexible(
+                      flex: 8,
+                      child: BlocConsumer<FetchGroupedSessionsCubit,
+                          FetchGroupedSessionsState>(
+                        listener: (context, state) {
+                          state.mapOrNull(
+                            loaded: (loaded) {
+                              setState(() {
+                                _availableTabs = loaded.groupedSessions.length;
+                              });
+                            },
+                          );
+                        },
+                        builder: (context, state) => state.maybeWhen(
+                          orElse: () => const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16),
+                            child: CircularProgressIndicator(),
+                          ),
+                          loaded: (groupedSessions) => TabBar(
+                            onTap: (value) => setState(() {
+                              _currentTab = value;
+                            }),
+                            isScrollable: true,
+                            tabAlignment: TabAlignment.start,
+                            indicatorColor: Colors.transparent,
+                            dividerColor: Colors.transparent,
+                            overlayColor:
+                                WidgetStateProperty.all(Colors.transparent),
+                            tabs: [
+                              ...groupedSessions.keys.map(
+                                (date) => DayTabView(
+                                  date: DateFormat.d().format(
+                                    DateFormat('MM/dd/yyyy').parse(date),
+                                  ),
+                                  day: groupedSessions.keys
+                                          .toList()
+                                          .indexOf(date) +
+                                      1,
+                                  isActive: _currentTab ==
+                                      groupedSessions.keys
+                                          .toList()
+                                          .indexOf(date),
                                 ),
-                                day: groupedSessions.keys
-                                        .toList()
-                                        .indexOf(date) +
-                                    1,
-                                isActive: _currentTab ==
-                                    groupedSessions.keys.toList().indexOf(date),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      flex: 2,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 16),
+                        child: Column(
+                          children: [
+                            Switch(
+                              value: _isBookmarked,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  _isBookmarked = newValue;
+                                });
+
+                                if (_isBookmarked) {
+                                  context
+                                      .read<FetchGroupedSessionsCubit>()
+                                      .fetchGroupedSessions(
+                                        bookmarkStatus:
+                                            BookmarkStatus.bookmarked,
+                                      );
+                                }
+
+                                if (!_isBookmarked) {
+                                  context
+                                      .read<FetchGroupedSessionsCubit>()
+                                      .fetchGroupedSessions();
+                                }
+                              },
+                              trackOutlineWidth: WidgetStateProperty.all(1),
+                              trackColor: WidgetStateProperty.all(Colors.black),
+                              activeTrackColor: ThemeColors.orangeColor,
+                              activeColor: ThemeColors.orangeColor,
+                              thumbColor: WidgetStateProperty.all(Colors.white),
+                              thumbIcon: WidgetStateProperty.all(
+                                const Icon(Icons.star_border_rounded),
+                              ),
+                            ),
+                            Text(
+                              l10n.mySessions,
+                              style: const TextStyle(
+                                fontSize: 10,
+                                color: Colors.grey,
                               ),
                             ),
                           ],
                         ),
-                      ),
-                    ),
-                    const Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 16),
-                      child: Column(
-                        children: [
-                          Switch(
-                            value: _isBookmarked,
-                            onChanged: (newValue) {
-                              setState(() {
-                                _isBookmarked = newValue;
-                              });
-
-                              if (_isBookmarked) {
-                                context
-                                    .read<FetchGroupedSessionsCubit>()
-                                    .fetchGroupedSessions(
-                                      bookmarkStatus: BookmarkStatus.bookmarked,
-                                    );
-                              }
-
-                              if (!_isBookmarked) {
-                                context
-                                    .read<FetchGroupedSessionsCubit>()
-                                    .fetchGroupedSessions();
-                              }
-                            },
-                            trackOutlineWidth: WidgetStateProperty.all(1),
-                            trackColor: WidgetStateProperty.all(Colors.black),
-                            activeTrackColor: ThemeColors.orangeColor,
-                            activeColor: ThemeColors.orangeColor,
-                            thumbColor: WidgetStateProperty.all(Colors.white),
-                            thumbIcon: WidgetStateProperty.all(
-                              const Icon(Icons.star_border_rounded),
-                            ),
-                          ),
-                          Text(
-                            l10n.mySessions,
-                            style: const TextStyle(
-                              fontSize: 10,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ],
                       ),
                     ),
                   ],
