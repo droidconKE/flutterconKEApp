@@ -25,6 +25,7 @@ class SpeakerListScreen extends StatelessWidget {
           l10n.speakers,
           style: TextStyle(color: colorScheme.onSurface),
         ),
+        surfaceTintColor: Colors.white,
       ),
       body: BlocBuilder<FetchSpeakersCubit, FetchSpeakersState>(
         builder: (context, state) => state.maybeWhen(
