@@ -19,7 +19,6 @@ class MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    NotificationService().requestPermission();
     AwesomeNotifications().setListeners(
       onActionReceivedMethod: NotificationService.onActionReceivedMethod,
     );
