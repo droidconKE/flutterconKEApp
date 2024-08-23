@@ -4,9 +4,7 @@ import 'package:fluttercon/common/data/enums/bookmark_status.dart';
 import 'package:fluttercon/common/repository/api_repository.dart';
 import 'package:fluttercon/common/repository/db_repository.dart';
 import 'package:fluttercon/common/utils/notification_service.dart';
-import 'package:fluttercon/common/utils/router.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:go_router/go_router.dart';
 
 part 'bookmark_session_state.dart';
 part 'bookmark_session_cubit.freezed.dart';

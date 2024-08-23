@@ -5,7 +5,6 @@ import 'package:fluttercon/common/utils/notification_service.dart';
 import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/core/di/injectable.dart';
 import 'package:fluttercon/core/theme/theme_data.dart';
-import 'package:fluttercon/features/feedback/ui/feedback_screen.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
