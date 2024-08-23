@@ -9,11 +9,11 @@ part 'bookmark_session_state.dart';
 part 'bookmark_session_cubit.freezed.dart';
 
 class BookmarkSessionCubit extends Cubit<BookmarkSessionState> {
-  BookmarkSessionCubit(
-      {required ApiRepository apiRepository,
-      required DBRepository dBRepository,
-      required NotificationService notificationService})
-      : super(const BookmarkSessionState.initial()) {
+  BookmarkSessionCubit({
+    required ApiRepository apiRepository,
+    required DBRepository dBRepository,
+    required NotificationService notificationService,
+  }) : super(const BookmarkSessionState.initial()) {
     _apiRepository = apiRepository;
     _dBRepository = dBRepository;
     _notificationService = notificationService;
