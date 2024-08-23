@@ -1,8 +1,12 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bloc/bloc.dart';
 import 'package:fluttercon/common/data/enums/bookmark_status.dart';
 import 'package:fluttercon/common/repository/api_repository.dart';
 import 'package:fluttercon/common/repository/db_repository.dart';
+import 'package:fluttercon/common/utils/notification_service.dart';
+import 'package:fluttercon/common/utils/router.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:go_router/go_router.dart';
 
 part 'bookmark_session_state.dart';
 part 'bookmark_session_cubit.freezed.dart';
@@ -34,6 +38,32 @@ class BookmarkSessionCubit extends Cubit<BookmarkSessionState> {
         bookmarkStatus: bookmarkStatus == BookmarkStatus.bookmarked,
       );
 
+      if (bookmarkStatus == BookmarkStatus.bookmarked) {
+        final session = await _dBRepository.getSession(sessionId);
+        final endTime = session?.endDateTime;
+        final notifcationTime = endTime?.subtract(const Duration(minutes: 5));
+
+        await AwesomeNotifications().createNotification(
+          content: NotificationContent(
+            id: sessionId,
+            channelKey: 'session_channel',
+            title: '${session?.title} feedback',
+            body:
+                'Please provide feedback for the session you ${session?.title} '
+                'just attended',
+          ),
+          schedule: NotificationCalendar.fromDate(date: notifcationTime!),
+        );
+
+        await NotificationService().showScheduledNotification(
+          id: sessionId,
+          channelKey: 'session_channel',
+          title: '${session?.title} feedback',
+          body: 'Please provide feedback for the session you ${session?.title} '
+              'just attended',
+          notificationTime: notifcationTime,
+        );
+      }
       emit(
         BookmarkSessionState.loaded(
           message: message,

@@ -26,6 +26,8 @@ class FlutterConRouter {
 
   static final GlobalKey<NavigatorState> _globalNavigatorKey =
       GlobalKey<NavigatorState>();
+  static GlobalKey<NavigatorState> get globalNavigatorKey =>
+      _globalNavigatorKey;
 
   static final _router = GoRouter(
     initialLocation: decisionRoute,
