@@ -57,6 +57,8 @@ class NotificationService {
   }) async {
     final notificationTime =
         session.endDateTime.subtract(const Duration(minutes: 5));
+    // Uncomment the line below to test the notification in 5 seconds
+    // final notificationTime = DateTime.now().add(const Duration(seconds: 5));
     String? title;
     String? body;
 
