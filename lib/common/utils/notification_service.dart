@@ -2,8 +2,8 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttercon/common/data/models/local/local_session.dart';
 import 'package:fluttercon/common/utils/router.dart';
+import 'package:fluttercon/core/di/injectable.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
-import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 
@@ -86,8 +86,10 @@ class NotificationService {
     Logger().f(receivedAction);
     switch (receivedAction.channelKey) {
       case 'session_channel':
-        FlutterConRouter.globalNavigatorKey.currentContext
-            ?.pushReplacementNamed(FlutterConRouter.feedbackRoute);
+        Logger().f('Navigating to feedback screen');
+        await getIt<FlutterConRouter>()
+            .config()
+            .push(FlutterConRouter.feedbackRoute);
     }
   }
 }
