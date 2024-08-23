@@ -81,7 +81,9 @@ class FlutterConRouter {
       GoRoute(
         path: feedbackRoute,
         name: feedbackRoute,
-        builder: (context, state) => const FeedbackScreen(),
+        builder: (context, state) => FeedbackScreen(
+          sessionSlug: state.extra as String?,
+        ),
       ),
     ],
   );

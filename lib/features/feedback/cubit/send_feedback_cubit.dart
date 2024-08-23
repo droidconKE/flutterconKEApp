@@ -17,6 +17,7 @@ class SendFeedbackCubit extends Cubit<SendFeedbackState> {
   Future<void> sendFeedback({
     required String feedback,
     required int rating,
+    String? sessionSlug,
   }) async {
     try {
       emit(const SendFeedbackState.loading());
@@ -24,6 +25,7 @@ class SendFeedbackCubit extends Cubit<SendFeedbackState> {
         feedbackDTO: FeedbackDTO(
           feedback: feedback,
           rating: rating,
+          sessionSlug: sessionSlug,
         ),
       );
 
