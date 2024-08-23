@@ -20,51 +20,66 @@ class SocialHandleBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final (_, colorScheme) = Misc.getTheme(context);
+    final size = MediaQuery.sizeOf(context);
 
-    return Row(
-      children: [
-        Text(
-          twitterUrl != null ? l10n.twitterHandle : l10n.linkedin,
-          style: TextStyle(
-            color: colorScheme.onSurface,
-            fontSize: 20,
+    return SizedBox(
+      width: size.width,
+      child: Wrap(
+        spacing: 8,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        alignment: WrapAlignment.spaceBetween,
+        children: [
+          Text(
+            twitterUrl != null ? l10n.twitterHandle : l10n.linkedin,
+            style: TextStyle(
+              color: colorScheme.onSurface,
+              fontSize: 20,
+            ),
           ),
-        ),
-        const Spacer(),
-        ElevatedButton(
-          onPressed: () {
-            if (twitterUrl != null || linkedinUrl != null) {
-              Misc.launchURL(Uri.parse(twitterUrl ?? linkedinUrl ?? ''));
-            }
-          },
-          style: ElevatedButton.styleFrom(
-            elevation: 0,
-            backgroundColor: colorScheme.surface,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-              side: BorderSide(
-                color: colorScheme.primary,
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 200),
+            child: ElevatedButton(
+              onPressed: () {
+                if (twitterUrl != null || linkedinUrl != null) {
+                  Misc.launchURL(Uri.parse(twitterUrl ?? linkedinUrl ?? ''));
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                elevation: 0,
+                backgroundColor: colorScheme.surface,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  side: BorderSide(
+                    color: colorScheme.primary,
+                  ),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (twitterUrl != null)
+                    SvgPicture.asset(
+                      AppAssets.iconTwitter,
+                      colorFilter: ColorFilter.mode(
+                        colorScheme.primary,
+                        BlendMode.srcIn,
+                      ),
+                      height: 20,
+                    ),
+                  const SizedBox(width: 3),
+                  Flexible(
+                    child: Text(
+                      name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (twitterUrl != null)
-                SvgPicture.asset(
-                  AppAssets.iconTwitter,
-                  colorFilter: ColorFilter.mode(
-                    colorScheme.primary,
-                    BlendMode.srcIn,
-                  ),
-                  height: 20,
-                ),
-              const SizedBox(width: 3),
-              Text(name),
-            ],
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -42,12 +42,12 @@ class PersonnelWidget extends StatelessWidget {
                 fit: BoxFit.cover,
                 imageUrl: imageUrl,
                 placeholder: (_, __) => const SizedBox(
-                  height: 150,
+                  height: 100,
                   width: double.infinity,
                   child: Center(child: CircularProgressIndicator()),
                 ),
                 errorWidget: (_, __, ___) => const SizedBox(
-                  height: 150,
+                  height: 100,
                   width: double.infinity,
                   child: Icon(
                     Icons.error,

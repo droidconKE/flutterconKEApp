@@ -18,7 +18,7 @@ apk:
 
 
 aab:
-		flutter build appbundle  --flavor production --target lib/main_production.dart
+		flutter build appbundle  --flavor production --target lib/main_production.dart -vv
 
 run:
 		flutter run --release  --flavor production --target lib/main_production.dart

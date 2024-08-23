@@ -60,7 +60,7 @@ class SignInScreen extends StatelessWidget {
                           loading: () => const CircularProgressIndicator(),
                           orElse: () => GoogleAuthButton(
                             themeMode:
-                                isLightMode ? ThemeMode.dark : ThemeMode.light,
+                                isLightMode ? ThemeMode.light : ThemeMode.dark,
                             onPressed: () async => context
                                 .read<GoogleSignInCubit>()
                                 .signInWithGoogle(),
