@@ -19,22 +19,17 @@ class MyApp extends StatefulWidget {
 class MyAppState extends State<MyApp> {
   @override
   void initState() {
-    NotificationService().requestPermission();
     super.initState();
+    NotificationService().requestPermission();
+    AwesomeNotifications().setListeners(
+      onActionReceivedMethod: NotificationService.onActionReceivedMethod,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return ResponsiveSizer(
       builder: (context, orientation, deviceType) {
-        AwesomeNotifications().setListeners(
-          onActionReceivedMethod: (ReceivedAction receivedAction) async {
-            if (receivedAction.channelKey == 'session_channel') {
-              FlutterConRouter.globalNavigatorKey.currentContext
-                  ?.pushReplacementNamed(FlutterConRouter.feedbackRoute);
-            }
-          },
-        );
         return MaterialApp.router(
           themeMode: getIt<HiveRepository>().retrieveThemeMode(),
           theme: AppTheme.lightTheme(),
