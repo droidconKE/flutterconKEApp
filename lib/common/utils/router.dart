@@ -11,7 +11,9 @@ import 'package:fluttercon/features/home/ui/speakers_list_screen.dart';
 import 'package:fluttercon/features/sessions/ui/session_details/session_details.dart';
 import 'package:fluttercon/features/splash/splash_screen.dart';
 import 'package:go_router/go_router.dart';
+import 'package:injectable/injectable.dart';
 
+@singleton
 class FlutterConRouter {
   static GoRouter get router => _router;
 
@@ -23,6 +25,8 @@ class FlutterConRouter {
   static const String speakerDetailsRoute = '/speaker-details';
   static const String organiserDetailsRoute = '/organiser-details';
   static const String feedbackRoute = '/feedback';
+
+  GoRouter config() => router;
 
   static GlobalKey<NavigatorState> get globalNavigatorKey =>
       GlobalKey<NavigatorState>();

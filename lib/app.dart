@@ -35,7 +35,7 @@ class MyAppState extends State<MyApp> {
           debugShowCheckedModeBanner: false,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
-          routerConfig: FlutterConRouter.router,
+          routerConfig: getIt<FlutterConRouter>().config(),
         );
       },
     );
