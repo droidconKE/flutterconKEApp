@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:fluttercon/app.dart';
 import 'package:fluttercon/bootstrap.dart';
 import 'package:fluttercon/common/utils/env/flavor_config.dart';
-import 'package:fluttercon/common/utils/notification_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
