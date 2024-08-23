@@ -1,5 +1,6 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttercon/common/data/models/local/local_session.dart';
 import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:go_router/go_router.dart';
@@ -8,14 +9,6 @@ import 'package:logger/logger.dart';
 
 @singleton
 class NotificationService {
-  factory NotificationService() {
-    return _notificationService;
-  }
-
-  NotificationService._internal();
-  static final NotificationService _notificationService =
-      NotificationService._internal();
-
   void initNotifications() {
     AwesomeNotifications().initialize(
       null,
@@ -59,21 +52,31 @@ class NotificationService {
   }
 
   Future<void> createScheduledNotification({
-    required int id,
     required String channelKey,
-    required String title,
-    required String body,
-    required DateTime? notificationTime,
+    required LocalSession session,
   }) async {
-    await AwesomeNotifications().createNotification(
-      content: NotificationContent(
-        id: id,
-        channelKey: channelKey,
-        title: title,
-        body: body,
-      ),
-      schedule: NotificationCalendar.fromDate(date: notificationTime!),
-    );
+    final endTime = session.endDateTime;
+    final notificationTime = endTime.subtract(const Duration(minutes: 5));
+    String? title;
+    String? body;
+
+    if (channelKey == 'session_channel') {
+      title = '${session.title} feedback';
+      body = 'Please provide feedback for the session you just attended:'
+          ' ${session.title}';
+    }
+
+    if (title != null && body != null) {
+      await AwesomeNotifications().createNotification(
+        content: NotificationContent(
+          id: session.id,
+          channelKey: channelKey,
+          title: title,
+          body: body,
+        ),
+        schedule: NotificationCalendar.fromDate(date: notificationTime),
+      );
+    }
   }
 
   @pragma('vm:entry-point')

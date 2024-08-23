@@ -9,16 +9,19 @@ part 'bookmark_session_state.dart';
 part 'bookmark_session_cubit.freezed.dart';
 
 class BookmarkSessionCubit extends Cubit<BookmarkSessionState> {
-  BookmarkSessionCubit({
-    required ApiRepository apiRepository,
-    required DBRepository dBRepository,
-  }) : super(const BookmarkSessionState.initial()) {
+  BookmarkSessionCubit(
+      {required ApiRepository apiRepository,
+      required DBRepository dBRepository,
+      required NotificationService notificationService})
+      : super(const BookmarkSessionState.initial()) {
     _apiRepository = apiRepository;
     _dBRepository = dBRepository;
+    _notificationService = notificationService;
   }
 
   late ApiRepository _apiRepository;
   late DBRepository _dBRepository;
+  late NotificationService _notificationService;
 
   Future<void> bookmarkSession({
     required int sessionId,
@@ -37,16 +40,9 @@ class BookmarkSessionCubit extends Cubit<BookmarkSessionState> {
 
       if (bookmarkStatus == BookmarkStatus.bookmarked) {
         final session = await _dBRepository.getSession(sessionId);
-        final endTime = session?.endDateTime;
-        final notifcationTime = endTime?.subtract(const Duration(minutes: 5));
-
-        await NotificationService().createScheduledNotification(
-          id: sessionId,
+        await _notificationService.createScheduledNotification(
+          session: session!,
           channelKey: 'session_channel',
-          title: '${session?.title} feedback',
-          body: 'Please provide feedback for the session you ${session?.title} '
-              'just attended',
-          notificationTime: notifcationTime,
         );
       }
       emit(
