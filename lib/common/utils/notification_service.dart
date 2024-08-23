@@ -9,8 +9,8 @@ import 'package:logger/logger.dart';
 
 @singleton
 class NotificationService {
-  void initNotifications() {
-    AwesomeNotifications().initialize(
+  Future<void> initNotifications() async {
+    await AwesomeNotifications().initialize(
       null,
       [
         NotificationChannel(

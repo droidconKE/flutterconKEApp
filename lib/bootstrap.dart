@@ -50,7 +50,8 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
     await configureDependencies();
     await getIt<HiveRepository>().initBoxes();
     localDB = await getIt<DBRepository>().init();
-    getIt<NotificationService>().initNotifications();
+    await getIt<NotificationService>().requestPermission();
+    await getIt<NotificationService>().initNotifications();
     runApp(
       MultiBlocProvider(
         // Register all the BLoCs here
@@ -118,6 +119,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
             create: (context) => BookmarkSessionCubit(
               apiRepository: getIt(),
               dBRepository: getIt(),
+              notificationService: getIt(),
             ),
           ),
           BlocProvider<ShareFeedPostCubit>(
