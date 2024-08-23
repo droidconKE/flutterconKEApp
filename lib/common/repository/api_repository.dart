@@ -142,7 +142,8 @@ class ApiRepository {
     try {
       final url = StringBuffer('/events/$_eventSlug/feedback');
 
-      if (feedbackDTO.sessionSlug != null) {
+      if (feedbackDTO.sessionSlug != null &&
+          feedbackDTO.sessionSlug!.isNotEmpty) {
         url.write('/sessions/${feedbackDTO.sessionSlug}');
       }
 
