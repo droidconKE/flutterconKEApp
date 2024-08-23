@@ -1,7 +1,12 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:go_router/go_router.dart';
+import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
 
+@singleton
 class NotificationService {
   factory NotificationService() {
     return _notificationService;
@@ -37,7 +42,7 @@ class NotificationService {
     });
   }
 
-  Future<void> showNotification(
+  Future<void> createNotification(
     int id,
     String channelKey,
     String title,
@@ -53,12 +58,12 @@ class NotificationService {
     );
   }
 
-  Future<void> showScheduledNotification({
+  Future<void> createScheduledNotification({
     required int id,
     required String channelKey,
     required String title,
     required String body,
-    required DateTime notificationTime,
+    required DateTime? notificationTime,
   }) async {
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
@@ -67,7 +72,19 @@ class NotificationService {
         title: title,
         body: body,
       ),
-      schedule: NotificationCalendar.fromDate(date: notificationTime),
+      schedule: NotificationCalendar.fromDate(date: notificationTime!),
     );
+  }
+
+  @pragma('vm:entry-point')
+  static Future<void> onActionReceivedMethod(
+    ReceivedAction receivedAction,
+  ) async {
+    Logger().f(receivedAction);
+    switch (receivedAction.channelKey) {
+      case 'session_channel':
+        FlutterConRouter.globalNavigatorKey.currentContext
+            ?.pushReplacementNamed(FlutterConRouter.feedbackRoute);
+    }
   }
 }
