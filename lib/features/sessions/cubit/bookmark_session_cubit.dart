@@ -41,19 +41,7 @@ class BookmarkSessionCubit extends Cubit<BookmarkSessionState> {
         final endTime = session?.endDateTime;
         final notifcationTime = endTime?.subtract(const Duration(minutes: 5));
 
-        await AwesomeNotifications().createNotification(
-          content: NotificationContent(
-            id: sessionId,
-            channelKey: 'session_channel',
-            title: '${session?.title} feedback',
-            body:
-                'Please provide feedback for the session you ${session?.title} '
-                'just attended',
-          ),
-          schedule: NotificationCalendar.fromDate(date: notifcationTime!),
-        );
-
-        await NotificationService().showScheduledNotification(
+        await NotificationService().createScheduledNotification(
           id: sessionId,
           channelKey: 'session_channel',
           title: '${session?.title} feedback',
