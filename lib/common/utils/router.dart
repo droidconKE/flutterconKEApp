@@ -24,14 +24,12 @@ class FlutterConRouter {
   static const String organiserDetailsRoute = '/organiser-details';
   static const String feedbackRoute = '/feedback';
 
-  static final GlobalKey<NavigatorState> _globalNavigatorKey =
-      GlobalKey<NavigatorState>();
   static GlobalKey<NavigatorState> get globalNavigatorKey =>
-      _globalNavigatorKey;
+      GlobalKey<NavigatorState>();
 
   static final _router = GoRouter(
     initialLocation: decisionRoute,
-    navigatorKey: _globalNavigatorKey,
+    navigatorKey: globalNavigatorKey,
     routes: [
       GoRoute(
         path: decisionRoute,
