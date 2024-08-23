@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:fluttercon/common/data/enums/bookmark_status.dart';
 import 'package:fluttercon/common/repository/api_repository.dart';
 import 'package:fluttercon/common/repository/db_repository.dart';
+import 'package:fluttercon/common/utils/notification_service.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'bookmark_session_state.dart';
@@ -11,13 +12,16 @@ class BookmarkSessionCubit extends Cubit<BookmarkSessionState> {
   BookmarkSessionCubit({
     required ApiRepository apiRepository,
     required DBRepository dBRepository,
+    required NotificationService notificationService,
   }) : super(const BookmarkSessionState.initial()) {
     _apiRepository = apiRepository;
     _dBRepository = dBRepository;
+    _notificationService = notificationService;
   }
 
   late ApiRepository _apiRepository;
   late DBRepository _dBRepository;
+  late NotificationService _notificationService;
 
   Future<void> bookmarkSession({
     required int sessionId,
@@ -34,6 +38,13 @@ class BookmarkSessionCubit extends Cubit<BookmarkSessionState> {
         bookmarkStatus: bookmarkStatus == BookmarkStatus.bookmarked,
       );
 
+      if (bookmarkStatus == BookmarkStatus.bookmarked) {
+        final session = await _dBRepository.getSession(sessionId);
+        await _notificationService.createScheduledNotification(
+          session: session!,
+          channelKey: 'session_channel',
+        );
+      }
       emit(
         BookmarkSessionState.loaded(
           message: message,
