@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttercon/app.dart';
 import 'package:fluttercon/bootstrap.dart';
 import 'package:fluttercon/common/utils/env/flavor_config.dart';
+import 'package:fluttercon/common/utils/notification_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,7 +13,7 @@ Future<void> main() async {
     final license = await rootBundle.loadString('assets/google_fonts/OFL.txt');
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
-
+  NotificationService().initNotifications();
   FlutterConConfig(
     values: FlutterConValues(
       baseDomain: 'api.droidcon.co.ke',
