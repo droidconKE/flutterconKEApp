@@ -21,13 +21,15 @@ class PersonnelWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final (isLightMode, colorScheme) = Misc.getTheme(context);
+    final screenSize = MediaQuery.sizeOf(context);
+    final defaultWidth = (screenSize.width / 4.5).clamp(50, 120).toDouble();
     return GestureDetector(
       onTap: onTap,
       child: Column(
         children: [
           Container(
             constraints: BoxConstraints(
-              maxWidth: MediaQuery.sizeOf(context).width / 4.5,
+              maxWidth: defaultWidth,
             ),
             decoration: BoxDecoration(
               border: Border.all(
@@ -41,6 +43,8 @@ class PersonnelWidget extends StatelessWidget {
               child: CachedNetworkImage(
                 fit: BoxFit.cover,
                 imageUrl: imageUrl,
+                memCacheHeight: 100,
+                memCacheWidth: defaultWidth.round(),
                 placeholder: (_, __) => const SizedBox(
                   height: 100,
                   width: double.infinity,
@@ -58,7 +62,7 @@ class PersonnelWidget extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: MediaQuery.sizeOf(context).width / 4.5,
+            width: defaultWidth,
             child: Text(
               name,
               maxLines: 1,
@@ -70,7 +74,7 @@ class PersonnelWidget extends StatelessWidget {
           ),
           if (designation != null)
             SizedBox(
-              width: MediaQuery.sizeOf(context).width / 4.5,
+              width: defaultWidth,
               child: Text(
                 designation!,
                 maxLines: 1,

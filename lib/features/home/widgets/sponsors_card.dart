@@ -22,13 +22,13 @@ class _SponsorsCardState extends State<SponsorsCard> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    final size = MediaQuery.sizeOf(context);
     final l10n = context.l10n;
     final (_, colorScheme) = Misc.getTheme(context);
 
     return Container(
       width: double.infinity,
-      height: size.height / 4,
+      constraints: BoxConstraints(minHeight: size.height / 4),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -57,7 +57,8 @@ class _SponsorsCardState extends State<SponsorsCard> {
                     .toList();
                 return Column(
                   children: [
-                    Padding(
+                    Container(
+                      constraints: const BoxConstraints(maxWidth: 500),
                       padding: const EdgeInsets.symmetric(horizontal: 32),
                       child: ResolvedImage(
                         imageUrl: sponsors
@@ -77,7 +78,7 @@ class _SponsorsCardState extends State<SponsorsCard> {
                         scrollDirection: Axis.horizontal,
                         itemCount: nonPlatinumSponsors.length,
                         itemBuilder: (context, index) => SizedBox(
-                          width: size.width / 4,
+                          width: (size.width / 4).clamp(50, 150),
                           child: ResolvedImage(
                             imageUrl: nonPlatinumSponsors[index].logo,
                           ),

@@ -53,7 +53,7 @@ class _OrganizersCardState extends State<OrganizersCard> {
                 children: [
                   for (final organiser in organisers)
                     SizedBox(
-                      width: size.width / 4,
+                      width: (size.width / 4).clamp(50, 120),
                       child: ResolvedImage(imageUrl: organiser.logo),
                     ),
                 ],

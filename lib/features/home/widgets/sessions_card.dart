@@ -114,72 +114,80 @@ class _SessionsCardState extends State<SessionsCard> {
                       FlutterConRouter.sessionDetailsRoute,
                       extra: sessions[index],
                     ),
-                    child: Container(
-                      width: size.width * .7,
-                      margin: const EdgeInsets.only(right: 10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: colorScheme.secondaryContainer,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: CachedNetworkImage(
-                              imageUrl: session.sessionImage ??
-                                  'https://via.placeholder.com/150',
-                              height: 150,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
-                              placeholder: (_, __) => const SizedBox(
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 400),
+                      child: Container(
+                        width: size.width * .7,
+                        margin: const EdgeInsets.only(right: 10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: colorScheme.secondaryContainer,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: CachedNetworkImage(
+                                imageUrl: session.sessionImage ??
+                                    'https://via.placeholder.com/150',
                                 height: 150,
                                 width: double.infinity,
-                                child:
-                                    Center(child: CircularProgressIndicator()),
-                              ),
-                              errorWidget: (_, __, ___) => const SizedBox(
-                                height: 150,
-                                width: double.infinity,
-                                child: Icon(
-                                  Icons.error,
-                                  color: Colors.red,
+                                fit: BoxFit.cover,
+                                memCacheHeight: 150,
+                                memCacheWidth: 400,
+                                placeholder: (_, __) => const SizedBox(
+                                  height: 150,
+                                  width: double.infinity,
+                                  child: Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                ),
+                                errorWidget: (_, __, ___) => const SizedBox(
+                                  height: 150,
+                                  width: double.infinity,
+                                  child: Icon(
+                                    Icons.error,
+                                    color: Colors.red,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          const SizedBox(height: 16),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: Text(
-                              session.title,
-                              maxLines: 2,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: colorScheme.onSurface,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: Text(
-                              l10n.sessionTimeAndVenue(
-                                DateFormat.Hm().format(
-                                  session.startDateTime,
+                            const SizedBox(height: 16),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              child: Text(
+                                session.title,
+                                maxLines: 2,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: colorScheme.onSurface,
+                                  fontSize: 16,
                                 ),
-                                session.rooms
-                                    .map((room) => room.title)
-                                    .join(', '),
-                              ),
-                              style: const TextStyle(
-                                color: Colors.grey,
-                                fontSize: 14,
                               ),
                             ),
-                          ),
-                        ],
+                            const SizedBox(height: 5),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              child: Text(
+                                l10n.sessionTimeAndVenue(
+                                  DateFormat.Hm().format(
+                                    session.startDateTime,
+                                  ),
+                                  session.rooms
+                                      .map((room) => room.title)
+                                      .join(', '),
+                                ),
+                                style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   );
