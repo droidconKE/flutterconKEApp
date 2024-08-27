@@ -10,8 +10,8 @@ class Feed with _$Feed {
     required String body,
     required String topic,
     required String url,
-    required String? image,
     @JsonKey(name: 'created_at') required DateTime createdAt,
+    @Default('https://via.placeholder.com/150') String image,
   }) = _Feed;
 
   factory Feed.fromJson(Map<String, Object?> json) => _$FeedFromJson(json);
