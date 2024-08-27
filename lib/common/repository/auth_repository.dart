@@ -48,8 +48,8 @@ class AuthRepository {
       } else {
         throw Failure(message: 'An unexpected error occured');
       }
-    } catch (e) {
-      Logger().d(DefaultFirebaseOptions.ios.androidClientId);
+    } catch (e, st) {
+      Logger().f(st);
       Logger().e(e);
       rethrow;
     }
