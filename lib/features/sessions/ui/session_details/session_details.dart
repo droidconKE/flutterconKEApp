@@ -199,7 +199,7 @@ class SessionDetailsPage extends StatelessWidget {
                 style: TextStyle(color: colorScheme.onSurface),
               ),
             Chip(
-              label: AutoSizeText('#${session.sessionLevel.toUpperCase()}'),
+              label: Text('#${session.sessionLevel.toUpperCase()}'),
               side: BorderSide.none,
               backgroundColor: colorScheme.onSurface,
               labelStyle: TextStyle(color: colorScheme.surface),
