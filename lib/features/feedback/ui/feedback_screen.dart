@@ -10,7 +10,12 @@ import 'package:fluttercon/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
 
 class FeedbackScreen extends StatefulWidget {
-  const FeedbackScreen({super.key});
+  const FeedbackScreen({
+    super.key,
+    this.sessionSlug,
+  });
+
+  final String? sessionSlug;
 
   @override
   State<FeedbackScreen> createState() => _FeedbackScreenState();
@@ -154,6 +159,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                                       .sendFeedback(
                                         feedback: feedback,
                                         rating: selectedRating!,
+                                        sessionSlug: widget.sessionSlug,
                                       );
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(

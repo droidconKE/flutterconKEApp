@@ -277,4 +277,8 @@ class DBRepository {
       await localDB.localSessions.put(session);
     });
   }
+
+  Future<LocalSession?> getSession(int sessionId) async {
+    return localDB.localSessions.where().serverIdEqualTo(sessionId).findFirst();
+  }
 }
