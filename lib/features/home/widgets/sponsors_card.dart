@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/data/enums/sponsor_type.dart';
@@ -22,13 +23,13 @@ class _SponsorsCardState extends State<SponsorsCard> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    final size = MediaQuery.sizeOf(context);
     final l10n = context.l10n;
     final (_, colorScheme) = Misc.getTheme(context);
 
     return Container(
       width: double.infinity,
-      height: size.height / 4,
+      height: size.height * .35,
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -37,7 +38,7 @@ class _SponsorsCardState extends State<SponsorsCard> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Text(
+          AutoSizeText(
             l10n.sponsors,
             style: TextStyle(
               fontWeight: FontWeight.bold,
@@ -56,18 +57,16 @@ class _SponsorsCardState extends State<SponsorsCard> {
                     )
                     .toList();
                 return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 32),
-                      child: ResolvedImage(
-                        imageUrl: sponsors
-                            .firstWhere(
-                              (sponsor) =>
-                                  SponsorType.fromValue(sponsor.sponsorType) ==
-                                  SponsorType.platinum,
-                            )
-                            .logo,
-                      ),
+                    ResolvedImage(
+                      imageUrl: sponsors
+                          .firstWhere(
+                            (sponsor) =>
+                                SponsorType.fromValue(sponsor.sponsorType) ==
+                                SponsorType.platinum,
+                          )
+                          .logo,
                     ),
                     const SizedBox(height: 16),
                     SizedBox(
@@ -84,10 +83,11 @@ class _SponsorsCardState extends State<SponsorsCard> {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 16),
                   ],
                 );
               },
-              error: (message) => Text(
+              error: (message) => AutoSizeText(
                 message,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,

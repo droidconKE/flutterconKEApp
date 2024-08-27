@@ -1,4 +1,5 @@
 import 'package:auth_buttons/auth_buttons.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
@@ -23,7 +24,7 @@ class SignInScreen extends StatelessWidget {
           error: (message) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(message),
+                content: AutoSizeText(message),
               ),
             );
           },
@@ -37,7 +38,7 @@ class SignInScreen extends StatelessWidget {
                 GoRouter.of(context).goNamed(FlutterConRouter.decisionRoute),
             error: (message) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(message)),
+                SnackBar(content: AutoSizeText(message)),
               );
             },
           );

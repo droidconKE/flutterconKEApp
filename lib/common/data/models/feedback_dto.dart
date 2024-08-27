@@ -8,6 +8,7 @@ class FeedbackDTO with _$FeedbackDTO {
   factory FeedbackDTO({
     required String feedback,
     required int rating,
+    String? sessionSlug,
   }) = _FeedbackDTO;
 
   factory FeedbackDTO.fromJson(Map<String, dynamic> json) =>

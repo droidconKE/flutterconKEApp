@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
@@ -29,7 +30,7 @@ class SocialHandleBody extends StatelessWidget {
         crossAxisAlignment: WrapCrossAlignment.center,
         alignment: WrapAlignment.spaceBetween,
         children: [
-          Text(
+          AutoSizeText(
             twitterUrl != null ? l10n.twitterHandle : l10n.linkedin,
             style: TextStyle(
               color: colorScheme.onSurface,
@@ -68,7 +69,7 @@ class SocialHandleBody extends StatelessWidget {
                     ),
                   const SizedBox(width: 3),
                   Flexible(
-                    child: Text(
+                    child: AutoSizeText(
                       name,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,

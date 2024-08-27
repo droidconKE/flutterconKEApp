@@ -140,8 +140,15 @@ class ApiRepository {
 // Submit feedback as form data
   Future<String> submitFeedback({required FeedbackDTO feedbackDTO}) async {
     try {
+      final url = StringBuffer('/events/$_eventSlug/feedback');
+
+      if (feedbackDTO.sessionSlug != null &&
+          feedbackDTO.sessionSlug!.isNotEmpty) {
+        url.write('/sessions/${feedbackDTO.sessionSlug}');
+      }
+
       final response = await _networkUtil.postReq(
-        '/events/$_eventSlug/feedback',
+        url.toString(),
         body: feedbackDTO.toJson(),
       );
 

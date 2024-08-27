@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/data/models/local/local_session.dart';
@@ -27,7 +28,7 @@ class CompactViewCard extends StatelessWidget {
       elevation: 2,
       color: isLightMode ? colorScheme.surface : colorScheme.secondaryContainer,
       child: ListTile(
-        leading: Text.rich(
+        leading: AutoSizeText.rich(
           TextSpan(
             children: [
               TextSpan(
@@ -52,7 +53,7 @@ class CompactViewCard extends StatelessWidget {
           ),
           textAlign: TextAlign.center,
         ),
-        title: Text(
+        title: AutoSizeText(
           session.title,
           style: TextStyle(
             fontWeight: FontWeight.bold,
@@ -64,7 +65,7 @@ class CompactViewCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 8),
-            Text(
+            AutoSizeText(
               session.description,
               style: TextStyle(
                 fontSize: 16,
@@ -74,7 +75,7 @@ class CompactViewCard extends StatelessWidget {
             ),
             if (session.rooms.isNotEmpty) const SizedBox(height: 8),
             if (session.rooms.isNotEmpty)
-              Text(
+              AutoSizeText(
                 l10n.sessionFullTimeAndVenue(
                   DateFormat.Hm().format(
                     session.startDateTime,
@@ -104,7 +105,7 @@ class CompactViewCard extends StatelessWidget {
                   const SizedBox(width: 8),
                   Flexible(
                     flex: 8,
-                    child: Text(
+                    child: AutoSizeText(
                       session.speakers
                           .map((speaker) => speaker.name)
                           .join(', '),
@@ -123,7 +124,7 @@ class CompactViewCard extends StatelessWidget {
               loaded: (loaded) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text(loaded.message),
+                    content: AutoSizeText(loaded.message),
                   ),
                 );
               },

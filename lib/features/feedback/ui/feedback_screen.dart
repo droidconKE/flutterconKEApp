@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
@@ -9,7 +10,12 @@ import 'package:fluttercon/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
 
 class FeedbackScreen extends StatefulWidget {
-  const FeedbackScreen({super.key});
+  const FeedbackScreen({
+    super.key,
+    this.sessionSlug,
+  });
+
+  final String? sessionSlug;
 
   @override
   State<FeedbackScreen> createState() => _FeedbackScreenState();
@@ -38,7 +44,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
             const FeedbackCustomAppBar(),
             const SizedBox(height: 20),
             Center(
-              child: Text(
+              child: AutoSizeText(
                 l10n.yourFeedback,
                 style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                       color: colorScheme.primary,
@@ -49,7 +55,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
             ),
             const SizedBox(height: 20),
             Center(
-              child: Text(
+              child: AutoSizeText(
                 l10n.howWasFluttercon,
                 style: TextStyle(
                   color: colorScheme.onSurface,
@@ -118,13 +124,15 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                       state.whenOrNull(
                         loaded: (feedback, rating) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(l10n.feedbackSubmitted)),
+                            SnackBar(
+                              content: AutoSizeText(l10n.feedbackSubmitted),
+                            ),
                           );
                           context.pop();
                         },
                         error: (message) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(message)),
+                            SnackBar(content: AutoSizeText(message)),
                           );
                         },
                       );
@@ -151,16 +159,17 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                                       .sendFeedback(
                                         feedback: feedback,
                                         rating: selectedRating!,
+                                        sessionSlug: widget.sessionSlug,
                                       );
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                      content: Text(l10n.feedbackError),
+                                      content: AutoSizeText(l10n.feedbackError),
                                     ),
                                   );
                                 }
                               },
-                              child: Text(
+                              child: AutoSizeText(
                                 l10n.submitFeedback.toUpperCase(),
                                 style: TextStyle(
                                   color: colorScheme.surface,

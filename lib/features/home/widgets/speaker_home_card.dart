@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/utils/misc.dart';
@@ -32,7 +33,7 @@ class _SpeakerCardState extends State<SpeakerCard> {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
+            AutoSizeText(
               l10n.speakers,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     color: isLightMode
@@ -43,7 +44,7 @@ class _SpeakerCardState extends State<SpeakerCard> {
             ),
             const Spacer(),
             TextButton.icon(
-              label: Text(
+              label: AutoSizeText(
                 l10n.viewAll,
                 style: TextStyle(
                   color:
@@ -63,7 +64,7 @@ class _SpeakerCardState extends State<SpeakerCard> {
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
                 child: BlocBuilder<FetchSpeakersCubit, FetchSpeakersState>(
                   builder: (context, state) => state.maybeWhen(
-                    loaded: (_, extras) => Text(
+                    loaded: (_, extras) => AutoSizeText(
                       '+ $extras',
                       style: TextStyle(
                         color: isLightMode
@@ -91,25 +92,29 @@ class _SpeakerCardState extends State<SpeakerCard> {
         BlocBuilder<FetchSpeakersCubit, FetchSpeakersState>(
           builder: (context, state) => state.maybeWhen(
             loaded: (speakers, _) {
-              return SizedBox(
-                height: 150,
-                child: ListView.separated(
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(width: 4),
-                  itemCount: speakers.take(5).length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => PersonnelWidget(
-                    imageUrl: speakers[index].avatar,
-                    name: speakers[index].name,
-                    onTap: () => GoRouter.of(context).push(
-                      FlutterConRouter.speakerDetailsRoute,
-                      extra: speakers[index],
+              return LayoutBuilder(
+                builder: (context, constraints) {
+                  return SizedBox(
+                    height: constraints.maxWidth > 500 ? 250 : 150,
+                    child: ListView.separated(
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(width: 4),
+                      itemCount: speakers.take(5).length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) => PersonnelWidget(
+                        imageUrl: speakers[index].avatar,
+                        name: speakers[index].name,
+                        onTap: () => GoRouter.of(context).push(
+                          FlutterConRouter.speakerDetailsRoute,
+                          extra: speakers[index],
+                        ),
+                      ),
                     ),
-                  ),
-                ),
+                  );
+                },
               );
             },
-            error: (message) => Text(
+            error: (message) => AutoSizeText(
               message,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,

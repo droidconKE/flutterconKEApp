@@ -22,7 +22,9 @@ class Session with _$Session {
     @JsonKey(name: 'is_keynote') required bool isKeynote,
     @JsonKey(name: 'is_bookmarked') required bool isBookmarked,
     @JsonKey(name: 'is_serviceSession') required bool isServiceSession,
-    @JsonKey(name: 'session_image') String? sessionImage,
+    @Default('https://via.placeholder.com/150')
+    @JsonKey(name: 'session_image')
+    String sessionImage,
     @Default([]) List<Speaker> speakers,
     @Default([]) List<Room> rooms,
   }) = _Session;

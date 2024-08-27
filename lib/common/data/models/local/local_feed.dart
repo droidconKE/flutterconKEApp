@@ -10,7 +10,7 @@ class LocalFeedEntry {
     required this.topic,
     required this.url,
     required this.createdAt,
-    this.image,
+    required this.image,
   });
 
   Id id = Isar.autoIncrement;
@@ -19,6 +19,6 @@ class LocalFeedEntry {
   late String body;
   late String topic;
   late String url;
-  String? image;
+  late String image;
   late DateTime createdAt;
 }

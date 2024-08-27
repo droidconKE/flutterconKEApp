@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
@@ -32,7 +33,7 @@ class DayTabView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
         child: Column(
           children: [
-            Text(
+            AutoSizeText(
               date,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -45,7 +46,7 @@ class DayTabView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 4),
-            Text(
+            AutoSizeText(
               l10n.day(day),
               style: TextStyle(
                 fontSize: 16,

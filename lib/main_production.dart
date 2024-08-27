@@ -12,7 +12,6 @@ Future<void> main() async {
     final license = await rootBundle.loadString('assets/google_fonts/OFL.txt');
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
-
   FlutterConConfig(
     values: FlutterConValues(
       baseDomain: 'api.droidcon.co.ke',

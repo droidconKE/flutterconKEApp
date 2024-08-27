@@ -12,10 +12,12 @@ class ResolvedImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
     return imageUrl.contains('.svg')
         ? SvgPicture.network(imageUrl)
         : CachedNetworkImage(
             imageUrl: imageUrl,
+            height: size.height * .15,
             placeholder: (_, __) => const SizedBox(
               height: 150,
               width: double.infinity,

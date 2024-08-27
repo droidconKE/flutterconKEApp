@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttercon/common/repository/hive_repository.dart';
@@ -37,7 +38,7 @@ class _UserProfileIconState extends State<UserProfileIcon> {
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(right: 16),
-                  child: Text(
+                  child: AutoSizeText(
                     l10n.cancel.toUpperCase(),
                     style: const TextStyle(
                       color: Colors.grey,

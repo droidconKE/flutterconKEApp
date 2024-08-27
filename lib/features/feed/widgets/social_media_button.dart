@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttercon/common/utils/misc.dart';
@@ -42,7 +43,7 @@ class SocialMediaButton extends StatelessWidget {
                 height: 24,
               ),
               const SizedBox(width: 8),
-              Text(
+              AutoSizeText(
                 label,
                 style: TextStyle(
                   color: isLightMode
