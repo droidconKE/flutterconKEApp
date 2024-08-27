@@ -165,8 +165,7 @@ class SessionDetailsPage extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
-                imageUrl:
-                    session.sessionImage ?? 'https://via.placeholder.com/150',
+                imageUrl: session.sessionImage,
                 height: 170,
                 fit: BoxFit.fitHeight,
                 placeholder: (_, __) => const SizedBox(

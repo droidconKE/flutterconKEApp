@@ -21,7 +21,7 @@ class LocalSession {
     required this.isServiceSession,
     required this.speakers,
     required this.rooms,
-    this.sessionImage,
+    required this.sessionImage,
   });
   Id id = Isar.autoIncrement;
   @Index(unique: true, replace: true)
@@ -39,7 +39,7 @@ class LocalSession {
   late bool isKeynote;
   late bool isBookmarked;
   late bool isServiceSession;
-  String? sessionImage;
+  late String sessionImage;
   late List<EmbeddedSpeaker> speakers;
   late List<LocalRoom> rooms;
 }

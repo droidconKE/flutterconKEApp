@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -62,9 +63,23 @@ class _FeedScreenState extends State<FeedScreen> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: Image.asset(
-                          AppAssets.session1,
-                          height: 209,
+                        child: CachedNetworkImage(
+                          fit: BoxFit.cover,
+                          imageUrl: feed.image,
+                          width: double.infinity,
+                          placeholder: (_, __) => const SizedBox(
+                            height: 100,
+                            width: double.infinity,
+                            child: Center(child: CircularProgressIndicator()),
+                          ),
+                          errorWidget: (_, __, ___) => const SizedBox(
+                            height: 100,
+                            width: double.infinity,
+                            child: Icon(
+                              Icons.error,
+                              color: Colors.red,
+                            ),
+                          ),
                         ),
                       ),
                       const SizedBox(height: 16),
