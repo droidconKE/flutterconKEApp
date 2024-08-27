@@ -59,17 +59,14 @@ class _SponsorsCardState extends State<SponsorsCard> {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(),
-                      child: ResolvedImage(
-                        imageUrl: sponsors
-                            .firstWhere(
-                              (sponsor) =>
-                                  SponsorType.fromValue(sponsor.sponsorType) ==
-                                  SponsorType.platinum,
-                            )
-                            .logo,
-                      ),
+                    ResolvedImage(
+                      imageUrl: sponsors
+                          .firstWhere(
+                            (sponsor) =>
+                                SponsorType.fromValue(sponsor.sponsorType) ==
+                                SponsorType.platinum,
+                          )
+                          .logo,
                     ),
                     const SizedBox(height: 16),
                     SizedBox(
