@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/common/utils/network.dart';
+import 'package:fluttercon/firebase_options.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
@@ -16,6 +19,9 @@ class AuthRepository {
       'profile',
       'email',
     ],
+    clientId: Platform.isAndroid
+        ? DefaultFirebaseOptions.android.iosClientId
+        : DefaultFirebaseOptions.ios.iosClientId,
   );
 
   Future<String> signInWithGoogle() async {
@@ -35,11 +41,16 @@ class AuthRepository {
 
       if (user != null) {
         assert(!user.isAnonymous, 'User must not be anonymous');
+        if (user.isAnonymous) {
+          throw Failure(message: 'User must not be anonymous');
+        }
         return Future.value(authResult.credential?.accessToken);
       } else {
         throw Failure(message: 'An unexpected error occured');
       }
     } catch (e) {
+      Logger().d(DefaultFirebaseOptions.ios.androidClientId);
+      Logger().e(e);
       rethrow;
     }
   }
