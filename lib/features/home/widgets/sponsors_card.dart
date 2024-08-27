@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/data/enums/sponsor_type.dart';
@@ -28,7 +29,7 @@ class _SponsorsCardState extends State<SponsorsCard> {
 
     return Container(
       width: double.infinity,
-      height: size.height / 4,
+      height: size.width > 500 ? 300 : size.height / 4,
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -37,7 +38,7 @@ class _SponsorsCardState extends State<SponsorsCard> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Text(
+          AutoSizeText(
             l10n.sponsors,
             style: TextStyle(
               fontWeight: FontWeight.bold,
@@ -87,7 +88,7 @@ class _SponsorsCardState extends State<SponsorsCard> {
                   ],
                 );
               },
-              error: (message) => Text(
+              error: (message) => AutoSizeText(
                 message,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,

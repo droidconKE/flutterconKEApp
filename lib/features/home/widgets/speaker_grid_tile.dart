@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttercon/common/data/models/local/local_speaker.dart';
@@ -58,7 +59,7 @@ class SpeakerGridTile extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            Text(
+            AutoSizeText(
               speaker.name,
               maxLines: 1,
               style: TextStyle(
@@ -68,7 +69,7 @@ class SpeakerGridTile extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const Spacer(),
-            Text(
+            AutoSizeText(
               speaker.tagline ?? '',
               overflow: TextOverflow.clip,
               maxLines: 3,
@@ -94,7 +95,7 @@ class SpeakerGridTile extends StatelessWidget {
                   ),
                   backgroundColor: colorScheme.surface,
                 ),
-                child: Text(
+                child: AutoSizeText(
                   l10n.details.toUpperCase(),
                   style: const TextStyle(
                     color: ThemeColors.blueGreenDroidconColor,

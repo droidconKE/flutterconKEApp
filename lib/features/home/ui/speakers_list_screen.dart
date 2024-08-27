@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/utils/misc.dart';
@@ -21,7 +22,7 @@ class SpeakerListScreen extends StatelessWidget {
           onPressed: () => GoRouter.of(context).pop(),
           color: colorScheme.onSurface,
         ),
-        title: Text(
+        title: AutoSizeText(
           l10n.speakers,
           style: TextStyle(color: colorScheme.onSurface),
         ),
@@ -33,17 +34,17 @@ class SpeakerListScreen extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             child: GridView.builder(
               itemCount: speakers.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                 mainAxisSpacing: 4,
                 crossAxisSpacing: 4,
                 mainAxisExtent: 316,
-                crossAxisCount: 2,
+                maxCrossAxisExtent: 240,
               ),
               itemBuilder: (context, index) =>
                   SpeakerGridTile(speaker: speakers[index]),
             ),
           ),
-          error: (message) => Text(
+          error: (message) => AutoSizeText(
             message,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,

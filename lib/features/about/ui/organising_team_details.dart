@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -47,7 +48,7 @@ class OranisingTeamMemberDetailsPage extends StatelessWidget {
                         onPressed: () => GoRouter.of(context).pop(),
                         color: Colors.white,
                       ),
-                      Text(
+                      AutoSizeText(
                         l10n.organisingTeam,
                         style: const TextStyle(
                           color: Colors.white,
@@ -91,13 +92,13 @@ class OranisingTeamMemberDetailsPage extends StatelessWidget {
           child: Column(
             children: [
               const SizedBox(height: 60),
-              Text(
+              AutoSizeText(
                 organiser.designation,
                 style: const TextStyle(
                   color: ThemeColors.orangeColor,
                 ),
               ),
-              Text(
+              AutoSizeText(
                 organiser.name,
                 style: TextStyle(
                   color: colorScheme.primary,
@@ -106,7 +107,7 @@ class OranisingTeamMemberDetailsPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              Text(
+              AutoSizeText(
                 organiser.tagline,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
@@ -117,7 +118,7 @@ class OranisingTeamMemberDetailsPage extends StatelessWidget {
               const SizedBox(height: 32),
               Align(
                 alignment: Alignment.centerLeft,
-                child: Text(
+                child: AutoSizeText(
                   l10n.bio,
                   style: TextStyle(
                     color: colorScheme.primary,
@@ -129,7 +130,7 @@ class OranisingTeamMemberDetailsPage extends StatelessWidget {
               const SizedBox(height: 16),
               Align(
                 alignment: Alignment.centerLeft,
-                child: Text(
+                child: AutoSizeText(
                   organiser.bio,
                   style: TextStyle(
                     fontSize: 16,

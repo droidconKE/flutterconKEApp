@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
@@ -96,7 +97,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                                   ),
                                 ),
                                 const SizedBox(width: 8),
-                                Text(
+                                AutoSizeText(
                                   l10n.filter,
                                   style: Theme.of(context)
                                       .textTheme
@@ -115,7 +116,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                             },
                             child: Padding(
                               padding: const EdgeInsets.only(right: 16),
-                              child: Text(
+                              child: AutoSizeText(
                                 l10n.cancel.toUpperCase(),
                                 style: const TextStyle(
                                   color: Colors.grey,
@@ -133,7 +134,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   child: Row(
                     children: [
                       const SizedBox(width: 32),
-                      Text(
+                      AutoSizeText(
                         l10n.filter,
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                               fontWeight: FontWeight.bold,

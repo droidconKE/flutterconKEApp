@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/utils/misc.dart';
@@ -35,7 +36,7 @@ class _LogOutDialogState extends State<LogOutDialog> {
         },
         child: Column(
           children: [
-            Text(
+            AutoSizeText(
               l10n.areYouSureLogOut,
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     color: colorScheme.onSurface,
@@ -44,7 +45,7 @@ class _LogOutDialogState extends State<LogOutDialog> {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20),
-            Text(
+            AutoSizeText(
               l10n.logoutDesc,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: colorScheme.onSurface,
@@ -67,7 +68,7 @@ class _LogOutDialogState extends State<LogOutDialog> {
                 child: BlocBuilder<LogOutCubit, LogOutState>(
                   builder: (context, state) {
                     return state.maybeWhen(
-                      loading: () => Text(
+                      loading: () => AutoSizeText(
                         l10n.logoutLoading.toUpperCase(),
                         style:
                             Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -75,7 +76,7 @@ class _LogOutDialogState extends State<LogOutDialog> {
                                   fontWeight: FontWeight.bold,
                                 ),
                       ),
-                      orElse: () => Text(
+                      orElse: () => AutoSizeText(
                         l10n.confirmLogout.toUpperCase(),
                         style:
                             Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -101,7 +102,7 @@ class _LogOutDialogState extends State<LogOutDialog> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                child: Text(
+                child: AutoSizeText(
                   l10n.cancel.toUpperCase(),
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         color: colorScheme.onSurface,

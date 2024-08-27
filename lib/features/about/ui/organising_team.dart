@@ -27,8 +27,8 @@ class _OrganisingTeamViewState extends State<OrganisingTeamView> {
       builder: (context, state) => state.maybeWhen(
         loaded: (individualOrganisers) => SliverGrid.builder(
           itemCount: individualOrganisers.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
+          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 200,
             crossAxisSpacing: 8,
             mainAxisSpacing: 8,
             mainAxisExtent: 150,

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,7 +39,7 @@ class SessionDetailsPage extends StatelessWidget {
           color: colorScheme.onSurface,
         ),
         surfaceTintColor: colorScheme.surface,
-        title: Text(
+        title: AutoSizeText(
           l10n.sessionDetails,
           style: TextStyle(color: colorScheme.onSurface),
         ),
@@ -61,7 +62,7 @@ class SessionDetailsPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 8),
-                    Text(
+                    AutoSizeText(
                       l10n.speaker,
                       style: const TextStyle(
                         color: ThemeColors.orangeColor,
@@ -71,7 +72,7 @@ class SessionDetailsPage extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Text(
+                    AutoSizeText(
                       session.speakers
                           .map((speaker) => speaker.name)
                           .join(', '),
@@ -88,7 +89,7 @@ class SessionDetailsPage extends StatelessWidget {
                           loaded: (loaded) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text(loaded.message),
+                                content: AutoSizeText(loaded.message),
                               ),
                             );
                           },
@@ -144,7 +145,7 @@ class SessionDetailsPage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-            Text(
+            AutoSizeText(
               session.title,
               style: TextStyle(
                 fontSize: 18,
@@ -153,7 +154,7 @@ class SessionDetailsPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            Text(
+            AutoSizeText(
               session.description,
               style: TextStyle(
                 fontSize: 18,
@@ -187,7 +188,7 @@ class SessionDetailsPage extends StatelessWidget {
             Divider(color: Colors.grey.withOpacity(.5)),
             const SizedBox(height: 16),
             if (session.rooms.isNotEmpty)
-              Text(
+              AutoSizeText(
                 l10n.sessionFullTimeAndVenue(
                   DateFormat.Hm().format(session.startDateTime),
                   DateFormat.Hm().format(session.endDateTime),
@@ -199,7 +200,7 @@ class SessionDetailsPage extends StatelessWidget {
                 style: TextStyle(color: colorScheme.onSurface),
               ),
             Chip(
-              label: Text('#${session.sessionLevel.toUpperCase()}'),
+              label: AutoSizeText('#${session.sessionLevel.toUpperCase()}'),
               side: BorderSide.none,
               backgroundColor: colorScheme.onSurface,
               labelStyle: TextStyle(color: colorScheme.surface),
@@ -261,13 +262,13 @@ class SessionDetailsPage extends StatelessWidget {
                           loaded: (_) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text(l10n.postShared),
+                                content: AutoSizeText(l10n.postShared),
                               ),
                             );
                           },
                           error: (message) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(message.message)),
+                              SnackBar(content: AutoSizeText(message.message)),
                             );
                           },
                         );
@@ -301,7 +302,7 @@ class SessionDetailsPage extends StatelessWidget {
                                           height: 32,
                                         ),
                                         const SizedBox(width: 8),
-                                        Text(
+                                        AutoSizeText(
                                           l10n.share,
                                           style: TextStyle(
                                             color: colorScheme.onSurface,
@@ -315,7 +316,7 @@ class SessionDetailsPage extends StatelessWidget {
                                       onTap: () => Navigator.of(
                                         context,
                                       ).pop(),
-                                      child: Text(
+                                      child: AutoSizeText(
                                         l10n.cancel.toUpperCase(),
                                         style: const TextStyle(
                                           color: ThemeColors.greyTextColor,

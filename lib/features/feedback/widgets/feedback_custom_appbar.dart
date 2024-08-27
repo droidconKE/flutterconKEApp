@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
@@ -31,7 +32,7 @@ class FeedbackCustomAppBar extends StatelessWidget {
                 padding: const EdgeInsets.all(18),
                 child: Row(
                   children: [
-                    Text(
+                    AutoSizeText(
                       l10n.feedback,
                       style: theme.textTheme.headlineMedium
                           ?.copyWith(color: Colors.white, fontSize: 20),

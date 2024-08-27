@@ -9,6 +9,7 @@ environment:
 dependencies:
   appinio_social_share: ^0.3.2
   auth_buttons: ^3.0.3
+  auto_size_text: ^3.0.0
   bloc: ^8.1.4
   cached_network_image: ^3.4.0
   collection: ^1.18.0

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/utils/misc.dart';
@@ -28,7 +29,7 @@ class _OrganizersCardState extends State<OrganizersCard> {
 
     return Container(
       width: double.infinity,
-      height: size.height / 4,
+      height: size.width > 500 ? 370 : size.height / 4,
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -37,7 +38,7 @@ class _OrganizersCardState extends State<OrganizersCard> {
       child: Column(
         children: [
           const Spacer(),
-          Text(
+          AutoSizeText(
             l10n.organisedBy,
             style: TextStyle(
               fontWeight: FontWeight.bold,
@@ -54,11 +55,12 @@ class _OrganizersCardState extends State<OrganizersCard> {
                   for (final organiser in organisers)
                     SizedBox(
                       width: size.width / 4,
+                      //height: size.width > 500 ? 300,
                       child: ResolvedImage(imageUrl: organiser.logo),
                     ),
                 ],
               ),
-              error: (message) => Text(
+              error: (message) => AutoSizeText(
                 message,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,

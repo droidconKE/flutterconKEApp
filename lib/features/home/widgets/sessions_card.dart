@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,7 +39,7 @@ class _SessionsCardState extends State<SessionsCard> {
       children: [
         Row(
           children: [
-            Text(
+            AutoSizeText(
               l10n.sessions,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     color: isLightMode
@@ -52,7 +53,7 @@ class _SessionsCardState extends State<SessionsCard> {
               onPressed: widget.switchTab,
               child: Row(
                 children: [
-                  Text(
+                  AutoSizeText(
                     l10n.viewAll,
                     style: TextStyle(
                       color: isLightMode
@@ -73,7 +74,7 @@ class _SessionsCardState extends State<SessionsCard> {
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
                     child: BlocBuilder<FetchSessionsCubit, FetchSessionsState>(
                       builder: (context, state) => state.maybeWhen(
-                        loaded: (_, extras) => Text(
+                        loaded: (_, extras) => AutoSizeText(
                           '+ $extras',
                           style: TextStyle(
                             color: isLightMode
@@ -151,7 +152,7 @@ class _SessionsCardState extends State<SessionsCard> {
                           const SizedBox(height: 16),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: Text(
+                            child: AutoSizeText(
                               session.title,
                               maxLines: 2,
                               style: TextStyle(
@@ -164,7 +165,7 @@ class _SessionsCardState extends State<SessionsCard> {
                           const SizedBox(height: 5),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: Text(
+                            child: AutoSizeText(
                               l10n.sessionTimeAndVenue(
                                 DateFormat.Hm().format(
                                   session.startDateTime,

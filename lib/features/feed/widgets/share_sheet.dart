@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -31,13 +32,13 @@ class ShareSheet extends StatelessWidget {
               loaded: (_) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text(l10n.postShared),
+                    content: AutoSizeText(l10n.postShared),
                   ),
                 );
               },
               error: (message) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(message.message)),
+                  SnackBar(content: AutoSizeText(message.message)),
                 );
               },
             );
@@ -68,7 +69,7 @@ class ShareSheet extends StatelessWidget {
                               height: 32,
                             ),
                             const SizedBox(width: 8),
-                            Text(
+                            AutoSizeText(
                               l10n.share,
                               style: TextStyle(
                                 color: colorScheme.onSurface,
@@ -80,7 +81,7 @@ class ShareSheet extends StatelessWidget {
                         ),
                         InkWell(
                           onTap: () => Navigator.of(context).pop(),
-                          child: Text(
+                          child: AutoSizeText(
                             l10n.cancel.toUpperCase(),
                             style: const TextStyle(
                               color: ThemeColors.greyTextColor,
