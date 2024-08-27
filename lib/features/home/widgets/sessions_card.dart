@@ -129,8 +129,9 @@ class _SessionsCardState extends State<SessionsCard> {
                             borderRadius: BorderRadius.circular(10),
                             child: CachedNetworkImage(
                               imageUrl: session.sessionImage,
-                              height: size.width > 600 ? size.height * .225 : size.height * .2,
-                              
+                              height: size.width > 600
+                                  ? size.height * .225
+                                  : size.height * .2,
                               width: double.infinity,
                               fit: BoxFit.cover,
                               placeholder: (_, __) => const SizedBox(
