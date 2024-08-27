@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/data/enums/bookmark_status.dart';
@@ -143,7 +144,7 @@ class _SessionsScreenState extends State<SessionsScreen>
                                 const Icon(Icons.star_border_rounded),
                               ),
                             ),
-                            Text(
+                            AutoSizeText(
                               l10n.mySessions,
                               style: const TextStyle(
                                 fontSize: 10,
@@ -166,7 +167,7 @@ class _SessionsScreenState extends State<SessionsScreen>
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
+                  child: AutoSizeText(
                     _isBookmarked ? l10n.mySessions : l10n.allSessions,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -63,7 +64,7 @@ class ScheduleViewCard extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
+                  child: AutoSizeText(
                     l10n.sessionTimeAndVenue(
                       DateFormat.Hm().format(
                         session.startDateTime,
@@ -81,7 +82,7 @@ class ScheduleViewCard extends StatelessWidget {
             const SizedBox(height: 16),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
+              child: AutoSizeText(
                 session.title,
                 maxLines: 2,
                 style: TextStyle(
@@ -150,7 +151,7 @@ class ScheduleViewCard extends StatelessWidget {
                         loaded: (loaded) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: Text(loaded.message),
+                              content: AutoSizeText(loaded.message),
                             ),
                           );
                         },

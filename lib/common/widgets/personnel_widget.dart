@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttercon/common/utils/misc.dart';
@@ -59,7 +60,7 @@ class PersonnelWidget extends StatelessWidget {
           ),
           SizedBox(
             width: MediaQuery.sizeOf(context).width / 4.5,
-            child: Text(
+            child: AutoSizeText(
               name,
               maxLines: 1,
               style: TextStyle(
@@ -71,7 +72,7 @@ class PersonnelWidget extends StatelessWidget {
           if (designation != null)
             SizedBox(
               width: MediaQuery.sizeOf(context).width / 4.5,
-              child: Text(
+              child: AutoSizeText(
                 designation!,
                 maxLines: 1,
                 style: TextStyle(

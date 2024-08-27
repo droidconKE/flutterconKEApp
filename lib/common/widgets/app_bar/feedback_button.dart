@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/utils/router.dart';
@@ -34,7 +35,7 @@ class FeedbackButton extends StatelessWidget {
                     height: 12,
                     color: colorScheme.onSurface,
                   ),
-                  Text(
+                  AutoSizeText(
                     l10n.feedback,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           fontSize: 12,

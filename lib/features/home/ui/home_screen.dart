@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/misc.dart';
@@ -32,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 15),
               Align(
                 alignment: Alignment.centerLeft,
-                child: Text(
+                child: AutoSizeText(
                   l10n.welcomeToFlutterCon,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w600,

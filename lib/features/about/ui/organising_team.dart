@@ -22,16 +22,17 @@ class _OrganisingTeamViewState extends State<OrganisingTeamView> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
     return BlocBuilder<FetchIndividualOrganisersCubit,
         FetchIndividualOrganisersState>(
       builder: (context, state) => state.maybeWhen(
         loaded: (individualOrganisers) => SliverGrid.builder(
           itemCount: individualOrganisers.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
+          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 200,
             crossAxisSpacing: 8,
             mainAxisSpacing: 8,
-            mainAxisExtent: 150,
+            mainAxisExtent: size.width > 600 ? 200 : 140,
           ),
           itemBuilder: (context, index) => PersonnelWidget(
             imageUrl: individualOrganisers[index].photo,
