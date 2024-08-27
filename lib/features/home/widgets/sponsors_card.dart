@@ -23,13 +23,13 @@ class _SponsorsCardState extends State<SponsorsCard> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    final size = MediaQuery.sizeOf(context);
     final l10n = context.l10n;
     final (_, colorScheme) = Misc.getTheme(context);
 
     return Container(
       width: double.infinity,
-      height: size.width > 500 ? 300 : size.height / 4,
+      height: size.height * .35,
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -57,9 +57,10 @@ class _SponsorsCardState extends State<SponsorsCard> {
                     )
                     .toList();
                 return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 32),
+                      padding: const EdgeInsets.symmetric(),
                       child: ResolvedImage(
                         imageUrl: sponsors
                             .firstWhere(
@@ -85,6 +86,7 @@ class _SponsorsCardState extends State<SponsorsCard> {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 16),
                   ],
                 );
               },

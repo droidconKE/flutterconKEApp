@@ -29,7 +29,7 @@ class _OrganizersCardState extends State<OrganizersCard> {
 
     return Container(
       width: double.infinity,
-      height: size.width > 500 ? 370 : size.height / 4,
+      height: size.height * .3,
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -55,7 +55,6 @@ class _OrganizersCardState extends State<OrganizersCard> {
                   for (final organiser in organisers)
                     SizedBox(
                       width: size.width / 4,
-                      //height: size.width > 500 ? 300,
                       child: ResolvedImage(imageUrl: organiser.logo),
                     ),
                 ],

@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/data/enums/session_level.dart';
@@ -30,7 +29,7 @@ class _SessionFilterState extends State<SessionFilter> {
         children: [
           Align(
             alignment: Alignment.centerLeft,
-            child: AutoSizeText(
+            child: Text(
               l10n.level,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     color: colorScheme.onSurface,
@@ -50,7 +49,7 @@ class _SessionFilterState extends State<SessionFilter> {
               segments: [
                 ButtonSegment<SessionLevel>(
                   icon: const SizedBox.shrink(),
-                  label: AutoSizeText(
+                  label: Text(
                     l10n.beginner,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontSize: 11.5,
@@ -61,7 +60,7 @@ class _SessionFilterState extends State<SessionFilter> {
                 ),
                 ButtonSegment<SessionLevel>(
                   icon: const SizedBox.shrink(),
-                  label: AutoSizeText(
+                  label: Text(
                     l10n.intermediate,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontSize: 11.5,
@@ -72,7 +71,7 @@ class _SessionFilterState extends State<SessionFilter> {
                 ),
                 ButtonSegment<SessionLevel>(
                   icon: const SizedBox.shrink(),
-                  label: AutoSizeText(
+                  label: Text(
                     l10n.expert,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontSize: 11.5,
@@ -93,7 +92,7 @@ class _SessionFilterState extends State<SessionFilter> {
           const SizedBox(height: 24),
           Align(
             alignment: Alignment.centerLeft,
-            child: AutoSizeText(
+            child: Text(
               l10n.sessionType,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     color: colorScheme.onSurface,
@@ -112,7 +111,7 @@ class _SessionFilterState extends State<SessionFilter> {
               ),
               segments: [
                 ButtonSegment<SessionType>(
-                  label: AutoSizeText(
+                  label: Text(
                     l10n.session,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontSize: 12,
@@ -122,7 +121,7 @@ class _SessionFilterState extends State<SessionFilter> {
                   value: SessionType.session,
                 ),
                 ButtonSegment<SessionType>(
-                  label: AutoSizeText(
+                  label: Text(
                     l10n.keynote,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontSize: 12,
@@ -132,7 +131,7 @@ class _SessionFilterState extends State<SessionFilter> {
                   value: SessionType.keynote,
                 ),
                 ButtonSegment<SessionType>(
-                  label: AutoSizeText(
+                  label: Text(
                     l10n.codeLab,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontSize: 12,
@@ -160,7 +159,7 @@ class _SessionFilterState extends State<SessionFilter> {
               ),
               segments: [
                 ButtonSegment<SessionType>(
-                  label: AutoSizeText(
+                  label: Text(
                     l10n.lightningTalk,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontSize: 12,
@@ -170,7 +169,7 @@ class _SessionFilterState extends State<SessionFilter> {
                   value: SessionType.lightningTalk,
                 ),
                 ButtonSegment<SessionType>(
-                  label: AutoSizeText(
+                  label: Text(
                     l10n.workshop,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontSize: 12,
@@ -210,7 +209,7 @@ class _SessionFilterState extends State<SessionFilter> {
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
-              child: AutoSizeText(
+              child: Text(
                 l10n.filter.toUpperCase(),
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       color: colorScheme.surface,
@@ -239,7 +238,7 @@ class _SessionFilterState extends State<SessionFilter> {
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
-              child: AutoSizeText(
+              child: Text(
                 l10n.reset.toUpperCase(),
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       color: colorScheme.onSurface,

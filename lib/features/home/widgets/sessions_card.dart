@@ -32,7 +32,7 @@ class _SessionsCardState extends State<SessionsCard> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final size = MediaQuery.of(context).size;
+    final size = MediaQuery.sizeOf(context);
     final (isLightMode, colorScheme) = Misc.getTheme(context);
 
     return Column(
@@ -102,12 +102,12 @@ class _SessionsCardState extends State<SessionsCard> {
         ),
         const SizedBox(height: 16),
         SizedBox(
-          height: 250,
+          height: size.height * .3,
           child: BlocBuilder<FetchSessionsCubit, FetchSessionsState>(
             builder: (context, state) => state.maybeWhen(
               loaded: (sessions, _) => ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: sessions.take(5).length,
+                itemCount: sessions.take(10).length,
                 itemBuilder: (context, index) {
                   final session = sessions[index];
                   return GestureDetector(
@@ -129,7 +129,8 @@ class _SessionsCardState extends State<SessionsCard> {
                             borderRadius: BorderRadius.circular(10),
                             child: CachedNetworkImage(
                               imageUrl: session.sessionImage,
-                              height: 150,
+                              height: size.width > 600 ? size.height * .225 : size.height * .2,
+                              
                               width: double.infinity,
                               fit: BoxFit.cover,
                               placeholder: (_, __) => const SizedBox(
