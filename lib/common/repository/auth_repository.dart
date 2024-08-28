@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/common/utils/network.dart';
-import 'package:fluttercon/firebase_options.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
@@ -22,22 +21,18 @@ class AuthRepository {
   Future<String> signInWithGoogle() async {
     try {
       final googleSignInAccount = await _googleSignIn.signIn();
-      Logger().f(googleSignInAccount);
+
       final googleSignInAuthentication =
           await googleSignInAccount?.authentication;
-      Logger().f(googleSignInAuthentication);
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         idToken: googleSignInAuthentication?.idToken,
         accessToken: googleSignInAuthentication?.accessToken,
       );
-      Logger().f(credential);
 
       final authResult = await _auth.signInWithCredential(credential);
-      Logger().f(authResult);
 
       final user = authResult.user;
-      Logger().f(user);
 
       if (user != null) {
         assert(!user.isAnonymous, 'User must not be anonymous');
@@ -48,10 +43,9 @@ class AuthRepository {
       } else {
         throw Failure(message: 'An unexpected error occured');
       }
-    } catch (e, st) {
-      Logger().f(DefaultFirebaseOptions.currentPlatform);
-      Logger().f(st);
-      Logger().e(e);
+    } catch (error, stackTrace) {
+      Logger().f(stackTrace);
+      Logger().e(error);
       rethrow;
     }
   }
@@ -75,8 +69,8 @@ class AuthRepository {
 
   Future<void> logOut() async {
     try {
-      await _networkUtil.postReq('/logout');
       await _googleSignIn.signOut();
+      await _networkUtil.postReq('/logout');
     } catch (e) {
       rethrow;
     }
