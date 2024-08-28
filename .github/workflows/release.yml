@@ -81,5 +81,5 @@ jobs:
           SUPPLY_JSON_KEY_DATA: ${{ secrets.PLAY_STORE_CREDENTIALS }}
         run: |
           bundle exec fastlane supply \
-          --aab build/app/outputs/bundle/release/app-release.aab \
+          --aab build/app/outputs/bundle/productionRelease/app-production-release.aab \
           --track production
