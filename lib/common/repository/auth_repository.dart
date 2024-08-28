@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/common/utils/network.dart';
@@ -19,25 +17,27 @@ class AuthRepository {
       'profile',
       'email',
     ],
-    clientId: Platform.isAndroid
-        ? DefaultFirebaseOptions.android.iosClientId
-        : DefaultFirebaseOptions.ios.iosClientId,
   );
 
   Future<String> signInWithGoogle() async {
     try {
       final googleSignInAccount = await _googleSignIn.signIn();
+      Logger().f(googleSignInAccount);
       final googleSignInAuthentication =
           await googleSignInAccount?.authentication;
+      Logger().f(googleSignInAuthentication);
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         idToken: googleSignInAuthentication?.idToken,
         accessToken: googleSignInAuthentication?.accessToken,
       );
+      Logger().f(credential);
 
       final authResult = await _auth.signInWithCredential(credential);
+      Logger().f(authResult);
 
       final user = authResult.user;
+      Logger().f(user);
 
       if (user != null) {
         assert(!user.isAnonymous, 'User must not be anonymous');
@@ -49,6 +49,7 @@ class AuthRepository {
         throw Failure(message: 'An unexpected error occured');
       }
     } catch (e, st) {
+      Logger().f(DefaultFirebaseOptions.currentPlatform);
       Logger().f(st);
       Logger().e(e);
       rethrow;
