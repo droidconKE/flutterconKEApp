@@ -3,7 +3,7 @@ name: Generate Production APK
 on:
   push:
     branches:
-      - hotfix/social-auth
+      - main
 
 jobs:
   build:
