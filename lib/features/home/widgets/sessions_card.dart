@@ -102,7 +102,7 @@ class _SessionsCardState extends State<SessionsCard> {
         ),
         const SizedBox(height: 16),
         SizedBox(
-          height: size.height * .3,
+          height: size.height * .33,
           child: BlocBuilder<FetchSessionsCubit, FetchSessionsState>(
             builder: (context, state) => state.maybeWhen(
               loaded: (sessions, _) => ListView.builder(
@@ -153,7 +153,7 @@ class _SessionsCardState extends State<SessionsCard> {
                           const SizedBox(height: 16),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: AutoSizeText(
+                            child: Text(
                               session.title,
                               maxLines: 2,
                               style: TextStyle(

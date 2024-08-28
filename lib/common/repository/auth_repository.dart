@@ -21,6 +21,7 @@ class AuthRepository {
   Future<String> signInWithGoogle() async {
     try {
       final googleSignInAccount = await _googleSignIn.signIn();
+
       final googleSignInAuthentication =
           await googleSignInAccount?.authentication;
 
@@ -35,11 +36,16 @@ class AuthRepository {
 
       if (user != null) {
         assert(!user.isAnonymous, 'User must not be anonymous');
+        if (user.isAnonymous) {
+          throw Failure(message: 'User must not be anonymous');
+        }
         return Future.value(authResult.credential?.accessToken);
       } else {
         throw Failure(message: 'An unexpected error occured');
       }
-    } catch (e) {
+    } catch (error, stackTrace) {
+      Logger().f(stackTrace);
+      Logger().e(error);
       rethrow;
     }
   }
@@ -63,8 +69,8 @@ class AuthRepository {
 
   Future<void> logOut() async {
     try {
-      await _networkUtil.postReq('/logout');
       await _googleSignIn.signOut();
+      await _networkUtil.postReq('/logout');
     } catch (e) {
       rethrow;
     }
