@@ -7,10 +7,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/repository/db_repository.dart';
+import 'package:fluttercon/common/repository/firebase_repository.dart';
 import 'package:fluttercon/common/repository/hive_repository.dart';
 import 'package:fluttercon/common/utils/notification_service.dart';
 import 'package:fluttercon/core/di/injectable.dart';
 import 'package:fluttercon/features/about/cubit/fetch_individual_organisers_cubit.dart';
+import 'package:fluttercon/features/auth/cubit/ghost_sign_in_cubit.dart';
 import 'package:fluttercon/features/auth/cubit/google_sign_in_cubit.dart';
 import 'package:fluttercon/features/auth/cubit/log_out_cubit.dart';
 import 'package:fluttercon/features/auth/cubit/social_auth_sign_in_cubit.dart';
@@ -48,10 +50,16 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
     );
 
     await configureDependencies();
+
     await getIt<HiveRepository>().initBoxes();
+
     localDB = await getIt<DBRepository>().init();
+
     await getIt<NotificationService>().requestPermission();
     await getIt<NotificationService>().initNotifications();
+
+    await getIt<FirebaseRepository>().init();
+
     runApp(
       MultiBlocProvider(
         // Register all the BLoCs here
@@ -128,7 +136,15 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
             ),
           ),
           BlocProvider<SendFeedbackCubit>(
-            create: (context) => SendFeedbackCubit(apiRepository: getIt()),
+            create: (context) => SendFeedbackCubit(
+              apiRepository: getIt(),
+            ),
+          ),
+          BlocProvider<GhostSignInCubit>(
+            create: (context) => GhostSignInCubit(
+              authRepository: getIt(),
+              hiveRepository: getIt(),
+            ),
           ),
         ],
         child: await builder(),
