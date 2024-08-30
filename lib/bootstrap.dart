@@ -13,6 +13,7 @@ import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/utils/notification_service.dart';
 import 'package:fluttercon/core/di/injectable.dart';
 import 'package:fluttercon/features/about/cubit/fetch_individual_organisers_cubit.dart';
+import 'package:fluttercon/features/auth/cubit/ghost_sign_in_cubit.dart';
 import 'package:fluttercon/features/auth/cubit/google_sign_in_cubit.dart';
 import 'package:fluttercon/features/auth/cubit/log_out_cubit.dart';
 import 'package:fluttercon/features/auth/cubit/social_auth_sign_in_cubit.dart';
@@ -137,7 +138,15 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
             ),
           ),
           BlocProvider<SendFeedbackCubit>(
-            create: (context) => SendFeedbackCubit(apiRepository: getIt()),
+            create: (context) => SendFeedbackCubit(
+              apiRepository: getIt(),
+            ),
+          ),
+          BlocProvider<GhostSignInCubit>(
+            create: (context) => GhostSignInCubit(
+              authRepository: getIt(),
+              hiveRepository: getIt(),
+            ),
           ),
         ],
         child: await builder(),
