@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttercon/versioning/build_version.dart' as package_version;
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -45,5 +46,9 @@ class Misc {
     final colorScheme = Theme.of(context).colorScheme;
 
     return (isLightMode, colorScheme);
+  }
+
+  static String getAppVersion() {
+    return package_version.packageVersion;
   }
 }
