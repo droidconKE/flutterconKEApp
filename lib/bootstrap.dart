@@ -9,7 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/repository/db_repository.dart';
 import 'package:fluttercon/common/repository/firebase_repository.dart';
 import 'package:fluttercon/common/repository/hive_repository.dart';
-import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/utils/notification_service.dart';
 import 'package:fluttercon/core/di/injectable.dart';
 import 'package:fluttercon/features/about/cubit/fetch_individual_organisers_cubit.dart';
@@ -25,7 +24,6 @@ import 'package:fluttercon/features/home/cubit/home_cubits.dart';
 import 'package:fluttercon/features/sessions/cubit/bookmark_session_cubit.dart';
 import 'package:fluttercon/features/sessions/cubit/fetch_grouped_sessions_cubit.dart';
 import 'package:fluttercon/firebase_options.dart';
-import 'package:logger/logger.dart';
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();

@@ -14,7 +14,7 @@ Future<void> main() async {
   });
   FlutterConConfig(
     values: FlutterConValues(
-     baseDomain: 'api.droidcon.co.ke',
+      baseDomain: 'api.droidcon.co.ke',
       urlScheme: 'https',
       hiveBox: 'fluttercon-prod',
       eventSlug: 'droidconke-2022-281',

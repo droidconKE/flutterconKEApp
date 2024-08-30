@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:fluttercon/common/data/models/remote_config.dart';
 import 'package:injectable/injectable.dart';
-import 'package:logger/logger.dart';
 
 @singleton
 class FirebaseRepository {

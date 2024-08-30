@@ -79,8 +79,9 @@ class SignInScreen extends StatelessWidget {
                         },
                         builder: (context, state) {
                           return state.maybeWhen(
-                            loading: () => Center(
-                                child: const CircularProgressIndicator()),
+                            loading: () => const Center(
+                              child: CircularProgressIndicator(),
+                            ),
                             orElse: () => const Image(
                               image: AssetImage(AppAssets.flutterConKeLogo),
                             ),

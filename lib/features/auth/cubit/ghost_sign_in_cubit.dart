@@ -1,8 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/common/repository/auth_repository.dart';
 import 'package:fluttercon/common/repository/hive_repository.dart';
-import 'package:fluttercon/features/auth/cubit/social_auth_sign_in_cubit.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'ghost_sign_in_state.dart';
