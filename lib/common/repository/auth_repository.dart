@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttercon/common/data/models/models.dart';
-import 'package:fluttercon/common/utils/env/flavor_config.dart';
 import 'package:fluttercon/common/utils/network.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
@@ -22,7 +21,7 @@ class AuthRepository {
   Future<AuthResult> ghostSignIn() async {
     try {
       final response = await _networkUtil.postReq(
-        '${FlutterConConfig.instance!.values.baseUrl}/api/v1/login',
+        '/login',
         body: {
           'email': 'google@play.com',
           'password': 'password',
