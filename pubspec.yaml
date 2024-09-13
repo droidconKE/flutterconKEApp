@@ -1,7 +1,7 @@
 name: fluttercon
 description: "A new Flutter project."
 publish_to: 'none'
-version: 1.16.00+11600
+version: 1.16.01+11601
 
 environment:
   sdk: ">=3.5.0 <4.0.0"
@@ -13,13 +13,13 @@ dependencies:
   awesome_notifications: ^0.9.3+1
   bloc: ^8.1.4
   build_version: ^2.1.1
-  cached_network_image: ^3.4.0
+  cached_network_image: ^3.4.1
   collection: ^1.18.0
   cupertino_icons: ^1.0.8
   dio: ^5.7.0
-  firebase_analytics: ^11.3.0
-  firebase_auth: ^5.2.0
-  firebase_core: ^3.4.0
+  firebase_analytics: ^11.3.1
+  firebase_auth: ^5.2.1
+  firebase_core: ^3.4.1
   firebase_crashlytics: ^4.1.0
   firebase_remote_config: ^5.1.0
   flutter:
@@ -43,7 +43,7 @@ dependencies:
   logger: ^2.4.0
   path_provider: ^2.1.4
   pretty_dio_logger: ^1.4.0
-  share_plus: ^10.0.0
+  share_plus: ^10.0.2
   sizer: ^3.0.3
   timeago: ^3.7.0
   timeline_tile: ^2.0.0
