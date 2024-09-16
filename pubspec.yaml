@@ -17,6 +17,7 @@ dependencies:
   collection: ^1.18.0
   cupertino_icons: ^1.0.8
   dio: ^5.7.0
+  equatable: ^2.0.5
   firebase_analytics: ^11.3.1
   firebase_auth: ^5.2.1
   firebase_core: ^3.4.1
