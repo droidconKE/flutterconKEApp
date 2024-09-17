@@ -24,6 +24,7 @@ import 'package:fluttercon/features/home/cubit/home_cubits.dart';
 import 'package:fluttercon/features/sessions/cubit/bookmark_session_cubit.dart';
 import 'package:fluttercon/features/sessions/cubit/fetch_grouped_sessions_cubit.dart';
 import 'package:fluttercon/firebase_options.dart';
+import 'package:fluttercon/search/cubit/search_cubit.dart';
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
@@ -145,6 +146,9 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
               authRepository: getIt(),
               hiveRepository: getIt(),
             ),
+          ),
+          BlocProvider<SearchCubit>(
+            create: (_) => getIt<SearchCubit>(),
           ),
         ],
         child: await builder(),

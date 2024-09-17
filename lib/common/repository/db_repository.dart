@@ -16,6 +16,46 @@ import 'package:path_provider/path_provider.dart' as path_provider;
 
 @singleton
 class DBRepository {
+  Future<List<LocalSession>> searchSessions(String query) async {
+    return localDB.localSessions
+        .where()
+        .filter()
+        .titleContains(query, caseSensitive: false)
+        .or()
+        .descriptionContains(query, caseSensitive: false)
+        .findAll();
+  }
+
+  Future<List<LocalSpeaker>> searchSpeakers(String query) async {
+    return localDB.localSpeakers
+        .where()
+        .filter()
+        .nameContains(query, caseSensitive: false)
+        .or()
+        .biographyContains(query, caseSensitive: false)
+        .or()
+        .taglineContains(query, caseSensitive: false)
+        .findAll();
+  }
+
+  Future<List<LocalSponsor>> searchSponsors(String query) async {
+    return localDB.localSponsors
+        .where()
+        .filter()
+        .nameContains(query, caseSensitive: false)
+        .or()
+        .taglineContains(query, caseSensitive: false)
+        .findAll();
+  }
+
+  Future<List<LocalOrganiser>> searchOrganisers(String query) async {
+    return localDB.localOrganisers
+        .where()
+        .filter()
+        .nameContains(query, caseSensitive: false)
+        .findAll();
+  }
+
   Future<Isar> init() async {
     final dir = await path_provider.getApplicationDocumentsDirectory();
     return Isar.open(
@@ -235,6 +275,7 @@ class DBRepository {
     BookmarkStatus? bookmarkStatus,
     String? sessionLevel,
     String? sessionType,
+    String? query,
   }) async {
     return localDB.localSessions
         .where()
@@ -251,6 +292,13 @@ class DBRepository {
         .optional(
           sessionType != null,
           (q) => q.sessionFormatEqualTo(sessionType!),
+        )
+        .optional(
+          query != null,
+          (q) => q
+              .titleContains(query!, caseSensitive: false)
+              .or()
+              .descriptionContains(query, caseSensitive: false),
         )
         .findAll();
   }

@@ -1,17 +1,15 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttercon/common/widgets/resolved_image.dart';
 import 'package:fluttercon/common/utils/router.dart';
+import 'package:fluttercon/common/widgets/resolved_image.dart';
 import 'package:fluttercon/core/di/injectable.dart';
-import 'package:fluttercon/search/cubit/search_cubit.dart';
-import 'package:go_router/go_router.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
-import 'package:fluttercon/common/data/models/local/local_session.dart';
-import 'package:fluttercon/common/data/models/local/local_speaker.dart';
-
-import '../../cubit/search_state.dart';
-import '../../models/search_result.dart';
+import 'package:fluttercon/search/cubit/search_cubit.dart';
+import 'package:fluttercon/search/cubit/search_state.dart';
+import 'package:fluttercon/search/models/search_result.dart';
+import 'package:go_router/go_router.dart';
 
 class SearchBarWidget extends StatelessWidget {
   const SearchBarWidget({Key? key}) : super(key: key);
@@ -48,6 +46,8 @@ class _SearchBarViewState extends State<SearchBarView> {
     _debounce = Timer(const Duration(milliseconds: 300), () {
       if (query.isNotEmpty) {
         context.read<SearchCubit>().search(query);
+      } else {
+        context.read<SearchCubit>().clearSearch();
       }
     });
   }
@@ -62,7 +62,6 @@ class _SearchBarViewState extends State<SearchBarView> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           decoration: BoxDecoration(
@@ -72,7 +71,8 @@ class _SearchBarViewState extends State<SearchBarView> {
           ),
           child: Row(
             children: [
-              const Icon(Icons.search, color: ThemeColors.blueGreenDroidconColor),
+              const Icon(Icons.search,
+                  color: ThemeColors.blueGreenDroidconColor),
               const SizedBox(width: 8),
               Expanded(
                 child: TextField(
@@ -87,7 +87,8 @@ class _SearchBarViewState extends State<SearchBarView> {
               ),
               if (_searchController.text.isNotEmpty)
                 IconButton(
-                  icon: const Icon(Icons.cancel, color:ThemeColors.orangeDroidconColor),
+                  icon: const Icon(Icons.cancel,
+                      color: ThemeColors.orangeDroidconColor),
                   onPressed: _clearSearch,
                 ),
             ],
@@ -98,88 +99,92 @@ class _SearchBarViewState extends State<SearchBarView> {
         // Search Results
         BlocBuilder<SearchCubit, SearchState>(
           builder: (context, state) {
-            if (state is SearchLoading) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is SearchLoaded) {
-              if (state.results.isEmpty) {
-                return const Text('No results found');
-              }
-              return ListView.builder(
-                shrinkWrap: true,
-                itemCount: state.results.length,
-                itemBuilder: (context, index) {
-                  final result = state.results[index];
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        side: const BorderSide(
-                          color: ThemeColors.orangeDroidconColor
-                        )
-                      ),
-                      elevation: 4,
-                      child: ListTile(
-
-                        leading: SizedBox(
-                          width: 48,
-                          height: 48,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: ResolvedImage(imageUrl: result.imageUrl),
-                          ),
-                        ),
-                        title: Text(
-                          result.title,
-                          style: const TextStyle(
-                            color: ThemeColors.blueDroidconColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
-                        ),
-                        subtitle: Text(
-                            result.subtitle,
-                            style: const TextStyle(color: ThemeColors.greyTextColor),),
-                        onTap: () {
-                          FocusScope.of(context).unfocus();
-                          switch (result.type) {
-                            case SearchResultType.session:
-                              context.push(FlutterConRouter.sessionDetailsRoute,
-                                  extra: result.extra as LocalSession)
-                                  .then((_) {
-                                _clearSearch();
-                              });
-                              break;
-                            case SearchResultType.speaker:
-                              context.push(FlutterConRouter.speakerDetailsRoute,
-                                  extra: result.extra as LocalSpeaker)
-                                  .then((_) {
-                                _clearSearch();
-                              });
-                              break;
-                            case SearchResultType.sponsor:
-                            case SearchResultType.organizer:
-                              break;
-                          }
-                        },
-                      ),
-                    ),
-                  );
-                },
-              );
-            } else if (state is SearchError) {
-              return Center(
+            return state.when(
+              initial: () => Container(),
+              loading: () => const Center(child: CircularProgressIndicator()),
+              loaded: (results) => _buildSearchResults(results),
+              error: (message) => Center(
                 child: Text(
-                  state.message,
-                  style: const TextStyle(color: ThemeColors.orangeDroidconColor),
+                  message,
+                  style:
+                      const TextStyle(color: ThemeColors.orangeDroidconColor),
                 ),
-              );
-            } else {
-              return Container();  // No results yet
-            }
+              ),
+            );
           },
         ),
       ],
     );
+  }
+
+  Widget _buildSearchResults(List<SearchResult> results) {
+    if (results.isEmpty) {
+      return const Text('No results found');
+    }
+
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: results.length,
+      itemBuilder: (context, index) {
+        final result = results[index];
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+              side: const BorderSide(color: ThemeColors.orangeDroidconColor),
+            ),
+            elevation: 4,
+            child: ListTile(
+              leading: SizedBox(
+                width: 48,
+                height: 48,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: ResolvedImage(imageUrl: result.imageUrl),
+                ),
+              ),
+              title: Text(
+                result.title,
+                style: const TextStyle(
+                  color: ThemeColors.blueDroidconColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+              subtitle: Text(
+                result.subtitle,
+                style: const TextStyle(color: ThemeColors.greyTextColor),
+              ),
+              onTap: () => _handleResultTap(result),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _handleResultTap(SearchResult result) {
+    FocusScope.of(context).unfocus();
+    switch (result.type) {
+      case SearchResultType.session:
+        if (result.session != null) {
+          context
+              .push(FlutterConRouter.sessionDetailsRoute, extra: result.session)
+              .then((_) => _clearSearch());
+        }
+        break;
+      case SearchResultType.speaker:
+        if (result.speaker != null) {
+          context
+              .push(FlutterConRouter.speakerDetailsRoute, extra: result.speaker)
+              .then((_) => _clearSearch());
+        }
+        break;
+      case SearchResultType.sponsor:
+        break;
+      case SearchResultType.organizer:
+        break;
+    }
   }
 }

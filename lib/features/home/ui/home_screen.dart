@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/widgets/app_bar/app_bar.dart';
 import 'package:fluttercon/features/home/widgets/organizers_card.dart';
@@ -6,7 +7,6 @@ import 'package:fluttercon/features/home/widgets/sessions_card.dart';
 import 'package:fluttercon/features/home/widgets/speaker_home_card.dart';
 import 'package:fluttercon/features/home/widgets/sponsors_card.dart';
 import 'package:fluttercon/l10n/l10n.dart';
-import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/search/ui/widgets/search_bar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -36,14 +36,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Text(
                   l10n.welcomeToFlutterCon,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: colorScheme.onSurface,
-                    fontSize: 16,
-                  ),
+                        fontWeight: FontWeight.w600,
+                        color: colorScheme.onSurface,
+                        fontSize: 16,
+                      ),
                 ),
               ),
               const SizedBox(height: 15),
-              
               const SearchBarWidget(),
               const SizedBox(height: 15),
               ClipRRect(

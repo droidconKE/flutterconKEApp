@@ -1,24 +1,24 @@
-import 'package:equatable/equatable.dart';
+import 'package:fluttercon/common/data/models/local/local_organiser.dart';
+import 'package:fluttercon/common/data/models/local/local_session.dart';
+import 'package:fluttercon/common/data/models/local/local_speaker.dart';
+import 'package:fluttercon/common/data/models/local/local_sponsor.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'search_result.freezed.dart';
 
 enum SearchResultType { session, speaker, sponsor, organizer }
 
-class SearchResult extends Equatable {
-  final String id;
-  final String title;
-  final String subtitle;
-  final String imageUrl;
-  final SearchResultType type;
-  final dynamic extra;
-
-  const SearchResult({
-    required this.id,
-    required this.title,
-    required this.subtitle,
-    required this.imageUrl,
-    required this.type,
-    this.extra
-  });
-
-  @override
-  List<Object?> get props => [id, title, subtitle, imageUrl, type];
+@freezed
+class SearchResult with _$SearchResult {
+  const factory SearchResult({
+    required String id,
+    required String title,
+    required String subtitle,
+    required String imageUrl,
+    required SearchResultType type,
+    LocalSession? session,
+    LocalSpeaker? speaker,
+    LocalSponsor? sponsor,
+    LocalOrganiser? organizer,
+  }) = _SearchResult;
 }
