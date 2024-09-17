@@ -240,18 +240,18 @@ class DBRepository {
         .where()
         .filter()
         .optional(
-      bookmarkStatus != null,
+          bookmarkStatus != null,
           (q) => q
-          .isBookmarkedEqualTo(bookmarkStatus == BookmarkStatus.bookmarked),
-    )
+              .isBookmarkedEqualTo(bookmarkStatus == BookmarkStatus.bookmarked),
+        )
         .optional(
-      sessionLevel != null,
+          sessionLevel != null,
           (q) => q.sessionLevelEqualTo(sessionLevel!),
-    )
+        )
         .optional(
-      sessionType != null,
+          sessionType != null,
           (q) => q.sessionFormatEqualTo(sessionType!),
-    )
+        )
         .findAll();
   }
 

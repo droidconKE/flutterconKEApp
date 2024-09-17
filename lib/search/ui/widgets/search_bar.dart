@@ -170,27 +170,27 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
         if (result.session != null) {
           GoRouter.of(context)
               .push(
-            FlutterConRouter.sessionDetailsRoute,
-            extra: result.session,
-          )
+                FlutterConRouter.sessionDetailsRoute,
+                extra: result.session,
+              )
               .then((_) => _clearSearch());
         }
       case SearchResultType.speaker:
         if (result.speaker != null) {
           GoRouter.of(context)
               .push(
-            FlutterConRouter.speakerDetailsRoute,
-            extra: result.speaker,
-          )
+                FlutterConRouter.speakerDetailsRoute,
+                extra: result.speaker,
+              )
               .then((_) => _clearSearch());
         }
       case SearchResultType.organizer:
         if (result.organizer != null) {
           GoRouter.of(context)
               .push(
-            FlutterConRouter.organiserDetailsRoute,
-            extra: result.organizer,
-          )
+                FlutterConRouter.organiserDetailsRoute,
+                extra: result.organizer,
+              )
               .then((_) => _clearSearch());
         }
     }
