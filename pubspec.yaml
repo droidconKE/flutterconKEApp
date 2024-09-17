@@ -18,7 +18,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   dio: ^5.7.0
   firebase_analytics: ^11.3.1
-  firebase_auth: ^5.2.1
+  firebase_auth: ^5.3.0
   firebase_core: ^3.4.1
   firebase_crashlytics: ^4.1.0
   firebase_remote_config: ^5.1.0
