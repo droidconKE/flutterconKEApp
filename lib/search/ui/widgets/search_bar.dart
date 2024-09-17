@@ -14,23 +14,14 @@ import 'package:fluttercon/search/cubit/search_cubit.dart';
 import 'package:fluttercon/search/cubit/search_state.dart';
 import 'package:go_router/go_router.dart';
 
-class SearchBarWidget extends StatelessWidget {
+class SearchBarWidget extends StatefulWidget {
   const SearchBarWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const SearchBarView();
-  }
+  State<SearchBarWidget> createState() => _SearchBarWidgetState();
 }
 
-class SearchBarView extends StatefulWidget {
-  const SearchBarView({super.key});
-
-  @override
-  State<SearchBarView> createState() => _SearchBarViewState();
-}
-
-class _SearchBarViewState extends State<SearchBarView> {
+class _SearchBarWidgetState extends State<SearchBarWidget> {
   final TextEditingController _searchController = TextEditingController();
   Timer? _debounce;
 
@@ -179,27 +170,27 @@ class _SearchBarViewState extends State<SearchBarView> {
         if (result.session != null) {
           GoRouter.of(context)
               .push(
-                FlutterConRouter.sessionDetailsRoute,
-                extra: result.session,
-              )
+            FlutterConRouter.sessionDetailsRoute,
+            extra: result.session,
+          )
               .then((_) => _clearSearch());
         }
       case SearchResultType.speaker:
         if (result.speaker != null) {
           GoRouter.of(context)
               .push(
-                FlutterConRouter.speakerDetailsRoute,
-                extra: result.speaker,
-              )
+            FlutterConRouter.speakerDetailsRoute,
+            extra: result.speaker,
+          )
               .then((_) => _clearSearch());
         }
       case SearchResultType.organizer:
         if (result.organizer != null) {
           GoRouter.of(context)
               .push(
-                FlutterConRouter.organiserDetailsRoute,
-                extra: result.organizer,
-              )
+            FlutterConRouter.organiserDetailsRoute,
+            extra: result.organizer,
+          )
               .then((_) => _clearSearch());
         }
     }

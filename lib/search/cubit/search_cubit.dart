@@ -7,10 +7,16 @@ import 'package:fluttercon/search/cubit/search_state.dart';
 
 class SearchCubit extends Cubit<SearchState> {
   SearchCubit(
-    this._dbRepository,
-  ) : super(const SearchState.initial());
+  {
+    required DBRepository dbRepository,
+}
+  ) : super(const SearchState.initial()) {
+    _dbRepository = dbRepository;
+  }
 
-  final DBRepository _dbRepository;
+  late DBRepository _dbRepository;
+
+
 
   Future<void> search(String query) async {
     emit(const SearchState.loading());

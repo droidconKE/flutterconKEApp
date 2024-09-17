@@ -235,31 +235,23 @@ class DBRepository {
     BookmarkStatus? bookmarkStatus,
     String? sessionLevel,
     String? sessionType,
-    String? query,
   }) async {
     return localDB.localSessions
         .where()
         .filter()
         .optional(
-          bookmarkStatus != null,
+      bookmarkStatus != null,
           (q) => q
-              .isBookmarkedEqualTo(bookmarkStatus == BookmarkStatus.bookmarked),
-        )
+          .isBookmarkedEqualTo(bookmarkStatus == BookmarkStatus.bookmarked),
+    )
         .optional(
-          sessionLevel != null,
+      sessionLevel != null,
           (q) => q.sessionLevelEqualTo(sessionLevel!),
-        )
+    )
         .optional(
-          sessionType != null,
+      sessionType != null,
           (q) => q.sessionFormatEqualTo(sessionType!),
-        )
-        .optional(
-          query != null,
-          (q) => q
-              .titleContains(query!, caseSensitive: false)
-              .or()
-              .descriptionContains(query, caseSensitive: false),
-        )
+    )
         .findAll();
   }
 
