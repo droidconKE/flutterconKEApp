@@ -111,6 +111,10 @@
     "@sponsors": {},
     "sessionDetails": "Session Details",
     "@sessionDetails": {},
+    "searchHint": "Search sessions or speakers",
+    "@searchHint": {},
+    "errorSearch": "No results found",
+    "@errorSearch": {},
     "day": "Day {day}",
     "@day": {
         "placeholders": {

@@ -148,7 +148,9 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
             ),
           ),
           BlocProvider<SearchCubit>(
-            create: (_) => getIt<SearchCubit>(),
+            create: (context) => SearchCubit(
+              getIt<DBRepository>(),
+            ),
           ),
         ],
         child: await builder(),

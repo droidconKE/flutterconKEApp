@@ -16,46 +16,6 @@ import 'package:path_provider/path_provider.dart' as path_provider;
 
 @singleton
 class DBRepository {
-  Future<List<LocalSession>> searchSessions(String query) async {
-    return localDB.localSessions
-        .where()
-        .filter()
-        .titleContains(query, caseSensitive: false)
-        .or()
-        .descriptionContains(query, caseSensitive: false)
-        .findAll();
-  }
-
-  Future<List<LocalSpeaker>> searchSpeakers(String query) async {
-    return localDB.localSpeakers
-        .where()
-        .filter()
-        .nameContains(query, caseSensitive: false)
-        .or()
-        .biographyContains(query, caseSensitive: false)
-        .or()
-        .taglineContains(query, caseSensitive: false)
-        .findAll();
-  }
-
-  Future<List<LocalSponsor>> searchSponsors(String query) async {
-    return localDB.localSponsors
-        .where()
-        .filter()
-        .nameContains(query, caseSensitive: false)
-        .or()
-        .taglineContains(query, caseSensitive: false)
-        .findAll();
-  }
-
-  Future<List<LocalOrganiser>> searchOrganisers(String query) async {
-    return localDB.localOrganisers
-        .where()
-        .filter()
-        .nameContains(query, caseSensitive: false)
-        .findAll();
-  }
-
   Future<Isar> init() async {
     final dir = await path_provider.getApplicationDocumentsDirectory();
     return Isar.open(
@@ -328,5 +288,43 @@ class DBRepository {
 
   Future<LocalSession?> getSession(int sessionId) async {
     return localDB.localSessions.where().serverIdEqualTo(sessionId).findFirst();
+  }
+
+  Future<List<LocalSession>> searchSessions(String query) async {
+    return localDB.localSessions
+        .where()
+        .filter()
+        .titleContains(query, caseSensitive: false)
+        .or()
+        .descriptionContains(query, caseSensitive: false)
+        .findAll();
+  }
+
+  Future<List<LocalSpeaker>> searchSpeakers(String query) async {
+    return localDB.localSpeakers
+        .where()
+        .filter()
+        .nameContains(query, caseSensitive: false)
+        .or()
+        .biographyContains(query, caseSensitive: false)
+        .or()
+        .taglineContains(query, caseSensitive: false)
+        .findAll();
+  }
+
+  Future<List<LocalIndividualOrganiser>> searchIndividualOrganisers(
+    String query,
+  ) async {
+    return localDB.localIndividualOrganisers
+        .where()
+        .filter()
+        .nameContains(query, caseSensitive: false)
+        .or()
+        .taglineContains(query, caseSensitive: false)
+        .or()
+        .bioContains(query, caseSensitive: false)
+        .or()
+        .designationContains(query, caseSensitive: false)
+        .findAll();
   }
 }

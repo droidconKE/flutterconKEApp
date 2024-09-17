@@ -1,14 +1,17 @@
 import 'dart:async';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttercon/common/data/enums/search_result_type.dart';
+import 'package:fluttercon/common/data/models/search_result.dart';
+import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/common/widgets/resolved_image.dart';
-import 'package:fluttercon/core/di/injectable.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:fluttercon/l10n/l10n.dart';
 import 'package:fluttercon/search/cubit/search_cubit.dart';
 import 'package:fluttercon/search/cubit/search_state.dart';
-import 'package:fluttercon/search/models/search_result.dart';
 import 'package:go_router/go_router.dart';
 
 class SearchBarWidget extends StatelessWidget {
@@ -16,10 +19,7 @@ class SearchBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<SearchCubit>(),
-      child: const SearchBarView(),
-    );
+    return const SearchBarView();
   }
 }
 
@@ -70,23 +70,25 @@ class _SearchBarViewState extends State<SearchBarView> {
   }
 
   Widget _buildSearchBar() {
+    final l10n = context.l10n;
+    final (_, colorScheme) = Misc.getTheme(context);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
+        color: colorScheme.surface,
         borderRadius: BorderRadius.circular(35),
         border: Border.all(color: ThemeColors.blueDroidconColor),
       ),
       child: Row(
         children: [
-          const Icon(Icons.search, color: ThemeColors.blueGreenDroidconColor),
+          Icon(Icons.search, color: colorScheme.primary),
           const SizedBox(width: 8),
           Expanded(
             child: TextField(
               controller: _searchController,
               decoration: InputDecoration(
-                hintText: 'Search sessions or speakers',
-                hintStyle: TextStyle(color: Theme.of(context).hintColor),
+                hintText: l10n.searchHint,
+                hintStyle: TextStyle(color: colorScheme.onSurfaceVariant),
                 border: InputBorder.none,
               ),
               onChanged: _onSearchChanged,
@@ -94,10 +96,7 @@ class _SearchBarViewState extends State<SearchBarView> {
           ),
           if (_searchController.text.isNotEmpty)
             IconButton(
-              icon: const Icon(
-                Icons.cancel,
-                color: ThemeColors.orangeDroidconColor,
-              ),
+              icon: Icon(Icons.cancel, color: colorScheme.error),
               onPressed: _clearSearch,
             ),
         ],
@@ -113,7 +112,7 @@ class _SearchBarViewState extends State<SearchBarView> {
           loading: () => const Center(child: CircularProgressIndicator()),
           loaded: _buildSearchResultsList,
           error: (message) => Center(
-            child: Text(
+            child: AutoSizeText(
               message,
               style: const TextStyle(color: ThemeColors.orangeDroidconColor),
             ),
@@ -124,8 +123,9 @@ class _SearchBarViewState extends State<SearchBarView> {
   }
 
   Widget _buildSearchResultsList(List<SearchResult> results) {
+    final l10n = context.l10n;
     if (results.isEmpty) {
-      return const Text('No results found');
+      return AutoSizeText(l10n.errorSearch);
     }
 
     return ListView.builder(
@@ -136,12 +136,13 @@ class _SearchBarViewState extends State<SearchBarView> {
   }
 
   Widget _buildSearchResultItem(SearchResult result) {
+    final (_, colorScheme) = Misc.getTheme(context);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
-          side: const BorderSide(color: ThemeColors.orangeDroidconColor),
+          side: BorderSide(color: colorScheme.primary),
         ),
         elevation: 4,
         child: ListTile(
@@ -153,17 +154,17 @@ class _SearchBarViewState extends State<SearchBarView> {
               child: ResolvedImage(imageUrl: result.imageUrl),
             ),
           ),
-          title: Text(
+          title: AutoSizeText(
             result.title,
-            style: const TextStyle(
-              color: ThemeColors.blueDroidconColor,
+            style: TextStyle(
+              color: colorScheme.primary,
               fontWeight: FontWeight.bold,
               fontSize: 14,
             ),
           ),
-          subtitle: Text(
+          subtitle: AutoSizeText(
             result.subtitle,
-            style: const TextStyle(color: ThemeColors.greyTextColor),
+            style: TextStyle(color: colorScheme.onSurfaceVariant),
           ),
           onTap: () => _handleResultTap(result),
         ),
@@ -176,23 +177,31 @@ class _SearchBarViewState extends State<SearchBarView> {
     switch (result.type) {
       case SearchResultType.session:
         if (result.session != null) {
-          context
-              .push(FlutterConRouter.sessionDetailsRoute, extra: result.session)
+          GoRouter.of(context)
+              .push(
+                FlutterConRouter.sessionDetailsRoute,
+                extra: result.session,
+              )
               .then((_) => _clearSearch());
         }
       case SearchResultType.speaker:
         if (result.speaker != null) {
-          context
+          GoRouter.of(context)
               .push(
-            FlutterConRouter.speakerDetailsRoute,
-            extra: result.speaker,
-          )
+                FlutterConRouter.speakerDetailsRoute,
+                extra: result.speaker,
+              )
               .then((_) => _clearSearch());
         }
-      case SearchResultType.sponsor:
-        break;
       case SearchResultType.organizer:
-        break;
+        if (result.organizer != null) {
+          GoRouter.of(context)
+              .push(
+                FlutterConRouter.organiserDetailsRoute,
+                extra: result.organizer,
+              )
+              .then((_) => _clearSearch());
+        }
     }
   }
 }
