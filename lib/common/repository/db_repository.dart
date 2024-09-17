@@ -281,4 +281,42 @@ class DBRepository {
   Future<LocalSession?> getSession(int sessionId) async {
     return localDB.localSessions.where().serverIdEqualTo(sessionId).findFirst();
   }
+
+  Future<List<LocalSession>> searchSessions(String query) async {
+    return localDB.localSessions
+        .where()
+        .filter()
+        .titleContains(query, caseSensitive: false)
+        .or()
+        .descriptionContains(query, caseSensitive: false)
+        .findAll();
+  }
+
+  Future<List<LocalSpeaker>> searchSpeakers(String query) async {
+    return localDB.localSpeakers
+        .where()
+        .filter()
+        .nameContains(query, caseSensitive: false)
+        .or()
+        .biographyContains(query, caseSensitive: false)
+        .or()
+        .taglineContains(query, caseSensitive: false)
+        .findAll();
+  }
+
+  Future<List<LocalIndividualOrganiser>> searchIndividualOrganisers(
+    String query,
+  ) async {
+    return localDB.localIndividualOrganisers
+        .where()
+        .filter()
+        .nameContains(query, caseSensitive: false)
+        .or()
+        .taglineContains(query, caseSensitive: false)
+        .or()
+        .bioContains(query, caseSensitive: false)
+        .or()
+        .designationContains(query, caseSensitive: false)
+        .findAll();
+  }
 }
