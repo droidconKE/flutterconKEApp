@@ -12,7 +12,7 @@ import 'package:fluttercon/search/models/search_result.dart';
 import 'package:go_router/go_router.dart';
 
 class SearchBarWidget extends StatelessWidget {
-  const SearchBarWidget({Key? key}) : super(key: key);
+  const SearchBarWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +24,10 @@ class SearchBarWidget extends StatelessWidget {
 }
 
 class SearchBarView extends StatefulWidget {
-  const SearchBarView({Key? key}) : super(key: key);
+  const SearchBarView({super.key});
 
   @override
-  _SearchBarViewState createState() => _SearchBarViewState();
+  State<SearchBarView> createState() => _SearchBarViewState();
 }
 
 class _SearchBarViewState extends State<SearchBarView> {
@@ -62,62 +62,68 @@ class _SearchBarViewState extends State<SearchBarView> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          decoration: BoxDecoration(
-            color: Theme.of(context).cardColor,
-            borderRadius: BorderRadius.circular(35),
-            border: Border.all(color: ThemeColors.blueDroidconColor),
-          ),
-          child: Row(
-            children: [
-              const Icon(Icons.search,
-                  color: ThemeColors.blueGreenDroidconColor),
-              const SizedBox(width: 8),
-              Expanded(
-                child: TextField(
-                  controller: _searchController,
-                  decoration: InputDecoration(
-                    hintText: 'Search sessions or speakers',
-                    hintStyle: TextStyle(color: Theme.of(context).hintColor),
-                    border: InputBorder.none,
-                  ),
-                  onChanged: _onSearchChanged,
-                ),
-              ),
-              if (_searchController.text.isNotEmpty)
-                IconButton(
-                  icon: const Icon(Icons.cancel,
-                      color: ThemeColors.orangeDroidconColor),
-                  onPressed: _clearSearch,
-                ),
-            ],
-          ),
-        ),
+        _buildSearchBar(),
         const SizedBox(height: 10),
-
-        // Search Results
-        BlocBuilder<SearchCubit, SearchState>(
-          builder: (context, state) {
-            return state.when(
-              initial: () => Container(),
-              loading: () => const Center(child: CircularProgressIndicator()),
-              loaded: (results) => _buildSearchResults(results),
-              error: (message) => Center(
-                child: Text(
-                  message,
-                  style:
-                      const TextStyle(color: ThemeColors.orangeDroidconColor),
-                ),
-              ),
-            );
-          },
-        ),
+        _buildSearchResults(),
       ],
     );
   }
 
-  Widget _buildSearchResults(List<SearchResult> results) {
+  Widget _buildSearchBar() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: BorderRadius.circular(35),
+        border: Border.all(color: ThemeColors.blueDroidconColor),
+      ),
+      child: Row(
+        children: [
+          const Icon(Icons.search, color: ThemeColors.blueGreenDroidconColor),
+          const SizedBox(width: 8),
+          Expanded(
+            child: TextField(
+              controller: _searchController,
+              decoration: InputDecoration(
+                hintText: 'Search sessions or speakers',
+                hintStyle: TextStyle(color: Theme.of(context).hintColor),
+                border: InputBorder.none,
+              ),
+              onChanged: _onSearchChanged,
+            ),
+          ),
+          if (_searchController.text.isNotEmpty)
+            IconButton(
+              icon: const Icon(
+                Icons.cancel,
+                color: ThemeColors.orangeDroidconColor,
+              ),
+              onPressed: _clearSearch,
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSearchResults() {
+    return BlocBuilder<SearchCubit, SearchState>(
+      builder: (context, state) {
+        return state.when(
+          initial: Container.new,
+          loading: () => const Center(child: CircularProgressIndicator()),
+          loaded: _buildSearchResultsList,
+          error: (message) => Center(
+            child: Text(
+              message,
+              style: const TextStyle(color: ThemeColors.orangeDroidconColor),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildSearchResultsList(List<SearchResult> results) {
     if (results.isEmpty) {
       return const Text('No results found');
     }
@@ -125,42 +131,43 @@ class _SearchBarViewState extends State<SearchBarView> {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: results.length,
-      itemBuilder: (context, index) {
-        final result = results[index];
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-              side: const BorderSide(color: ThemeColors.orangeDroidconColor),
-            ),
-            elevation: 4,
-            child: ListTile(
-              leading: SizedBox(
-                width: 48,
-                height: 48,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: ResolvedImage(imageUrl: result.imageUrl),
-                ),
-              ),
-              title: Text(
-                result.title,
-                style: const TextStyle(
-                  color: ThemeColors.blueDroidconColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
-              ),
-              subtitle: Text(
-                result.subtitle,
-                style: const TextStyle(color: ThemeColors.greyTextColor),
-              ),
-              onTap: () => _handleResultTap(result),
+      itemBuilder: (context, index) => _buildSearchResultItem(results[index]),
+    );
+  }
+
+  Widget _buildSearchResultItem(SearchResult result) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+          side: const BorderSide(color: ThemeColors.orangeDroidconColor),
+        ),
+        elevation: 4,
+        child: ListTile(
+          leading: SizedBox(
+            width: 48,
+            height: 48,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: ResolvedImage(imageUrl: result.imageUrl),
             ),
           ),
-        );
-      },
+          title: Text(
+            result.title,
+            style: const TextStyle(
+              color: ThemeColors.blueDroidconColor,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+          ),
+          subtitle: Text(
+            result.subtitle,
+            style: const TextStyle(color: ThemeColors.greyTextColor),
+          ),
+          onTap: () => _handleResultTap(result),
+        ),
+      ),
     );
   }
 
@@ -173,14 +180,15 @@ class _SearchBarViewState extends State<SearchBarView> {
               .push(FlutterConRouter.sessionDetailsRoute, extra: result.session)
               .then((_) => _clearSearch());
         }
-        break;
       case SearchResultType.speaker:
         if (result.speaker != null) {
           context
-              .push(FlutterConRouter.speakerDetailsRoute, extra: result.speaker)
+              .push(
+            FlutterConRouter.speakerDetailsRoute,
+            extra: result.speaker,
+          )
               .then((_) => _clearSearch());
         }
-        break;
       case SearchResultType.sponsor:
         break;
       case SearchResultType.organizer:
