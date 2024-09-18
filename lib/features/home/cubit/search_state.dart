@@ -1,5 +1,6 @@
 import 'package:fluttercon/common/data/models/search_result.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 part 'search_state.freezed.dart';
 
 @freezed

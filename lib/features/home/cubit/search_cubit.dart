@@ -3,7 +3,7 @@ import 'package:fluttercon/common/data/enums/search_result_type.dart';
 import 'package:fluttercon/common/data/models/failure.dart';
 import 'package:fluttercon/common/data/models/search_result.dart';
 import 'package:fluttercon/common/repository/db_repository.dart';
-import 'package:fluttercon/search/cubit/search_state.dart';
+import 'package:fluttercon/features/home/cubit/search_state.dart';
 
 class SearchCubit extends Cubit<SearchState> {
   SearchCubit({

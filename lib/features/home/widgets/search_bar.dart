@@ -9,9 +9,9 @@ import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/common/widgets/resolved_image.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:fluttercon/features/home/cubit/search_cubit.dart';
+import 'package:fluttercon/features/home/cubit/search_state.dart';
 import 'package:fluttercon/l10n/l10n.dart';
-import 'package:fluttercon/search/cubit/search_cubit.dart';
-import 'package:fluttercon/search/cubit/search_state.dart';
 import 'package:go_router/go_router.dart';
 
 class SearchBarWidget extends StatefulWidget {

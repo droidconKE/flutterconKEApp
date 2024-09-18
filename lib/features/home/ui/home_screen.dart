@@ -3,11 +3,11 @@ import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/widgets/app_bar/app_bar.dart';
 import 'package:fluttercon/features/home/widgets/organizers_card.dart';
+import 'package:fluttercon/features/home/widgets/search_bar.dart';
 import 'package:fluttercon/features/home/widgets/sessions_card.dart';
 import 'package:fluttercon/features/home/widgets/speaker_home_card.dart';
 import 'package:fluttercon/features/home/widgets/sponsors_card.dart';
 import 'package:fluttercon/l10n/l10n.dart';
-import 'package:fluttercon/search/ui/widgets/search_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, this.switchTab});
