@@ -25,7 +25,6 @@ class SearchCubit extends Cubit<SearchState> {
       final results = [
         ...sessions.map(
           (session) => SearchResult(
-            id: session.serverId.toString(),
             title: session.title,
             subtitle: 'Session',
             imageUrl: session.sessionImage,
@@ -35,7 +34,6 @@ class SearchCubit extends Cubit<SearchState> {
         ),
         ...speakers.map(
           (speaker) => SearchResult(
-            id: speaker.id.toString(),
             title: speaker.name,
             subtitle: speaker.tagline ?? '',
             imageUrl: speaker.avatar,
@@ -45,7 +43,6 @@ class SearchCubit extends Cubit<SearchState> {
         ),
         ...individualOrganizers.map(
           (organizer) => SearchResult(
-            id: organizer.id.toString(),
             title: organizer.name,
             subtitle: 'Organizer',
             imageUrl: organizer.photo,

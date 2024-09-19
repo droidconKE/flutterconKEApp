@@ -9,7 +9,6 @@ part 'search_result.freezed.dart';
 @freezed
 class SearchResult with _$SearchResult {
   const factory SearchResult({
-    required String id,
     required String title,
     required String subtitle,
     required String imageUrl,
