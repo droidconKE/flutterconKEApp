@@ -1081,10 +1081,10 @@ packages:
     dependency: "direct main"
     description:
       name: sizer
-      sha256: "3b8dee49425829d90365dc582336de24bdbb70f08c5e017d8fe1e9b2c1ceb957"
+      sha256: "4694472b5d64ac317a6dc4b00868822e38db802269ee791d1f486772deda56c7"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.3"
+    version: "3.0.4"
   sky_engine:
     dependency: transitive
     description: flutter
