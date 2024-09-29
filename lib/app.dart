@@ -26,7 +26,7 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveSizer(
+    return Sizer(
       builder: (context, orientation, deviceType) {
         return MaterialApp.router(
           themeMode: getIt<HiveRepository>().retrieveThemeMode(),
