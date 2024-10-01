@@ -51,7 +51,7 @@ dependencies:
   wolt_modal_sheet: ^0.9.3
 
 dev_dependencies:
-  build_runner: ^2.4.12
+  build_runner: ^2.4.13
   flutter_launcher_icons: ^0.14.1
   flutter_native_splash: ^2.4.1
   flutter_test:
