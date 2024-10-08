@@ -47,7 +47,7 @@ dependencies:
   sizer: ^3.0.4
   timeago: ^3.7.0
   timeline_tile: ^2.0.0
-  url_launcher: ^6.3.0
+  url_launcher: ^6.3.1
   wolt_modal_sheet: ^0.9.3
 
 dev_dependencies:
