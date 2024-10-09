@@ -43,7 +43,7 @@ dependencies:
   logger: ^2.4.0
   path_provider: ^2.1.4
   pretty_dio_logger: ^1.4.0
-  share_plus: ^10.0.2
+  share_plus: ^10.0.3
   sizer: ^3.0.4
   timeago: ^3.7.0
   timeline_tile: ^2.0.0
