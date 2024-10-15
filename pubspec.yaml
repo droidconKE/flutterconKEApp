@@ -10,7 +10,7 @@ dependencies:
   appinio_social_share: ^0.3.2
   auth_buttons: ^3.0.3
   auto_size_text: ^3.0.0
-  awesome_notifications: ^0.9.3+1
+  awesome_notifications: ^0.10.0
   bloc: ^8.1.4
   build_version: ^2.1.1
   cached_network_image: ^3.4.1
