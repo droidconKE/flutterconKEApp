@@ -10,7 +10,6 @@ class Session with _$Session {
   factory Session(
     int id,
     String title,
-    String description,
     String slug,
     @JsonKey(name: 'session_category') String sessionCategory,
     @JsonKey(name: 'session_format') String sessionFormat,
@@ -25,6 +24,7 @@ class Session with _$Session {
     @Default('https://via.placeholder.com/150')
     @JsonKey(name: 'session_image')
     String sessionImage,
+    @Default('') String description,
     @Default([]) List<Speaker> speakers,
     @Default([]) List<Room> rooms,
   }) = _Session;
