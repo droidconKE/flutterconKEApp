@@ -10,7 +10,7 @@ To get started with this project, you need to have Flutter installed on your mac
 
 1. Clone the application:
     ```bash
-    git clonegit@github.com:droidconKE/flutterconKEApp.git
+    git clone git@github.com:droidconKE/flutterconKEApp.git
     ```
 2. Ensure you have the latest version of Flutter installed:
     ```bash
