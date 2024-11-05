@@ -2,13 +2,17 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/data/enums/bookmark_status.dart';
+import 'package:fluttercon/common/repository/hive_repository.dart';
 import 'package:fluttercon/common/utils/misc.dart';
+import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/common/widgets/app_bar/app_bar.dart';
+import 'package:fluttercon/core/di/injectable.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/sessions/cubit/fetch_grouped_sessions_cubit.dart';
 import 'package:fluttercon/features/sessions/ui/widgets/day_sessions_view.dart';
 import 'package:fluttercon/features/sessions/ui/widgets/day_tab_view.dart';
 import 'package:fluttercon/l10n/l10n.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 
@@ -23,30 +27,14 @@ class _SessionsScreenState extends State<SessionsScreen>
     with SingleTickerProviderStateMixin {
   int _viewIndex = 0;
   int _currentTab = 0;
-  int _availableTabs = 3;
 
   bool _isBookmarked = false;
-
-  TabController? _tabController;
 
   @override
   void initState() {
     super.initState();
 
-    context.read<FetchGroupedSessionsCubit>().fetchGroupedSessions().then(
-          (_) {},
-        );
-
-    _tabController = TabController(
-      length: _availableTabs,
-      vsync: this,
-    );
-
-    _tabController?.addListener(() {
-      setState(() {
-        _currentTab = _tabController!.index;
-      });
-    });
+    context.read<FetchGroupedSessionsCubit>().fetchGroupedSessions();
   }
 
   @override
@@ -65,35 +53,24 @@ class _SessionsScreenState extends State<SessionsScreen>
           _viewIndex = 1;
         }),
       ),
-      body: DefaultTabController(
-        length: _availableTabs,
-        child: SafeArea(
-          child: NestedScrollView(
-            headerSliverBuilder: (context, innerBoxIsScrolled) => <Widget>[
-              SliverToBoxAdapter(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(
-                      flex: 8,
-                      child: BlocConsumer<FetchGroupedSessionsCubit,
-                          FetchGroupedSessionsState>(
-                        listener: (context, state) {
-                          state.mapOrNull(
-                            loaded: (loaded) {
-                              setState(() {
-                                _availableTabs = loaded.groupedSessions.length;
-                              });
-                            },
-                          );
-                        },
-                        builder: (context, state) => state.maybeWhen(
-                          orElse: () => const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
-                            child: CircularProgressIndicator(),
-                          ),
-                          loaded: (groupedSessions) => TabBar(
-                            controller: _tabController,
+      body: BlocBuilder<FetchGroupedSessionsCubit, FetchGroupedSessionsState>(
+        builder: (context, state) => state.maybeWhen(
+          orElse: () => const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: CircularProgressIndicator(),
+          ),
+          loaded: (groupedSessions) => DefaultTabController(
+            length: groupedSessions.length,
+            child: SafeArea(
+              child: NestedScrollView(
+                headerSliverBuilder: (context, innerBoxIsScrolled) => <Widget>[
+                  SliverToBoxAdapter(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          flex: 8,
+                          child: TabBar(
                             onTap: (value) => setState(() {
                               _currentTab = value;
                             }),
@@ -122,94 +99,100 @@ class _SessionsScreenState extends State<SessionsScreen>
                             ],
                           ),
                         ),
-                      ),
-                    ),
-                    Flexible(
-                      flex: 2,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 16),
-                        child: Column(
-                          children: [
-                            Switch(
-                              value: _isBookmarked,
-                              onChanged: (newValue) {
-                                setState(() {
-                                  _isBookmarked = newValue;
-                                });
+                        Flexible(
+                          flex: 2,
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 16),
+                            child: Column(
+                              children: [
+                                Switch(
+                                  value: _isBookmarked,
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      _isBookmarked = newValue;
+                                    });
 
-                                if (_isBookmarked) {
-                                  context
-                                      .read<FetchGroupedSessionsCubit>()
-                                      .fetchGroupedSessions(
-                                        bookmarkStatus:
-                                            BookmarkStatus.bookmarked,
-                                      );
-                                }
+                                    if (_isBookmarked) {
+                                      context
+                                          .read<FetchGroupedSessionsCubit>()
+                                          .fetchGroupedSessions(
+                                            bookmarkStatus:
+                                                BookmarkStatus.bookmarked,
+                                          );
+                                    }
 
-                                if (!_isBookmarked) {
-                                  context
-                                      .read<FetchGroupedSessionsCubit>()
-                                      .fetchGroupedSessions();
-                                }
-                              },
-                              trackOutlineWidth: WidgetStateProperty.all(1),
-                              trackColor: WidgetStateProperty.all(Colors.black),
-                              activeTrackColor: ThemeColors.orangeColor,
-                              activeColor: ThemeColors.orangeColor,
-                              thumbColor: WidgetStateProperty.all(Colors.white),
-                              thumbIcon: WidgetStateProperty.all(
-                                const Icon(Icons.star_border_rounded),
-                              ),
+                                    if (!_isBookmarked) {
+                                      context
+                                          .read<FetchGroupedSessionsCubit>()
+                                          .fetchGroupedSessions();
+                                    }
+                                  },
+                                  trackOutlineWidth: WidgetStateProperty.all(1),
+                                  trackColor:
+                                      WidgetStateProperty.all(Colors.black),
+                                  activeTrackColor: ThemeColors.orangeColor,
+                                  activeColor: ThemeColors.orangeColor,
+                                  thumbColor:
+                                      WidgetStateProperty.all(Colors.white),
+                                  thumbIcon: WidgetStateProperty.all(
+                                    const Icon(Icons.star_border_rounded),
+                                  ),
+                                ),
+                                AutoSizeText(
+                                  l10n.mySessions,
+                                  style: const TextStyle(
+                                    fontSize: 10,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
                             ),
-                            AutoSizeText(
-                              l10n.mySessions,
-                              style: const TextStyle(
-                                fontSize: 10,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                  child: Divider(color: Colors.grey),
-                ),
-              ),
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: AutoSizeText(
-                    _isBookmarked ? l10n.mySessions : l10n.allSessions,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: colorScheme.primary,
-                      fontSize: 24,
+                      ],
                     ),
                   ),
-                ),
-              ),
-            ],
-            body: BlocBuilder<FetchGroupedSessionsCubit,
-                FetchGroupedSessionsState>(
-              builder: (context, state) => state.maybeWhen(
-                orElse: () => const Center(child: CircularProgressIndicator()),
-                loaded: (groupedSessions) => TabBarView(
-                  controller: _tabController,
-                  children: groupedSessions.values
-                      .map(
-                        (dailySessions) => DaySessionsView(
-                          sessions: dailySessions,
-                          isCompactView: _viewIndex == 0,
+                  const SliverToBoxAdapter(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                      child: Divider(color: Colors.grey),
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: AutoSizeText(
+                        _isBookmarked ? l10n.mySessions : l10n.allSessions,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: colorScheme.primary,
+                          fontSize: 24,
                         ),
+                      ),
+                    ),
+                  ),
+                ],
+                body: groupedSessions.isNotEmpty
+                    ? TabBarView(
+                        physics: NeverScrollableScrollPhysics(),
+                        children: groupedSessions.values
+                            .map(
+                              (dailySessions) => DaySessionsView(
+                                sessions: dailySessions,
+                                isCompactView: _viewIndex == 0,
+                              ),
+                            )
+                            .toList(),
                       )
-                      .toList(),
-                ),
+                    : Center(
+                        child: Text(
+                          l10n.noSessions,
+                          style: TextStyle(
+                            color: colorScheme.onSurface,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
               ),
             ),
           ),

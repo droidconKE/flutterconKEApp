@@ -130,6 +130,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
               apiRepository: getIt(),
               dBRepository: getIt(),
               notificationService: getIt(),
+              hiveRepository: getIt(),
             ),
           ),
           BlocProvider<ShareFeedPostCubit>(

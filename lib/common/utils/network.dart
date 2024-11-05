@@ -35,15 +35,15 @@ class NetworkUtil {
       ),
     );
 
-    // dio.interceptors.add(
-    //   InterceptorsWrapper(
-    //     onRequest: (options, handler) async {
-    //       options.headers['Authorization'] =
-    //           'Bearer ${getIt<HiveRepository>().retrieveToken() ?? ''}';
-    //       return handler.next(options);
-    //     },
-    //   ),
-    // );
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) async {
+          options.headers['Authorization'] =
+              'Bearer ${getIt<HiveRepository>().retrieveToken() ?? ''}';
+          return handler.next(options);
+        },
+      ),
+    );
 
     if (kDebugMode) {
       dio.interceptors.add(

@@ -45,12 +45,12 @@ class FetchGroupedSessionsCubit extends Cubit<FetchGroupedSessionsState> {
         );
 
         emit(FetchGroupedSessionsState.loaded(groupedSessions: groupedEntries));
-        await _networkFetch();
+        // await _networkFetch();
         return;
       }
 
       if (!hasSessions || forceRefresh) {
-        await _networkFetch();
+        // await _networkFetch();
         final localSessions = await _dBRepository.fetchSessions(
           sessionLevel: sessionLevel,
           sessionType: sessionType,
