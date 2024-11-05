@@ -24,7 +24,7 @@ class _OrganizersCardState extends State<OrganizersCard> {
 
   @override
   Widget build(BuildContext context) {
-    final (_, colorScheme) = Misc.getTheme(context);
+    final (isLightMode, colorScheme) = Misc.getTheme(context);
     final size = MediaQuery.sizeOf(context);
     final l10n = context.l10n;
 
@@ -54,14 +54,24 @@ class _OrganizersCardState extends State<OrganizersCard> {
                 height: size.height * .2,
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) => SizedBox(
-                    width: size.width / 4,
+                  itemBuilder: (context, index) => Container(
+                    height: size.height * .2,
+                     padding: EdgeInsets.symmetric(horizontal: 8.w),
+                    decoration: BoxDecoration(
+                      color: isLightMode
+                          ? colorScheme.secondaryContainer
+                          : Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: isLightMode
+                            ? Colors.transparent
+                            : colorScheme.primary,
+                        width: 2,
+                      ),
+                    ),
                     child: ResolvedImage(imageUrl: organisers[index].logo),
                   ),
-                  separatorBuilder: (_, __) => SizedBox(
-                    width: 8.w,
-                  ),
+                  separatorBuilder: (_, __) => SizedBox(width: 4.w),
                   itemCount: organisers.length,
                 ),
               ),

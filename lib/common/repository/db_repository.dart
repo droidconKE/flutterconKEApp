@@ -125,6 +125,8 @@ class DBRepository {
         .where()
         .filter()
         .typeEqualTo(type.name)
+        .not()
+        .nameContains('Nairobi Gophers')
         .findAll();
   }
 
