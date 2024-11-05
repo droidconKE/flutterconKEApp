@@ -1,3 +1,4 @@
+import 'package:fluttercon/common/data/enums/sponsor_type.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'sponsor.freezed.dart';
@@ -9,7 +10,7 @@ class Sponsor with _$Sponsor {
     String name,
     String tagline,
     String link,
-    @JsonKey(name: 'sponsor_type') String sponsorType,
+    @JsonEnum() @JsonKey(name: 'sponsor_type') SponsorType sponsorType,
     String logo,
     @JsonKey(name: 'created_at') String createdAt,
   ) = _Sponsor;

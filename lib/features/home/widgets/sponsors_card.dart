@@ -52,7 +52,7 @@ class _SponsorsCardState extends State<SponsorsCard> {
                 final nonPlatinumSponsors = sponsors
                     .where(
                       (sponsor) =>
-                          SponsorType.fromValue(sponsor.sponsorType) !=
+                          sponsor.sponsorType !=
                           SponsorType.platinum,
                     )
                     .toList();
@@ -63,7 +63,7 @@ class _SponsorsCardState extends State<SponsorsCard> {
                       imageUrl: sponsors
                           .firstWhere(
                             (sponsor) =>
-                                SponsorType.fromValue(sponsor.sponsorType) ==
+                                sponsor.sponsorType ==
                                 SponsorType.platinum,
                           )
                           .logo,
