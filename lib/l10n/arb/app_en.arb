@@ -134,5 +134,9 @@
     "logoutLoading": "logging out...",
     "@logoutLoading": {},
     "confirmLogout": "yes, log out",
-    "@confirmLogout": {}
+    "@confirmLogout": {},
+    "noSessions": "No sessions found",
+    "@noSessions": {},
+    "noPosts": "No posts found",
+    "@noPosts": {}
 }

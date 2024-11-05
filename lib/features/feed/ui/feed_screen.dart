@@ -43,7 +43,7 @@ class _FeedScreenState extends State<FeedScreen> {
             loaded: (fetchedFeeds) => fetchedFeeds.isEmpty
                 ? Center(
                     child: Text(
-                      'No posts yet',
+                      l10n.noPosts,
                       style: TextStyle(
                         color: colorScheme.onSurface,
                         fontSize: 20,
