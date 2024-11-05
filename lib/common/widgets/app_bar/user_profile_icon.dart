@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttercon/common/repository/hive_repository.dart';
 import 'package:fluttercon/common/utils/env/flavor_config.dart';
 import 'package:fluttercon/common/utils/misc.dart';
+import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/common/widgets/app_bar/logout_dialog.dart';
 import 'package:fluttercon/core/di/injectable.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
@@ -26,6 +27,12 @@ class _UserProfileIconState extends State<UserProfileIcon> {
     final l10n = context.l10n;
     return InkWell(
       onTap: () {
+        final profile = getIt<HiveRepository>().retrieveUser();
+        if (profile == null) {
+          GoRouter.of(context).goNamed(FlutterConRouter.signInRoute);
+          return;
+        }
+
         WoltModalSheet.show<dynamic>(
           context: context,
           barrierDismissible: true,

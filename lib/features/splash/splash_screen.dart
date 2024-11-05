@@ -26,20 +26,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    final accessToken = getIt<HiveRepository>().retrieveToken();
-    Logger().d(accessToken);
-
-    if (accessToken == null) {
-      _redirectToPage(
-        context,
-        FlutterConRouter.signInRoute,
-      );
-    } else {
-      _redirectToPage(
-        context,
-        FlutterConRouter.dashboardRoute,
-      );
-    }
+    // Go directly to the landing page
+    _redirectToPage(
+      context,
+      FlutterConRouter.dashboardRoute,
+    );
 
     super.initState();
   }
