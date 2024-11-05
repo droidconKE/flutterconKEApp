@@ -1,8 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttercon/common/repository/hive_repository.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/common/widgets/bottom_nav/app_nav_icon.dart';
+import 'package:fluttercon/core/di/injectable.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
@@ -18,8 +20,15 @@ class FeedbackButton extends StatelessWidget {
     return selectedIndex == 0
         ? const SizedBox()
         : InkWell(
-            onTap: () =>
-                GoRouter.of(context).push(FlutterConRouter.feedbackRoute),
+            onTap: () {
+              final profile = getIt<HiveRepository>().retrieveUser();
+              if (profile == null) {
+                GoRouter.of(context).goNamed(FlutterConRouter.signInRoute);
+                return;
+              }
+
+              GoRouter.of(context).push(FlutterConRouter.feedbackRoute);
+            },
             child: Container(
               height: 30,
               width: 127,
