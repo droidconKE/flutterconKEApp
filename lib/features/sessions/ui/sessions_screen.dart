@@ -10,6 +10,7 @@ import 'package:fluttercon/features/sessions/ui/widgets/day_sessions_view.dart';
 import 'package:fluttercon/features/sessions/ui/widgets/day_tab_view.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 
 class SessionsScreen extends StatefulWidget {
   const SessionsScreen({super.key});
@@ -26,11 +27,26 @@ class _SessionsScreenState extends State<SessionsScreen>
 
   bool _isBookmarked = false;
 
+  TabController? _tabController;
+
   @override
   void initState() {
     super.initState();
 
-    context.read<FetchGroupedSessionsCubit>().fetchGroupedSessions();
+    context.read<FetchGroupedSessionsCubit>().fetchGroupedSessions().then(
+          (_) {},
+        );
+
+    _tabController = TabController(
+      length: _availableTabs,
+      vsync: this,
+    );
+
+    _tabController?.addListener(() {
+      setState(() {
+        _currentTab = _tabController!.index;
+      });
+    });
   }
 
   @override
@@ -77,6 +93,7 @@ class _SessionsScreenState extends State<SessionsScreen>
                             child: CircularProgressIndicator(),
                           ),
                           loaded: (groupedSessions) => TabBar(
+                            controller: _tabController,
                             onTap: (value) => setState(() {
                               _currentTab = value;
                             }),
@@ -183,6 +200,7 @@ class _SessionsScreenState extends State<SessionsScreen>
               builder: (context, state) => state.maybeWhen(
                 orElse: () => const Center(child: CircularProgressIndicator()),
                 loaded: (groupedSessions) => TabBarView(
+                  controller: _tabController,
                   children: groupedSessions.values
                       .map(
                         (dailySessions) => DaySessionsView(
