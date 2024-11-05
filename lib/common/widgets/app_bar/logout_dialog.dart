@@ -29,7 +29,7 @@ class _LogOutDialogState extends State<LogOutDialog> {
             loaded: () {
               GoRouter.of(context)
                 ..pop()
-                ..go(FlutterConRouter.signInRoute);
+                ..go(FlutterConRouter.decisionRoute);
             },
             orElse: () {},
           );
