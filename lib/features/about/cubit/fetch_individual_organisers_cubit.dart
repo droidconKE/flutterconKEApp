@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:fluttercon/common/data/enums/organiser_type.dart';
-import 'package:fluttercon/common/data/models/local/local_individual_organiser.dart';
 import 'package:fluttercon/common/data/models/local/local_organiser.dart';
 import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/common/repository/api_repository.dart';

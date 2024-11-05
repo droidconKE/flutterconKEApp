@@ -54,15 +54,16 @@ class _OrganizersCardState extends State<OrganizersCard> {
                 height: size.height * .2,
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) => SizedBox(
-                          width: size.width / 4,
-                          child: ResolvedImage(imageUrl: organisers[index].logo),
-                        ),
-                    separatorBuilder: (_, __) => SizedBox(
-                          width: 8.w,
-                        ),
-                    itemCount: organisers.length),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) => SizedBox(
+                    width: size.width / 4,
+                    child: ResolvedImage(imageUrl: organisers[index].logo),
+                  ),
+                  separatorBuilder: (_, __) => SizedBox(
+                    width: 8.w,
+                  ),
+                  itemCount: organisers.length,
+                ),
               ),
               error: (message) => AutoSizeText(
                 message,

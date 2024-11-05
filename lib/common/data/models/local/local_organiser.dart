@@ -14,10 +14,9 @@ class LocalOrganiser {
   });
 
   Id id = Isar.autoIncrement;
-  
+
   late String logo;
   @Index(unique: true, replace: true)
-  
   late String name;
   late String type;
   @Enumerated(EnumType.name)
