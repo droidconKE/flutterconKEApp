@@ -1,6 +1,6 @@
 import 'package:fluttercon/common/data/enums/bookmark_status.dart';
+import 'package:fluttercon/common/data/enums/organiser_type.dart';
 import 'package:fluttercon/common/data/models/feed.dart';
-import 'package:fluttercon/common/data/models/individual_organiser.dart';
 import 'package:fluttercon/common/data/models/local/local_feed.dart';
 import 'package:fluttercon/common/data/models/local/local_individual_organiser.dart';
 import 'package:fluttercon/common/data/models/local/local_organiser.dart';
@@ -105,8 +105,11 @@ class DBRepository {
         localOrganisers.add(
           LocalOrganiser(
             name: organiser.name,
-            serverId: organiser.id,
             logo: organiser.logo,
+            tagline: organiser.tagline,
+            type: organiser.type,
+            bio: organiser.bio,
+            designation: organiser.designation,
           ),
         );
       }
@@ -115,37 +118,16 @@ class DBRepository {
     });
   }
 
-  Future<List<LocalOrganiser>> fetchOrganisers() async {
-    return localDB.localOrganisers.where().findAll();
-  }
-
-  Future<void> persistIndividualOrganisers({
-    required List<IndividualOrganiser> organisers,
+  Future<List<LocalOrganiser>> fetchOrganisers({
+    required OrganiserType type,
   }) async {
-    await localDB.writeTxn(() async {
-      final localIndividualOrganisers = <LocalIndividualOrganiser>[];
-
-      for (final organiser in organisers) {
-        localIndividualOrganisers.add(
-          LocalIndividualOrganiser(
-            name: organiser.name,
-            tagline: organiser.tagline,
-            link: organiser.link,
-            type: organiser.type,
-            bio: organiser.bio,
-            designation: organiser.designation,
-            photo: organiser.photo,
-            twitterHandle: organiser.twitterHandle,
-          ),
-        );
-      }
-
-      await localDB.localIndividualOrganisers.putAll(localIndividualOrganisers);
-    });
-  }
-
-  Future<List<LocalIndividualOrganiser>> fetchIndividualOrganisers() async {
-    return localDB.localIndividualOrganisers.where().findAll();
+    return localDB.localOrganisers
+        .where()
+        .filter()
+        .typeEqualTo(type.name)
+        .not()
+        .nameContains('Nairobi Gophers')
+        .findAll();
   }
 
   Future<void> persistSponsors({

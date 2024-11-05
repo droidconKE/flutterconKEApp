@@ -35,7 +35,7 @@ class _OrganisingTeamViewState extends State<OrganisingTeamView> {
             mainAxisExtent: size.width > 600 ? 200 : 140,
           ),
           itemBuilder: (context, index) => PersonnelWidget(
-            imageUrl: individualOrganisers[index].photo,
+            imageUrl: individualOrganisers[index].logo,
             name: individualOrganisers[index].name,
             designation: individualOrganisers[index].designation,
             onTap: () => GoRouter.of(context).push(

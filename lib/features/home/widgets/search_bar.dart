@@ -77,6 +77,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           Expanded(
             child: TextField(
               controller: _searchController,
+              style: TextStyle(color: colorScheme.onSurface),
               decoration: InputDecoration(
                 hintText: l10n.searchHint,
                 hintStyle: TextStyle(color: colorScheme.onSurfaceVariant),

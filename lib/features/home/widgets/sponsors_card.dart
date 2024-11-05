@@ -6,6 +6,7 @@ import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/widgets/resolved_image.dart';
 import 'package:fluttercon/features/home/cubit/fetch_sponsors_cubit.dart';
 import 'package:fluttercon/l10n/l10n.dart';
+import 'package:sizer/sizer.dart';
 
 class SponsorsCard extends StatefulWidget {
   const SponsorsCard({super.key});
@@ -25,7 +26,7 @@ class _SponsorsCardState extends State<SponsorsCard> {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
     final l10n = context.l10n;
-    final (_, colorScheme) = Misc.getTheme(context);
+    final (isLightMode, colorScheme) = Misc.getTheme(context);
 
     return Container(
       width: double.infinity,
@@ -51,22 +52,33 @@ class _SponsorsCardState extends State<SponsorsCard> {
               loaded: (sponsors) {
                 final nonPlatinumSponsors = sponsors
                     .where(
-                      (sponsor) =>
-                          SponsorType.fromValue(sponsor.sponsorType) !=
-                          SponsorType.platinum,
+                      (sponsor) => sponsor.sponsorType != SponsorType.gold,
                     )
                     .toList();
                 return Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    ResolvedImage(
-                      imageUrl: sponsors
-                          .firstWhere(
-                            (sponsor) =>
-                                SponsorType.fromValue(sponsor.sponsorType) ==
-                                SponsorType.platinum,
-                          )
-                          .logo,
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 8.w),
+                      decoration: BoxDecoration(
+                        color: isLightMode
+                            ? colorScheme.secondaryContainer
+                            : Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: isLightMode
+                              ? Colors.transparent
+                              : colorScheme.primary,
+                          width: 2,
+                        ),
+                      ),
+                      child: ResolvedImage(
+                        imageUrl: sponsors
+                            .firstWhere(
+                              (sponsor) =>
+                                  sponsor.sponsorType == SponsorType.gold,
+                            )
+                            .logo,
+                      ),
                     ),
                     const SizedBox(height: 16),
                     SizedBox(
@@ -75,10 +87,25 @@ class _SponsorsCardState extends State<SponsorsCard> {
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         itemCount: nonPlatinumSponsors.length,
-                        itemBuilder: (context, index) => SizedBox(
-                          width: size.width / 4,
-                          child: ResolvedImage(
-                            imageUrl: nonPlatinumSponsors[index].logo,
+                        itemBuilder: (context, index) => Container(
+                          padding: EdgeInsets.symmetric(horizontal: 8.w),
+                          decoration: BoxDecoration(
+                            color: isLightMode
+                                ? colorScheme.secondaryContainer
+                                : Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color: isLightMode
+                                  ? Colors.transparent
+                                  : colorScheme.primary,
+                              width: 2,
+                            ),
+                          ),
+                          child: SizedBox(
+                            width: size.width / 4,
+                            child: ResolvedImage(
+                              imageUrl: nonPlatinumSponsors[index].logo,
+                            ),
                           ),
                         ),
                       ),

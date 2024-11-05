@@ -86,7 +86,6 @@ class AuthRepository {
   Future<void> logOut() async {
     try {
       await _googleSignIn.signOut();
-      await _networkUtil.postReq('/logout');
     } catch (e) {
       rethrow;
     }

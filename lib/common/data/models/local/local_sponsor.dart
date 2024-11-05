@@ -1,3 +1,4 @@
+import 'package:fluttercon/common/data/enums/sponsor_type.dart';
 import 'package:isar/isar.dart';
 
 part 'local_sponsor.g.dart';
@@ -18,7 +19,8 @@ class LocalSponsor {
   late String name;
   late String tagline;
   late String link;
-  late String sponsorType;
+  @Enumerated(EnumType.name)
+  late SponsorType sponsorType;
   late String logo;
   late String createdAt;
 }

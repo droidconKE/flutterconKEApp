@@ -128,6 +128,11 @@ class CompactViewCard extends StatelessWidget {
                   ),
                 );
               },
+              error: (error) => ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: AutoSizeText(error.message),
+                ),
+              ),
             );
           },
           builder: (context, state) {

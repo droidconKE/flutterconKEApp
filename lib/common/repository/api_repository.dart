@@ -1,6 +1,5 @@
 import 'package:fluttercon/common/data/models/feed.dart';
 import 'package:fluttercon/common/data/models/feedback_dto.dart';
-import 'package:fluttercon/common/data/models/individual_organiser.dart';
 import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/common/data/models/sponsor.dart';
 import 'package:fluttercon/common/utils/env/flavor_config.dart';
@@ -12,6 +11,7 @@ class ApiRepository {
   final _networkUtil = NetworkUtil();
 
   final _eventSlug = FlutterConConfig.instance!.values.eventSlug;
+  final _organiserSlug = FlutterConConfig.instance!.values.organiserSlug;
 
   Future<List<Speaker>> fetchSpeakers({
     int perPage = 100,
@@ -79,7 +79,7 @@ class ApiRepository {
   }) async {
     try {
       final response = await _networkUtil.getReq(
-        '/organizers',
+        '/organizers/$_organiserSlug/team',
         queryParameters: {'per_page': perPage, 'page': page},
       );
 
@@ -100,26 +100,6 @@ class ApiRepository {
       );
 
       return SponsorResponse.fromJson(response).data;
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  Future<List<IndividualOrganiser>> fetchIndividualOrganisers({
-    int perPage = 20,
-    int page = 1,
-  }) async {
-    try {
-      final response = await _networkUtil.getReq(
-        '/organizers/droidcon-ke-645/team',
-        queryParameters: {
-          'per_page': perPage,
-          'page': page,
-          'type': 'individual',
-        },
-      );
-
-      return IndividualOrganiserResponse.fromJson(response).data;
     } catch (e) {
       rethrow;
     }
