@@ -54,6 +54,7 @@ class HiveRepository {
   }
 
   ThemeMode retrieveThemeMode() {
+    return ThemeMode.dark;
     final themeMode =
         Hive.box<dynamic>(FlutterConConfig.instance!.values.hiveBox)
             .get('themeMode') as String?;

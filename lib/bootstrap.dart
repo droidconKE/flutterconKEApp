@@ -86,6 +86,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
             create: (_) => LogOutCubit(
               authRepository: getIt(),
               hiveRepository: getIt(),
+              dbRepository: getIt(),
             ),
           ),
           BlocProvider<FetchFeedCubit>(
