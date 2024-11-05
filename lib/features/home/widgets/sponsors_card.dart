@@ -51,20 +51,16 @@ class _SponsorsCardState extends State<SponsorsCard> {
               loaded: (sponsors) {
                 final nonPlatinumSponsors = sponsors
                     .where(
-                      (sponsor) =>
-                          sponsor.sponsorType !=
-                          SponsorType.platinum,
+                      (sponsor) => sponsor.sponsorType != SponsorType.gold,
                     )
                     .toList();
                 return Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     ResolvedImage(
                       imageUrl: sponsors
                           .firstWhere(
                             (sponsor) =>
-                                sponsor.sponsorType ==
-                                SponsorType.platinum,
+                                sponsor.sponsorType == SponsorType.gold,
                           )
                           .logo,
                     ),
