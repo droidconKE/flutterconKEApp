@@ -81,7 +81,6 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
               decoration: InputDecoration(
                 hintText: l10n.searchHint,
                 hintStyle: TextStyle(color: colorScheme.onSurfaceVariant),
-                
                 border: InputBorder.none,
               ),
               onChanged: _onSearchChanged,

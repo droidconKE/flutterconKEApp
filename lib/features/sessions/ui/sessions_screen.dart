@@ -2,19 +2,14 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/data/enums/bookmark_status.dart';
-import 'package:fluttercon/common/repository/hive_repository.dart';
 import 'package:fluttercon/common/utils/misc.dart';
-import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/common/widgets/app_bar/app_bar.dart';
-import 'package:fluttercon/core/di/injectable.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/sessions/cubit/fetch_grouped_sessions_cubit.dart';
 import 'package:fluttercon/features/sessions/ui/widgets/day_sessions_view.dart';
 import 'package:fluttercon/features/sessions/ui/widgets/day_tab_view.dart';
 import 'package:fluttercon/l10n/l10n.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:logger/logger.dart';
 
 class SessionsScreen extends StatefulWidget {
   const SessionsScreen({super.key});
@@ -174,7 +169,7 @@ class _SessionsScreenState extends State<SessionsScreen>
                 ],
                 body: groupedSessions.isNotEmpty
                     ? TabBarView(
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         children: groupedSessions.values
                             .map(
                               (dailySessions) => DaySessionsView(

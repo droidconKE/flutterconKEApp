@@ -58,15 +58,19 @@ class _SponsorsCardState extends State<SponsorsCard> {
                 return Column(
                   children: [
                     Container(
-                       padding: EdgeInsets.symmetric(horizontal: 8.w),
+                      padding: EdgeInsets.symmetric(horizontal: 8.w),
                       decoration: BoxDecoration(
-                      color: isLightMode ? colorScheme.secondaryContainer : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color:isLightMode ? Colors.transparent : colorScheme.primary,
-                        width: 2,
+                        color: isLightMode
+                            ? colorScheme.secondaryContainer
+                            : Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: isLightMode
+                              ? Colors.transparent
+                              : colorScheme.primary,
+                          width: 2,
+                        ),
                       ),
-                    ),
                       child: ResolvedImage(
                         imageUrl: sponsors
                             .firstWhere(
@@ -86,13 +90,17 @@ class _SponsorsCardState extends State<SponsorsCard> {
                         itemBuilder: (context, index) => Container(
                           padding: EdgeInsets.symmetric(horizontal: 8.w),
                           decoration: BoxDecoration(
-                     color: isLightMode ? colorScheme.secondaryContainer : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: isLightMode ? Colors.transparent : colorScheme.primary,
-                        width: 2,
-                      ),
-                    ),
+                            color: isLightMode
+                                ? colorScheme.secondaryContainer
+                                : Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color: isLightMode
+                                  ? Colors.transparent
+                                  : colorScheme.primary,
+                              width: 2,
+                            ),
+                          ),
                           child: SizedBox(
                             width: size.width / 4,
                             child: ResolvedImage(

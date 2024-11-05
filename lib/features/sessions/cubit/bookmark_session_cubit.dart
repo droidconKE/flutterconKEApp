@@ -66,10 +66,9 @@ class BookmarkSessionCubit extends Cubit<BookmarkSessionState> {
           status: bookmarkStatus,
         ),
       );
-    } on Failure catch(e) {
+    } on Failure catch (e) {
       emit(BookmarkSessionState.error(e.message));
-    }
-     catch (e) {
+    } catch (e) {
       emit(BookmarkSessionState.error(e.toString()));
     }
   }

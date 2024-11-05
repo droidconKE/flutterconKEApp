@@ -81,7 +81,8 @@ class _FeedScreenState extends State<FeedScreen> {
                                   height: 100,
                                   width: double.infinity,
                                   child: Center(
-                                      child: CircularProgressIndicator()),
+                                    child: CircularProgressIndicator(),
+                                  ),
                                 ),
                                 errorWidget: (_, __, ___) => const SizedBox(
                                   height: 100,

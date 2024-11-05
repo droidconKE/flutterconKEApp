@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fluttercon/common/repository/hive_repository.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/utils/router.dart';
-import 'package:fluttercon/core/di/injectable.dart';
 import 'package:go_router/go_router.dart';
-import 'package:logger/logger.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

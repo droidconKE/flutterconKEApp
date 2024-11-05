@@ -56,7 +56,7 @@ class _OrganizersCardState extends State<OrganizersCard> {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) => Container(
                     height: size.height * .2,
-                     padding: EdgeInsets.symmetric(horizontal: 8.w),
+                    padding: EdgeInsets.symmetric(horizontal: 8.w),
                     decoration: BoxDecoration(
                       color: isLightMode
                           ? colorScheme.secondaryContainer
