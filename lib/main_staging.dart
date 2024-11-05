@@ -18,6 +18,7 @@ Future<void> main() async {
       urlScheme: 'https',
       hiveBox: 'fluttercon-stg',
       eventSlug: 'flutterconke24-252',
+       organiserSlug: 'flutterconke-571',
     ),
   );
 

@@ -6,8 +6,7 @@ part 'organisers.freezed.dart';
 @freezed
 class Organiser with _$Organiser {
   factory Organiser({
-    required int id,
-    required String logo,
+    @JsonKey(name: 'photo') required String logo,
     required String name,
   }) = _Organiser;
 

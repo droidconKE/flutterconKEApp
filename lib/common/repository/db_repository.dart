@@ -105,7 +105,6 @@ class DBRepository {
         localOrganisers.add(
           LocalOrganiser(
             name: organiser.name,
-            serverId: organiser.id,
             logo: organiser.logo,
           ),
         );

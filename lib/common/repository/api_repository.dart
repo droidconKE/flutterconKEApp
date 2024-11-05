@@ -12,6 +12,7 @@ class ApiRepository {
   final _networkUtil = NetworkUtil();
 
   final _eventSlug = FlutterConConfig.instance!.values.eventSlug;
+  final _organiserSlug = FlutterConConfig.instance!.values.organiserSlug;
 
   Future<List<Speaker>> fetchSpeakers({
     int perPage = 100,
@@ -79,7 +80,7 @@ class ApiRepository {
   }) async {
     try {
       final response = await _networkUtil.getReq(
-        '/organizers',
+        '/organizers/$_organiserSlug/team',
         queryParameters: {'per_page': perPage, 'page': page},
       );
 

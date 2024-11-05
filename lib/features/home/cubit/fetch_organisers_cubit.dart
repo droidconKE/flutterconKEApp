@@ -21,7 +21,7 @@ class FetchOrganisersCubit extends Cubit<FetchOrganisersState> {
   late DBRepository _dBRepository;
 
   Future<void> fetchOrganisers({
-    bool forceRefresh = false,
+    bool forceRefresh = true,
   }) async {
     emit(const FetchOrganisersState.loading());
     try {
