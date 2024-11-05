@@ -11,6 +11,7 @@ class Organiser with _$Organiser {
   @JsonEnum()  required String type,
     required String tagline,
     required String bio,
+    required String designation,
   }) = _Organiser;
 
   factory Organiser.fromJson(Map<String, Object?> json) =>

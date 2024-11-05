@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:fluttercon/common/data/enums/organiser_type.dart';
 import 'package:fluttercon/common/data/models/local/local_individual_organiser.dart';
+import 'package:fluttercon/common/data/models/local/local_organiser.dart';
 import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/common/repository/api_repository.dart';
 import 'package:fluttercon/common/repository/db_repository.dart';
@@ -27,8 +29,9 @@ class FetchIndividualOrganisersCubit
     emit(const FetchIndividualOrganisersState.loading());
 
     try {
-      final localIndividualOrganisers =
-          await _dBRepository.fetchIndividualOrganisers();
+      final localIndividualOrganisers = await _dBRepository.fetchOrganisers(
+        type: OrganiserType.individual,
+      );
 
       if (localIndividualOrganisers.isNotEmpty && !forceRefresh) {
         emit(
@@ -42,8 +45,9 @@ class FetchIndividualOrganisersCubit
 
       if (localIndividualOrganisers.isEmpty || forceRefresh) {
         await _networkFetch();
-        final localIndividualOrganisers =
-            await _dBRepository.fetchIndividualOrganisers();
+        final localIndividualOrganisers = await _dBRepository.fetchOrganisers(
+          type: OrganiserType.individual,
+        );
         emit(
           FetchIndividualOrganisersState.loaded(
             individualOrganisers: localIndividualOrganisers,
@@ -59,9 +63,8 @@ class FetchIndividualOrganisersCubit
   }
 
   Future<void> _networkFetch() async {
-    final individualOrganisers =
-        await _apiRepository.fetchIndividualOrganisers();
-    await _dBRepository.persistIndividualOrganisers(
+    final individualOrganisers = await _apiRepository.fetchOrganisers();
+    await _dBRepository.persistOrganisers(
       organisers: individualOrganisers,
     );
   }

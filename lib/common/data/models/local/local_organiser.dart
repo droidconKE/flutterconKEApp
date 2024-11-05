@@ -10,6 +10,7 @@ class LocalOrganiser {
     required this.type,
     required this.tagline,
     required this.bio,
+    required this.designation,
   });
 
   Id id = Isar.autoIncrement;
@@ -22,4 +23,5 @@ class LocalOrganiser {
   @Enumerated(EnumType.name)
   late String tagline;
   late String bio;
+  late String designation;
 }

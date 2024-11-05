@@ -1,7 +1,6 @@
 import 'package:fluttercon/common/data/enums/bookmark_status.dart';
 import 'package:fluttercon/common/data/enums/organiser_type.dart';
 import 'package:fluttercon/common/data/models/feed.dart';
-import 'package:fluttercon/common/data/models/individual_organiser.dart';
 import 'package:fluttercon/common/data/models/local/local_feed.dart';
 import 'package:fluttercon/common/data/models/local/local_individual_organiser.dart';
 import 'package:fluttercon/common/data/models/local/local_organiser.dart';
@@ -110,6 +109,7 @@ class DBRepository {
             tagline: organiser.tagline,
             type: organiser.type,
             bio: organiser.bio,
+            designation: organiser.designation,
           ),
         );
       }
@@ -126,35 +126,6 @@ class DBRepository {
         .filter()
         .typeEqualTo(type.name)
         .findAll();
-  }
-
-  Future<void> persistIndividualOrganisers({
-    required List<IndividualOrganiser> organisers,
-  }) async {
-    await localDB.writeTxn(() async {
-      final localIndividualOrganisers = <LocalIndividualOrganiser>[];
-
-      for (final organiser in organisers) {
-        localIndividualOrganisers.add(
-          LocalIndividualOrganiser(
-            name: organiser.name,
-            tagline: organiser.tagline,
-            link: organiser.link,
-            type: organiser.type,
-            bio: organiser.bio,
-            designation: organiser.designation,
-            photo: organiser.photo,
-            twitterHandle: organiser.twitterHandle,
-          ),
-        );
-      }
-
-      await localDB.localIndividualOrganisers.putAll(localIndividualOrganisers);
-    });
-  }
-
-  Future<List<LocalIndividualOrganiser>> fetchIndividualOrganisers() async {
-    return localDB.localIndividualOrganisers.where().findAll();
   }
 
   Future<void> persistSponsors({
