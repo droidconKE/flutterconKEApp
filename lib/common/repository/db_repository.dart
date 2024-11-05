@@ -1,4 +1,5 @@
 import 'package:fluttercon/common/data/enums/bookmark_status.dart';
+import 'package:fluttercon/common/data/enums/organiser_type.dart';
 import 'package:fluttercon/common/data/models/feed.dart';
 import 'package:fluttercon/common/data/models/individual_organiser.dart';
 import 'package:fluttercon/common/data/models/local/local_feed.dart';
@@ -106,6 +107,9 @@ class DBRepository {
           LocalOrganiser(
             name: organiser.name,
             logo: organiser.logo,
+            tagline: organiser.tagline,
+            type: organiser.type,
+            bio: organiser.bio,
           ),
         );
       }
@@ -114,8 +118,14 @@ class DBRepository {
     });
   }
 
-  Future<List<LocalOrganiser>> fetchOrganisers() async {
-    return localDB.localOrganisers.where().findAll();
+  Future<List<LocalOrganiser>> fetchOrganisers({
+    required OrganiserType type,
+  }) async {
+    return localDB.localOrganisers
+        .where()
+        .filter()
+        .typeEqualTo(type.name)
+        .findAll();
   }
 
   Future<void> persistIndividualOrganisers({

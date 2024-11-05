@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttercon/common/data/enums/organiser_type.dart';
 import 'package:fluttercon/common/data/models/local/local_organiser.dart';
 import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/common/repository/api_repository.dart';
@@ -25,7 +26,9 @@ class FetchOrganisersCubit extends Cubit<FetchOrganisersState> {
   }) async {
     emit(const FetchOrganisersState.loading());
     try {
-      final localOrganisers = await _dBRepository.fetchOrganisers();
+      final localOrganisers = await _dBRepository.fetchOrganisers(
+        type: OrganiserType.company,
+      );
       if (localOrganisers.isNotEmpty && !forceRefresh) {
         emit(FetchOrganisersState.loaded(organisers: localOrganisers));
         await _networkFetch();
@@ -34,7 +37,9 @@ class FetchOrganisersCubit extends Cubit<FetchOrganisersState> {
 
       if (localOrganisers.isEmpty || forceRefresh) {
         await _networkFetch();
-        final localOrganisers = await _dBRepository.fetchOrganisers();
+        final localOrganisers = await _dBRepository.fetchOrganisers(
+          type: OrganiserType.company,
+        );
         emit(FetchOrganisersState.loaded(organisers: localOrganisers));
         return;
       }

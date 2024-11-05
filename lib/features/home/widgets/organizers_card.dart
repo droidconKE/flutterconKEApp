@@ -5,6 +5,7 @@ import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/widgets/resolved_image.dart';
 import 'package:fluttercon/features/home/cubit/fetch_organisers_cubit.dart';
 import 'package:fluttercon/l10n/l10n.dart';
+import 'package:sizer/sizer.dart';
 
 class OrganizersCard extends StatefulWidget {
   const OrganizersCard({super.key});
@@ -49,15 +50,19 @@ class _OrganizersCardState extends State<OrganizersCard> {
           const Spacer(),
           BlocBuilder<FetchOrganisersCubit, FetchOrganisersState>(
             builder: (context, state) => state.maybeWhen(
-              loaded: (organisers) => Wrap(
-                spacing: 10,
-                children: [
-                  for (final organiser in organisers)
-                    SizedBox(
-                      width: size.width / 4,
-                      child: ResolvedImage(imageUrl: organiser.logo),
-                    ),
-                ],
+              loaded: (organisers) => SizedBox(
+                height: size.height * .2,
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) => SizedBox(
+                          width: size.width / 4,
+                          child: ResolvedImage(imageUrl: organisers[index].logo),
+                        ),
+                    separatorBuilder: (_, __) => SizedBox(
+                          width: 8.w,
+                        ),
+                    itemCount: organisers.length),
               ),
               error: (message) => AutoSizeText(
                 message,
