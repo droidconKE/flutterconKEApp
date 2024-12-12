@@ -48,7 +48,7 @@ dependencies:
   timeago: ^3.7.0
   timeline_tile: ^2.0.0
   url_launcher: ^6.3.1
-  wolt_modal_sheet: ^0.9.3
+  wolt_modal_sheet: ^0.9.4
 
 dev_dependencies:
   build_runner: ^2.4.13
