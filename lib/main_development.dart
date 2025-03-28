@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttercon/app.dart';
 import 'package:fluttercon/bootstrap.dart';
 import 'package:fluttercon/common/utils/env/flavor_config.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +22,6 @@ Future<void> main() async {
       organiserSlug: 'flutterconke-571',
     ),
   );
-
+  tz.initializeTimeZones();
   await bootstrap(() => const MyApp());
 }

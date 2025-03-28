@@ -1,4 +1,3 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttercon/common/repository/hive_repository.dart';
 import 'package:fluttercon/common/utils/notification_service.dart';
@@ -19,9 +18,8 @@ class MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    AwesomeNotifications().setListeners(
-      onActionReceivedMethod: NotificationService.onActionReceivedMethod,
-    );
+    getIt<NotificationService>().initNotifications();
+    getIt<NotificationService>().requestPermission();
   }
 
   @override
