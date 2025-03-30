@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:fluttercon/common/data/models/local/local_session.dart';
@@ -48,8 +49,16 @@ class NotificationService {
   }
 
   Future<void> requestPermission() async {
-    // Android does not require explicit permission for notifications.
-    // Permissions can be handled for iOS if needed.
+    // Android 13+ permission check
+    if (Platform.isAndroid) {
+      final granted = await _notificationsPlugin
+          .resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin>()
+          ?.requestNotificationsPermission();
+      Logger().i('Android notification permission granted: $granted');
+    }
+
+    // Handle ios permissions
     await _notificationsPlugin
         .resolvePlatformSpecificImplementation<
             IOSFlutterLocalNotificationsPlugin>()
