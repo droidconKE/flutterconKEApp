@@ -67,7 +67,7 @@ class _SessionsCardState extends State<SessionsCard> {
                       color: (isLightMode
                               ? ThemeColors.blueColor
                               : ThemeColors.lightGrayColor)
-                          .withValues(alpha:.11),
+                          .withValues(alpha: .11),
                       borderRadius: BorderRadius.circular(50),
                     ),
                     padding:

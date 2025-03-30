@@ -190,7 +190,7 @@ class SessionDetailsPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            Divider(color: Colors.grey.withValues(alpha:.5)),
+            Divider(color: Colors.grey.withValues(alpha: .5)),
             const SizedBox(height: 16),
             if (session.rooms.isNotEmpty)
               AutoSizeText(
@@ -211,7 +211,7 @@ class SessionDetailsPage extends StatelessWidget {
               labelStyle: TextStyle(color: colorScheme.surface),
             ),
             const SizedBox(height: 16),
-            Divider(color: Colors.grey.withValues(alpha:.5)),
+            Divider(color: Colors.grey.withValues(alpha: .5)),
             const SizedBox(height: 16),
             if (session.speakers
                 .where((speaker) => speaker.twitter != null)
