@@ -1,4 +1,3 @@
-import 'package:fluttercon/common/utils/notification_service.dart';
 import 'package:fluttercon/core/di/injectable.config.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
@@ -17,7 +16,4 @@ Future<void> configureDependencies() async {
 }
 
 @module
-abstract class RegisterModule {
-  @lazySingleton
-  NotificationService get notificationService => NotificationService();
-}
+abstract class RegisterModule {}
