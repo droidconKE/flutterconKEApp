@@ -294,6 +294,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.8"
+  dartx:
+    dependency: transitive
+    description:
+      name: dartx
+      sha256: "8b25435617027257d43e6508b5fe061012880ddfdaa75a71d607c3de2a13d244"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
   dbus:
     dependency: transitive
     description:
@@ -774,10 +782,26 @@ packages:
     dependency: "direct main"
     description:
       name: isar
-      sha256: "99165dadb2cf2329d3140198363a7e7bff9bbd441871898a87e26914d25cf1ea"
-      url: "https://pub.dev"
+      sha256: e17a9555bc7f22ff26568b8c64d019b4ffa2dc6bd4cb1c8d9b269aefd32e53ad
+      url: "https://pub.isar-community.dev"
     source: hosted
-    version: "3.1.0+1"
+    version: "3.1.8"
+  isar_flutter_libs:
+    dependency: "direct main"
+    description:
+      name: isar_flutter_libs
+      sha256: "78710781e658ce4bff59b3f38c5b2735e899e627f4e926e1221934e77b95231a"
+      url: "https://pub.isar-community.dev"
+    source: hosted
+    version: "3.1.8"
+  isar_generator:
+    dependency: "direct dev"
+    description:
+      name: isar_generator
+      sha256: "484e73d3b7e81dbd816852fe0b9497333118a9aeb646fd2d349a62cc8980ffe1"
+      url: "https://pub.isar-community.dev"
+    source: hosted
+    version: "3.1.8"
   jiffy:
     dependency: "direct main"
     description:
@@ -790,10 +814,10 @@ packages:
     dependency: transitive
     description:
       name: js
-      sha256: f2c445dce49627136094980615a031419f7f3eb393237e4ecd97ac15dea343f3
+      sha256: "53385261521cc4a0c4658fd0ad07a7d14591cf8fc33abbceae306ddb974888dc"
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.7"
+    version: "0.7.2"
   json_annotation:
     dependency: "direct main"
     description:
@@ -1255,6 +1279,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.4"
+  time:
+    dependency: transitive
+    description:
+      name: time
+      sha256: "370572cf5d1e58adcb3e354c47515da3f7469dac3a95b447117e728e7be6f461"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.5"
   timeline_tile:
     dependency: "direct main"
     description:
@@ -1479,6 +1511,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.5.0"
+  xxh3:
+    dependency: transitive
+    description:
+      name: xxh3
+      sha256: "399a0438f5d426785723c99da6b16e136f4953fb1e9db0bf270bd41dd4619916"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
   yaml:
     dependency: transitive
     description:
