@@ -10,8 +10,7 @@ import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/feed/cubit/feed_cubit.dart';
 import 'package:fluttercon/features/feed/widgets/share_sheet.dart';
 import 'package:fluttercon/l10n/l10n.dart';
-// import 'package:timeago/timeago.dart' as timeago;
-import 'package:jiffy/jiffy.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 class FeedScreen extends StatefulWidget {
@@ -146,8 +145,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                 ),
                                 const Spacer(),
                                 AutoSizeText(
-                                  Jiffy.parseFromDateTime(feed.createdAt)
-                                      .fromNow(),
+                                  timeago.format(feed.createdAt),
                                   style: TextStyle(
                                     color: colorScheme.onSurface,
                                   ),

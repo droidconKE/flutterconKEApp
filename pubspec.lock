@@ -802,14 +802,6 @@ packages:
       url: "https://pub.isar-community.dev"
     source: hosted
     version: "3.1.8"
-  jiffy:
-    dependency: "direct main"
-    description:
-      name: jiffy
-      sha256: "1c1b86459969ff9f32dc5b0ffe392f1e08181e66396cf9dd8fa7c90552a691af"
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.3.2"
   js:
     dependency: transitive
     description:
@@ -1287,6 +1279,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.5"
+  timeago:
+    dependency: "direct main"
+    description:
+      name: timeago
+      sha256: "054cedf68706bb142839ba0ae6b135f6b68039f0b8301cbe8784ae653d5ff8de"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.7.0"
   timeline_tile:
     dependency: "direct main"
     description:

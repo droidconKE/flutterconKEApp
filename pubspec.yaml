@@ -6,13 +6,10 @@ version: 1.18.01+11801
 environment:
   sdk: ">=3.5.0 <4.0.0"
 
-isar_version: &isar_version 3.1.8
-
 dependencies:
   appinio_social_share: ^0.3.2
   auth_buttons: ^3.0.3
   auto_size_text: ^3.0.0
-  # awesome_notifications: ^0.10.1
   bloc: ^9.0.0
   build_version: ^2.1.1
   cached_network_image: ^3.4.1
@@ -41,19 +38,18 @@ dependencies:
   injectable: ^2.5.0
   intl: ^0.19.0
   isar:
-    version: *isar_version
+    version: 3.1.8
     hosted: https://pub.isar-community.dev/
   isar_flutter_libs: # contains Isar Core
-    version: *isar_version
+    version: 3.1.8
     hosted: https://pub.isar-community.dev/
-  jiffy: ^6.3.2
   json_annotation: ^4.9.0
   logger: ^2.4.0
   path_provider: ^2.1.5
   pretty_dio_logger: ^1.4.0
   share_plus: ^10.1.1
   sizer: ^3.0.4
-  # timeago: ^3.7.0
+  timeago: ^3.7.0
   timeline_tile: ^2.0.0
   timezone: ^0.10.0
   url_launcher: ^6.3.1
@@ -70,7 +66,7 @@ dev_dependencies:
   icons_launcher: ^3.0.0
   injectable_generator: ^2.4.2
   isar_generator:
-    version: *isar_version
+    version: 3.1.8
     hosted: https://pub.isar-community.dev/
   json_serializable: ^6.8.0
   mocktail: ^1.0.3
