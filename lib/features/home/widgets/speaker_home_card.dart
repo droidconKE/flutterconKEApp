@@ -57,7 +57,7 @@ class _SpeakerCardState extends State<SpeakerCard> {
                   color: (isLightMode
                           ? ThemeColors.blueColor
                           : ThemeColors.lightGrayColor)
-                      .withOpacity(.11),
+                      .withValues(alpha: .11),
                   borderRadius: BorderRadius.circular(50),
                 ),
                 padding:

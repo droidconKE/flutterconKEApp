@@ -141,7 +141,7 @@ class OranisingTeamMemberDetailsPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 32),
-              Divider(color: Colors.grey.withOpacity(.5)),
+              Divider(color: Colors.grey.withValues(alpha: .5)),
               const SizedBox(height: 32),
               SocialHandleBody(
                 name: organiser.name,

@@ -33,7 +33,7 @@ class FeedbackButton extends StatelessWidget {
               height: 30,
               width: 127,
               decoration: BoxDecoration(
-                color: ThemeColors.tealColor.withOpacity(.21),
+                color: ThemeColors.tealColor.withValues(alpha: 0.21),
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
               ),
               child: Row(
