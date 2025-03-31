@@ -1,5 +1,5 @@
 name: fluttercon
-description: "A new Flutter project."
+description: "A Flutter app for the FlutterCon conference. This app provides a comprehensive guide to the conference schedule, speakers, and sessions, along with interactive features to enhance the attendee experience."
 publish_to: 'none'
 version: 1.19.0+11900
 
