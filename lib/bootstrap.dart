@@ -47,7 +47,6 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   try {
     Bloc.observer = const AppBlocObserver();
 
-    tz.initializeTimeZones();
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
