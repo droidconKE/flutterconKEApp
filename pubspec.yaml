@@ -37,7 +37,7 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   injectable: ^2.5.0
-  intl: ^0.19.0
+  intl: ^0.20.2
   isar:
     version: 3.1.8
     hosted: https://pub.isar-community.dev/
