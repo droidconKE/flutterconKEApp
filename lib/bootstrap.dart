@@ -25,6 +25,7 @@ import 'package:fluttercon/features/home/cubit/search_cubit.dart';
 import 'package:fluttercon/features/sessions/cubit/bookmark_session_cubit.dart';
 import 'package:fluttercon/features/sessions/cubit/fetch_grouped_sessions_cubit.dart';
 import 'package:fluttercon/firebase_options.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
@@ -46,6 +47,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   try {
     Bloc.observer = const AppBlocObserver();
 
+    tz.initializeTimeZones();
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
