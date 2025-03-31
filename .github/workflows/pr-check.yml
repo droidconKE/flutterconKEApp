@@ -9,14 +9,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    steps:   
+    steps:
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'adopt'
 
-      - name: 📚 Git Checkout       
+      - name: 📚 Git Checkout
         uses: actions/checkout@v4
 
       - name: 🐦 Setup Flutter
@@ -35,4 +35,3 @@ jobs:
 
       - name: 🕵️ Analyze
         run: flutter analyze lib
-

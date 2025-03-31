@@ -61,13 +61,13 @@ class Shadows {
     return enabled
         ? [
             BoxShadow(
-              color: color.withOpacity(opacity),
+              color: color.withValues(alpha: opacity),
               blurRadius: mRadius,
               spreadRadius: mRadius / 2,
               offset: const Offset(1, 0),
             ),
             BoxShadow(
-              color: color.withOpacity(opacity),
+              color: color.withValues(alpha: opacity),
               blurRadius: mRadius / 2,
               spreadRadius: mRadius / 4,
               offset: const Offset(1, 0),
