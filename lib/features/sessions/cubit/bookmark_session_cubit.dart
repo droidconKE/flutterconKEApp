@@ -57,7 +57,7 @@ class BookmarkSessionCubit extends Cubit<BookmarkSessionState> {
         final session = await _dBRepository.getSession(sessionId);
         await _notificationService.createScheduledNotification(
           session: session!,
-          channelId: 'session_channel',
+          channelKey: 'session_channel',
         );
       }
       emit(

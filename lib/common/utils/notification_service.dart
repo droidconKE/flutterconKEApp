@@ -1,152 +1,99 @@
-import 'dart:io';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:fluttercon/common/data/models/local/local_session.dart';
 import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/core/di/injectable.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
-import 'package:timezone/timezone.dart' as tz;
 
 @singleton
 class NotificationService {
-  final FlutterLocalNotificationsPlugin _notificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-
   Future<void> initNotifications() async {
-    const initializationSettingsAndroid =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
-
-    const initializationSettings = InitializationSettings(
-      android: initializationSettingsAndroid,
-      iOS: DarwinInitializationSettings(),
+    await AwesomeNotifications().initialize(
+      null,
+      [
+        NotificationChannel(
+          channelKey: 'session_channel',
+          channelName: 'Session notifications',
+          channelDescription: 'Notification channel for bookmarked sessions',
+          defaultColor: ThemeColors.blueDroidconColor,
+          ledColor: Colors.white,
+          playSound: true,
+          enableVibration: true,
+          importance: NotificationImportance.High,
+        ),
+      ],
     );
-
-    await _notificationsPlugin.initialize(
-      initializationSettings,
-      onDidReceiveNotificationResponse: (NotificationResponse response) {
-        _handleNotificationAction(response.payload);
-      },
-    );
-
-    await _createNotificationChannel();
-  }
-
-  Future<void> _createNotificationChannel() async {
-    const channel = AndroidNotificationChannel(
-      'session_channel',
-      'Session notifications',
-      description: 'Notification channel for bookmarked sessions',
-      importance: Importance.high,
-      ledColor: Colors.white,
-    );
-
-    await _notificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
-        ?.createNotificationChannel(channel);
   }
 
   Future<void> requestPermission() async {
-    // Android 13+ permission check
-    if (Platform.isAndroid) {
-      final granted = await _notificationsPlugin
-          .resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin>()
-          ?.requestNotificationsPermission();
-      Logger().i('Android notification permission granted: $granted');
-    }
-
-    // Handle ios permissions
-    await _notificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            IOSFlutterLocalNotificationsPlugin>()
-        ?.requestPermissions(
-          alert: true,
-          badge: true,
-          sound: true,
-        );
+    await AwesomeNotifications().isNotificationAllowed().then((allowed) {
+      if (!allowed) {
+        AwesomeNotifications().requestPermissionToSendNotifications();
+      }
+    });
   }
 
   Future<void> createNotification(
     int id,
-    String channelId,
+    String channelKey,
     String title,
     String body,
   ) async {
-    const androidNotificationDetails = AndroidNotificationDetails(
-      'session_channel',
-      'Session notifications',
-      channelDescription: 'Notification channel for bookmarked sessions',
-      importance: Importance.high,
-      priority: Priority.high,
-      color: ThemeColors.blueDroidconColor,
+    await AwesomeNotifications().createNotification(
+      content: NotificationContent(
+        id: id,
+        channelKey: channelKey,
+        title: title,
+        body: body,
+      ),
     );
-
-    const notificationDetails = NotificationDetails(
-      android: androidNotificationDetails,
-      iOS: DarwinNotificationDetails(),
-    );
-
-    await _notificationsPlugin.show(id, title, body, notificationDetails);
   }
 
   Future<void> createScheduledNotification({
-    required String channelId,
+    required String channelKey,
     required LocalSession session,
   }) async {
-    final notificationTime =
-        session.endDateTime.subtract(const Duration(minutes: 5));
-    final scheduledDate = tz.TZDateTime.from(
-      notificationTime,
-      tz.local,
-    );
-
-    const androidNotificationDetails = AndroidNotificationDetails(
-      'session_channel',
-      'Session notifications',
-      channelDescription: 'Notification channel for bookmarked sessions',
-      importance: Importance.high,
-      priority: Priority.high,
-    );
-
-    const notificationDetails = NotificationDetails(
-      android: androidNotificationDetails,
-      iOS: DarwinNotificationDetails(),
-    );
-
+    // final notificationTime =
+    //     session.endDateTime.subtract(const Duration(minutes: 5));
+    // Uncomment the line below to test the notification in 5 seconds
+    final notificationTime = DateTime.now().add(const Duration(seconds: 5));
     String? title;
     String? body;
 
-    if (channelId == 'session_channel') {
+    if (channelKey == 'session_channel') {
       title = '${session.title} feedback';
-      body = 'Please provide feedback for the session you just attended: '
-          '${session.title}';
+      body = 'Please provide feedback for the session you just attended:'
+          ' ${session.title}';
     }
 
     if (title != null && body != null) {
-      await _notificationsPlugin.zonedSchedule(
-        session.id,
-        title,
-        body,
-        scheduledDate,
-        notificationDetails,
-        payload: session.slug,
-        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-        matchDateTimeComponents: DateTimeComponents.time,
+      await AwesomeNotifications().createNotification(
+        content: NotificationContent(
+          id: session.id,
+          channelKey: channelKey,
+          title: title,
+          body: body,
+          payload: {'sessionSlug': session.slug},
+        ),
+        schedule: NotificationCalendar.fromDate(date: notificationTime),
       );
     }
   }
 
-  void _handleNotificationAction(String? payload) {
-    Logger().f('Notification payload: $payload');
-    if (payload != null && payload.isNotEmpty) {
-      Logger().f('Navigating to feedback screen');
-      getIt<FlutterConRouter>().config().push(
-            FlutterConRouter.feedbackRoute,
-            extra: payload,
-          );
+  @pragma('vm:entry-point')
+  static Future<void> onActionReceivedMethod(
+    ReceivedAction receivedAction,
+  ) async {
+    Logger().f(receivedAction);
+    switch (receivedAction.channelKey) {
+      case 'session_channel':
+        Logger().f('Navigating to feedback screen');
+        await getIt<FlutterConRouter>().config().push(
+              FlutterConRouter.feedbackRoute,
+              extra: receivedAction.payload!['sessionSlug'],
+            );
     }
   }
 }
