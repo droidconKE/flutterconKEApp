@@ -1,0 +1,3 @@
+-keep class com.google.j2objc.annotations.** { *; }
+-keep class com.google.common.collect.ImmutableSet { *; }
+-keep class com.google.common.collect.ImmutableMap { *; }
