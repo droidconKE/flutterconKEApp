@@ -28,10 +28,7 @@ class Misc {
       final filePath = '$tempDir/${Random().nextInt(1000)}.$ext';
 
       // Download the file
-      await Dio().download(
-        url,
-        filePath,
-      );
+      await Dio().download(url, filePath);
 
       // Add the file to the list of XFiles
       files.add(XFile(filePath));

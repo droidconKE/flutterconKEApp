@@ -66,93 +66,96 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
         // Register all the BLoCs here
         providers: [
           BlocProvider<GoogleSignInCubit>(
-            create: (_) => GoogleSignInCubit(
-              authRepository: getIt(),
-            ),
+            create: (_) => GoogleSignInCubit(authRepository: getIt()),
           ),
           BlocProvider(
-            create: (_) => FetchOrganisersCubit(
-              apiRepository: getIt(),
-              dBRepository: getIt(),
-            ),
+            create:
+                (_) => FetchOrganisersCubit(
+                  apiRepository: getIt(),
+                  dBRepository: getIt(),
+                ),
           ),
           BlocProvider<SocialAuthSignInCubit>(
-            create: (_) => SocialAuthSignInCubit(
-              authRepository: getIt(),
-              hiveRepository: getIt(),
-            ),
+            create:
+                (_) => SocialAuthSignInCubit(
+                  authRepository: getIt(),
+                  hiveRepository: getIt(),
+                ),
           ),
           BlocProvider<LogOutCubit>(
-            create: (_) => LogOutCubit(
-              authRepository: getIt(),
-              hiveRepository: getIt(),
-              dbRepository: getIt(),
-            ),
+            create:
+                (_) => LogOutCubit(
+                  authRepository: getIt(),
+                  hiveRepository: getIt(),
+                  dbRepository: getIt(),
+                ),
           ),
           BlocProvider<FetchFeedCubit>(
-            create: (_) => FetchFeedCubit(
-              apiRepository: getIt(),
-              dBRepository: getIt(),
-            ),
+            create:
+                (_) => FetchFeedCubit(
+                  apiRepository: getIt(),
+                  dBRepository: getIt(),
+                ),
           ),
           BlocProvider<FetchSponsorsCubit>(
-            create: (context) => FetchSponsorsCubit(
-              apiRepository: getIt(),
-              dBRepository: getIt(),
-            ),
+            create:
+                (context) => FetchSponsorsCubit(
+                  apiRepository: getIt(),
+                  dBRepository: getIt(),
+                ),
           ),
           BlocProvider<FetchSessionsCubit>(
-            create: (context) => FetchSessionsCubit(
-              apiRepository: getIt(),
-              dBRepository: getIt(),
-            ),
+            create:
+                (context) => FetchSessionsCubit(
+                  apiRepository: getIt(),
+                  dBRepository: getIt(),
+                ),
           ),
           BlocProvider<FetchGroupedSessionsCubit>(
-            create: (context) => FetchGroupedSessionsCubit(
-              apiRepository: getIt(),
-              dBRepository: getIt(),
-            ),
+            create:
+                (context) => FetchGroupedSessionsCubit(
+                  apiRepository: getIt(),
+                  dBRepository: getIt(),
+                ),
           ),
           BlocProvider<FetchSpeakersCubit>(
-            create: (context) => FetchSpeakersCubit(
-              apiRepository: getIt(),
-              dBRepository: getIt(),
-            ),
+            create:
+                (context) => FetchSpeakersCubit(
+                  apiRepository: getIt(),
+                  dBRepository: getIt(),
+                ),
           ),
           BlocProvider<FetchIndividualOrganisersCubit>(
-            create: (context) => FetchIndividualOrganisersCubit(
-              apiRepository: getIt(),
-              dBRepository: getIt(),
-            ),
+            create:
+                (context) => FetchIndividualOrganisersCubit(
+                  apiRepository: getIt(),
+                  dBRepository: getIt(),
+                ),
           ),
           BlocProvider<BookmarkSessionCubit>(
-            create: (context) => BookmarkSessionCubit(
-              apiRepository: getIt(),
-              dBRepository: getIt(),
-              notificationService: getIt(),
-              hiveRepository: getIt(),
-            ),
+            create:
+                (context) => BookmarkSessionCubit(
+                  apiRepository: getIt(),
+                  dBRepository: getIt(),
+                  notificationService: getIt(),
+                  hiveRepository: getIt(),
+                ),
           ),
           BlocProvider<ShareFeedPostCubit>(
-            create: (context) => ShareFeedPostCubit(
-              shareRepository: getIt(),
-            ),
+            create: (context) => ShareFeedPostCubit(shareRepository: getIt()),
           ),
           BlocProvider<SendFeedbackCubit>(
-            create: (context) => SendFeedbackCubit(
-              apiRepository: getIt(),
-            ),
+            create: (context) => SendFeedbackCubit(apiRepository: getIt()),
           ),
           BlocProvider<GhostSignInCubit>(
-            create: (context) => GhostSignInCubit(
-              authRepository: getIt(),
-              hiveRepository: getIt(),
-            ),
+            create:
+                (context) => GhostSignInCubit(
+                  authRepository: getIt(),
+                  hiveRepository: getIt(),
+                ),
           ),
           BlocProvider<SearchCubit>(
-            create: (context) => SearchCubit(
-              dbRepository: getIt(),
-            ),
+            create: (context) => SearchCubit(dbRepository: getIt()),
           ),
         ],
         child: await builder(),

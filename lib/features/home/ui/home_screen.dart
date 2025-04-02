@@ -36,10 +36,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Text(
                   l10n.welcomeToFlutterCon,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: colorScheme.onSurface,
-                        fontSize: 16,
-                      ),
+                    fontWeight: FontWeight.w600,
+                    color: colorScheme.onSurface,
+                    fontSize: 16,
+                  ),
                 ),
               ),
               const SizedBox(height: 15),

@@ -44,19 +44,18 @@ class ScheduleViewCard extends StatelessWidget {
                 height: 150,
                 width: double.infinity,
                 fit: BoxFit.cover,
-                placeholder: (_, __) => const SizedBox(
-                  height: 150,
-                  width: double.infinity,
-                  child: Center(child: CircularProgressIndicator()),
-                ),
-                errorWidget: (_, __, ___) => const SizedBox(
-                  height: 150,
-                  width: double.infinity,
-                  child: Icon(
-                    Icons.error,
-                    color: Colors.red,
-                  ),
-                ),
+                placeholder:
+                    (_, __) => const SizedBox(
+                      height: 150,
+                      width: double.infinity,
+                      child: Center(child: CircularProgressIndicator()),
+                    ),
+                errorWidget:
+                    (_, __, ___) => const SizedBox(
+                      height: 150,
+                      width: double.infinity,
+                      child: Icon(Icons.error, color: Colors.red),
+                    ),
               ),
             ),
             const SizedBox(height: 16),
@@ -66,15 +65,10 @@ class ScheduleViewCard extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: AutoSizeText(
                     l10n.sessionTimeAndVenue(
-                      DateFormat.Hm().format(
-                        session.startDateTime,
-                      ),
+                      DateFormat.Hm().format(session.startDateTime),
                       session.rooms.map((room) => room.title).join(', '),
                     ),
-                    style: const TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14,
-                    ),
+                    style: const TextStyle(color: Colors.grey, fontSize: 14),
                   ),
                 ),
               ],
@@ -94,111 +88,126 @@ class ScheduleViewCard extends StatelessWidget {
             ),
             const SizedBox(height: 5),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16) +
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16) +
                   const EdgeInsets.only(bottom: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
-                    children: session.speakers
-                        .map(
-                          (speaker) => GestureDetector(
-                            onTap: () => GoRouter.of(context).push(
-                              FlutterConRouter.speakerDetailsRoute,
-                              extra: speaker,
-                            ),
-                            child: Container(
-                              height: 50,
-                              width: 50,
-                              margin: const EdgeInsets.only(right: 8),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: ThemeColors.tealColor,
-                                  width: 2,
-                                ),
-                                borderRadius: Corners.s12Border,
-                              ),
-                              child: ClipRRect(
-                                borderRadius: Corners.s10Border,
-                                child: CachedNetworkImage(
-                                  fit: BoxFit.cover,
-                                  imageUrl: speaker.avatar!,
-                                  placeholder: (_, __) => const SizedBox(
-                                    height: 150,
-                                    width: double.infinity,
-                                    child: Center(
-                                      child: CircularProgressIndicator(),
+                    children:
+                        session.speakers
+                            .map(
+                              (speaker) => GestureDetector(
+                                onTap:
+                                    () => GoRouter.of(context).push(
+                                      FlutterConRouter.speakerDetailsRoute,
+                                      extra: speaker,
+                                    ),
+                                child: Container(
+                                  height: 50,
+                                  width: 50,
+                                  margin: const EdgeInsets.only(right: 8),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: ThemeColors.tealColor,
+                                      width: 2,
+                                    ),
+                                    borderRadius: Corners.s12Border,
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: Corners.s10Border,
+                                    child: CachedNetworkImage(
+                                      fit: BoxFit.cover,
+                                      imageUrl: speaker.avatar!,
+                                      placeholder:
+                                          (_, __) => const SizedBox(
+                                            height: 150,
+                                            width: double.infinity,
+                                            child: Center(
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            ),
+                                          ),
+                                      errorWidget:
+                                          (_, __, ___) => const SizedBox(
+                                            height: 150,
+                                            width: double.infinity,
+                                            child: Icon(
+                                              Icons.error,
+                                              color: Colors.red,
+                                            ),
+                                          ),
                                     ),
                                   ),
-                                  errorWidget: (_, __, ___) => const SizedBox(
-                                    height: 150,
-                                    width: double.infinity,
-                                    child: Icon(
-                                      Icons.error,
-                                      color: Colors.red,
-                                    ),
-                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                        )
-                        .toList(),
+                            )
+                            .toList(),
                   ),
                   BlocConsumer<BookmarkSessionCubit, BookmarkSessionState>(
                     listener: (context, state) {
                       state.mapOrNull(
                         loaded: (loaded) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: AutoSizeText(loaded.message),
-                            ),
+                            SnackBar(content: AutoSizeText(loaded.message)),
                           );
                         },
                       );
                     },
                     builder: (context, state) {
                       return state.maybeWhen(
-                        loading: (_) => const SizedBox(
-                          height: 32,
-                          width: 32,
-                          child: CircularProgressIndicator(),
-                        ),
-                        loaded: (message, status) => IconButton(
-                          onPressed: () => context
-                              .read<BookmarkSessionCubit>()
-                              .bookmarkSession(sessionId: session.serverId),
-                          icon: Icon(
-                            status == BookmarkStatus.bookmarked
-                                ? Icons.star_rate_rounded
-                                : Icons.star_border_outlined,
-                            color: status == BookmarkStatus.bookmarked
-                                ? ThemeColors.orangeColor
-                                : colorScheme.primary,
-                            size: 32,
-                          ),
-                        ),
-                        orElse: () => IconButton(
-                          onPressed: () => context
-                              .read<BookmarkSessionCubit>()
-                              .bookmarkSession(sessionId: session.serverId)
-                              .then((_) {
-                            if (context.mounted) {
-                              context
-                                  .read<FetchGroupedSessionsCubit>()
-                                  .fetchGroupedSessions();
-                            }
-                          }),
-                          icon: Icon(
-                            session.isBookmarked
-                                ? Icons.star_rate_rounded
-                                : Icons.star_border_outlined,
-                            color: session.isBookmarked
-                                ? ThemeColors.orangeColor
-                                : colorScheme.primary,
-                            size: 32,
-                          ),
-                        ),
+                        loading:
+                            (_) => const SizedBox(
+                              height: 32,
+                              width: 32,
+                              child: CircularProgressIndicator(),
+                            ),
+                        loaded:
+                            (message, status) => IconButton(
+                              onPressed:
+                                  () => context
+                                      .read<BookmarkSessionCubit>()
+                                      .bookmarkSession(
+                                        sessionId: session.serverId,
+                                      ),
+                              icon: Icon(
+                                status == BookmarkStatus.bookmarked
+                                    ? Icons.star_rate_rounded
+                                    : Icons.star_border_outlined,
+                                color:
+                                    status == BookmarkStatus.bookmarked
+                                        ? ThemeColors.orangeColor
+                                        : colorScheme.primary,
+                                size: 32,
+                              ),
+                            ),
+                        orElse:
+                            () => IconButton(
+                              onPressed:
+                                  () => context
+                                      .read<BookmarkSessionCubit>()
+                                      .bookmarkSession(
+                                        sessionId: session.serverId,
+                                      )
+                                      .then((_) {
+                                        if (context.mounted) {
+                                          context
+                                              .read<FetchGroupedSessionsCubit>()
+                                              .fetchGroupedSessions();
+                                        }
+                                      }),
+                              icon: Icon(
+                                session.isBookmarked
+                                    ? Icons.star_rate_rounded
+                                    : Icons.star_border_outlined,
+                                color:
+                                    session.isBookmarked
+                                        ? ThemeColors.orangeColor
+                                        : colorScheme.primary,
+                                size: 32,
+                              ),
+                            ),
                       );
                     },
                   ),

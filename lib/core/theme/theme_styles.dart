@@ -60,19 +60,19 @@ class Shadows {
   static List<BoxShadow> m(Color color, [double opacity = 0]) {
     return enabled
         ? [
-            BoxShadow(
-              color: color.withValues(alpha: opacity),
-              blurRadius: mRadius,
-              spreadRadius: mRadius / 2,
-              offset: const Offset(1, 0),
-            ),
-            BoxShadow(
-              color: color.withValues(alpha: opacity),
-              blurRadius: mRadius / 2,
-              spreadRadius: mRadius / 4,
-              offset: const Offset(1, 0),
-            ),
-          ]
+          BoxShadow(
+            color: color.withValues(alpha: opacity),
+            blurRadius: mRadius,
+            spreadRadius: mRadius / 2,
+            offset: const Offset(1, 0),
+          ),
+          BoxShadow(
+            color: color.withValues(alpha: opacity),
+            blurRadius: mRadius / 2,
+            spreadRadius: mRadius / 4,
+            offset: const Offset(1, 0),
+          ),
+        ]
         : const <BoxShadow>[];
   }
 }

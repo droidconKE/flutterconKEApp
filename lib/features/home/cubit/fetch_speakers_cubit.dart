@@ -20,9 +20,7 @@ class FetchSpeakersCubit extends Cubit<FetchSpeakersState> {
   late ApiRepository _apiRepository;
   late DBRepository _dBRepository;
 
-  Future<void> fetchSpeakers({
-    bool forceRefresh = false,
-  }) async {
+  Future<void> fetchSpeakers({bool forceRefresh = false}) async {
     emit(const FetchSpeakersState.loading());
     try {
       final localSpeakers = await _dBRepository.fetchSpeakers();

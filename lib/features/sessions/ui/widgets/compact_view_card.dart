@@ -32,11 +32,8 @@ class CompactViewCard extends StatelessWidget {
           TextSpan(
             children: [
               TextSpan(
-                text: '${DateFormat.Hm().format(
-                  DateTime.parse(
-                    '2022-01-01 ${session.startTime}',
-                  ),
-                )}\n',
+                text:
+                    '${DateFormat.Hm().format(DateTime.parse('2022-01-01 ${session.startTime}'))}\n',
                 style: const TextStyle(fontSize: 18),
               ),
               TextSpan(
@@ -44,10 +41,7 @@ class CompactViewCard extends StatelessWidget {
                     DateTime.parse('2022-01-01 ${session.startTime}').hour > 11
                         ? 'PM'
                         : 'AM',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: colorScheme.onSurface,
-                ),
+                style: TextStyle(fontSize: 18, color: colorScheme.onSurface),
               ),
             ],
           ),
@@ -67,30 +61,21 @@ class CompactViewCard extends StatelessWidget {
             const SizedBox(height: 8),
             AutoSizeText(
               session.description,
-              style: TextStyle(
-                fontSize: 16,
-                color: colorScheme.onSurface,
-              ),
+              style: TextStyle(fontSize: 16, color: colorScheme.onSurface),
               maxLines: 3,
             ),
             if (session.rooms.isNotEmpty) const SizedBox(height: 8),
             if (session.rooms.isNotEmpty)
               AutoSizeText(
                 l10n.sessionFullTimeAndVenue(
-                  DateFormat.Hm().format(
-                    session.startDateTime,
-                  ),
-                  DateFormat.Hm().format(
-                    session.endDateTime,
-                  ),
+                  DateFormat.Hm().format(session.startDateTime),
+                  DateFormat.Hm().format(session.endDateTime),
                   session.rooms
                       .map((room) => room.title)
                       .join(', ')
                       .toUpperCase(),
                 ),
-                style: TextStyle(
-                  color: colorScheme.onSurface,
-                ),
+                style: TextStyle(color: colorScheme.onSurface),
               ),
             if (session.speakers.isNotEmpty) const SizedBox(height: 8),
             if (session.speakers.isNotEmpty)
@@ -109,9 +94,7 @@ class CompactViewCard extends StatelessWidget {
                       session.speakers
                           .map((speaker) => speaker.name)
                           .join(', '),
-                      style: TextStyle(
-                        color: colorScheme.primary,
-                      ),
+                      style: TextStyle(color: colorScheme.primary),
                     ),
                   ),
                 ],
@@ -122,75 +105,79 @@ class CompactViewCard extends StatelessWidget {
           listener: (context, state) {
             state.mapOrNull(
               loaded: (loaded) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: AutoSizeText(loaded.message),
-                  ),
-                );
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: AutoSizeText(loaded.message)));
               },
-              error: (error) => ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: AutoSizeText(error.message),
-                ),
-              ),
+              error:
+                  (error) => ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: AutoSizeText(error.message)),
+                  ),
             );
           },
           builder: (context, state) {
             return state.maybeWhen(
-              loading: (loadingIndex) => loadingIndex == listIndex
-                  ? const SizedBox(
-                      height: 32,
-                      width: 32,
-                      child: CircularProgressIndicator(),
-                    )
-                  : IconButton(
-                      onPressed: () => context
-                          .read<BookmarkSessionCubit>()
-                          .bookmarkSession(
-                            sessionId: session.serverId,
-                            index: listIndex,
+              loading:
+                  (loadingIndex) =>
+                      loadingIndex == listIndex
+                          ? const SizedBox(
+                            height: 32,
+                            width: 32,
+                            child: CircularProgressIndicator(),
                           )
-                          .then((_) {
-                        if (context.mounted) {
-                          context
-                              .read<FetchGroupedSessionsCubit>()
-                              .fetchGroupedSessions();
-                        }
-                      }),
-                      icon: Icon(
-                        session.isBookmarked
-                            ? Icons.star_rate_rounded
-                            : Icons.star_border_outlined,
-                        color: session.isBookmarked
-                            ? ThemeColors.orangeColor
-                            : colorScheme.primary,
-                        size: 32,
-                      ),
+                          : IconButton(
+                            onPressed:
+                                () => context
+                                    .read<BookmarkSessionCubit>()
+                                    .bookmarkSession(
+                                      sessionId: session.serverId,
+                                      index: listIndex,
+                                    )
+                                    .then((_) {
+                                      if (context.mounted) {
+                                        context
+                                            .read<FetchGroupedSessionsCubit>()
+                                            .fetchGroupedSessions();
+                                      }
+                                    }),
+                            icon: Icon(
+                              session.isBookmarked
+                                  ? Icons.star_rate_rounded
+                                  : Icons.star_border_outlined,
+                              color:
+                                  session.isBookmarked
+                                      ? ThemeColors.orangeColor
+                                      : colorScheme.primary,
+                              size: 32,
+                            ),
+                          ),
+              orElse:
+                  () => IconButton(
+                    onPressed:
+                        () => context
+                            .read<BookmarkSessionCubit>()
+                            .bookmarkSession(
+                              sessionId: session.serverId,
+                              index: listIndex,
+                            )
+                            .then((_) {
+                              if (context.mounted) {
+                                context
+                                    .read<FetchGroupedSessionsCubit>()
+                                    .fetchGroupedSessions();
+                              }
+                            }),
+                    icon: Icon(
+                      session.isBookmarked
+                          ? Icons.star_rate_rounded
+                          : Icons.star_border_outlined,
+                      color:
+                          session.isBookmarked
+                              ? ThemeColors.orangeColor
+                              : colorScheme.primary,
+                      size: 32,
                     ),
-              orElse: () => IconButton(
-                onPressed: () => context
-                    .read<BookmarkSessionCubit>()
-                    .bookmarkSession(
-                      sessionId: session.serverId,
-                      index: listIndex,
-                    )
-                    .then((_) {
-                  if (context.mounted) {
-                    context
-                        .read<FetchGroupedSessionsCubit>()
-                        .fetchGroupedSessions();
-                  }
-                }),
-                icon: Icon(
-                  session.isBookmarked
-                      ? Icons.star_rate_rounded
-                      : Icons.star_border_outlined,
-                  color: session.isBookmarked
-                      ? ThemeColors.orangeColor
-                      : colorScheme.primary,
-                  size: 32,
-                ),
-              ),
+                  ),
             );
           },
         ),

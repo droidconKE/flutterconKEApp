@@ -26,9 +26,10 @@ class DayTabView extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: isActive
-              ? ThemeColors.orangeDroidconColor
-              : ThemeColors.blueGreenDroidconColor.withValues(alpha: .1),
+          color:
+              isActive
+                  ? ThemeColors.orangeDroidconColor
+                  : ThemeColors.blueGreenDroidconColor.withValues(alpha: .1),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
         child: Column(
@@ -38,9 +39,10 @@ class DayTabView extends StatelessWidget {
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 24,
-                color: isActive
-                    ? Colors.white
-                    : isLightMode
+                color:
+                    isActive
+                        ? Colors.white
+                        : isLightMode
                         ? Colors.black
                         : Colors.white,
               ),
@@ -50,9 +52,10 @@ class DayTabView extends StatelessWidget {
               l10n.day(day),
               style: TextStyle(
                 fontSize: 16,
-                color: isActive
-                    ? Colors.white
-                    : isLightMode
+                color:
+                    isActive
+                        ? Colors.white
+                        : isLightMode
                         ? Colors.black
                         : Colors.white,
               ),

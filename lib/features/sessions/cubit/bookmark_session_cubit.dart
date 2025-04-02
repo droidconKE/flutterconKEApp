@@ -28,10 +28,7 @@ class BookmarkSessionCubit extends Cubit<BookmarkSessionState> {
   late NotificationService _notificationService;
   late HiveRepository _hiveRepository;
 
-  Future<void> bookmarkSession({
-    required int sessionId,
-    int? index,
-  }) async {
+  Future<void> bookmarkSession({required int sessionId, int? index}) async {
     try {
       emit(BookmarkSessionState.loading(index: index));
 
@@ -61,10 +58,7 @@ class BookmarkSessionCubit extends Cubit<BookmarkSessionState> {
         );
       }
       emit(
-        BookmarkSessionState.loaded(
-          message: message,
-          status: bookmarkStatus,
-        ),
+        BookmarkSessionState.loaded(message: message, status: bookmarkStatus),
       );
     } on Failure catch (e) {
       emit(BookmarkSessionState.error(e.message));

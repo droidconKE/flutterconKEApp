@@ -1,8 +1,5 @@
 class AppException implements Exception {
-  AppException([
-    this.message = '',
-    this.debugString = '',
-  ]);
+  AppException([this.message = '', this.debugString = '']);
 
   /// This MUST be a user friendly error message
   final String message;

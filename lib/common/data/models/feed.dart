@@ -19,9 +19,7 @@ class Feed with _$Feed {
 
 @freezed
 class FeedResponse with _$FeedResponse {
-  const factory FeedResponse({
-    required List<Feed> data,
-  }) = _FeedResponse;
+  const factory FeedResponse({required List<Feed> data}) = _FeedResponse;
 
   factory FeedResponse.fromJson(Map<String, Object?> json) =>
       _$FeedResponseFromJson(json);

@@ -20,10 +20,7 @@ import 'package:intl/intl.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 class SessionDetailsPage extends StatelessWidget {
-  const SessionDetailsPage({
-    required this.session,
-    super.key,
-  });
+  const SessionDetailsPage({required this.session, super.key});
 
   final LocalSession session;
 
@@ -64,9 +61,7 @@ class SessionDetailsPage extends StatelessWidget {
                     const SizedBox(width: 8),
                     AutoSizeText(
                       l10n.speaker,
-                      style: const TextStyle(
-                        color: ThemeColors.orangeColor,
-                      ),
+                      style: const TextStyle(color: ThemeColors.orangeColor),
                     ),
                   ],
                 ),
@@ -88,61 +83,72 @@ class SessionDetailsPage extends StatelessWidget {
                         state.mapOrNull(
                           loaded: (loaded) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: AutoSizeText(loaded.message),
-                              ),
+                              SnackBar(content: AutoSizeText(loaded.message)),
                             );
                           },
-                          error: (error) =>
-                              ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: AutoSizeText(error.message),
-                            ),
-                          ),
+                          error:
+                              (error) => ScaffoldMessenger.of(
+                                context,
+                              ).showSnackBar(
+                                SnackBar(content: AutoSizeText(error.message)),
+                              ),
                         );
                       },
                       builder: (context, state) {
                         return state.maybeWhen(
-                          loading: (_) => const SizedBox(
-                            height: 32,
-                            width: 32,
-                            child: CircularProgressIndicator(),
-                          ),
-                          loaded: (message, status) => IconButton(
-                            onPressed: () => context
-                                .read<BookmarkSessionCubit>()
-                                .bookmarkSession(sessionId: session.serverId),
-                            icon: Icon(
-                              status == BookmarkStatus.bookmarked
-                                  ? Icons.star_rate_rounded
-                                  : Icons.star_border_outlined,
-                              color: status == BookmarkStatus.bookmarked
-                                  ? ThemeColors.orangeColor
-                                  : colorScheme.primary,
-                              size: 32,
-                            ),
-                          ),
-                          orElse: () => IconButton(
-                            onPressed: () => context
-                                .read<BookmarkSessionCubit>()
-                                .bookmarkSession(sessionId: session.serverId)
-                                .then((_) {
-                              if (context.mounted) {
-                                context
-                                    .read<FetchGroupedSessionsCubit>()
-                                    .fetchGroupedSessions();
-                              }
-                            }),
-                            icon: Icon(
-                              session.isBookmarked
-                                  ? Icons.star_rate_rounded
-                                  : Icons.star_border_outlined,
-                              color: session.isBookmarked
-                                  ? ThemeColors.orangeColor
-                                  : colorScheme.primary,
-                              size: 32,
-                            ),
-                          ),
+                          loading:
+                              (_) => const SizedBox(
+                                height: 32,
+                                width: 32,
+                                child: CircularProgressIndicator(),
+                              ),
+                          loaded:
+                              (message, status) => IconButton(
+                                onPressed:
+                                    () => context
+                                        .read<BookmarkSessionCubit>()
+                                        .bookmarkSession(
+                                          sessionId: session.serverId,
+                                        ),
+                                icon: Icon(
+                                  status == BookmarkStatus.bookmarked
+                                      ? Icons.star_rate_rounded
+                                      : Icons.star_border_outlined,
+                                  color:
+                                      status == BookmarkStatus.bookmarked
+                                          ? ThemeColors.orangeColor
+                                          : colorScheme.primary,
+                                  size: 32,
+                                ),
+                              ),
+                          orElse:
+                              () => IconButton(
+                                onPressed:
+                                    () => context
+                                        .read<BookmarkSessionCubit>()
+                                        .bookmarkSession(
+                                          sessionId: session.serverId,
+                                        )
+                                        .then((_) {
+                                          if (context.mounted) {
+                                            context
+                                                .read<
+                                                  FetchGroupedSessionsCubit
+                                                >()
+                                                .fetchGroupedSessions();
+                                          }
+                                        }),
+                                icon: Icon(
+                                  session.isBookmarked
+                                      ? Icons.star_rate_rounded
+                                      : Icons.star_border_outlined,
+                                  color:
+                                      session.isBookmarked
+                                          ? ThemeColors.orangeColor
+                                          : colorScheme.primary,
+                                  size: 32,
+                                ),
+                              ),
                         );
                       },
                     ),
@@ -162,10 +168,7 @@ class SessionDetailsPage extends StatelessWidget {
             const SizedBox(height: 16),
             AutoSizeText(
               session.description,
-              style: TextStyle(
-                fontSize: 18,
-                color: colorScheme.onSurface,
-              ),
+              style: TextStyle(fontSize: 18, color: colorScheme.onSurface),
             ),
             const SizedBox(height: 16),
             ClipRRect(
@@ -174,19 +177,18 @@ class SessionDetailsPage extends StatelessWidget {
                 imageUrl: session.sessionImage,
                 height: 170,
                 fit: BoxFit.fitHeight,
-                placeholder: (_, __) => const SizedBox(
-                  height: 150,
-                  width: double.infinity,
-                  child: Center(child: CircularProgressIndicator()),
-                ),
-                errorWidget: (_, __, ___) => const SizedBox(
-                  height: 150,
-                  width: double.infinity,
-                  child: Icon(
-                    Icons.error,
-                    color: Colors.red,
-                  ),
-                ),
+                placeholder:
+                    (_, __) => const SizedBox(
+                      height: 150,
+                      width: double.infinity,
+                      child: Center(child: CircularProgressIndicator()),
+                    ),
+                errorWidget:
+                    (_, __, ___) => const SizedBox(
+                      height: 150,
+                      width: double.infinity,
+                      child: Icon(Icons.error, color: Colors.red),
+                    ),
               ),
             ),
             const SizedBox(height: 16),
@@ -232,168 +234,231 @@ class SessionDetailsPage extends StatelessWidget {
         shape: const CircleBorder(),
         backgroundColor: ThemeColors.orangeColor,
         child: BlocBuilder<ShareFeedPostCubit, ShareFeedPostState>(
-          builder: (context, state) => state.maybeWhen(
-            orElse: () => Transform.flip(
-              flipX: true,
-              child: const Icon(
-                Icons.reply,
-                color: Colors.white,
-              ),
-            ),
-            loading: () => const Padding(
-              padding: EdgeInsets.all(16),
-              child: CircularProgressIndicator(
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
-        onPressed: () => WoltModalSheet.show<dynamic>(
-          context: context,
-          showDragHandle: false,
-          modalTypeBuilder: (_) => WoltModalType.bottomSheet(),
-          pageListBuilder: (bottomSheetContext) => [
-            SliverWoltModalSheetPage(
-              useSafeArea: true,
-              hasTopBarLayer: false,
-              backgroundColor: colorScheme.secondaryContainer,
-              mainContentSliversBuilder: (context) => <Widget>[
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: BlocConsumer<ShareFeedPostCubit, ShareFeedPostState>(
-                      listener: (context, state) {
-                        state.mapOrNull(
-                          loaded: (_) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: AutoSizeText(l10n.postShared),
-                              ),
-                            );
-                          },
-                          error: (message) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: AutoSizeText(message.message)),
-                            );
-                          },
-                        );
-                      },
-                      builder: (context, state) {
-                        return Container(
-                          constraints: const BoxConstraints(
-                            minHeight: 250,
-                          ),
-                          child: state.maybeWhen(
-                            loading: () => const Center(
-                              child: CircularProgressIndicator(strokeWidth: 3),
-                            ),
-                            orElse: () => Column(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        SvgPicture.asset(
-                                          AppAssets.iconShare,
-                                          colorFilter: ColorFilter.mode(
-                                            colorScheme.onSurface,
-                                            BlendMode.srcIn,
-                                          ),
-                                          height: 32,
-                                        ),
-                                        const SizedBox(width: 8),
-                                        AutoSizeText(
-                                          l10n.share,
-                                          style: TextStyle(
-                                            color: colorScheme.onSurface,
-                                            fontWeight: FontWeight.w800,
-                                            fontSize: 18,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    InkWell(
-                                      onTap: () => Navigator.of(
-                                        context,
-                                      ).pop(),
-                                      child: AutoSizeText(
-                                        l10n.cancel.toUpperCase(),
-                                        style: const TextStyle(
-                                          color: ThemeColors.greyTextColor,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 50),
-                                Row(
-                                  children: <Widget>[
-                                    SocialMediaButton(
-                                      callBack: () async => context
-                                          .read<ShareFeedPostCubit>()
-                                          .sharePost(
-                                            body: session.description,
-                                            fileUrl: session.sessionImage,
-                                            platform: SocialPlatform.twitter,
-                                          ),
-                                      label: l10n.twitter,
-                                      iconPath: AppAssets.iconTwitter,
-                                    ),
-                                    const SizedBox(
-                                      width: 24,
-                                    ),
-                                    SocialMediaButton(
-                                      callBack: () async => context
-                                          .read<ShareFeedPostCubit>()
-                                          .sharePost(
-                                            body: session.description,
-                                            fileUrl: session.sessionImage,
-                                            platform: SocialPlatform.whatsapp,
-                                          ),
-                                      label: l10n.whatsApp,
-                                      iconPath: AppAssets.iconWhatsApp,
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 30),
-                                Row(
-                                  children: <Widget>[
-                                    SocialMediaButton(
-                                      callBack: () async => context
-                                          .read<ShareFeedPostCubit>()
-                                          .sharePost(
-                                            body: session.description,
-                                            fileUrl: session.sessionImage,
-                                            platform: SocialPlatform.telegram,
-                                          ),
-                                      label: l10n.telegram,
-                                      iconPath: AppAssets.iconTelegram,
-                                    ),
-                                    const SizedBox(
-                                      width: 24,
-                                    ),
-                                    const Spacer(),
-                                  ],
-                                ),
-                                const SizedBox(height: 30),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
+          builder:
+              (context, state) => state.maybeWhen(
+                orElse:
+                    () => Transform.flip(
+                      flipX: true,
+                      child: const Icon(Icons.reply, color: Colors.white),
                     ),
-                  ),
-                ),
-              ],
-            ),
-          ],
+                loading:
+                    () => const Padding(
+                      padding: EdgeInsets.all(16),
+                      child: CircularProgressIndicator(color: Colors.white),
+                    ),
+              ),
         ),
+        onPressed:
+            () => WoltModalSheet.show<dynamic>(
+              context: context,
+              showDragHandle: false,
+              modalTypeBuilder: (_) => WoltModalType.bottomSheet(),
+              pageListBuilder:
+                  (bottomSheetContext) => [
+                    SliverWoltModalSheetPage(
+                      useSafeArea: true,
+                      hasTopBarLayer: false,
+                      backgroundColor: colorScheme.secondaryContainer,
+                      mainContentSliversBuilder:
+                          (context) => <Widget>[
+                            SliverToBoxAdapter(
+                              child: Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: BlocConsumer<
+                                  ShareFeedPostCubit,
+                                  ShareFeedPostState
+                                >(
+                                  listener: (context, state) {
+                                    state.mapOrNull(
+                                      loaded: (_) {
+                                        ScaffoldMessenger.of(
+                                          context,
+                                        ).showSnackBar(
+                                          SnackBar(
+                                            content: AutoSizeText(
+                                              l10n.postShared,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      error: (message) {
+                                        ScaffoldMessenger.of(
+                                          context,
+                                        ).showSnackBar(
+                                          SnackBar(
+                                            content: AutoSizeText(
+                                              message.message,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  builder: (context, state) {
+                                    return Container(
+                                      constraints: const BoxConstraints(
+                                        minHeight: 250,
+                                      ),
+                                      child: state.maybeWhen(
+                                        loading:
+                                            () => const Center(
+                                              child: CircularProgressIndicator(
+                                                strokeWidth: 3,
+                                              ),
+                                            ),
+                                        orElse:
+                                            () => Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: <Widget>[
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: <Widget>[
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: [
+                                                        SvgPicture.asset(
+                                                          AppAssets.iconShare,
+                                                          colorFilter:
+                                                              ColorFilter.mode(
+                                                                colorScheme
+                                                                    .onSurface,
+                                                                BlendMode.srcIn,
+                                                              ),
+                                                          height: 32,
+                                                        ),
+                                                        const SizedBox(
+                                                          width: 8,
+                                                        ),
+                                                        AutoSizeText(
+                                                          l10n.share,
+                                                          style: TextStyle(
+                                                            color:
+                                                                colorScheme
+                                                                    .onSurface,
+                                                            fontWeight:
+                                                                FontWeight.w800,
+                                                            fontSize: 18,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    InkWell(
+                                                      onTap:
+                                                          () =>
+                                                              Navigator.of(
+                                                                context,
+                                                              ).pop(),
+                                                      child: AutoSizeText(
+                                                        l10n.cancel
+                                                            .toUpperCase(),
+                                                        style: const TextStyle(
+                                                          color:
+                                                              ThemeColors
+                                                                  .greyTextColor,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const SizedBox(height: 50),
+                                                Row(
+                                                  children: <Widget>[
+                                                    SocialMediaButton(
+                                                      callBack:
+                                                          () async => context
+                                                              .read<
+                                                                ShareFeedPostCubit
+                                                              >()
+                                                              .sharePost(
+                                                                body:
+                                                                    session
+                                                                        .description,
+                                                                fileUrl:
+                                                                    session
+                                                                        .sessionImage,
+                                                                platform:
+                                                                    SocialPlatform
+                                                                        .twitter,
+                                                              ),
+                                                      label: l10n.twitter,
+                                                      iconPath:
+                                                          AppAssets.iconTwitter,
+                                                    ),
+                                                    const SizedBox(width: 24),
+                                                    SocialMediaButton(
+                                                      callBack:
+                                                          () async => context
+                                                              .read<
+                                                                ShareFeedPostCubit
+                                                              >()
+                                                              .sharePost(
+                                                                body:
+                                                                    session
+                                                                        .description,
+                                                                fileUrl:
+                                                                    session
+                                                                        .sessionImage,
+                                                                platform:
+                                                                    SocialPlatform
+                                                                        .whatsapp,
+                                                              ),
+                                                      label: l10n.whatsApp,
+                                                      iconPath:
+                                                          AppAssets
+                                                              .iconWhatsApp,
+                                                    ),
+                                                  ],
+                                                ),
+                                                const SizedBox(height: 30),
+                                                Row(
+                                                  children: <Widget>[
+                                                    SocialMediaButton(
+                                                      callBack:
+                                                          () async => context
+                                                              .read<
+                                                                ShareFeedPostCubit
+                                                              >()
+                                                              .sharePost(
+                                                                body:
+                                                                    session
+                                                                        .description,
+                                                                fileUrl:
+                                                                    session
+                                                                        .sessionImage,
+                                                                platform:
+                                                                    SocialPlatform
+                                                                        .telegram,
+                                                              ),
+                                                      label: l10n.telegram,
+                                                      iconPath:
+                                                          AppAssets
+                                                              .iconTelegram,
+                                                    ),
+                                                    const SizedBox(width: 24),
+                                                    const Spacer(),
+                                                  ],
+                                                ),
+                                                const SizedBox(height: 30),
+                                              ],
+                                            ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                    ),
+                  ],
+            ),
       ),
     );
   }

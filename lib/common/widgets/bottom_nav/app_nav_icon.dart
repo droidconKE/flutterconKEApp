@@ -21,9 +21,10 @@ class AppNavIcon extends StatelessWidget {
     return SvgPicture.asset(
       'assets/icons/$name.svg',
       semanticsLabel: semanticsLabel,
-      colorFilter: color != null
-          ? ColorFilter.mode(color!, BlendMode.srcIn)
-          : ColorFilter.mode(IconTheme.of(context).color!, BlendMode.srcIn),
+      colorFilter:
+          color != null
+              ? ColorFilter.mode(color!, BlendMode.srcIn)
+              : ColorFilter.mode(IconTheme.of(context).color!, BlendMode.srcIn),
       height: height ?? IconTheme.of(context).size,
       width: width ?? IconTheme.of(context).size,
     );

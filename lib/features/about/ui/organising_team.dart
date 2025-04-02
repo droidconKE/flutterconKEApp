@@ -23,31 +23,38 @@ class _OrganisingTeamViewState extends State<OrganisingTeamView> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
-    return BlocBuilder<FetchIndividualOrganisersCubit,
-        FetchIndividualOrganisersState>(
-      builder: (context, state) => state.maybeWhen(
-        loaded: (individualOrganisers) => SliverGrid.builder(
-          itemCount: individualOrganisers.length,
-          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 200,
-            crossAxisSpacing: 8,
-            mainAxisSpacing: 8,
-            mainAxisExtent: size.width > 600 ? 200 : 140,
+    return BlocBuilder<
+      FetchIndividualOrganisersCubit,
+      FetchIndividualOrganisersState
+    >(
+      builder:
+          (context, state) => state.maybeWhen(
+            loaded:
+                (individualOrganisers) => SliverGrid.builder(
+                  itemCount: individualOrganisers.length,
+                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 200,
+                    crossAxisSpacing: 8,
+                    mainAxisSpacing: 8,
+                    mainAxisExtent: size.width > 600 ? 200 : 140,
+                  ),
+                  itemBuilder:
+                      (context, index) => PersonnelWidget(
+                        imageUrl: individualOrganisers[index].logo,
+                        name: individualOrganisers[index].name,
+                        designation: individualOrganisers[index].designation,
+                        onTap:
+                            () => GoRouter.of(context).push(
+                              FlutterConRouter.organiserDetailsRoute,
+                              extra: individualOrganisers[index],
+                            ),
+                      ),
+                ),
+            orElse:
+                () => const SliverToBoxAdapter(
+                  child: Center(child: CircularProgressIndicator()),
+                ),
           ),
-          itemBuilder: (context, index) => PersonnelWidget(
-            imageUrl: individualOrganisers[index].logo,
-            name: individualOrganisers[index].name,
-            designation: individualOrganisers[index].designation,
-            onTap: () => GoRouter.of(context).push(
-              FlutterConRouter.organiserDetailsRoute,
-              extra: individualOrganisers[index],
-            ),
-          ),
-        ),
-        orElse: () => const SliverToBoxAdapter(
-          child: Center(child: CircularProgressIndicator()),
-        ),
-      ),
     );
   }
 }

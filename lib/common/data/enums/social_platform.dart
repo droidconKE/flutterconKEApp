@@ -1,5 +1,1 @@
-enum SocialPlatform {
-  whatsapp,
-  twitter,
-  telegram,
-}
+enum SocialPlatform { whatsapp, twitter, telegram }

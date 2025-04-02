@@ -36,27 +36,28 @@ class _UserProfileIconState extends State<UserProfileIcon> {
         WoltModalSheet.show<dynamic>(
           context: context,
           barrierDismissible: true,
-          pageListBuilder: (context) => [
-            WoltModalSheetPage(
-              backgroundColor: colorScheme.secondaryContainer,
-              trailingNavBarWidget: GestureDetector(
-                onTap: () {
-                  GoRouter.of(context).pop();
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 16),
-                  child: AutoSizeText(
-                    l10n.cancel.toUpperCase(),
-                    style: const TextStyle(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
+          pageListBuilder:
+              (context) => [
+                WoltModalSheetPage(
+                  backgroundColor: colorScheme.secondaryContainer,
+                  trailingNavBarWidget: GestureDetector(
+                    onTap: () {
+                      GoRouter.of(context).pop();
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 16),
+                      child: AutoSizeText(
+                        l10n.cancel.toUpperCase(),
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
+                  child: const LogOutDialog(),
                 ),
-              ),
-              child: const LogOutDialog(),
-            ),
-          ],
+              ],
           modalTypeBuilder: (_) => WoltModalType.dialog(),
         );
       },
@@ -70,8 +71,9 @@ class _UserProfileIconState extends State<UserProfileIcon> {
         ),
         child: ValueListenableBuilder<Object>(
           valueListenable:
-              Hive.box<dynamic>(FlutterConConfig.instance!.values.hiveBox)
-                  .listenable(),
+              Hive.box<dynamic>(
+                FlutterConConfig.instance!.values.hiveBox,
+              ).listenable(),
           builder: (context, _, __) {
             final profile = getIt<HiveRepository>().retrieveUser();
             if (profile != null) {
@@ -80,26 +82,22 @@ class _UserProfileIconState extends State<UserProfileIcon> {
                   imageUrl: profile.avatar,
                   height: 100,
                   width: 100,
-                  placeholder: (_, __) => const SizedBox(
-                    height: 150,
-                    width: double.infinity,
-                    child: Center(child: CircularProgressIndicator()),
-                  ),
-                  errorWidget: (_, __, ___) => const SizedBox(
-                    height: 150,
-                    width: double.infinity,
-                    child: Icon(
-                      Icons.error,
-                      color: Colors.red,
-                    ),
-                  ),
+                  placeholder:
+                      (_, __) => const SizedBox(
+                        height: 150,
+                        width: double.infinity,
+                        child: Center(child: CircularProgressIndicator()),
+                      ),
+                  errorWidget:
+                      (_, __, ___) => const SizedBox(
+                        height: 150,
+                        width: double.infinity,
+                        child: Icon(Icons.error, color: Colors.red),
+                      ),
                 ),
               );
             }
-            return const Icon(
-              Icons.person,
-              color: Colors.white,
-            );
+            return const Icon(Icons.person, color: Colors.white);
           },
         ),
       ),

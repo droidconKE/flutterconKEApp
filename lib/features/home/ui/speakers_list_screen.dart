@@ -29,31 +29,36 @@ class SpeakerListScreen extends StatelessWidget {
         surfaceTintColor: Colors.white,
       ),
       body: BlocBuilder<FetchSpeakersCubit, FetchSpeakersState>(
-        builder: (context, state) => state.maybeWhen(
-          loaded: (speakers, _) => Padding(
-            padding: const EdgeInsets.all(10),
-            child: GridView.builder(
-              itemCount: speakers.length,
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                mainAxisSpacing: 4,
-                crossAxisSpacing: 4,
-                mainAxisExtent: 316,
-                maxCrossAxisExtent: 240,
-              ),
-              itemBuilder: (context, index) =>
-                  SpeakerGridTile(speaker: speakers[index]),
+        builder:
+            (context, state) => state.maybeWhen(
+              loaded:
+                  (speakers, _) => Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: GridView.builder(
+                      itemCount: speakers.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithMaxCrossAxisExtent(
+                            mainAxisSpacing: 4,
+                            crossAxisSpacing: 4,
+                            mainAxisExtent: 316,
+                            maxCrossAxisExtent: 240,
+                          ),
+                      itemBuilder:
+                          (context, index) =>
+                              SpeakerGridTile(speaker: speakers[index]),
+                    ),
+                  ),
+              error:
+                  (message) => AutoSizeText(
+                    message,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: colorScheme.primary,
+                      fontSize: 18,
+                    ),
+                  ),
+              orElse: () => const Center(child: CircularProgressIndicator()),
             ),
-          ),
-          error: (message) => AutoSizeText(
-            message,
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: colorScheme.primary,
-                  fontSize: 18,
-                ),
-          ),
-          orElse: () => const Center(child: CircularProgressIndicator()),
-        ),
       ),
     );
   }

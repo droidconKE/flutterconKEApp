@@ -15,14 +15,13 @@ class FeedbackCustomAppBar extends StatelessWidget {
     return Stack(
       children: [
         Positioned.fill(
-          child: SvgPicture.asset(
-            AppAssets.feedbackBanner,
-            fit: BoxFit.cover,
-          ),
+          child: SvgPicture.asset(AppAssets.feedbackBanner, fit: BoxFit.cover),
         ),
         Container(
-          padding:
-              const EdgeInsets.symmetric(horizontal: 10, vertical: 10.0 * 3),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+            vertical: 10.0 * 3,
+          ),
           child: Row(
             children: [
               const SizedBox(height: 10),
@@ -34,8 +33,10 @@ class FeedbackCustomAppBar extends StatelessWidget {
                   children: [
                     AutoSizeText(
                       l10n.feedback,
-                      style: theme.textTheme.headlineMedium
-                          ?.copyWith(color: Colors.white, fontSize: 20),
+                      style: theme.textTheme.headlineMedium?.copyWith(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
                     ),
                   ],
                 ),

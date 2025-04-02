@@ -21,9 +21,7 @@ class Sponsor with _$Sponsor {
 
 @freezed
 class SponsorResponse with _$SponsorResponse {
-  factory SponsorResponse(
-    List<Sponsor> data,
-  ) = _SponsorResponse;
+  factory SponsorResponse(List<Sponsor> data) = _SponsorResponse;
 
   factory SponsorResponse.fromJson(Map<String, dynamic> json) =>
       _$SponsorResponseFromJson(json);

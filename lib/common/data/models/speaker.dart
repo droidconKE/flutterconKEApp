@@ -24,9 +24,8 @@ class Speaker with _$Speaker {
 
 @freezed
 class SpeakerResponse with _$SpeakerResponse {
-  const factory SpeakerResponse({
-    required List<Speaker> data,
-  }) = _SpeakerResponse;
+  const factory SpeakerResponse({required List<Speaker> data}) =
+      _SpeakerResponse;
 
   factory SpeakerResponse.fromJson(Map<String, Object?> json) =>
       _$SpeakerResponseFromJson(json);

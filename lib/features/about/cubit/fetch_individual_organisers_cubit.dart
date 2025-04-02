@@ -22,9 +22,7 @@ class FetchIndividualOrganisersCubit
   late ApiRepository _apiRepository;
   late DBRepository _dBRepository;
 
-  Future<void> fetchIndividualOrganisers({
-    bool forceRefresh = false,
-  }) async {
+  Future<void> fetchIndividualOrganisers({bool forceRefresh = false}) async {
     emit(const FetchIndividualOrganisersState.loading());
 
     try {
@@ -63,8 +61,6 @@ class FetchIndividualOrganisersCubit
 
   Future<void> _networkFetch() async {
     final individualOrganisers = await _apiRepository.fetchOrganisers();
-    await _dBRepository.persistOrganisers(
-      organisers: individualOrganisers,
-    );
+    await _dBRepository.persistOrganisers(organisers: individualOrganisers);
   }
 }

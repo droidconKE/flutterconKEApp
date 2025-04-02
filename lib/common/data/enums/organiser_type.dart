@@ -4,5 +4,5 @@ enum OrganiserType {
   @JsonValue('individual')
   individual,
   @JsonValue('company')
-  company;
+  company,
 }

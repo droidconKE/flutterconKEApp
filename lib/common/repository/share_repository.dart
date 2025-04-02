@@ -11,8 +11,10 @@ class ShareRepository {
 
   Future<String> shareToTelegram(String message, String? filePath) async {
     try {
-      return await appinioSocialShare.android
-          .shareToTelegram(message, filePath);
+      return await appinioSocialShare.android.shareToTelegram(
+        message,
+        filePath,
+      );
     } catch (e) {
       rethrow;
     }
@@ -20,8 +22,10 @@ class ShareRepository {
 
   Future<String> shareToWhatsApp(String message, String? filePath) async {
     try {
-      return await appinioSocialShare.android
-          .shareToWhatsapp(message, filePath);
+      return await appinioSocialShare.android.shareToWhatsapp(
+        message,
+        filePath,
+      );
     } catch (e) {
       rethrow;
     }

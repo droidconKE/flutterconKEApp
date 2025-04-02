@@ -12,10 +12,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  void _redirectToPage(
-    BuildContext context,
-    String routeName,
-  ) {
+  void _redirectToPage(BuildContext context, String routeName) {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) => GoRouter.of(context).goNamed(routeName),
     );
@@ -24,10 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     // Go directly to the landing page
-    _redirectToPage(
-      context,
-      FlutterConRouter.dashboardRoute,
-    );
+    _redirectToPage(context, FlutterConRouter.dashboardRoute);
 
     super.initState();
   }
@@ -38,9 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: colorScheme.surface,
       body: const Center(
-        child: Image(
-          image: AssetImage(AppAssets.imgDroidcon),
-        ),
+        child: Image(image: AssetImage(AppAssets.imgDroidcon)),
       ),
     );
   }

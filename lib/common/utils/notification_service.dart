@@ -10,21 +10,18 @@ import 'package:logger/logger.dart';
 @singleton
 class NotificationService {
   Future<void> initNotifications() async {
-    await AwesomeNotifications().initialize(
-      null,
-      [
-        NotificationChannel(
-          channelKey: 'session_channel',
-          channelName: 'Session notifications',
-          channelDescription: 'Notification channel for bookmarked sessions',
-          defaultColor: ThemeColors.blueDroidconColor,
-          ledColor: Colors.white,
-          playSound: true,
-          enableVibration: true,
-          importance: NotificationImportance.High,
-        ),
-      ],
-    );
+    await AwesomeNotifications().initialize(null, [
+      NotificationChannel(
+        channelKey: 'session_channel',
+        channelName: 'Session notifications',
+        channelDescription: 'Notification channel for bookmarked sessions',
+        defaultColor: ThemeColors.blueDroidconColor,
+        ledColor: Colors.white,
+        playSound: true,
+        enableVibration: true,
+        importance: NotificationImportance.High,
+      ),
+    ]);
   }
 
   Future<void> requestPermission() async {
@@ -55,8 +52,9 @@ class NotificationService {
     required String channelKey,
     required LocalSession session,
   }) async {
-    final notificationTime =
-        session.endDateTime.subtract(const Duration(minutes: 5));
+    final notificationTime = session.endDateTime.subtract(
+      const Duration(minutes: 5),
+    );
     // Uncomment the line below to test the notification in 5 seconds
     // final notificationTime = DateTime.now().add(const Duration(seconds: 5));
     String? title;
@@ -64,7 +62,8 @@ class NotificationService {
 
     if (channelKey == 'session_channel') {
       title = '${session.title} feedback';
-      body = 'Please provide feedback for the session you just attended:'
+      body =
+          'Please provide feedback for the session you just attended:'
           ' ${session.title}';
     }
 
@@ -91,9 +90,9 @@ class NotificationService {
       case 'session_channel':
         Logger().f('Navigating to feedback screen');
         await getIt<FlutterConRouter>().config().push(
-              FlutterConRouter.feedbackRoute,
-              extra: receivedAction.payload!['sessionSlug'],
-            );
+          FlutterConRouter.feedbackRoute,
+          extra: receivedAction.payload!['sessionSlug'],
+        );
     }
   }
 }

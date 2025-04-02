@@ -35,9 +35,8 @@ class Session with _$Session {
 
 @freezed
 class SessionResponse with _$SessionResponse {
-  const factory SessionResponse({
-    required List<Session> data,
-  }) = _SessionResponse;
+  const factory SessionResponse({required List<Session> data}) =
+      _SessionResponse;
 
   factory SessionResponse.fromJson(Map<String, Object?> json) =>
       _$SessionResponseFromJson(json);

@@ -18,14 +18,10 @@ class SocialAuthSignInCubit extends Cubit<SocialAuthSignInState> {
   late AuthRepository _authRepository;
   late HiveRepository _hiveRepository;
 
-  Future<void> socialSignIn({
-    required String token,
-  }) async {
+  Future<void> socialSignIn({required String token}) async {
     emit(const SocialAuthSignInState.loading());
     try {
-      final authResult = await _authRepository.signIn(
-        token: token,
-      );
+      final authResult = await _authRepository.signIn(token: token);
       _hiveRepository
         ..persistToken(authResult.token)
         ..persistUser(authResult.user);

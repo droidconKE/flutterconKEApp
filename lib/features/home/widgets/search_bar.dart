@@ -103,12 +103,15 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           initial: Container.new,
           loading: () => const Center(child: CircularProgressIndicator()),
           loaded: _buildSearchResultsList,
-          error: (message) => Center(
-            child: AutoSizeText(
-              message,
-              style: const TextStyle(color: ThemeColors.orangeDroidconColor),
-            ),
-          ),
+          error:
+              (message) => Center(
+                child: AutoSizeText(
+                  message,
+                  style: const TextStyle(
+                    color: ThemeColors.orangeDroidconColor,
+                  ),
+                ),
+              ),
         );
       },
     );
@@ -170,19 +173,13 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
       case SearchResultType.session:
         if (result.session != null) {
           GoRouter.of(context)
-              .push(
-                FlutterConRouter.sessionDetailsRoute,
-                extra: result.session,
-              )
+              .push(FlutterConRouter.sessionDetailsRoute, extra: result.session)
               .then((_) => _clearSearch());
         }
       case SearchResultType.speaker:
         if (result.speaker != null) {
           GoRouter.of(context)
-              .push(
-                FlutterConRouter.speakerDetailsRoute,
-                extra: result.speaker,
-              )
+              .push(FlutterConRouter.speakerDetailsRoute, extra: result.speaker)
               .then((_) => _clearSearch());
         }
       case SearchResultType.organizer:

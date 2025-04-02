@@ -6,9 +6,8 @@ import 'package:fluttercon/common/repository/db_repository.dart';
 import 'package:fluttercon/features/home/cubit/search_state.dart';
 
 class SearchCubit extends Cubit<SearchState> {
-  SearchCubit({
-    required DBRepository dbRepository,
-  }) : super(const SearchState.initial()) {
+  SearchCubit({required DBRepository dbRepository})
+    : super(const SearchState.initial()) {
     _dbRepository = dbRepository;
   }
 
@@ -19,8 +18,8 @@ class SearchCubit extends Cubit<SearchState> {
     try {
       final sessions = await _dbRepository.searchSessions(query);
       final speakers = await _dbRepository.searchSpeakers(query);
-      final individualOrganizers =
-          await _dbRepository.searchIndividualOrganisers(query);
+      final individualOrganizers = await _dbRepository
+          .searchIndividualOrganisers(query);
 
       final results = [
         ...sessions.map(

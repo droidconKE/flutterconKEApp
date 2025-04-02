@@ -16,9 +16,7 @@ class FirebaseRepository {
     final config = remoteConfig.getValue('dev_flutterconke_fluttercon');
 
     return RemoteConfig.fromJson(
-      json.decode(
-        config.asString(),
-      ) as Map<String, dynamic>,
+      json.decode(config.asString()) as Map<String, dynamic>,
     );
   }
 }

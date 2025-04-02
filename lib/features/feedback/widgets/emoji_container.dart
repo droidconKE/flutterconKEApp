@@ -28,18 +28,15 @@ class EmojiContainer extends StatelessWidget {
           boxShadow: [
             if (onTap != null)
               BoxShadow(
-                color: (isLightMode ? Colors.black : Colors.white)
-                    .withValues(alpha: 0.5),
+                color: (isLightMode ? Colors.black : Colors.white).withValues(
+                  alpha: 0.5,
+                ),
                 blurRadius: 4,
                 offset: const Offset(0, 2),
               ),
           ],
         ),
-        child: Image.asset(
-          path,
-          width: 40,
-          height: 40,
-        ),
+        child: Image.asset(path, width: 40, height: 40),
       ),
     );
   }

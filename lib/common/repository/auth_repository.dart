@@ -11,21 +11,13 @@ class AuthRepository {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  final GoogleSignIn _googleSignIn = GoogleSignIn(
-    scopes: [
-      'profile',
-      'email',
-    ],
-  );
+  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['profile', 'email']);
 
   Future<AuthResult> ghostSignIn() async {
     try {
       final response = await _networkUtil.postReq(
         '/login',
-        body: {
-          'email': 'google@play.com',
-          'password': 'password',
-        },
+        body: {'email': 'google@play.com', 'password': 'password'},
       );
 
       return AuthResult.fromJson(response);
@@ -70,9 +62,7 @@ class AuthRepository {
     try {
       final response = await _networkUtil.postWithFormData(
         '/social_login/google',
-        body: {
-          'access_token': token,
-        },
+        body: {'access_token': token},
       );
 
       Logger().d(response);

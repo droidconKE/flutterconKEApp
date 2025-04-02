@@ -28,48 +28,55 @@ class DaySessionsView extends StatelessWidget {
         final randomizeColor = Random().nextBool();
 
         return Padding(
-          padding: const EdgeInsets.only(left: 32) +
+          padding:
+              const EdgeInsets.only(left: 32) +
               const EdgeInsets.symmetric(vertical: 4),
           child: SizedBox(
             height: 25,
             child: TimelineTile(
               afterLineStyle: LineStyle(
                 thickness: 2,
-                color: randomizeColor
-                    ? ThemeColors.orangeColor
-                    : ThemeColors.blueGreenDroidconColor,
+                color:
+                    randomizeColor
+                        ? ThemeColors.orangeColor
+                        : ThemeColors.blueGreenDroidconColor,
               ),
               beforeLineStyle: LineStyle(
                 thickness: 2,
-                color: randomizeColor
-                    ? ThemeColors.orangeColor
-                    : ThemeColors.blueGreenDroidconColor,
+                color:
+                    randomizeColor
+                        ? ThemeColors.orangeColor
+                        : ThemeColors.blueGreenDroidconColor,
               ),
               indicatorStyle: IndicatorStyle(
                 width: 8,
-                color: randomizeColor
-                    ? ThemeColors.orangeColor
-                    : ThemeColors.blueGreenDroidconColor,
+                color:
+                    randomizeColor
+                        ? ThemeColors.orangeColor
+                        : ThemeColors.blueGreenDroidconColor,
               ),
             ),
           ),
         );
       },
-      itemBuilder: (context, index) => GestureDetector(
-        onTap: () => GoRouter.of(context).push(
-          FlutterConRouter.sessionDetailsRoute,
-          extra: sessions[index],
-        ),
-        child: isCompactView
-            ? CompactViewCard(
-                session: sessions[index],
-                listIndex: index,
-              )
-            : ScheduleViewCard(
-                session: sessions[index],
-                listIndex: index,
-              ),
-      ),
+      itemBuilder:
+          (context, index) => GestureDetector(
+            onTap:
+                () => GoRouter.of(context).push(
+                  FlutterConRouter.sessionDetailsRoute,
+                  extra: sessions[index],
+                ),
+            child:
+                isCompactView
+                    ? CompactViewCard(
+                      session: sessions[index],
+                      listIndex: index,
+                    )
+                    : ScheduleViewCard(
+                      session: sessions[index],
+                      listIndex: index,
+                    ),
+          ),
     );
   }
 }

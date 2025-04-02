@@ -82,52 +82,52 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     WoltModalSheet.show<dynamic>(
                       context: context,
                       barrierDismissible: true,
-                      pageListBuilder: (context) => [
-                        WoltModalSheetPage(
-                          backgroundColor: colorScheme.secondaryContainer,
-                          leadingNavBarWidget: Padding(
-                            padding: const EdgeInsets.only(left: 16),
-                            child: Row(
-                              children: [
-                                SvgPicture.asset(
-                                  AppAssets.filterIcon,
-                                  colorFilter: ColorFilter.mode(
-                                    colorScheme.primary,
-                                    BlendMode.srcIn,
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                AutoSizeText(
-                                  l10n.filter,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge
-                                      ?.copyWith(
+                      pageListBuilder:
+                          (context) => [
+                            WoltModalSheetPage(
+                              backgroundColor: colorScheme.secondaryContainer,
+                              leadingNavBarWidget: Padding(
+                                padding: const EdgeInsets.only(left: 16),
+                                child: Row(
+                                  children: [
+                                    SvgPicture.asset(
+                                      AppAssets.filterIcon,
+                                      colorFilter: ColorFilter.mode(
+                                        colorScheme.primary,
+                                        BlendMode.srcIn,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    AutoSizeText(
+                                      l10n.filter,
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.titleLarge?.copyWith(
                                         fontWeight: FontWeight.bold,
                                         color: colorScheme.primary,
                                       ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          trailingNavBarWidget: GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.only(right: 16),
-                              child: AutoSizeText(
-                                l10n.cancel.toUpperCase(),
-                                style: const TextStyle(
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.bold,
+                                    ),
+                                  ],
                                 ),
                               ),
+                              trailingNavBarWidget: GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 16),
+                                  child: AutoSizeText(
+                                    l10n.cancel.toUpperCase(),
+                                    style: const TextStyle(
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              child: const SessionFilter(),
                             ),
-                          ),
-                          child: const SessionFilter(),
-                        ),
-                      ],
+                          ],
                       modalTypeBuilder: (_) => WoltModalType.dialog(),
                     );
                   },
@@ -137,9 +137,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       AutoSizeText(
                         l10n.filter,
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey,
-                            ),
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey,
+                        ),
                       ),
                       const SizedBox(width: 8),
                       SvgPicture.asset(

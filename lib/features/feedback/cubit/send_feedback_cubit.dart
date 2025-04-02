@@ -7,10 +7,9 @@ part 'send_feedback_state.dart';
 part 'send_feedback_cubit.freezed.dart';
 
 class SendFeedbackCubit extends Cubit<SendFeedbackState> {
-  SendFeedbackCubit({
-    required ApiRepository apiRepository,
-  })  : _apiRepository = apiRepository,
-        super(const SendFeedbackState.initial());
+  SendFeedbackCubit({required ApiRepository apiRepository})
+    : _apiRepository = apiRepository,
+      super(const SendFeedbackState.initial());
 
   final ApiRepository _apiRepository;
 
@@ -29,12 +28,7 @@ class SendFeedbackCubit extends Cubit<SendFeedbackState> {
         ),
       );
 
-      emit(
-        SendFeedbackState.loaded(
-          feedback: message,
-          rating: rating,
-        ),
-      );
+      emit(SendFeedbackState.loaded(feedback: message, rating: rating));
     } catch (e) {
       emit(SendFeedbackState.error(e.toString()));
     }

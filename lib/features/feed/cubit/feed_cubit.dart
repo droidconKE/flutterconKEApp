@@ -20,9 +20,7 @@ class FetchFeedCubit extends Cubit<FetchFeedState> {
   late ApiRepository _apiRepository;
   late DBRepository _dBRepository;
 
-  Future<void> fetchFeeds({
-    bool forceRefresh = false,
-  }) async {
+  Future<void> fetchFeeds({bool forceRefresh = false}) async {
     emit(const FetchFeedState.loading());
     try {
       // Fetch feed entries from local database

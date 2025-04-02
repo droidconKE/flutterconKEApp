@@ -32,10 +32,7 @@ class SocialHandleBody extends StatelessWidget {
         children: [
           AutoSizeText(
             twitterUrl != null ? l10n.twitterHandle : l10n.linkedin,
-            style: TextStyle(
-              color: colorScheme.onSurface,
-              fontSize: 20,
-            ),
+            style: TextStyle(color: colorScheme.onSurface, fontSize: 20),
           ),
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 200),
@@ -50,9 +47,7 @@ class SocialHandleBody extends StatelessWidget {
                 backgroundColor: colorScheme.surface,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
-                  side: BorderSide(
-                    color: colorScheme.primary,
-                  ),
+                  side: BorderSide(color: colorScheme.primary),
                 ),
               ),
               child: Row(

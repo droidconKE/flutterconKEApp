@@ -6,9 +6,7 @@ class ApiConstants {
   static const String posts = '/posts';
   static const String comments = '/comments';
   static const String todos = '/todos';
-  static const headers = {
-    'content-Type': 'application/json',
-  };
+  static const headers = {'content-Type': 'application/json'};
 
   //Api call error
   static const cancelRequest = 'Request to API server was cancelled';

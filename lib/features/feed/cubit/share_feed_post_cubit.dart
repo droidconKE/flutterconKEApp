@@ -9,9 +9,8 @@ part 'share_feed_post_state.dart';
 part 'share_feed_post_cubit.freezed.dart';
 
 class ShareFeedPostCubit extends Cubit<ShareFeedPostState> {
-  ShareFeedPostCubit({
-    required ShareRepository shareRepository,
-  }) : super(const ShareFeedPostState.initial()) {
+  ShareFeedPostCubit({required ShareRepository shareRepository})
+    : super(const ShareFeedPostState.initial()) {
     _shareRepository = shareRepository;
   }
 
@@ -46,8 +45,10 @@ class ShareFeedPostCubit extends Cubit<ShareFeedPostState> {
             return;
           }
           try {
-            final result =
-                await _shareRepository.shareToTelegram(message, filePath);
+            final result = await _shareRepository.shareToTelegram(
+              message,
+              filePath,
+            );
             Logger().d(result);
             emit(const ShareFeedPostState.loaded());
           } catch (e) {
@@ -61,14 +62,14 @@ class ShareFeedPostCubit extends Cubit<ShareFeedPostState> {
             return;
           }
           try {
-            final result =
-                await _shareRepository.shareToWhatsApp(message, filePath);
+            final result = await _shareRepository.shareToWhatsApp(
+              message,
+              filePath,
+            );
             Logger().d(result);
             emit(const ShareFeedPostState.loaded());
           } catch (e) {
-            emit(
-              const ShareFeedPostState.error('WhatsApp is not installed.'),
-            );
+            emit(const ShareFeedPostState.error('WhatsApp is not installed.'));
             return;
           }
 
@@ -79,8 +80,10 @@ class ShareFeedPostCubit extends Cubit<ShareFeedPostState> {
             return;
           }
           try {
-            final result =
-                await _shareRepository.shareToTwitter(message, filePath);
+            final result = await _shareRepository.shareToTwitter(
+              message,
+              filePath,
+            );
             Logger().d(result);
             emit(const ShareFeedPostState.loaded());
           } catch (e) {

@@ -44,9 +44,9 @@ class _AboutScreenState extends State<AboutScreen> {
                   child: AutoSizeText(
                     l10n.about,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          color: colorScheme.primary,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      color: colorScheme.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
@@ -57,8 +57,8 @@ class _AboutScreenState extends State<AboutScreen> {
                   child: AutoSizeText(
                     l10n.aboutFluttercon,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: colorScheme.onSurface,
-                        ),
+                      color: colorScheme.onSurface,
+                    ),
                   ),
                 ),
               ),
@@ -69,9 +69,9 @@ class _AboutScreenState extends State<AboutScreen> {
                   child: AutoSizeText(
                     l10n.organisingTeam,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          color: colorScheme.primary,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      color: colorScheme.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),

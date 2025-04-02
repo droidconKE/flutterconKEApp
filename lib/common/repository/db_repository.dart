@@ -18,17 +18,17 @@ import 'package:path_provider/path_provider.dart' as path_provider;
 class DBRepository {
   Future<Isar> init() async {
     final dir = await path_provider.getApplicationDocumentsDirectory();
-    return Isar.open(
-      [
-        LocalFeedEntrySchema,
-        LocalSpeakerSchema,
-        LocalOrganiserSchema,
-        LocalIndividualOrganiserSchema,
-        LocalSponsorSchema,
-        LocalSessionSchema,
-      ],
-      directory: dir.path,
-    );
+
+    final collections = [
+      LocalFeedEntrySchema,
+      LocalSpeakerSchema,
+      LocalOrganiserSchema,
+      LocalIndividualOrganiserSchema,
+      LocalSponsorSchema,
+      LocalSessionSchema,
+    ];
+
+    return Isar.open(collections, directory: dir.path);
   }
 
   Future<void> clearAllTables() async {
@@ -37,9 +37,7 @@ class DBRepository {
     });
   }
 
-  Future<void> persistFeedEntries({
-    required List<Feed> entries,
-  }) async {
+  Future<void> persistFeedEntries({required List<Feed> entries}) async {
     await localDB.writeTxn(() async {
       final localFeedEntries = <LocalFeedEntry>[];
 
@@ -64,9 +62,7 @@ class DBRepository {
     return localDB.localFeedEntrys.where().findAll();
   }
 
-  Future<void> persistSpeakers({
-    required List<Speaker> speakers,
-  }) async {
+  Future<void> persistSpeakers({required List<Speaker> speakers}) async {
     await localDB.writeTxn(() async {
       final localSpeakers = <LocalSpeaker>[];
 
@@ -95,9 +91,7 @@ class DBRepository {
     return localDB.localSpeakers.where().findAll();
   }
 
-  Future<void> persistOrganisers({
-    required List<Organiser> organisers,
-  }) async {
+  Future<void> persistOrganisers({required List<Organiser> organisers}) async {
     await localDB.writeTxn(() async {
       final localOrganisers = <LocalOrganiser>[];
 
@@ -130,9 +124,7 @@ class DBRepository {
         .findAll();
   }
 
-  Future<void> persistSponsors({
-    required List<Sponsor> sponsors,
-  }) async {
+  Future<void> persistSponsors({required List<Sponsor> sponsors}) async {
     await localDB.writeTxn(() async {
       final localSponsors = <LocalSponsor>[];
 
@@ -157,9 +149,7 @@ class DBRepository {
     return localDB.localSponsors.where().findAll();
   }
 
-  Future<void> persistSessions({
-    required List<Session> sessions,
-  }) async {
+  Future<void> persistSessions({required List<Session> sessions}) async {
     await localDB.writeTxn(() async {
       final localSessions = <LocalSession>[];
 
@@ -181,30 +171,27 @@ class DBRepository {
             isBookmarked: session.isBookmarked,
             isServiceSession: session.isServiceSession,
             sessionImage: session.sessionImage,
-            speakers: session.speakers
-                .map(
-                  (speaker) => EmbeddedSpeaker(
-                    name: speaker.name,
-                    biography: speaker.biography,
-                    avatar: speaker.avatar,
-                    tagline: speaker.tagline,
-                    twitter: speaker.twitter,
-                    facebook: speaker.facebook,
-                    linkedin: speaker.linkedin,
-                    instagram: speaker.instagram,
-                    blog: speaker.blog,
-                    companyWebsite: speaker.companyWebsite,
-                  ),
-                )
-                .toList(),
-            rooms: session.rooms
-                .map(
-                  (room) => LocalRoom(
-                    title: room.title,
-                    id: room.id,
-                  ),
-                )
-                .toList(),
+            speakers:
+                session.speakers
+                    .map(
+                      (speaker) => EmbeddedSpeaker(
+                        name: speaker.name,
+                        biography: speaker.biography,
+                        avatar: speaker.avatar,
+                        tagline: speaker.tagline,
+                        twitter: speaker.twitter,
+                        facebook: speaker.facebook,
+                        linkedin: speaker.linkedin,
+                        instagram: speaker.instagram,
+                        blog: speaker.blog,
+                        companyWebsite: speaker.companyWebsite,
+                      ),
+                    )
+                    .toList(),
+            rooms:
+                session.rooms
+                    .map((room) => LocalRoom(title: room.title, id: room.id))
+                    .toList(),
           ),
         );
       }
@@ -223,8 +210,9 @@ class DBRepository {
         .filter()
         .optional(
           bookmarkStatus != null,
-          (q) => q
-              .isBookmarkedEqualTo(bookmarkStatus == BookmarkStatus.bookmarked),
+          (q) => q.isBookmarkedEqualTo(
+            bookmarkStatus == BookmarkStatus.bookmarked,
+          ),
         )
         .optional(
           sessionLevel != null,
@@ -246,10 +234,11 @@ class DBRepository {
     bool? bookmarkStatus,
   }) async {
     await localDB.writeTxn(() async {
-      final session = await localDB.localSessions
-          .where()
-          .serverIdEqualTo(sessionId)
-          .findFirst();
+      final session =
+          await localDB.localSessions
+              .where()
+              .serverIdEqualTo(sessionId)
+              .findFirst();
       if (session == null) return;
 
       if (bookmarkStatus != null) {

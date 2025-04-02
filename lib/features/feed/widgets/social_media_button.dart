@@ -46,9 +46,10 @@ class SocialMediaButton extends StatelessWidget {
               AutoSizeText(
                 label,
                 style: TextStyle(
-                  color: isLightMode
-                      ? ThemeColors.blackColor
-                      : const Color(0xFF7DE1C3),
+                  color:
+                      isLightMode
+                          ? ThemeColors.blackColor
+                          : const Color(0xFF7DE1C3),
                   fontWeight: FontWeight.bold,
                 ),
               ),

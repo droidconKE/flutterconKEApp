@@ -20,9 +20,7 @@ class FetchSponsorsCubit extends Cubit<FetchSponsorsState> {
   late ApiRepository _apiRepository;
   late DBRepository _dBRepository;
 
-  Future<void> fetchSponsors({
-    bool forceRefresh = false,
-  }) async {
+  Future<void> fetchSponsors({bool forceRefresh = false}) async {
     emit(const FetchSponsorsState.loading());
     try {
       final localSponsors = await _dBRepository.fetchSponsors();

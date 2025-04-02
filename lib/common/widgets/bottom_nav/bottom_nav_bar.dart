@@ -84,11 +84,13 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
     return GestureDetector(
       onHorizontalDragStart: _handleDragStart,
       onHorizontalDragUpdate: _handleDragUpdate,
-      onHorizontalDragEnd: (DragEndDetails dragEndDetails) =>
-          _handleDragEnd(dragEndDetails, context),
-      onDoubleTap: bottomNavBarDoubleTapGestures == true
-          ? () => _handleDoubleTap(context)
-          : null,
+      onHorizontalDragEnd:
+          (DragEndDetails dragEndDetails) =>
+              _handleDragEnd(dragEndDetails, context),
+      onDoubleTap:
+          bottomNavBarDoubleTapGestures == true
+              ? () => _handleDoubleTap(context)
+              : null,
       child: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: colorScheme.surface,
@@ -98,19 +100,22 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         unselectedLabelStyle: const TextStyle(fontSize: 12),
         selectedLabelStyle: const TextStyle(fontSize: 12),
         onTap: widget.onPageChange,
-        items: widget.pages.map((page) {
-          final isActive = widget.selectedIndex == widget.pages.indexOf(page);
-          return BottomNavigationBarItem(
-            label: page.title,
-            icon: Padding(
-              padding: const EdgeInsets.all(8),
-              child: AppNavIcon(
-                page.icon,
-                color: isActive ? colorScheme.primary : colorScheme.onSurface,
-              ),
-            ),
-          );
-        }).toList(),
+        items:
+            widget.pages.map((page) {
+              final isActive =
+                  widget.selectedIndex == widget.pages.indexOf(page);
+              return BottomNavigationBarItem(
+                label: page.title,
+                icon: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: AppNavIcon(
+                    page.icon,
+                    color:
+                        isActive ? colorScheme.primary : colorScheme.onSurface,
+                  ),
+                ),
+              );
+            }).toList(),
       ),
     );
   }

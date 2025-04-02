@@ -20,9 +20,8 @@ class Organiser with _$Organiser {
 
 @freezed
 class OrganiserResponse with _$OrganiserResponse {
-  const factory OrganiserResponse({
-    required List<Organiser> data,
-  }) = _OrganiserResponse;
+  const factory OrganiserResponse({required List<Organiser> data}) =
+      _OrganiserResponse;
 
   factory OrganiserResponse.fromJson(Map<String, Object?> json) =>
       _$OrganiserResponseFromJson(json);

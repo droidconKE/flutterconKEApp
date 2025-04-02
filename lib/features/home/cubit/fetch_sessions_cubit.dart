@@ -20,17 +20,16 @@ class FetchSessionsCubit extends Cubit<FetchSessionsState> {
   late ApiRepository _apiRepository;
   late DBRepository _databaseRepository;
 
-  Future<void> fetchSessions({
-    bool forceRefresh = false,
-  }) async {
+  Future<void> fetchSessions({bool forceRefresh = false}) async {
     emit(const FetchSessionsState.loading());
 
     try {
       final localSessions = await _databaseRepository.fetchSessions();
       if (localSessions.isNotEmpty && !forceRefresh) {
-        final filteredSessions = localSessions
-            .where((session) => !session.isServiceSession)
-            .toList();
+        final filteredSessions =
+            localSessions
+                .where((session) => !session.isServiceSession)
+                .toList();
 
         emit(
           FetchSessionsState.loaded(
@@ -46,9 +45,10 @@ class FetchSessionsCubit extends Cubit<FetchSessionsState> {
         await _networkFetch();
 
         final localSessions = await _databaseRepository.fetchSessions();
-        final filteredSessions = localSessions
-            .where((session) => !session.isServiceSession)
-            .toList();
+        final filteredSessions =
+            localSessions
+                .where((session) => !session.isServiceSession)
+                .toList();
         emit(
           FetchSessionsState.loaded(
             sessions: filteredSessions,

@@ -62,9 +62,11 @@ class DefaultFirebaseOptions {
     projectId: 'droidconke-70d60',
     databaseURL: 'https://droidconke-70d60.firebaseio.com',
     storageBucket: 'droidconke-70d60.appspot.com',
-    androidClientId: '602867001820-01m5er098dknofg7rdktcqj33atavm5c'
+    androidClientId:
+        '602867001820-01m5er098dknofg7rdktcqj33atavm5c'
         '.apps.googleusercontent.com',
-    iosClientId: '602867001820-p21jqotknhl6gcinm7lv9tmubhv30gh9'
+    iosClientId:
+        '602867001820-p21jqotknhl6gcinm7lv9tmubhv30gh9'
         '.apps.googleusercontent.com',
     iosBundleId: 'dev.flutterconke.fluttercon',
   );

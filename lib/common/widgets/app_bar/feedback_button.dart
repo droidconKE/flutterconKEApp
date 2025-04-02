@@ -20,45 +20,45 @@ class FeedbackButton extends StatelessWidget {
     return selectedIndex == 0
         ? const SizedBox()
         : InkWell(
-            onTap: () {
-              final profile = getIt<HiveRepository>().retrieveUser();
-              if (profile == null) {
-                GoRouter.of(context).goNamed(FlutterConRouter.signInRoute);
-                return;
-              }
+          onTap: () {
+            final profile = getIt<HiveRepository>().retrieveUser();
+            if (profile == null) {
+              GoRouter.of(context).goNamed(FlutterConRouter.signInRoute);
+              return;
+            }
 
-              GoRouter.of(context).push(FlutterConRouter.feedbackRoute);
-            },
-            child: Container(
-              height: 30,
-              width: 127,
-              decoration: BoxDecoration(
-                color: ThemeColors.tealColor.withValues(alpha: 0.21),
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  AppNavIcon(
-                    'smiley-outline',
-                    height: 12,
+            GoRouter.of(context).push(FlutterConRouter.feedbackRoute);
+          },
+          child: Container(
+            height: 30,
+            width: 127,
+            decoration: BoxDecoration(
+              color: ThemeColors.tealColor.withValues(alpha: 0.21),
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                AppNavIcon(
+                  'smiley-outline',
+                  height: 12,
+                  color: colorScheme.onSurface,
+                ),
+                AutoSizeText(
+                  l10n.feedback,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontSize: 12,
                     color: colorScheme.onSurface,
                   ),
-                  AutoSizeText(
-                    l10n.feedback,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontSize: 12,
-                          color: colorScheme.onSurface,
-                        ),
-                  ),
-                  const AppNavIcon(
-                    'send',
-                    height: 12,
-                    color: ThemeColors.tealColor,
-                  ),
-                ],
-              ),
+                ),
+                const AppNavIcon(
+                  'send',
+                  height: 12,
+                  color: ThemeColors.tealColor,
+                ),
+              ],
             ),
-          );
+          ),
+        );
   }
 }

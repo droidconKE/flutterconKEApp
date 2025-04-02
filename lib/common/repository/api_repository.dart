@@ -13,10 +13,7 @@ class ApiRepository {
   final _eventSlug = FlutterConConfig.instance!.values.eventSlug;
   final _organiserSlug = FlutterConConfig.instance!.values.organiserSlug;
 
-  Future<List<Speaker>> fetchSpeakers({
-    int perPage = 100,
-    int page = 1,
-  }) async {
+  Future<List<Speaker>> fetchSpeakers({int perPage = 100, int page = 1}) async {
     try {
       final response = await _networkUtil.getReq(
         '/events/$_eventSlug/speakers',
@@ -31,9 +28,7 @@ class ApiRepository {
 
   Future<List<Room>> fetchRooms() async {
     try {
-      final response = await _networkUtil.getReq(
-        '/events/$_eventSlug/rooms',
-      );
+      final response = await _networkUtil.getReq('/events/$_eventSlug/rooms');
 
       return RoomResponse.fromJson(response).data;
     } catch (e) {
@@ -41,10 +36,7 @@ class ApiRepository {
     }
   }
 
-  Future<List<Session>> fetchSessions({
-    int perPage = 20,
-    int page = 1,
-  }) async {
+  Future<List<Session>> fetchSessions({int perPage = 20, int page = 1}) async {
     try {
       final response = await _networkUtil.getReq(
         '/events/$_eventSlug/schedule',
@@ -57,10 +49,7 @@ class ApiRepository {
     }
   }
 
-  Future<List<Feed>> fetchFeeds({
-    int perPage = 10,
-    int page = 1,
-  }) async {
+  Future<List<Feed>> fetchFeeds({int perPage = 10, int page = 1}) async {
     try {
       final response = await _networkUtil.getReq(
         '/events/$_eventSlug/feeds',
@@ -89,10 +78,7 @@ class ApiRepository {
     }
   }
 
-  Future<List<Sponsor>> fetchSponsors({
-    int perPage = 20,
-    int page = 1,
-  }) async {
+  Future<List<Sponsor>> fetchSponsors({int perPage = 20, int page = 1}) async {
     try {
       final response = await _networkUtil.getReq(
         '/events/$_eventSlug/sponsors',
@@ -117,7 +103,7 @@ class ApiRepository {
     }
   }
 
-// Submit feedback as form data
+  // Submit feedback as form data
   Future<String> submitFeedback({required FeedbackDTO feedbackDTO}) async {
     try {
       final url = StringBuffer('/events/$_eventSlug/feedback');

@@ -40,12 +40,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
     ]);
   }
 
-  void switchTab(int index) => setState(
-        () {
-          selectedPageIndex = index;
-          pageController.jumpToPage(index);
-        },
-      );
+  void switchTab(int index) => setState(() {
+    selectedPageIndex = index;
+    pageController.jumpToPage(index);
+  });
 
   @override
   Widget build(BuildContext context) {

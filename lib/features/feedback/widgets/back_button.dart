@@ -5,11 +5,7 @@ import 'package:go_router/go_router.dart';
 
 Widget backButton(BuildContext context) {
   return InkWell(
-    child: SvgPicture.asset(
-      AppAssets.backIcon,
-      width: 25,
-      height: 25,
-    ),
+    child: SvgPicture.asset(AppAssets.backIcon, width: 25, height: 25),
     onTap: () => context.pop(),
   );
 }

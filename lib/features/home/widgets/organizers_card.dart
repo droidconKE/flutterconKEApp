@@ -49,42 +49,53 @@ class _OrganizersCardState extends State<OrganizersCard> {
           ),
           const Spacer(),
           BlocBuilder<FetchOrganisersCubit, FetchOrganisersState>(
-            builder: (context, state) => state.maybeWhen(
-              loaded: (organisers) => SizedBox(
-                height: size.height * .2,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => Container(
-                    height: size.height * .2,
-                    padding: EdgeInsets.symmetric(horizontal: 8.w),
-                    decoration: BoxDecoration(
-                      color: isLightMode
-                          ? colorScheme.secondaryContainer
-                          : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: isLightMode
-                            ? Colors.transparent
-                            : colorScheme.primary,
-                        width: 2,
+            builder:
+                (context, state) => state.maybeWhen(
+                  loaded:
+                      (organisers) => SizedBox(
+                        height: size.height * .2,
+                        child: ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder:
+                              (context, index) => Container(
+                                height: size.height * .2,
+                                padding: EdgeInsets.symmetric(horizontal: 8.w),
+                                decoration: BoxDecoration(
+                                  color:
+                                      isLightMode
+                                          ? colorScheme.secondaryContainer
+                                          : Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    color:
+                                        isLightMode
+                                            ? Colors.transparent
+                                            : colorScheme.primary,
+                                    width: 2,
+                                  ),
+                                ),
+                                child: ResolvedImage(
+                                  imageUrl: organisers[index].logo,
+                                ),
+                              ),
+                          separatorBuilder: (_, __) => SizedBox(width: 4.w),
+                          itemCount: organisers.length,
+                        ),
                       ),
-                    ),
-                    child: ResolvedImage(imageUrl: organisers[index].logo),
-                  ),
-                  separatorBuilder: (_, __) => SizedBox(width: 4.w),
-                  itemCount: organisers.length,
+                  error:
+                      (message) => AutoSizeText(
+                        message,
+                        style: Theme.of(
+                          context,
+                        ).textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: colorScheme.primary,
+                          fontSize: 18,
+                        ),
+                      ),
+                  orElse:
+                      () => const Center(child: CircularProgressIndicator()),
                 ),
-              ),
-              error: (message) => AutoSizeText(
-                message,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: colorScheme.primary,
-                      fontSize: 18,
-                    ),
-              ),
-              orElse: () => const Center(child: CircularProgressIndicator()),
-            ),
           ),
           const Spacer(),
         ],

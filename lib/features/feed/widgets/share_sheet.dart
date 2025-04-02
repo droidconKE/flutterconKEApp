@@ -12,10 +12,7 @@ import 'package:fluttercon/features/feed/widgets/social_media_button.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 
 class ShareSheet extends StatelessWidget {
-  const ShareSheet({
-    required this.feed,
-    super.key,
-  });
+  const ShareSheet({required this.feed, super.key});
 
   final LocalFeedEntry feed;
 
@@ -31,9 +28,7 @@ class ShareSheet extends StatelessWidget {
             state.mapOrNull(
               loaded: (_) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: AutoSizeText(l10n.postShared),
-                  ),
+                  SnackBar(content: AutoSizeText(l10n.postShared)),
                 );
               },
               error: (message) {
@@ -47,96 +42,104 @@ class ShareSheet extends StatelessWidget {
             return Container(
               constraints: const BoxConstraints(minHeight: 250),
               child: state.maybeWhen(
-                loading: () => const Center(
-                  child: CircularProgressIndicator(strokeWidth: 3),
-                ),
-                orElse: () => Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Row(
+                loading:
+                    () => const Center(
+                      child: CircularProgressIndicator(strokeWidth: 3),
+                    ),
+                orElse:
+                    () => Column(
+                      mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            SvgPicture.asset(
-                              AppAssets.iconShare,
-                              colorFilter: ColorFilter.mode(
-                                colorScheme.onSurface,
-                                BlendMode.srcIn,
-                              ),
-                              height: 32,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SvgPicture.asset(
+                                  AppAssets.iconShare,
+                                  colorFilter: ColorFilter.mode(
+                                    colorScheme.onSurface,
+                                    BlendMode.srcIn,
+                                  ),
+                                  height: 32,
+                                ),
+                                const SizedBox(width: 8),
+                                AutoSizeText(
+                                  l10n.share,
+                                  style: TextStyle(
+                                    color: colorScheme.onSurface,
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              ],
                             ),
-                            const SizedBox(width: 8),
-                            AutoSizeText(
-                              l10n.share,
-                              style: TextStyle(
-                                color: colorScheme.onSurface,
-                                fontWeight: FontWeight.w800,
-                                fontSize: 18,
+                            InkWell(
+                              onTap: () => Navigator.of(context).pop(),
+                              child: AutoSizeText(
+                                l10n.cancel.toUpperCase(),
+                                style: const TextStyle(
+                                  color: ThemeColors.greyTextColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ],
                         ),
-                        InkWell(
-                          onTap: () => Navigator.of(context).pop(),
-                          child: AutoSizeText(
-                            l10n.cancel.toUpperCase(),
-                            style: const TextStyle(
-                              color: ThemeColors.greyTextColor,
-                              fontWeight: FontWeight.bold,
+                        const SizedBox(height: 50),
+                        Row(
+                          children: <Widget>[
+                            SocialMediaButton(
+                              callBack:
+                                  () async => context
+                                      .read<ShareFeedPostCubit>()
+                                      .sharePost(
+                                        body: feed.body,
+                                        fileUrl: feed.image,
+                                        platform: SocialPlatform.twitter,
+                                      ),
+                              label: l10n.twitter,
+                              iconPath: AppAssets.iconTwitter,
                             ),
-                          ),
+                            const SizedBox(width: 24),
+                            SocialMediaButton(
+                              callBack:
+                                  () async => context
+                                      .read<ShareFeedPostCubit>()
+                                      .sharePost(
+                                        body: feed.body,
+                                        fileUrl: feed.image,
+                                        platform: SocialPlatform.whatsapp,
+                                      ),
+                              label: l10n.whatsApp,
+                              iconPath: AppAssets.iconWhatsApp,
+                            ),
+                          ],
                         ),
+                        const SizedBox(height: 30),
+                        Row(
+                          children: <Widget>[
+                            SocialMediaButton(
+                              callBack:
+                                  () async => context
+                                      .read<ShareFeedPostCubit>()
+                                      .sharePost(
+                                        body: feed.body,
+                                        fileUrl: feed.image,
+                                        platform: SocialPlatform.telegram,
+                                      ),
+                              label: l10n.telegram,
+                              iconPath: AppAssets.iconTelegram,
+                            ),
+                            const SizedBox(width: 24),
+                            const Spacer(),
+                          ],
+                        ),
+                        const SizedBox(height: 30),
                       ],
                     ),
-                    const SizedBox(height: 50),
-                    Row(
-                      children: <Widget>[
-                        SocialMediaButton(
-                          callBack: () async =>
-                              context.read<ShareFeedPostCubit>().sharePost(
-                                    body: feed.body,
-                                    fileUrl: feed.image,
-                                    platform: SocialPlatform.twitter,
-                                  ),
-                          label: l10n.twitter,
-                          iconPath: AppAssets.iconTwitter,
-                        ),
-                        const SizedBox(width: 24),
-                        SocialMediaButton(
-                          callBack: () async =>
-                              context.read<ShareFeedPostCubit>().sharePost(
-                                    body: feed.body,
-                                    fileUrl: feed.image,
-                                    platform: SocialPlatform.whatsapp,
-                                  ),
-                          label: l10n.whatsApp,
-                          iconPath: AppAssets.iconWhatsApp,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 30),
-                    Row(
-                      children: <Widget>[
-                        SocialMediaButton(
-                          callBack: () async =>
-                              context.read<ShareFeedPostCubit>().sharePost(
-                                    body: feed.body,
-                                    fileUrl: feed.image,
-                                    platform: SocialPlatform.telegram,
-                                  ),
-                          label: l10n.telegram,
-                          iconPath: AppAssets.iconTelegram,
-                        ),
-                        const SizedBox(width: 24),
-                        const Spacer(),
-                      ],
-                    ),
-                    const SizedBox(height: 30),
-                  ],
-                ),
               ),
             );
           },

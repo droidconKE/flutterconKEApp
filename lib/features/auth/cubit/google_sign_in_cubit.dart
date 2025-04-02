@@ -7,9 +7,8 @@ part 'google_sign_in_state.dart';
 part 'google_sign_in_cubit.freezed.dart';
 
 class GoogleSignInCubit extends Cubit<GoogleSignInState> {
-  GoogleSignInCubit({
-    required AuthRepository authRepository,
-  }) : super(const GoogleSignInState.initial()) {
+  GoogleSignInCubit({required AuthRepository authRepository})
+    : super(const GoogleSignInState.initial()) {
     _authRepository = authRepository;
   }
 

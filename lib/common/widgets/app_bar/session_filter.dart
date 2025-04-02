@@ -23,7 +23,8 @@ class _SessionFilterState extends State<SessionFilter> {
     final (isLightMode, colorScheme) = Misc.getTheme(context);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16) +
+      padding:
+          const EdgeInsets.symmetric(horizontal: 16) +
           const EdgeInsets.only(bottom: 16),
       child: Column(
         children: [
@@ -32,9 +33,9 @@ class _SessionFilterState extends State<SessionFilter> {
             child: Text(
               l10n.level,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: colorScheme.onSurface,
-                    fontWeight: FontWeight.bold,
-                  ),
+                color: colorScheme.onSurface,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           const SizedBox(height: 8),
@@ -52,9 +53,9 @@ class _SessionFilterState extends State<SessionFilter> {
                   label: Text(
                     l10n.beginner,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontSize: 11.5,
-                          color: colorScheme.onSurface,
-                        ),
+                      fontSize: 11.5,
+                      color: colorScheme.onSurface,
+                    ),
                   ),
                   value: SessionLevel.beginner,
                 ),
@@ -63,9 +64,9 @@ class _SessionFilterState extends State<SessionFilter> {
                   label: Text(
                     l10n.intermediate,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontSize: 11.5,
-                          color: colorScheme.onSurface,
-                        ),
+                      fontSize: 11.5,
+                      color: colorScheme.onSurface,
+                    ),
                   ),
                   value: SessionLevel.intermediate,
                 ),
@@ -74,9 +75,9 @@ class _SessionFilterState extends State<SessionFilter> {
                   label: Text(
                     l10n.expert,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontSize: 11.5,
-                          color: colorScheme.onSurface,
-                        ),
+                      fontSize: 11.5,
+                      color: colorScheme.onSurface,
+                    ),
                   ),
                   value: SessionLevel.advanced,
                 ),
@@ -95,9 +96,9 @@ class _SessionFilterState extends State<SessionFilter> {
             child: Text(
               l10n.sessionType,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: colorScheme.onSurface,
-                    fontWeight: FontWeight.bold,
-                  ),
+                color: colorScheme.onSurface,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           const SizedBox(height: 8),
@@ -114,9 +115,9 @@ class _SessionFilterState extends State<SessionFilter> {
                   label: Text(
                     l10n.session,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontSize: 12,
-                          color: colorScheme.onSurface,
-                        ),
+                      fontSize: 12,
+                      color: colorScheme.onSurface,
+                    ),
                   ),
                   value: SessionType.session,
                 ),
@@ -124,9 +125,9 @@ class _SessionFilterState extends State<SessionFilter> {
                   label: Text(
                     l10n.keynote,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontSize: 12,
-                          color: colorScheme.onSurface,
-                        ),
+                      fontSize: 12,
+                      color: colorScheme.onSurface,
+                    ),
                   ),
                   value: SessionType.keynote,
                 ),
@@ -134,9 +135,9 @@ class _SessionFilterState extends State<SessionFilter> {
                   label: Text(
                     l10n.codeLab,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontSize: 12,
-                          color: colorScheme.onSurface,
-                        ),
+                      fontSize: 12,
+                      color: colorScheme.onSurface,
+                    ),
                   ),
                   value: SessionType.codelab,
                 ),
@@ -162,9 +163,9 @@ class _SessionFilterState extends State<SessionFilter> {
                   label: Text(
                     l10n.lightningTalk,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontSize: 12,
-                          color: colorScheme.onSurface,
-                        ),
+                      fontSize: 12,
+                      color: colorScheme.onSurface,
+                    ),
                   ),
                   value: SessionType.lightningTalk,
                 ),
@@ -172,9 +173,9 @@ class _SessionFilterState extends State<SessionFilter> {
                   label: Text(
                     l10n.workshop,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontSize: 12,
-                          color: colorScheme.onSurface,
-                        ),
+                      fontSize: 12,
+                      color: colorScheme.onSurface,
+                    ),
                   ),
                   value: SessionType.workshop,
                 ),
@@ -191,17 +192,18 @@ class _SessionFilterState extends State<SessionFilter> {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () => context
-                  .read<FetchGroupedSessionsCubit>()
-                  .fetchGroupedSessions(
-                    sessionLevel: _level.name,
-                    sessionType: _type.name,
-                  )
-                  .then((_) {
-                if (context.mounted) {
-                  Navigator.of(context).pop();
-                }
-              }),
+              onPressed:
+                  () => context
+                      .read<FetchGroupedSessionsCubit>()
+                      .fetchGroupedSessions(
+                        sessionLevel: _level.name,
+                        sessionType: _type.name,
+                      )
+                      .then((_) {
+                        if (context.mounted) {
+                          Navigator.of(context).pop();
+                        }
+                      }),
               style: ElevatedButton.styleFrom(
                 backgroundColor: colorScheme.primary,
                 padding: const EdgeInsets.symmetric(horizontal: 32),
@@ -212,9 +214,9 @@ class _SessionFilterState extends State<SessionFilter> {
               child: Text(
                 l10n.filter.toUpperCase(),
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: colorScheme.surface,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  color: colorScheme.surface,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
@@ -222,14 +224,15 @@ class _SessionFilterState extends State<SessionFilter> {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () => context
-                  .read<FetchGroupedSessionsCubit>()
-                  .fetchGroupedSessions()
-                  .then((_) {
-                if (context.mounted) {
-                  Navigator.of(context).pop();
-                }
-              }),
+              onPressed:
+                  () => context
+                      .read<FetchGroupedSessionsCubit>()
+                      .fetchGroupedSessions()
+                      .then((_) {
+                        if (context.mounted) {
+                          Navigator.of(context).pop();
+                        }
+                      }),
               style: ElevatedButton.styleFrom(
                 elevation: 0,
                 backgroundColor: colorScheme.surface,
@@ -241,9 +244,9 @@ class _SessionFilterState extends State<SessionFilter> {
               child: Text(
                 l10n.reset.toUpperCase(),
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: colorScheme.onSurface,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  color: colorScheme.onSurface,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),

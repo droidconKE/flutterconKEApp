@@ -10,10 +10,7 @@ import 'package:fluttercon/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
 
 class FeedbackScreen extends StatefulWidget {
-  const FeedbackScreen({
-    super.key,
-    this.sessionSlug,
-  });
+  const FeedbackScreen({super.key, this.sessionSlug});
 
   final String? sessionSlug;
 
@@ -47,19 +44,17 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               child: AutoSizeText(
                 l10n.yourFeedback,
                 style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                      color: colorScheme.primary,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w900,
-                    ),
+                  color: colorScheme.primary,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w900,
+                ),
               ),
             ),
             const SizedBox(height: 20),
             Center(
               child: AutoSizeText(
                 l10n.howWasFluttercon,
-                style: TextStyle(
-                  color: colorScheme.onSurface,
-                ),
+                style: TextStyle(color: colorScheme.onSurface),
               ),
             ),
             const SizedBox(height: 20),
@@ -113,9 +108,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                         fontSize: 14,
                       ),
                     ),
-                    style: TextStyle(
-                      color: colorScheme.onSurface,
-                    ),
+                    style: TextStyle(color: colorScheme.onSurface),
                     maxLines: 5,
                   ),
                   const SizedBox(height: 10),
@@ -137,53 +130,65 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                         },
                       );
                     },
-                    builder: (context, state) => state.maybeWhen(
-                      orElse: () => Row(
-                        children: [
-                          Expanded(
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: colorScheme.primary,
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 32),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              ),
-                              onPressed: () {
-                                final feedback = feedbackController.text;
-                                if (feedback.isNotEmpty &&
-                                    selectedRating != null) {
-                                  context
-                                      .read<SendFeedbackCubit>()
-                                      .sendFeedback(
-                                        feedback: feedback,
-                                        rating: selectedRating!,
-                                        sessionSlug: widget.sessionSlug,
-                                      );
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: AutoSizeText(l10n.feedbackError),
+                    builder:
+                        (context, state) => state.maybeWhen(
+                          orElse:
+                              () => Row(
+                                children: [
+                                  Expanded(
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: colorScheme.primary,
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 32,
+                                        ),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            8,
+                                          ),
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        final feedback =
+                                            feedbackController.text;
+                                        if (feedback.isNotEmpty &&
+                                            selectedRating != null) {
+                                          context
+                                              .read<SendFeedbackCubit>()
+                                              .sendFeedback(
+                                                feedback: feedback,
+                                                rating: selectedRating!,
+                                                sessionSlug: widget.sessionSlug,
+                                              );
+                                        } else {
+                                          ScaffoldMessenger.of(
+                                            context,
+                                          ).showSnackBar(
+                                            SnackBar(
+                                              content: AutoSizeText(
+                                                l10n.feedbackError,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                      },
+                                      child: AutoSizeText(
+                                        l10n.submitFeedback.toUpperCase(),
+                                        style: TextStyle(
+                                          color: colorScheme.surface,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                     ),
-                                  );
-                                }
-                              },
-                              child: AutoSizeText(
-                                l10n.submitFeedback.toUpperCase(),
-                                style: TextStyle(
-                                  color: colorScheme.surface,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      loading: (index) =>
-                          const Center(child: CircularProgressIndicator()),
-                    ),
+                          loading:
+                              (index) => const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                        ),
                   ),
                 ],
               ),
