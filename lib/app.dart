@@ -5,7 +5,7 @@ import 'package:fluttercon/common/utils/notification_service.dart';
 import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/core/di/injectable.dart';
 import 'package:fluttercon/core/theme/theme_data.dart';
-import 'package:fluttercon/l10n/l10n.dart';
+import 'package:fluttercon/l10n/arb/app_localizations.dart';
 import 'package:sizer/sizer.dart';
 
 class MyApp extends StatefulWidget {
