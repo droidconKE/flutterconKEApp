@@ -71,7 +71,7 @@ dev_dependencies:
     hosted: https://pub.isar-community.dev/
   json_serializable: ^6.8.0
   mocktail: ^1.0.3
-  very_good_analysis: ^8.0.0
+  very_good_analysis: ^10.0.0
 
 dependency_overrides:
   intl: ^0.20.2
