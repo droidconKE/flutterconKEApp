@@ -1,11 +1,11 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=/Users/adulu/development/flutter"
-export "FLUTTER_APPLICATION_PATH=/Users/adulu/Work/FlutterOrg/FlutterCon/flutterconKEApp"
+export "FLUTTER_ROOT=/Users/crucialjun/development/flutter"
+export "FLUTTER_APPLICATION_PATH=/Users/crucialjun/Downloads/droidcon/flutterconKEApp"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
-export "FLUTTER_BUILD_NAME=1.19.0"
-export "FLUTTER_BUILD_NUMBER=11900"
+export "FLUTTER_BUILD_NAME=1.20.00"
+export "FLUTTER_BUILD_NUMBER=12000"
 export "DART_OBFUSCATION=false"
 export "TRACK_WIDGET_CREATION=true"
 export "TREE_SHAKE_ICONS=false"
