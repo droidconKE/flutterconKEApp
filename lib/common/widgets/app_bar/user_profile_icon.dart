@@ -10,7 +10,7 @@ import 'package:fluttercon/core/di/injectable.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 class UserProfileIcon extends StatefulWidget {

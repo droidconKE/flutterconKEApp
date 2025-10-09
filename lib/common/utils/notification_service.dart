@@ -70,7 +70,7 @@ class NotificationService {
     if (title != null && body != null) {
       await AwesomeNotifications().createNotification(
         content: NotificationContent(
-          id: session.id,
+          id: session.serverId,
           channelKey: channelKey,
           title: title,
           body: body,

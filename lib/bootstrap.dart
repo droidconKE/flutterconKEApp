@@ -54,7 +54,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
 
     await getIt<HiveRepository>().initBoxes();
 
-    localDB = await getIt<DBRepository>().init();
+    await getIt<DBRepository>().init();
 
     await getIt<NotificationService>().requestPermission();
     await getIt<NotificationService>().initNotifications();

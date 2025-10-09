@@ -1,9 +1,9 @@
-import 'package:isar/isar.dart';
+import 'package:hive_ce/hive.dart';
 
 part 'local_feed.g.dart';
 
-@collection
-class LocalFeedEntry {
+@HiveType(typeId: 1)
+class LocalFeedEntry extends HiveObject {
   LocalFeedEntry({
     required this.title,
     required this.body,
@@ -13,12 +13,16 @@ class LocalFeedEntry {
     required this.image,
   });
 
-  Id id = Isar.autoIncrement;
-  @Index(unique: true, replace: true)
+  @HiveField(0)
   late String title;
+  @HiveField(1)
   late String body;
+  @HiveField(2)
   late String topic;
+  @HiveField(3)
   late String url;
+  @HiveField(4)
   late String image;
+  @HiveField(5)
   late DateTime createdAt;
 }

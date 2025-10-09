@@ -11,7 +11,7 @@ class AuthRepository {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['profile', 'email']);
+  final GoogleSignIn _googleSignIn = GoogleSignIn.instance;
 
   Future<AuthResult> ghostSignIn() async {
     try {
@@ -28,14 +28,12 @@ class AuthRepository {
 
   Future<String> signInWithGoogle() async {
     try {
-      final googleSignInAccount = await _googleSignIn.signIn();
+      final googleSignInAccount = await _googleSignIn.authenticate();
 
-      final googleSignInAuthentication =
-          await googleSignInAccount?.authentication;
+      final googleSignInAuthentication = googleSignInAccount.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
-        idToken: googleSignInAuthentication?.idToken,
-        accessToken: googleSignInAuthentication?.accessToken,
+        idToken: googleSignInAuthentication.idToken,
       );
 
       final authResult = await _auth.signInWithCredential(credential);
@@ -49,7 +47,7 @@ class AuthRepository {
         }
         return Future.value(authResult.credential?.accessToken);
       } else {
-        throw Failure(message: 'An unexpected error occured');
+        throw Failure(message: 'An unexpected error occurred');
       }
     } catch (error, stackTrace) {
       Logger().f(stackTrace);
