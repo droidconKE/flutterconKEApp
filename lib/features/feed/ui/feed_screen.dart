@@ -36,164 +36,142 @@ class _FeedScreenState extends State<FeedScreen> {
     return Scaffold(
       appBar: const CustomAppBar(selectedIndex: 1),
       body: RefreshIndicator(
-        onRefresh:
-            () => context.read<FetchFeedCubit>().fetchFeeds(forceRefresh: true),
+        onRefresh: () =>
+            context.read<FetchFeedCubit>().fetchFeeds(forceRefresh: true),
         child: BlocBuilder<FetchFeedCubit, FetchFeedState>(
-          builder:
-              (context, state) => state.maybeWhen(
-                loaded:
-                    (fetchedFeeds) =>
-                        fetchedFeeds.isEmpty
-                            ? Center(
-                              child: Text(
-                                l10n.noPosts,
-                                style: TextStyle(
-                                  color: colorScheme.onSurface,
-                                  fontSize: 20,
+          builder: (context, state) => state.maybeWhen(
+            loaded: (fetchedFeeds) => fetchedFeeds.isEmpty
+                ? Center(
+                    child: Text(
+                      l10n.noPosts,
+                      style: TextStyle(
+                        color: colorScheme.onSurface,
+                        fontSize: 20,
+                      ),
+                    ),
+                  )
+                : ListView.separated(
+                    itemCount: fetchedFeeds.length,
+                    itemBuilder: (context, index) {
+                      final feed = fetchedFeeds[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 16,
+                        ),
+                        child: Column(
+                          children: [
+                            AutoSizeText(
+                              feed.body,
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: colorScheme.onSurface,
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: CachedNetworkImage(
+                                fit: BoxFit.cover,
+                                imageUrl: feed.image,
+                                width: double.infinity,
+                                placeholder: (_, __) => const SizedBox(
+                                  height: 100,
+                                  width: double.infinity,
+                                  child: Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                ),
+                                errorWidget: (_, __, ___) => const SizedBox(
+                                  height: 100,
+                                  width: double.infinity,
+                                  child: Icon(Icons.error, color: Colors.red),
                                 ),
                               ),
-                            )
-                            : ListView.separated(
-                              itemCount: fetchedFeeds.length,
-                              itemBuilder: (context, index) {
-                                final feed = fetchedFeeds[index];
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 16,
-                                    vertical: 16,
-                                  ),
-                                  child: Column(
+                            ),
+                            const SizedBox(height: 16),
+                            Row(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    WoltModalSheet.show<dynamic>(
+                                      context: context,
+                                      showDragHandle: false,
+                                      modalTypeBuilder: (_) =>
+                                          WoltModalType.bottomSheet(),
+                                      pageListBuilder: (bottomSheetContext) => [
+                                        SliverWoltModalSheetPage(
+                                          useSafeArea: true,
+                                          hasTopBarLayer: false,
+                                          backgroundColor: isLightMode
+                                              ? ThemeColors
+                                                    .lightGrayBackgroundColor
+                                              : Colors.black,
+                                          mainContentSliversBuilder:
+                                              (context) => <Widget>[
+                                                ShareSheet(feed: feed),
+                                              ],
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
                                     children: [
                                       AutoSizeText(
-                                        feed.body,
+                                        l10n.share,
                                         style: TextStyle(
+                                          color: colorScheme.primary,
+                                          fontWeight: FontWeight.bold,
                                           fontSize: 16,
-                                          color: colorScheme.onSurface,
                                         ),
                                       ),
-                                      const SizedBox(height: 16),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(
-                                            8,
-                                          ),
+                                      const SizedBox(width: 8),
+                                      SvgPicture.asset(
+                                        AppAssets.iconShare,
+                                        colorFilter: ColorFilter.mode(
+                                          colorScheme.primary,
+                                          BlendMode.srcIn,
                                         ),
-                                        child: CachedNetworkImage(
-                                          fit: BoxFit.cover,
-                                          imageUrl: feed.image,
-                                          width: double.infinity,
-                                          placeholder:
-                                              (_, __) => const SizedBox(
-                                                height: 100,
-                                                width: double.infinity,
-                                                child: Center(
-                                                  child:
-                                                      CircularProgressIndicator(),
-                                                ),
-                                              ),
-                                          errorWidget:
-                                              (_, __, ___) => const SizedBox(
-                                                height: 100,
-                                                width: double.infinity,
-                                                child: Icon(
-                                                  Icons.error,
-                                                  color: Colors.red,
-                                                ),
-                                              ),
-                                        ),
-                                      ),
-                                      const SizedBox(height: 16),
-                                      Row(
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              WoltModalSheet.show<dynamic>(
-                                                context: context,
-                                                showDragHandle: false,
-                                                modalTypeBuilder:
-                                                    (_) =>
-                                                        WoltModalType.bottomSheet(),
-                                                pageListBuilder:
-                                                    (bottomSheetContext) => [
-                                                      SliverWoltModalSheetPage(
-                                                        useSafeArea: true,
-                                                        hasTopBarLayer: false,
-                                                        backgroundColor:
-                                                            isLightMode
-                                                                ? ThemeColors
-                                                                    .lightGrayBackgroundColor
-                                                                : Colors.black,
-                                                        mainContentSliversBuilder:
-                                                            (context) =>
-                                                                <Widget>[
-                                                                  ShareSheet(
-                                                                    feed: feed,
-                                                                  ),
-                                                                ],
-                                                      ),
-                                                    ],
-                                              );
-                                            },
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                AutoSizeText(
-                                                  l10n.share,
-                                                  style: TextStyle(
-                                                    color: colorScheme.primary,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 16,
-                                                  ),
-                                                ),
-                                                const SizedBox(width: 8),
-                                                SvgPicture.asset(
-                                                  AppAssets.iconShare,
-                                                  colorFilter: ColorFilter.mode(
-                                                    colorScheme.primary,
-                                                    BlendMode.srcIn,
-                                                  ),
-                                                  height: 32,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          const Spacer(),
-                                          AutoSizeText(
-                                            timeago.format(feed.createdAt),
-                                            style: TextStyle(
-                                              color: colorScheme.onSurface,
-                                            ),
-                                          ),
-                                        ],
+                                        height: 32,
                                       ),
                                     ],
                                   ),
-                                );
-                              },
-                              separatorBuilder:
-                                  (context, index) => const Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 16),
-                                    child: Divider(
-                                      color: Color.fromARGB(50, 112, 112, 112),
-                                    ),
+                                ),
+                                const Spacer(),
+                                AutoSizeText(
+                                  timeago.format(feed.createdAt),
+                                  style: TextStyle(
+                                    color: colorScheme.onSurface,
                                   ),
+                                ),
+                              ],
                             ),
-                error:
-                    (message) => AutoSizeText(
-                      message,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: colorScheme.primary,
-                        fontSize: 18,
-                      ),
+                          ],
+                        ),
+                      );
+                    },
+                    separatorBuilder: (context, index) => const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                      child: Divider(color: Color.fromARGB(50, 112, 112, 112)),
                     ),
-                orElse:
-                    () => Center(
-                      child: CircularProgressIndicator(
-                        backgroundColor: colorScheme.primary,
-                      ),
-                    ),
+                  ),
+            error: (message) => AutoSizeText(
+              message,
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: colorScheme.primary,
+                fontSize: 18,
               ),
+            ),
+            orElse: () => Center(
+              child: CircularProgressIndicator(
+                backgroundColor: colorScheme.primary,
+              ),
+            ),
+          ),
         ),
       ),
     );

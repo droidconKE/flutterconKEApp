@@ -3,7 +3,7 @@ import 'package:isar_community/isar.dart';
 part 'local_feed.g.dart';
 
 @collection
- class LocalFeedEntry {
+class LocalFeedEntry {
   LocalFeedEntry({
     required this.title,
     required this.body,

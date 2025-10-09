@@ -192,18 +192,17 @@ class _SessionFilterState extends State<SessionFilter> {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed:
-                  () => context
-                      .read<FetchGroupedSessionsCubit>()
-                      .fetchGroupedSessions(
-                        sessionLevel: _level.name,
-                        sessionType: _type.name,
-                      )
-                      .then((_) {
-                        if (context.mounted) {
-                          Navigator.of(context).pop();
-                        }
-                      }),
+              onPressed: () => context
+                  .read<FetchGroupedSessionsCubit>()
+                  .fetchGroupedSessions(
+                    sessionLevel: _level.name,
+                    sessionType: _type.name,
+                  )
+                  .then((_) {
+                    if (context.mounted) {
+                      Navigator.of(context).pop();
+                    }
+                  }),
               style: ElevatedButton.styleFrom(
                 backgroundColor: colorScheme.primary,
                 padding: const EdgeInsets.symmetric(horizontal: 32),
@@ -224,15 +223,14 @@ class _SessionFilterState extends State<SessionFilter> {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed:
-                  () => context
-                      .read<FetchGroupedSessionsCubit>()
-                      .fetchGroupedSessions()
-                      .then((_) {
-                        if (context.mounted) {
-                          Navigator.of(context).pop();
-                        }
-                      }),
+              onPressed: () => context
+                  .read<FetchGroupedSessionsCubit>()
+                  .fetchGroupedSessions()
+                  .then((_) {
+                    if (context.mounted) {
+                      Navigator.of(context).pop();
+                    }
+                  }),
               style: ElevatedButton.styleFrom(
                 elevation: 0,
                 backgroundColor: colorScheme.surface,

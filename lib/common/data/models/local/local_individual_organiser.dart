@@ -1,4 +1,3 @@
-
 import 'package:isar_community/isar.dart';
 
 part 'local_individual_organiser.g.dart';

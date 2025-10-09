@@ -39,18 +39,16 @@ class SpeakerGridTile extends StatelessWidget {
                   fit: BoxFit.cover,
                   imageUrl: speaker.avatar,
                   height: 100,
-                  placeholder:
-                      (_, __) => const SizedBox(
-                        height: 150,
-                        width: double.infinity,
-                        child: Center(child: CircularProgressIndicator()),
-                      ),
-                  errorWidget:
-                      (_, __, ___) => const SizedBox(
-                        height: 150,
-                        width: double.infinity,
-                        child: Icon(Icons.error, color: Colors.red),
-                      ),
+                  placeholder: (_, __) => const SizedBox(
+                    height: 150,
+                    width: double.infinity,
+                    child: Center(child: CircularProgressIndicator()),
+                  ),
+                  errorWidget: (_, __, ___) => const SizedBox(
+                    height: 150,
+                    width: double.infinity,
+                    child: Icon(Icons.error, color: Colors.red),
+                  ),
                 ),
               ),
             ),
@@ -76,11 +74,9 @@ class SpeakerGridTile extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed:
-                    () => GoRouter.of(context).push(
-                      FlutterConRouter.speakerDetailsRoute,
-                      extra: speaker,
-                    ),
+                onPressed: () => GoRouter.of(
+                  context,
+                ).push(FlutterConRouter.speakerDetailsRoute, extra: speaker),
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
                   shape: RoundedRectangleBorder(

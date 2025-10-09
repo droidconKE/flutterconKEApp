@@ -39,8 +39,8 @@ class CompactViewCard extends StatelessWidget {
               TextSpan(
                 text:
                     DateTime.parse('2022-01-01 ${session.startTime}').hour > 11
-                        ? 'PM'
-                        : 'AM',
+                    ? 'PM'
+                    : 'AM',
                 style: TextStyle(fontSize: 18, color: colorScheme.onSurface),
               ),
             ],
@@ -109,75 +109,67 @@ class CompactViewCard extends StatelessWidget {
                   context,
                 ).showSnackBar(SnackBar(content: AutoSizeText(loaded.message)));
               },
-              error:
-                  (error) => ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: AutoSizeText(error.message)),
-                  ),
+              error: (error) => ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: AutoSizeText(error.message))),
             );
           },
           builder: (context, state) {
             return state.maybeWhen(
-              loading:
-                  (loadingIndex) =>
-                      loadingIndex == listIndex
-                          ? const SizedBox(
-                            height: 32,
-                            width: 32,
-                            child: CircularProgressIndicator(),
+              loading: (loadingIndex) => loadingIndex == listIndex
+                  ? const SizedBox(
+                      height: 32,
+                      width: 32,
+                      child: CircularProgressIndicator(),
+                    )
+                  : IconButton(
+                      onPressed: () => context
+                          .read<BookmarkSessionCubit>()
+                          .bookmarkSession(
+                            sessionId: session.serverId,
+                            index: listIndex,
                           )
-                          : IconButton(
-                            onPressed:
-                                () => context
-                                    .read<BookmarkSessionCubit>()
-                                    .bookmarkSession(
-                                      sessionId: session.serverId,
-                                      index: listIndex,
-                                    )
-                                    .then((_) {
-                                      if (context.mounted) {
-                                        context
-                                            .read<FetchGroupedSessionsCubit>()
-                                            .fetchGroupedSessions();
-                                      }
-                                    }),
-                            icon: Icon(
-                              session.isBookmarked
-                                  ? Icons.star_rate_rounded
-                                  : Icons.star_border_outlined,
-                              color:
-                                  session.isBookmarked
-                                      ? ThemeColors.orangeColor
-                                      : colorScheme.primary,
-                              size: 32,
-                            ),
-                          ),
-              orElse:
-                  () => IconButton(
-                    onPressed:
-                        () => context
-                            .read<BookmarkSessionCubit>()
-                            .bookmarkSession(
-                              sessionId: session.serverId,
-                              index: listIndex,
-                            )
-                            .then((_) {
-                              if (context.mounted) {
-                                context
-                                    .read<FetchGroupedSessionsCubit>()
-                                    .fetchGroupedSessions();
-                              }
-                            }),
-                    icon: Icon(
-                      session.isBookmarked
-                          ? Icons.star_rate_rounded
-                          : Icons.star_border_outlined,
-                      color:
-                          session.isBookmarked
-                              ? ThemeColors.orangeColor
-                              : colorScheme.primary,
-                      size: 32,
+                          .then((_) {
+                            if (context.mounted) {
+                              context
+                                  .read<FetchGroupedSessionsCubit>()
+                                  .fetchGroupedSessions();
+                            }
+                          }),
+                      icon: Icon(
+                        session.isBookmarked
+                            ? Icons.star_rate_rounded
+                            : Icons.star_border_outlined,
+                        color: session.isBookmarked
+                            ? ThemeColors.orangeColor
+                            : colorScheme.primary,
+                        size: 32,
+                      ),
                     ),
-                  ),
+              orElse: () => IconButton(
+                onPressed: () => context
+                    .read<BookmarkSessionCubit>()
+                    .bookmarkSession(
+                      sessionId: session.serverId,
+                      index: listIndex,
+                    )
+                    .then((_) {
+                      if (context.mounted) {
+                        context
+                            .read<FetchGroupedSessionsCubit>()
+                            .fetchGroupedSessions();
+                      }
+                    }),
+                icon: Icon(
+                  session.isBookmarked
+                      ? Icons.star_rate_rounded
+                      : Icons.star_border_outlined,
+                  color: session.isBookmarked
+                      ? ThemeColors.orangeColor
+                      : colorScheme.primary,
+                  size: 32,
+                ),
+              ),
             );
           },
         ),

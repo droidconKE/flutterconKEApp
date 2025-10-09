@@ -22,10 +22,8 @@ class SignInScreen extends StatelessWidget {
       listener: (context, state) {
         state.maybeWhen(
           orElse: () {},
-          loaded:
-              (token) => context.read<SocialAuthSignInCubit>().socialSignIn(
-                token: token,
-              ),
+          loaded: (token) =>
+              context.read<SocialAuthSignInCubit>().socialSignIn(token: token),
           error: (message) {
             ScaffoldMessenger.of(
               context,
@@ -37,10 +35,8 @@ class SignInScreen extends StatelessWidget {
         listener: (context, state) {
           state.maybeWhen(
             orElse: () {},
-            loaded:
-                () => GoRouter.of(
-                  context,
-                ).goNamed(FlutterConRouter.decisionRoute),
+            loaded: () =>
+                GoRouter.of(context).goNamed(FlutterConRouter.decisionRoute),
             error: (message) {
               ScaffoldMessenger.of(
                 context,
@@ -70,10 +66,9 @@ class SignInScreen extends StatelessWidget {
                         listener: (context, state) {
                           state.maybeWhen(
                             orElse: () {},
-                            loaded:
-                                () => GoRouter.of(
-                                  context,
-                                ).goNamed(FlutterConRouter.decisionRoute),
+                            loaded: () => GoRouter.of(
+                              context,
+                            ).goNamed(FlutterConRouter.decisionRoute),
                             error: (message) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: AutoSizeText(message)),
@@ -83,14 +78,12 @@ class SignInScreen extends StatelessWidget {
                         },
                         builder: (context, state) {
                           return state.maybeWhen(
-                            loading:
-                                () => const Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                            orElse:
-                                () => const Image(
-                                  image: AssetImage(AppAssets.flutterConKeLogo),
-                                ),
+                            loading: () => const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                            orElse: () => const Image(
+                              image: AssetImage(AppAssets.flutterConKeLogo),
+                            ),
                           );
                         },
                       ),
@@ -100,18 +93,14 @@ class SignInScreen extends StatelessWidget {
                       builder: (context, state) {
                         return state.maybeWhen(
                           loading: () => const CircularProgressIndicator(),
-                          orElse:
-                              () => GoogleAuthButton(
-                                themeMode:
-                                    isLightMode
-                                        ? ThemeMode.light
-                                        : ThemeMode.dark,
-                                onPressed:
-                                    () async =>
-                                        context
-                                            .read<GoogleSignInCubit>()
-                                            .signInWithGoogle(),
-                              ),
+                          orElse: () => GoogleAuthButton(
+                            themeMode: isLightMode
+                                ? ThemeMode.light
+                                : ThemeMode.dark,
+                            onPressed: () async => context
+                                .read<GoogleSignInCubit>()
+                                .signInWithGoogle(),
+                          ),
                         );
                       },
                     ),
