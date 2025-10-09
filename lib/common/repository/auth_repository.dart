@@ -28,6 +28,12 @@ class AuthRepository {
 
   Future<String> signInWithGoogle() async {
     try {
+      await _googleSignIn.initialize(
+        clientId:
+            '602867001820-01m5er098dknofg7rdktcqj33atavm5c.apps.googleusercontent.com',
+        serverClientId:
+            '602867001820-01m5er098dknofg7rdktcqj33atavm5c.apps.googleusercontent.com',
+      );
       final googleSignInAccount = await _googleSignIn.authenticate();
 
       final googleSignInAuthentication = googleSignInAccount.authentication;
@@ -47,6 +53,7 @@ class AuthRepository {
         }
         return Future.value(authResult.credential?.accessToken);
       } else {
+        Logger().e('User is null');
         throw Failure(message: 'An unexpected error occurred');
       }
     } catch (error, stackTrace) {
