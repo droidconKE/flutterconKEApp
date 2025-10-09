@@ -4,7 +4,7 @@ part 'remote_config.freezed.dart';
 part 'remote_config.g.dart';
 
 @freezed
-class RemoteConfig with _$RemoteConfig {
+abstract class RemoteConfig with _$RemoteConfig {
   factory RemoteConfig({
     @JsonKey(name: 'app_version') required String appVersion,
     @JsonKey(name: 'is_in_review') required bool isInReview,

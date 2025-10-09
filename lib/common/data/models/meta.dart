@@ -4,7 +4,7 @@ part 'meta.freezed.dart';
 part 'meta.g.dart';
 
 @freezed
-class Paginator with _$Paginator {
+abstract class Paginator with _$Paginator {
   factory Paginator({
     required int count,
     @JsonKey(name: 'per_page') required int perPage,
@@ -20,7 +20,7 @@ class Paginator with _$Paginator {
 }
 
 @freezed
-class Meta with _$Meta {
+abstract class Meta with _$Meta {
   factory Meta({required Paginator paginator}) = _Meta;
 
   factory Meta.fromJson(Map<String, dynamic> json) => _$MetaFromJson(json);

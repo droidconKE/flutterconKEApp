@@ -11,7 +11,7 @@ import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/common/data/models/sponsor.dart';
 import 'package:fluttercon/core/di/injectable.dart';
 import 'package:injectable/injectable.dart';
-import 'package:isar/isar.dart';
+import 'package:isar_community/isar.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
 @singleton

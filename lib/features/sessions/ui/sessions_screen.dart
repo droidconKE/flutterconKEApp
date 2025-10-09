@@ -150,7 +150,7 @@ class _SessionsScreenState extends State<SessionsScreen>
                                                   ),
                                               activeTrackColor:
                                                   ThemeColors.orangeColor,
-                                              activeColor:
+                                              activeThumbColor:
                                                   ThemeColors.orangeColor,
                                               thumbColor:
                                                   WidgetStateProperty.all(

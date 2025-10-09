@@ -1,4 +1,5 @@
-import 'package:isar/isar.dart';
+
+import 'package:isar_community/isar.dart';
 
 part 'local_speaker.g.dart';
 

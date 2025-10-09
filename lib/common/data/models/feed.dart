@@ -4,7 +4,7 @@ part 'feed.freezed.dart';
 part 'feed.g.dart';
 
 @freezed
-class Feed with _$Feed {
+abstract class Feed with _$Feed {
   factory Feed({
     required String title,
     required String body,
@@ -18,7 +18,7 @@ class Feed with _$Feed {
 }
 
 @freezed
-class FeedResponse with _$FeedResponse {
+abstract class FeedResponse with _$FeedResponse {
   const factory FeedResponse({required List<Feed> data}) = _FeedResponse;
 
   factory FeedResponse.fromJson(Map<String, Object?> json) =>
