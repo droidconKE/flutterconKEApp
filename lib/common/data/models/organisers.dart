@@ -4,7 +4,7 @@ part 'organisers.g.dart';
 part 'organisers.freezed.dart';
 
 @freezed
-class Organiser with _$Organiser {
+abstract class Organiser with _$Organiser {
   factory Organiser({
     @JsonKey(name: 'photo') required String logo,
     required String name,
@@ -19,7 +19,7 @@ class Organiser with _$Organiser {
 }
 
 @freezed
-class OrganiserResponse with _$OrganiserResponse {
+abstract class OrganiserResponse with _$OrganiserResponse {
   const factory OrganiserResponse({required List<Organiser> data}) =
       _OrganiserResponse;
 

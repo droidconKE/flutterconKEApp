@@ -11,7 +11,7 @@ import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/common/data/models/sponsor.dart';
 import 'package:fluttercon/core/di/injectable.dart';
 import 'package:injectable/injectable.dart';
-import 'package:isar/isar.dart';
+import 'package:isar_community/isar.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
 @singleton
@@ -171,27 +171,25 @@ class DBRepository {
             isBookmarked: session.isBookmarked,
             isServiceSession: session.isServiceSession,
             sessionImage: session.sessionImage,
-            speakers:
-                session.speakers
-                    .map(
-                      (speaker) => EmbeddedSpeaker(
-                        name: speaker.name,
-                        biography: speaker.biography,
-                        avatar: speaker.avatar,
-                        tagline: speaker.tagline,
-                        twitter: speaker.twitter,
-                        facebook: speaker.facebook,
-                        linkedin: speaker.linkedin,
-                        instagram: speaker.instagram,
-                        blog: speaker.blog,
-                        companyWebsite: speaker.companyWebsite,
-                      ),
-                    )
-                    .toList(),
-            rooms:
-                session.rooms
-                    .map((room) => LocalRoom(title: room.title, id: room.id))
-                    .toList(),
+            speakers: session.speakers
+                .map(
+                  (speaker) => EmbeddedSpeaker(
+                    name: speaker.name,
+                    biography: speaker.biography,
+                    avatar: speaker.avatar,
+                    tagline: speaker.tagline,
+                    twitter: speaker.twitter,
+                    facebook: speaker.facebook,
+                    linkedin: speaker.linkedin,
+                    instagram: speaker.instagram,
+                    blog: speaker.blog,
+                    companyWebsite: speaker.companyWebsite,
+                  ),
+                )
+                .toList(),
+            rooms: session.rooms
+                .map((room) => LocalRoom(title: room.title, id: room.id))
+                .toList(),
           ),
         );
       }
@@ -234,11 +232,10 @@ class DBRepository {
     bool? bookmarkStatus,
   }) async {
     await localDB.writeTxn(() async {
-      final session =
-          await localDB.localSessions
-              .where()
-              .serverIdEqualTo(sessionId)
-              .findFirst();
+      final session = await localDB.localSessions
+          .where()
+          .serverIdEqualTo(sessionId)
+          .findFirst();
       if (session == null) return;
 
       if (bookmarkStatus != null) {

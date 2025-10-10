@@ -130,65 +130,54 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                         },
                       );
                     },
-                    builder:
-                        (context, state) => state.maybeWhen(
-                          orElse:
-                              () => Row(
-                                children: [
-                                  Expanded(
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: colorScheme.primary,
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 32,
-                                        ),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            8,
-                                          ),
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        final feedback =
-                                            feedbackController.text;
-                                        if (feedback.isNotEmpty &&
-                                            selectedRating != null) {
-                                          context
-                                              .read<SendFeedbackCubit>()
-                                              .sendFeedback(
-                                                feedback: feedback,
-                                                rating: selectedRating!,
-                                                sessionSlug: widget.sessionSlug,
-                                              );
-                                        } else {
-                                          ScaffoldMessenger.of(
-                                            context,
-                                          ).showSnackBar(
-                                            SnackBar(
-                                              content: AutoSizeText(
-                                                l10n.feedbackError,
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                      },
-                                      child: AutoSizeText(
-                                        l10n.submitFeedback.toUpperCase(),
-                                        style: TextStyle(
-                                          color: colorScheme.surface,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
+                    builder: (context, state) => state.maybeWhen(
+                      orElse: () => Row(
+                        children: [
+                          Expanded(
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: colorScheme.primary,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 32,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                              onPressed: () {
+                                final feedback = feedbackController.text;
+                                if (feedback.isNotEmpty &&
+                                    selectedRating != null) {
+                                  context
+                                      .read<SendFeedbackCubit>()
+                                      .sendFeedback(
+                                        feedback: feedback,
+                                        rating: selectedRating!,
+                                        sessionSlug: widget.sessionSlug,
+                                      );
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: AutoSizeText(l10n.feedbackError),
                                     ),
-                                  ),
-                                ],
+                                  );
+                                }
+                              },
+                              child: AutoSizeText(
+                                l10n.submitFeedback.toUpperCase(),
+                                style: TextStyle(
+                                  color: colorScheme.surface,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                          loading:
-                              (index) => const Center(
-                                child: CircularProgressIndicator(),
-                              ),
-                        ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      loading: (index) =>
+                          const Center(child: CircularProgressIndicator()),
+                    ),
                   ),
                 ],
               ),

@@ -69,26 +69,22 @@ class _LogOutDialogState extends State<LogOutDialog> {
                 child: BlocBuilder<LogOutCubit, LogOutState>(
                   builder: (context, state) {
                     return state.maybeWhen(
-                      loading:
-                          () => AutoSizeText(
-                            l10n.logoutLoading.toUpperCase(),
-                            style: Theme.of(
-                              context,
-                            ).textTheme.titleMedium?.copyWith(
+                      loading: () => AutoSizeText(
+                        l10n.logoutLoading.toUpperCase(),
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
-                          ),
-                      orElse:
-                          () => AutoSizeText(
-                            l10n.confirmLogout.toUpperCase(),
-                            style: Theme.of(
-                              context,
-                            ).textTheme.titleMedium?.copyWith(
+                      ),
+                      orElse: () => AutoSizeText(
+                        l10n.confirmLogout.toUpperCase(),
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
-                          ),
+                      ),
                     );
                   },
                 ),

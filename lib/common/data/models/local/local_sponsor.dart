@@ -1,6 +1,5 @@
 import 'package:fluttercon/common/data/enums/sponsor_type.dart';
-import 'package:isar/isar.dart';
-
+import 'package:isar_community/isar.dart';
 part 'local_sponsor.g.dart';
 
 @collection

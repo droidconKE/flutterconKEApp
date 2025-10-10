@@ -6,7 +6,7 @@ part 'session.freezed.dart';
 part 'session.g.dart';
 
 @freezed
-class Session with _$Session {
+abstract class Session with _$Session {
   factory Session(
     int id,
     String title,
@@ -34,7 +34,7 @@ class Session with _$Session {
 }
 
 @freezed
-class SessionResponse with _$SessionResponse {
+abstract class SessionResponse with _$SessionResponse {
   const factory SessionResponse({required List<Session> data}) =
       _SessionResponse;
 

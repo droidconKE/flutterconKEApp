@@ -4,7 +4,7 @@ part 'auth.freezed.dart';
 part 'auth.g.dart';
 
 @freezed
-class FlutterConUser with _$FlutterConUser {
+abstract class FlutterConUser with _$FlutterConUser {
   const factory FlutterConUser(
     String name,
     String email,
@@ -17,7 +17,7 @@ class FlutterConUser with _$FlutterConUser {
 }
 
 @freezed
-class AuthResult with _$AuthResult {
+abstract class AuthResult with _$AuthResult {
   const factory AuthResult({
     required String token,
     required FlutterConUser user,

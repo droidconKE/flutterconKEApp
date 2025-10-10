@@ -103,15 +103,12 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           initial: Container.new,
           loading: () => const Center(child: CircularProgressIndicator()),
           loaded: _buildSearchResultsList,
-          error:
-              (message) => Center(
-                child: AutoSizeText(
-                  message,
-                  style: const TextStyle(
-                    color: ThemeColors.orangeDroidconColor,
-                  ),
-                ),
-              ),
+          error: (message) => Center(
+            child: AutoSizeText(
+              message,
+              style: const TextStyle(color: ThemeColors.orangeDroidconColor),
+            ),
+          ),
         );
       },
     );

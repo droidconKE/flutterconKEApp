@@ -48,98 +48,80 @@ class _SponsorsCardState extends State<SponsorsCard> {
             ),
           ),
           BlocBuilder<FetchSponsorsCubit, FetchSponsorsState>(
-            builder:
-                (context, state) => state.maybeWhen(
-                  loaded: (sponsors) {
-                    final nonPlatinumSponsors =
-                        sponsors
-                            .where(
+            builder: (context, state) => state.maybeWhen(
+              loaded: (sponsors) {
+                final nonPlatinumSponsors = sponsors
+                    .where((sponsor) => sponsor.sponsorType != SponsorType.gold)
+                    .toList();
+                return Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 8.w),
+                      decoration: BoxDecoration(
+                        color: isLightMode
+                            ? colorScheme.secondaryContainer
+                            : Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: isLightMode
+                              ? Colors.transparent
+                              : colorScheme.primary,
+                          width: 2,
+                        ),
+                      ),
+                      child: ResolvedImage(
+                        imageUrl: sponsors
+                            .firstWhere(
                               (sponsor) =>
-                                  sponsor.sponsorType != SponsorType.gold,
+                                  sponsor.sponsorType == SponsorType.gold,
                             )
-                            .toList();
-                    return Column(
-                      children: [
-                        Container(
+                            .logo,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      height: size.height / 10,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: nonPlatinumSponsors.length,
+                        itemBuilder: (context, index) => Container(
                           padding: EdgeInsets.symmetric(horizontal: 8.w),
                           decoration: BoxDecoration(
-                            color:
-                                isLightMode
-                                    ? colorScheme.secondaryContainer
-                                    : Colors.white,
+                            color: isLightMode
+                                ? colorScheme.secondaryContainer
+                                : Colors.white,
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(
-                              color:
-                                  isLightMode
-                                      ? Colors.transparent
-                                      : colorScheme.primary,
+                              color: isLightMode
+                                  ? Colors.transparent
+                                  : colorScheme.primary,
                               width: 2,
                             ),
                           ),
-                          child: ResolvedImage(
-                            imageUrl:
-                                sponsors
-                                    .firstWhere(
-                                      (sponsor) =>
-                                          sponsor.sponsorType ==
-                                          SponsorType.gold,
-                                    )
-                                    .logo,
+                          child: SizedBox(
+                            width: size.width / 4,
+                            child: ResolvedImage(
+                              imageUrl: nonPlatinumSponsors[index].logo,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 16),
-                        SizedBox(
-                          height: size.height / 10,
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: nonPlatinumSponsors.length,
-                            itemBuilder:
-                                (context, index) => Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 8.w,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color:
-                                        isLightMode
-                                            ? colorScheme.secondaryContainer
-                                            : Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(
-                                      color:
-                                          isLightMode
-                                              ? Colors.transparent
-                                              : colorScheme.primary,
-                                      width: 2,
-                                    ),
-                                  ),
-                                  child: SizedBox(
-                                    width: size.width / 4,
-                                    child: ResolvedImage(
-                                      imageUrl: nonPlatinumSponsors[index].logo,
-                                    ),
-                                  ),
-                                ),
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                      ],
-                    );
-                  },
-                  error:
-                      (message) => AutoSizeText(
-                        message,
-                        style: Theme.of(
-                          context,
-                        ).textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: colorScheme.primary,
-                          fontSize: 18,
                         ),
                       ),
-                  orElse:
-                      () => const Center(child: CircularProgressIndicator()),
+                    ),
+                    const SizedBox(height: 16),
+                  ],
+                );
+              },
+              error: (message) => AutoSizeText(
+                message,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: colorScheme.primary,
+                  fontSize: 18,
                 ),
+              ),
+              orElse: () => const Center(child: CircularProgressIndicator()),
+            ),
           ),
         ],
       ),

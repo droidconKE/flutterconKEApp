@@ -54,3 +54,7 @@ app.*.map.json
 .vscode/settings.json
 devtools_options.yaml
 lib/versioning/build_version.dart
+
+
+# macOS Flutter ephemeral files
+/macos/Flutter/ephemeral

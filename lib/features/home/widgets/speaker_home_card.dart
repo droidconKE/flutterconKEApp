@@ -36,10 +36,9 @@ class _SpeakerCardState extends State<SpeakerCard> {
             AutoSizeText(
               l10n.speakers,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                color:
-                    isLightMode
-                        ? ThemeColors.blueDroidconColor
-                        : colorScheme.onSurface,
+                color: isLightMode
+                    ? ThemeColors.blueDroidconColor
+                    : colorScheme.onSurface,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -48,17 +47,19 @@ class _SpeakerCardState extends State<SpeakerCard> {
               label: AutoSizeText(
                 l10n.viewAll,
                 style: TextStyle(
-                  color:
-                      isLightMode ? colorScheme.primary : colorScheme.onSurface,
+                  color: isLightMode
+                      ? colorScheme.primary
+                      : colorScheme.onSurface,
                 ),
               ),
               iconAlignment: IconAlignment.end,
               icon: Container(
                 decoration: BoxDecoration(
-                  color: (isLightMode
-                          ? ThemeColors.blueColor
-                          : ThemeColors.lightGrayColor)
-                      .withValues(alpha: .11),
+                  color:
+                      (isLightMode
+                              ? ThemeColors.blueColor
+                              : ThemeColors.lightGrayColor)
+                          .withValues(alpha: .11),
                   borderRadius: BorderRadius.circular(50),
                 ),
                 padding: const EdgeInsets.symmetric(
@@ -66,78 +67,67 @@ class _SpeakerCardState extends State<SpeakerCard> {
                   vertical: 2,
                 ),
                 child: BlocBuilder<FetchSpeakersCubit, FetchSpeakersState>(
-                  builder:
-                      (context, state) => state.maybeWhen(
-                        loaded:
-                            (_, extras) => AutoSizeText(
-                              '+ $extras',
-                              style: TextStyle(
-                                color:
-                                    isLightMode
-                                        ? colorScheme.primary
-                                        : ThemeColors.lightGrayColor,
-                              ),
-                            ),
-                        orElse:
-                            () => const SizedBox(
-                              height: 16,
-                              width: 16,
-                              child: Padding(
-                                padding: EdgeInsets.all(2),
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                ),
-                              ),
-                            ),
+                  builder: (context, state) => state.maybeWhen(
+                    loaded: (_, extras) => AutoSizeText(
+                      '+ $extras',
+                      style: TextStyle(
+                        color: isLightMode
+                            ? colorScheme.primary
+                            : ThemeColors.lightGrayColor,
                       ),
+                    ),
+                    orElse: () => const SizedBox(
+                      height: 16,
+                      width: 16,
+                      child: Padding(
+                        padding: EdgeInsets.all(2),
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      ),
+                    ),
+                  ),
                 ),
               ),
-              onPressed:
-                  () => context.push(
-                    '${FlutterConRouter.dashboardRoute}/${FlutterConRouter.speakerListRoute}',
-                  ),
+              onPressed: () => context.push(
+                '${FlutterConRouter.dashboardRoute}/${FlutterConRouter.speakerListRoute}',
+              ),
             ),
           ],
         ),
         BlocBuilder<FetchSpeakersCubit, FetchSpeakersState>(
-          builder:
-              (context, state) => state.maybeWhen(
-                loaded: (speakers, _) {
-                  return LayoutBuilder(
-                    builder: (context, constraints) {
-                      return SizedBox(
-                        height: constraints.maxWidth > 500 ? 250 : 150,
-                        child: ListView.separated(
-                          separatorBuilder:
-                              (context, index) => const SizedBox(width: 4),
-                          itemCount: speakers.take(5).length,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder:
-                              (context, index) => PersonnelWidget(
-                                imageUrl: speakers[index].avatar,
-                                name: speakers[index].name,
-                                onTap:
-                                    () => GoRouter.of(context).push(
-                                      FlutterConRouter.speakerDetailsRoute,
-                                      extra: speakers[index],
-                                    ),
-                              ),
+          builder: (context, state) => state.maybeWhen(
+            loaded: (speakers, _) {
+              return LayoutBuilder(
+                builder: (context, constraints) {
+                  return SizedBox(
+                    height: constraints.maxWidth > 500 ? 250 : 150,
+                    child: ListView.separated(
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(width: 4),
+                      itemCount: speakers.take(5).length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) => PersonnelWidget(
+                        imageUrl: speakers[index].avatar,
+                        name: speakers[index].name,
+                        onTap: () => GoRouter.of(context).push(
+                          FlutterConRouter.speakerDetailsRoute,
+                          extra: speakers[index],
                         ),
-                      );
-                    },
-                  );
-                },
-                error:
-                    (message) => AutoSizeText(
-                      message,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: ThemeColors.blueColor,
-                        fontSize: 18,
                       ),
                     ),
-                orElse: () => const Center(child: CircularProgressIndicator()),
+                  );
+                },
+              );
+            },
+            error: (message) => AutoSizeText(
+              message,
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: ThemeColors.blueColor,
+                fontSize: 18,
               ),
+            ),
+            orElse: () => const Center(child: CircularProgressIndicator()),
+          ),
         ),
       ],
     );
