@@ -13,6 +13,24 @@ subprojects {
     project.evaluationDependsOn(':app')
 }
 
+// Force compileSdkVersion and targetSdkVersion for all Android library/app projects
+subprojects {
+    afterEvaluate { project ->
+        if (project.plugins.hasPlugin('com.android.library') || project.plugins.hasPlugin('com.android.application')) {
+            try {
+                project.android.compileSdkVersion = 36
+                // also set targetSdkVersion where available
+                if (project.android.defaultConfig != null) {
+                    project.android.defaultConfig.targetSdk = 36
+                }
+            } catch (e) {
+                // fail-safe: some subprojects may not expose android DSL in time — ignore
+                logger.debug("Could not force compileSdk/targetSdk for project ${project.name}: ${e.message}")
+            }
+        }
+    }
+}
+
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
