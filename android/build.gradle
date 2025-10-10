@@ -19,10 +19,21 @@ subprojects { project ->
     // helper to configure Android DSL safely
     def configureAndroid = { p ->
         try {
-            p.android.compileSdkVersion = 36
-            // also set targetSdkVersion where available
+            // Support both older and newer AGP DSLs by attempting both properties.
+            try {
+                p.android.compileSdk = 36
+            } catch (ignored) {
+                // fallback for older AGP
+                p.android.compileSdkVersion = 36
+            }
+
+            // also set targetSdk / targetSdkVersion where available
             if (p.android.defaultConfig != null) {
-                p.android.defaultConfig.targetSdk = 36
+                try {
+                    p.android.defaultConfig.targetSdk = 36
+                } catch (ignored2) {
+                    p.android.defaultConfig.targetSdkVersion = 36
+                }
             }
         } catch (e) {
             // fail-safe: some subprojects may not expose android DSL in time — ignore
