@@ -1,7 +1,7 @@
 name: fluttercon
 description: "A Flutter app for the FlutterCon conference. This app provides a comprehensive guide to the conference schedule, speakers, and sessions, along with interactive features to enhance the attendee experience."
 publish_to: 'none'
-version: 1.20.00+12000
+version: 1.20.01+12001
 
 environment:
   sdk: ^3.9.0
