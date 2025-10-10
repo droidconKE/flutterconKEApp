@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttercon/common/data/models/adapters.dart';
 import 'package:fluttercon/common/data/models/models.dart';
 import 'package:fluttercon/common/utils/env/flavor_config.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
 
 @singleton
