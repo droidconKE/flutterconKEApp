@@ -14,20 +14,30 @@ subprojects {
 }
 
 // Force compileSdkVersion and targetSdkVersion for all Android library/app projects
-subprojects {
-    afterEvaluate { project ->
-        if (project.plugins.hasPlugin('com.android.library') || project.plugins.hasPlugin('com.android.application')) {
-            try {
-                project.android.compileSdkVersion = 36
-                // also set targetSdkVersion where available
-                if (project.android.defaultConfig != null) {
-                    project.android.defaultConfig.targetSdk = 36
-                }
-            } catch (e) {
-                // fail-safe: some subprojects may not expose android DSL in time — ignore
-                logger.debug("Could not force compileSdk/targetSdk for project ${project.name}: ${e.message}")
+// Force compileSdkVersion and targetSdkVersion for all Android library/app projects
+subprojects { project ->
+    // helper to configure Android DSL safely
+    def configureAndroid = { p ->
+        try {
+            p.android.compileSdkVersion = 36
+            // also set targetSdkVersion where available
+            if (p.android.defaultConfig != null) {
+                p.android.defaultConfig.targetSdk = 36
             }
+        } catch (e) {
+            // fail-safe: some subprojects may not expose android DSL in time — ignore
+            logger.debug("Could not force compileSdk/targetSdk for project ${p.name}: ${e.message}")
         }
+    }
+
+    // If the Android plugin is already applied, configure immediately
+    if (project.plugins.hasPlugin('com.android.library') || project.plugins.hasPlugin('com.android.application')) {
+        configureAndroid(project)
+    } else {
+        // Otherwise, configure when the plugin is applied. This avoids calling afterEvaluate on
+        // projects that may already be evaluated, which causes the exception seen in CI/local builds.
+        project.pluginManager.withPlugin('com.android.library') { configureAndroid(project) }
+        project.pluginManager.withPlugin('com.android.application') { configureAndroid(project) }
     }
 }
 
