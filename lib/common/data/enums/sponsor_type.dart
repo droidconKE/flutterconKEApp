@@ -13,4 +13,6 @@ enum SponsorType {
   bronze,
   @JsonValue('gold')
   gold,
+  @JsonValue('silver')
+  silver,
 }
