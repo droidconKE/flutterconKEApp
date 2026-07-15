@@ -45,6 +45,18 @@ class SignInScreen extends StatelessWidget {
           );
         },
         child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back, color: colorScheme.onSurface),
+              onPressed: () {
+                if (GoRouter.of(context).canPop()) {
+                  GoRouter.of(context).pop();
+                }
+              },
+            ),
+          ),
           body: SafeArea(
             child: Center(
               child: Padding(
