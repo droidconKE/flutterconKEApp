@@ -45,7 +45,6 @@ class SignInScreen extends StatelessWidget {
           );
         },
         child: Scaffold(
-          backgroundColor: colorScheme.surface,
           body: SafeArea(
             child: Center(
               child: Padding(

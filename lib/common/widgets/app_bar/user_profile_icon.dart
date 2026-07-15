@@ -66,7 +66,7 @@ class _UserProfileIconState extends State<UserProfileIcon> {
         alignment: Alignment.center,
         decoration: const BoxDecoration(
           shape: BoxShape.circle,
-          color: ThemeColors.tealColor,
+          color: ThemeColors.flutterconMagenta,
         ),
         child: ValueListenableBuilder<Object>(
           valueListenable: Hive.box<dynamic>(

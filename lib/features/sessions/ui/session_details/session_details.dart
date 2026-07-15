@@ -55,13 +55,15 @@ class SessionDetailsPage extends StatelessWidget {
                     const Flexible(
                       child: Icon(
                         Icons.android_outlined,
-                        color: ThemeColors.orangeColor,
+                        color: ThemeColors.flutterconMagenta,
                       ),
                     ),
                     const SizedBox(width: 8),
                     AutoSizeText(
                       l10n.speaker,
-                      style: const TextStyle(color: ThemeColors.orangeColor),
+                      style: const TextStyle(
+                        color: ThemeColors.flutterconMagenta,
+                      ),
                     ),
                   ],
                 ),
@@ -108,7 +110,7 @@ class SessionDetailsPage extends StatelessWidget {
                                   ? Icons.star_rate_rounded
                                   : Icons.star_border_outlined,
                               color: status == BookmarkStatus.bookmarked
-                                  ? ThemeColors.orangeColor
+                                  ? ThemeColors.flutterconMagenta
                                   : colorScheme.primary,
                               size: 32,
                             ),
@@ -129,7 +131,7 @@ class SessionDetailsPage extends StatelessWidget {
                                   ? Icons.star_rate_rounded
                                   : Icons.star_border_outlined,
                               color: session.isBookmarked
-                                  ? ThemeColors.orangeColor
+                                  ? ThemeColors.flutterconMagenta
                                   : colorScheme.primary,
                               size: 32,
                             ),
@@ -215,7 +217,7 @@ class SessionDetailsPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
-        backgroundColor: ThemeColors.orangeColor,
+        backgroundColor: ThemeColors.flutterconMagenta,
         child: BlocBuilder<ShareFeedPostCubit, ShareFeedPostState>(
           builder: (context, state) => state.maybeWhen(
             orElse: () => Transform.flip(

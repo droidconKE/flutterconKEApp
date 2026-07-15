@@ -30,10 +30,9 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     final (_, colorScheme) = Misc.getTheme(context);
     return Scaffold(
-      backgroundColor: colorScheme.surface,
-      body: const Center(
+      body: SafeArea(child: Center(
         child: Image(image: AssetImage(AppAssets.imgDroidcon)),
-      ),
+      )),
     );
   }
 }

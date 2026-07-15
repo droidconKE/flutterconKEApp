@@ -33,7 +33,7 @@ class FeedbackButton extends StatelessWidget {
               height: 30,
               width: 127,
               decoration: BoxDecoration(
-                color: ThemeColors.tealColor.withValues(alpha: 0.21),
+                color: ThemeColors.flutterconMagenta.withValues(alpha: 0.21),
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
               ),
               child: Row(
@@ -54,7 +54,7 @@ class FeedbackButton extends StatelessWidget {
                   const AppNavIcon(
                     'send',
                     height: 12,
-                    color: ThemeColors.tealColor,
+                    color: ThemeColors.flutterconMagenta,
                   ),
                 ],
               ),

@@ -63,7 +63,7 @@ class _SessionsCardState extends State<SessionsCard> {
                     decoration: BoxDecoration(
                       color:
                           (isLightMode
-                                  ? ThemeColors.blueColor
+                                  ? ThemeColors.flutterconBlue
                                   : ThemeColors.lightGrayColor)
                               .withValues(alpha: .11),
                       borderRadius: BorderRadius.circular(50),

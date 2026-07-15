@@ -32,8 +32,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     final l10n = context.l10n;
     return AppBar(
       automaticallyImplyLeading: false,
-      surfaceTintColor: colorScheme.surface,
-      backgroundColor: colorScheme.surface,
+      surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       title: Row(
         children: [
           GestureDetector(
@@ -58,7 +58,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     AppAssets.listAltIcon,
                     colorFilter: ColorFilter.mode(
                       selectedScheduleIndex == 0
-                          ? ThemeColors.blueColor
+                          ? ThemeColors.flutterconBlue
                           : Colors.grey,
                       BlendMode.srcIn,
                     ),
@@ -71,7 +71,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     AppAssets.viewAgendaIcon,
                     colorFilter: ColorFilter.mode(
                       selectedScheduleIndex == 1
-                          ? ThemeColors.blueColor
+                          ? ThemeColors.flutterconBlue
                           : Colors.grey,
                       BlendMode.srcIn,
                     ),

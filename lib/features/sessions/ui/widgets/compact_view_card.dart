@@ -141,7 +141,7 @@ class CompactViewCard extends StatelessWidget {
                             ? Icons.star_rate_rounded
                             : Icons.star_border_outlined,
                         color: session.isBookmarked
-                            ? ThemeColors.orangeColor
+                            ? ThemeColors.flutterconMagenta
                             : colorScheme.primary,
                         size: 32,
                       ),
@@ -165,7 +165,7 @@ class CompactViewCard extends StatelessWidget {
                       ? Icons.star_rate_rounded
                       : Icons.star_border_outlined,
                   color: session.isBookmarked
-                      ? ThemeColors.orangeColor
+                      ? ThemeColors.flutterconMagenta
                       : colorScheme.primary,
                   size: 32,
                 ),
