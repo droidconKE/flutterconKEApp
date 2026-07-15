@@ -82,10 +82,7 @@ class CompactViewCard extends StatelessWidget {
               Row(
                 children: [
                   Flexible(
-                    child: Icon(
-                      Icons.flutter_dash,
-                      color: colorScheme.primary,
-                    ),
+                    child: Icon(Icons.flutter_dash, color: colorScheme.primary),
                   ),
                   const SizedBox(width: 8),
                   Flexible(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
-import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/utils/router.dart';
 import 'package:go_router/go_router.dart';
 
@@ -28,11 +27,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final (_, colorScheme) = Misc.getTheme(context);
-    return Scaffold(
-      body: SafeArea(child: Center(
-        child: Image(image: AssetImage(AppAssets.imgDroidcon)),
-      )),
+    return const Scaffold(
+      body: SafeArea(
+        child: Center(child: Image(image: AssetImage(AppAssets.imgDroidcon))),
+      ),
     );
   }
 }

@@ -30,7 +30,10 @@ class SpeakerGridTile extends StatelessWidget {
                 maxWidth: MediaQuery.sizeOf(context).width / 4.5,
               ),
               decoration: BoxDecoration(
-                border: Border.all(color: ThemeColors.flutterconMagenta, width: 2),
+                border: Border.all(
+                  color: ThemeColors.flutterconMagenta,
+                  width: 2,
+                ),
                 borderRadius: Corners.s12Border,
               ),
               child: ClipRRect(
