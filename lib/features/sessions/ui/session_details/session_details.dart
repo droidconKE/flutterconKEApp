@@ -54,7 +54,7 @@ class SessionDetailsPage extends StatelessWidget {
                   children: [
                     const Flexible(
                       child: Icon(
-                        Icons.android_outlined,
+                        Icons.flutter_dash,
                         color: ThemeColors.flutterconMagenta,
                       ),
                     ),
