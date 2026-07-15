@@ -57,7 +57,7 @@ jobs:
         run: flutter build apk --flavor production --target lib/main_production.dart -v
 
       - name: 📦 Upload APK
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: production-apk
           path: build/app/outputs/apk/production/release/app-production-release.apk
