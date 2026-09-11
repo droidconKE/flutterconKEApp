@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'package:fluttercon/core/theme/inverted_panel_theme.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -51,6 +52,7 @@ class AppTheme {
           TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
         },
       ),
+      extensions: const [InvertedPanelColors.light],
     );
   }
 
@@ -86,6 +88,7 @@ class AppTheme {
           TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
         },
       ),
+      extensions: const [InvertedPanelColors.dark],
     );
   }
 }
