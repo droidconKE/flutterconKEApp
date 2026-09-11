@@ -2,6 +2,19 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Keep `docs/` current — this is required, not optional
+
+This repo has a `docs/` directory (see `docs/README.md` for the index) written for AI agents:
+architecture, data layer, features, routing, auth, networking, notifications, and CI/build details,
+each with file:line citations. **Any change you make that invalidates something described there must
+update the relevant doc file in the same commit/PR** — a new repository or Cubit, a changed fetch or
+auth pattern, a new/removed route, a CI workflow edit, a new feature module, a dependency-injection
+change, and so on. Treat a stale doc as a bug in your own change, not a separate follow-up task.
+
+Before finishing any non-trivial change, ask: "does anything in `docs/` now describe this incorrectly?"
+If yes, fix it as part of the same change. If you notice a doc is already stale for an unrelated reason
+while working on something else, fix that opportunistically too rather than leaving it.
+
 ## Commands
 
 ```bash
