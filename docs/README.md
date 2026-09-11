@@ -31,6 +31,7 @@ workaround (e.g. why a version is pinned).
 | [networking-and-config.md](networking-and-config.md) | `NetworkUtil`/Dio setup, `ApiRepository` endpoints, flavor config, error/`Failure` handling |
 | [notifications.md](notifications.md) | `awesome_notifications` setup, what schedules a notification, the deep-link-back-to-feedback flow |
 | [build-and-ci.md](build-and-ci.md) | Flavors, code generation, GitHub Actions workflows and exactly what triggers each one |
+| [design/REBRAND-PLAN.md](design/REBRAND-PLAN.md) | The 2026 flutterconKE rebrand migration plan — phases, web-repo cross-references, current gap analysis |
 
 ## Fast orientation for a new task
 
