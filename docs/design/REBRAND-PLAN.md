@@ -1,6 +1,6 @@
 # FlutterconKE 2026 Rebrand — Flutter App Migration Plan
 
-> Status: **Planning → Phase 0 in progress** · Last updated: 2026-09-11 · Tracking: [flutterconKEApp#243](https://github.com/droidconKE/flutterconKEApp/issues/243)
+> Status: **Phase 0 done, Phase 1 next** · Last updated: 2026-09-11 · Tracking: [flutterconKEApp#243](https://github.com/droidconKE/flutterconKEApp/issues/243)
 
 This plan ports the flutterconKE web rebrand to the Flutter app so both surfaces read as one brand.
 It is deliberately modeled on the web repo's own plan
@@ -65,13 +65,28 @@ the web falls back to as well, so it stays consistent even unresolved.
 
 Each phase is its own GitHub sub-issue under #243 and its own branch off `feat/2026_rebrand`.
 
-### Phase 0 — Design tokens (foundation)
+### Phase 0 — Design tokens (foundation) ✅
 
 Full blue/magenta color ramps as Dart constants, a rounded-card radius scale, pill-badge/button style
 constants, uppercase display text style (Montserrat stand-in until Phase 0b resolves), and the two
 documented light/dark color-*inversion* pairs (About-style stat panel: black+magenta-figures in light ↔
 magenta+white-figures in dark) as reusable theme extensions — not deferred to each screen to reinvent.
 Foundation only; no screen restyling yet.
+
+**Shipped** (flutterconKEApp#256):
+
+- `lib/core/theme/theme_colors.dart` — `AppColorRamps` (blue50–900, magenta50–900)
+- `lib/core/theme/theme_styles.dart` — `Corners` extended with the rebrand's rounded-card scale
+  (s16/s24/s32/s40 + a `pill`/`pillBorder`/`pillRadius` trio)
+- `lib/common/widgets/pill_badge.dart` — `PillBadge` widget (`level`/`format` variants)
+- `lib/core/theme/button_styles.dart` — `AppButtonStyles.primary`/`.accent`/`.outline`
+- `lib/core/theme/text_styles.dart` — `AppTextStyles.display` (Montserrat Black stand-in)
+- `lib/core/theme/inverted_panel_theme.dart` — `InvertedPanelColors` `ThemeExtension`, registered on
+  both `AppTheme.lightTheme()`/`darkTheme()` via `extensions:`
+
+None of these are wired into any existing screen yet — registering the theme extension has no visual
+effect until a screen reads it, and the button/badge/text-style builders are opt-in. Verified via
+`flutter analyze` (clean) and a full debug APK build (succeeds).
 
 ### Phase 0b — Rauschen B font decision (parallel, non-blocking)
 
