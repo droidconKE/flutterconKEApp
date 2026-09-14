@@ -1,6 +1,6 @@
 # FlutterconKE 2026 Rebrand — Flutter App Migration Plan
 
-> Status: **Phase 0 done, Phase 1 next** · Last updated: 2026-09-11 · Tracking: [flutterconKEApp#243](https://github.com/droidconKE/flutterconKEApp/issues/243)
+> Status: **Phases 0–1 done, Phase 2 next** · Last updated: 2026-09-15 · Tracking: [flutterconKEApp#243](https://github.com/droidconKE/flutterconKEApp/issues/243)
 
 This plan ports the flutterconKE web rebrand to the Flutter app so both surfaces read as one brand.
 It is deliberately modeled on the web repo's own plan
@@ -93,11 +93,34 @@ effect until a screen reads it, and the button/badge/text-style builders are opt
 Decide and implement (or explicitly defer) the same private-repo-fetch-with-fallback pattern the web
 uses. Needs a decision from whoever holds the font license/usage rights before implementation.
 
-### Phase 1 — Global chrome
+### Phase 1 — Global chrome ✅
 
 App bar, bottom nav, sign-in screen: confirm/finish logo match, apply Phase 0 tokens to button styles
 already present (Google/ghost sign-in buttons), verify active-tab/active-link color usage is using the
 new ramps where a single hex is currently hardcoded.
+
+**Findings** (flutterconKEApp#258):
+
+- **Logo already matches exactly** — rendered both `assets/images/flutterconlogo_light.svg`/`_dark.svg`
+  and the web's `public/images/new-design/logo-light.svg`/`logo-dark.svg` to PNG and compared pixel-for-
+  pixel: identical mark, identical colors, both light and dark variants. No asset change needed.
+- **No stray pre-rebrand colors found** — grepped for raw hex `Color(0xff...)` outside the theme files
+  and for legacy `Colors.blue`/`.amber`/etc.: none. Every color reference already goes through
+  `ThemeColors`.
+  - `sign_in.dart`'s only visible button is `GoogleAuthButton` (the `auth_buttons` package) — a
+    third-party Google-branded button that **should not** be restyled with the rebrand's pill language;
+    Google's own brand guidelines govern that button's shape. The ghost sign-in path is a hidden
+    long-press gesture on the logo, not a visible button. So there was no real "apply pill styles to
+    sign-in buttons" work available on that screen specifically.
+- **Applied the pill language where a real opportunity existed**: `FeedbackButton`
+  (`lib/common/widgets/app_bar/feedback_button.dart`, visible in the app bar on most screens) now uses
+  `Corners.pillBorder` instead of a fixed 10px radius; the logout confirmation dialog
+  (`lib/common/widgets/app_bar/logout_dialog.dart`) now uses `Corners.pillBorder` on its destructive
+  "confirm" button (kept red — destructive-action semantics, not a rebrand color) and
+  `AppButtonStyles.outline` on its "cancel" button.
+- **Deliberately left alone**: `session_filter.dart`'s `SegmentedButton`/filter-panel buttons — that's
+  session-filtering UI, not global chrome, and belongs with Phase 3's more thorough Sessions pass rather
+  than a piecemeal touch here.
 
 ### Phase 2 — Home dashboard
 
