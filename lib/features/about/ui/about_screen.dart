@@ -30,7 +30,6 @@ class _AboutScreenState extends State<AboutScreen> {
     final l10n = context.l10n;
 
     return Scaffold(
-      backgroundColor: colorScheme.surface,
       appBar: const CustomAppBar(selectedIndex: 3),
       body: LayoutBuilder(
         builder: (context, constraints) {

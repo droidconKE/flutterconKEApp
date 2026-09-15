@@ -37,20 +37,20 @@ class DaySessionsView extends StatelessWidget {
               afterLineStyle: LineStyle(
                 thickness: 2,
                 color: randomizeColor
-                    ? ThemeColors.orangeColor
-                    : ThemeColors.blueGreenDroidconColor,
+                    ? ThemeColors.flutterconMagenta
+                    : ThemeColors.flutterconMagenta,
               ),
               beforeLineStyle: LineStyle(
                 thickness: 2,
                 color: randomizeColor
-                    ? ThemeColors.orangeColor
-                    : ThemeColors.blueGreenDroidconColor,
+                    ? ThemeColors.flutterconMagenta
+                    : ThemeColors.flutterconMagenta,
               ),
               indicatorStyle: IndicatorStyle(
                 width: 8,
                 color: randomizeColor
-                    ? ThemeColors.orangeColor
-                    : ThemeColors.blueGreenDroidconColor,
+                    ? ThemeColors.flutterconMagenta
+                    : ThemeColors.flutterconMagenta,
               ),
             ),
           ),

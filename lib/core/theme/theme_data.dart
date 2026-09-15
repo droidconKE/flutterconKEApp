@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'package:fluttercon/core/theme/inverted_panel_theme.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -23,24 +25,24 @@ class AppTheme {
       scaffoldBackgroundColor: Colors.white,
       colorScheme: const ColorScheme(
         brightness: Brightness.light,
-        primary: ThemeColors.blueDroidconColor,
-        primaryContainer: ThemeColors.blueDroidconColor,
+        primary: ThemeColors.flutterconBlue,
+        primaryContainer: ThemeColors.flutterconBlue,
         onPrimary: Colors.white,
-        secondary: ThemeColors.blueGreenDroidconColor,
+        secondary: ThemeColors.flutterconMagenta,
         secondaryContainer: ThemeColors.lightGrayColor,
-        onSecondary: Colors.black,
+        onSecondary: Colors.white,
         surface: Colors.white,
-        onSurface: Colors.black,
+        onSurface: Color(0xff20201E),
         error: Colors.red,
         onError: Colors.white,
       ),
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.white,
-        foregroundColor: ThemeColors.blueDroidconColor,
+        foregroundColor: ThemeColors.flutterconBlue,
       ),
       navigationBarTheme: const NavigationBarThemeData(
         backgroundColor: Colors.white,
-        indicatorColor: ThemeColors.blueDroidconColor,
+        indicatorColor: ThemeColors.flutterconBlue,
         elevation: 3,
       ),
       textTheme: GoogleFonts.montserratTextTheme(),
@@ -50,32 +52,33 @@ class AppTheme {
           TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
         },
       ),
+      extensions: const [InvertedPanelColors.light],
     );
   }
 
   static ThemeData darkTheme() {
     return ThemeData(
-      scaffoldBackgroundColor: ThemeColors.greyDarkThemeBackground,
+      scaffoldBackgroundColor: ThemeColors.blackColor,
       colorScheme: const ColorScheme(
         brightness: Brightness.dark,
-        primary: ThemeColors.blueGreenDroidconColor,
-        primaryContainer: ThemeColors.blueDroidconColor,
-        onPrimary: Colors.black,
-        secondary: ThemeColors.blueDroidconColor,
-        secondaryContainer: Colors.black,
+        primary: ThemeColors.flutterconBlue,
+        primaryContainer: ThemeColors.flutterconBlue,
+        onPrimary: Colors.white,
+        secondary: ThemeColors.flutterconMagenta,
+        secondaryContainer: Color(0xff191D1D),
         onSecondary: Colors.white,
-        surface: ThemeColors.blackColor,
+        surface: Color(0xff20201E),
         onSurface: Colors.white,
         error: Colors.red,
         onError: Colors.white,
       ),
       appBarTheme: const AppBarTheme(
-        backgroundColor: ThemeColors.greyDarkThemeBackground,
-        foregroundColor: ThemeColors.blueDroidconColor,
+        backgroundColor: ThemeColors.blackColor,
+        foregroundColor: ThemeColors.flutterconBlue,
       ),
       navigationBarTheme: const NavigationBarThemeData(
-        backgroundColor: Colors.black,
-        indicatorColor: ThemeColors.blueDroidconColor,
+        backgroundColor: ThemeColors.blackColor,
+        indicatorColor: ThemeColors.flutterconBlue,
         elevation: 3,
       ),
       textTheme: GoogleFonts.montserratTextTheme(),
@@ -85,6 +88,7 @@ class AppTheme {
           TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
         },
       ),
+      extensions: const [InvertedPanelColors.dark],
     );
   }
 }

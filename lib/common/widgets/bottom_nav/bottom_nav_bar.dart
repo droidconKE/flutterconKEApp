@@ -91,9 +91,9 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           : null,
       child: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: colorScheme.surface,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         currentIndex: widget.selectedIndex,
-        selectedItemColor: ThemeColors.orangeDroidconColor,
+        selectedItemColor: ThemeColors.flutterconMagenta,
         unselectedItemColor: colorScheme.onSurface,
         unselectedLabelStyle: const TextStyle(fontSize: 12),
         selectedLabelStyle: const TextStyle(fontSize: 12),

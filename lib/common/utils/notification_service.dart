@@ -15,7 +15,7 @@ class NotificationService {
         channelKey: 'session_channel',
         channelName: 'Session notifications',
         channelDescription: 'Notification channel for bookmarked sessions',
-        defaultColor: ThemeColors.blueDroidconColor,
+        defaultColor: ThemeColors.flutterconBlue,
         ledColor: Colors.white,
         playSound: true,
         enableVibration: true,
