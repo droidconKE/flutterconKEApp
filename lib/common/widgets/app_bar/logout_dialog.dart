@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/utils/router.dart';
+import 'package:fluttercon/core/theme/button_styles.dart';
+import 'package:fluttercon/core/theme/theme_styles.dart';
 import 'package:fluttercon/features/auth/cubit/log_out_cubit.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
@@ -63,7 +65,7 @@ class _LogOutDialogState extends State<LogOutDialog> {
                   backgroundColor: Colors.red,
                   padding: const EdgeInsets.symmetric(horizontal: 32),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: Corners.pillBorder,
                   ),
                 ),
                 child: BlocBuilder<LogOutCubit, LogOutState>(
@@ -93,16 +95,9 @@ class _LogOutDialogState extends State<LogOutDialog> {
             const SizedBox(height: 8),
             SizedBox(
               width: double.infinity,
-              child: ElevatedButton(
+              child: OutlinedButton(
                 onPressed: () => GoRouter.of(context).pop(),
-                style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  backgroundColor: colorScheme.surface,
-                  padding: const EdgeInsets.symmetric(horizontal: 32),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
+                style: AppButtonStyles.outline(context),
                 child: AutoSizeText(
                   l10n.cancel.toUpperCase(),
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(

@@ -6,6 +6,7 @@ import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/common/widgets/bottom_nav/app_nav_icon.dart';
 import 'package:fluttercon/core/di/injectable.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:fluttercon/core/theme/theme_styles.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
 
@@ -34,7 +35,7 @@ class FeedbackButton extends StatelessWidget {
               width: 127,
               decoration: BoxDecoration(
                 color: ThemeColors.flutterconMagenta.withValues(alpha: 0.21),
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                borderRadius: Corners.pillBorder,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
