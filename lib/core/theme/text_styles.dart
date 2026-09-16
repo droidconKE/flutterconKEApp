@@ -2,14 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 /// Display typography introduced by the 2026 rebrand. The web uses a
-/// licensed heavy-grotesque display font (Rauschen B); porting that same
-/// font to this app is a separate, licensing-gated decision — see
-/// flutterconKEApp#257 and docs/design/REBRAND-PLAN.md.
+/// licensed heavy-grotesque display font (Rauschen B), fetched at build
+/// time from a private repo and served from droidcon's own web
+/// infrastructure — the license explicitly covers that use.
 ///
-/// Until #257 resolves, [display] uses Montserrat Black as a visual
-/// stand-in — the same font family already used for this app's body text
-/// (and the same fallback the web itself uses when the licensed font isn't
-/// fetched at build time), so nothing regresses either way #257 is decided.
+/// This app deliberately does **not** do the same: the license grants
+/// serving a web font from our own infrastructure, but a compiled mobile
+/// app instead bundles the font file inside every installed APK/IPA —
+/// trivially extractable by unzipping — which is a materially different
+/// distribution than serving over HTTPS from a server we control, and
+/// isn't something the license text actually covers. See
+/// flutterconKEApp#257 and docs/design/REBRAND-PLAN.md for the full
+/// reasoning. [display] uses Montserrat Black as the permanent choice, not
+/// a placeholder pending a future decision — the same font family already
+/// used for this app's body text, so the display style reads as a weight/
+/// case variation of the existing type rather than a mismatched one-off.
 class AppTextStyles {
   AppTextStyles._();
 

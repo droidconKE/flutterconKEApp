@@ -1,6 +1,6 @@
 # FlutterconKE 2026 Rebrand — Flutter App Migration Plan
 
-> Status: **Phases 0–1 done, Phase 2 next** · Last updated: 2026-09-15 · Tracking: [flutterconKEApp#243](https://github.com/droidconKE/flutterconKEApp/issues/243)
+> Status: **Phases 0, 0b, 1 done, Phase 2 next** · Last updated: 2026-09-16 · Tracking: [flutterconKEApp#243](https://github.com/droidconKE/flutterconKEApp/issues/243)
 
 This plan ports the flutterconKE web rebrand to the Flutter app so both surfaces read as one brand.
 It is deliberately modeled on the web repo's own plan
@@ -45,21 +45,33 @@ What's *not* aligned yet — this is the actual scope of the migration:
 - No pill-badge language (web's session-level/format chips, `rounded-full` colored pills)
 - No stat-card / color-inverting panel pattern (web's About section 2×2 stats block)
 - No display typography treatment (web: **Rauschen B**, heavy grotesque, uppercase; app: Montserrat
-  throughout, no distinct display style) — see the font note below, this one has a real blocker
+  throughout) — resolved as **won't-port**, see the font note below; Montserrat Black is the permanent
+  display choice for this app, not a placeholder
 - No halftone/duotone image treatment (web's speaker-avatar duotone + dot overlay)
 - No pill/rounded button language (web's `.btn-primary`/`.btn-outline`/`.btn-accent`)
 
-## Font blocker — Rauschen B is licensed, same constraint as web
+## Font decision — Rauschen B: won't-port (flutterconKEApp#257, decided 2026-09-16)
 
-Rauschen B lives in the **private** `droidconKE/private-fonts` repo, fetched at build time and degrading
-gracefully to a fallback (Montserrat) when unavailable — see that repo's description and the web's
-`scripts/fetch-font.sh`. Porting the same mechanism to Flutter (fetch at CI/build time into a gitignored
-asset, fall back to Montserrat otherwise) is its own decision with licensing and CI implications — **do
-not bundle the font file into this public repo without explicit sign-off**. This is called out as its
-own sub-issue (Phase 0b) so it doesn't block the rest of the token work, exactly like the web repo
-treated it as a separately-blocked item (`#25` there) rather than gating Phase 0 on it. Until resolved,
-display headlines should use Montserrat Black/ExtraBold uppercase as a visual stand-in — that's what
-the web falls back to as well, so it stays consistent even unresolved.
+Rauschen B lives in the **private** `droidconKE/private-fonts` repo. Its README states the license
+terms explicitly: it permits **serving a web font from our own infrastructure**, and explicitly
+forbids committing the file to a public repo or sharing it externally. The web sites fetch it at build
+time into a gitignored path and serve it via `@font-face`, degrading gracefully to Montserrat when the
+fetch has no credentials (e.g. an external contributor) — see that repo's README and the web's
+`scripts/fetch-font.sh`.
+
+That license grant doesn't extend to this app. A compiled mobile app bundles the font file directly
+inside every installed APK/IPA — trivially extractable by unzipping the app package — which is a
+materially different distribution model than serving a file over HTTPS from a server droidcon
+controls. The license text covers the latter; it says nothing about the former, and reads as scoped to
+web-serving specifically (it separately calls out that even the `.otf` variant already in that repo
+must never be used "for web embedding," i.e. the license is granular about *how* the font may be
+served — nothing in it addresses app-binary embedding at all).
+
+**Decision: do not port this.** Montserrat Black (already shipped in Phase 0's `AppTextStyles.display`)
+is the **permanent** display font for this app, not a stand-in pending a future resolution. Revisit only
+if whoever holds the Rauschen B license/usage rights explicitly confirms app-binary embedding is
+covered — that would need to come from Out of the Dark (the font's creator) or droidcon's brand team,
+not be inferred from the web's existing (web-scoped) grant.
 
 ## Phases
 
@@ -68,7 +80,7 @@ Each phase is its own GitHub sub-issue under #243 and its own branch off `feat/2
 ### Phase 0 — Design tokens (foundation) ✅
 
 Full blue/magenta color ramps as Dart constants, a rounded-card radius scale, pill-badge/button style
-constants, uppercase display text style (Montserrat stand-in until Phase 0b resolves), and the two
+constants, uppercase display text style (Montserrat Black — see the font decision below), and the two
 documented light/dark color-*inversion* pairs (About-style stat panel: black+magenta-figures in light ↔
 magenta+white-figures in dark) as reusable theme extensions — not deferred to each screen to reinvent.
 Foundation only; no screen restyling yet.
@@ -80,7 +92,8 @@ Foundation only; no screen restyling yet.
   (s16/s24/s32/s40 + a `pill`/`pillBorder`/`pillRadius` trio)
 - `lib/common/widgets/pill_badge.dart` — `PillBadge` widget (`level`/`format` variants)
 - `lib/core/theme/button_styles.dart` — `AppButtonStyles.primary`/`.accent`/`.outline`
-- `lib/core/theme/text_styles.dart` — `AppTextStyles.display` (Montserrat Black stand-in)
+- `lib/core/theme/text_styles.dart` — `AppTextStyles.display` (Montserrat Black — now the permanent
+  display choice, see Phase 0b below)
 - `lib/core/theme/inverted_panel_theme.dart` — `InvertedPanelColors` `ThemeExtension`, registered on
   both `AppTheme.lightTheme()`/`darkTheme()` via `extensions:`
 
@@ -88,10 +101,12 @@ None of these are wired into any existing screen yet — registering the theme e
 effect until a screen reads it, and the button/badge/text-style builders are opt-in. Verified via
 `flutter analyze` (clean) and a full debug APK build (succeeds).
 
-### Phase 0b — Rauschen B font decision (parallel, non-blocking)
+### Phase 0b — Rauschen B font decision (parallel, non-blocking) ✅ won't-port
 
-Decide and implement (or explicitly defer) the same private-repo-fetch-with-fallback pattern the web
-uses. Needs a decision from whoever holds the font license/usage rights before implementation.
+**Decided 2026-09-16: not porting.** See "Font decision" above for the full reasoning — the license
+covers serving a web font from droidcon's own infrastructure, not bundling the file inside a
+distributed app binary, and that gap isn't something to resolve by inference. Montserrat Black
+(`AppTextStyles.display`, shipped in Phase 0) is the permanent display font for this app.
 
 ### Phase 1 — Global chrome ✅
 
