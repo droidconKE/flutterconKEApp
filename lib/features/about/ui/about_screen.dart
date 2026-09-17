@@ -6,6 +6,7 @@ import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/widgets/app_bar/app_bar.dart';
 import 'package:fluttercon/features/about/cubit/fetch_individual_organisers_cubit.dart';
 import 'package:fluttercon/features/about/ui/organising_team.dart';
+import 'package:fluttercon/features/about/widgets/about_stats_panel.dart';
 import 'package:fluttercon/features/home/widgets/organizers_card.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 
@@ -62,6 +63,13 @@ class _AboutScreenState extends State<AboutScreen> {
                 ),
               ),
               const SliverToBoxAdapter(child: SizedBox(height: 16)),
+              const SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: AboutStatsPanel(),
+                ),
+              ),
+              const SliverToBoxAdapter(child: SizedBox(height: 24)),
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),

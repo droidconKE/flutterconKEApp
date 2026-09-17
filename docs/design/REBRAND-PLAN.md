@@ -1,6 +1,6 @@
 # FlutterconKE 2026 Rebrand — Flutter App Migration Plan
 
-> Status: **Phases 0, 0b, 1 done, Phase 2 next** · Last updated: 2026-09-16 · Tracking: [flutterconKEApp#243](https://github.com/droidconKE/flutterconKEApp/issues/243)
+> Status: **Phases 0, 0b, 1, 2 done, Phase 3 next** · Last updated: 2026-09-17 · Tracking: [flutterconKEApp#243](https://github.com/droidconKE/flutterconKEApp/issues/243)
 
 This plan ports the flutterconKE web rebrand to the Flutter app so both surfaces read as one brand.
 It is deliberately modeled on the web repo's own plan
@@ -137,11 +137,29 @@ new ramps where a single hex is currently hardcoded.
   session-filtering UI, not global chrome, and belongs with Phase 3's more thorough Sessions pass rather
   than a piecemeal touch here.
 
-### Phase 2 — Home dashboard
+### Phase 2 — Home dashboard ✅
 
 Home tab restyle: hero-style header treatment, stat-card block (mirrors web's About 2×2 stats,
 inverting between light/dark) if an "About"-style summary belongs on Home or the About screen — decide
 placement to match how the web's `About.tsx` stats read (edition number, sessions delivered, attendees).
+
+**Shipped** (flutterconKEApp#259):
+
+- **Placement: the About screen, not Home.** `about_screen.dart` already had an "About" headline +
+  description paragraph structurally identical to the web's About section intro — the stat block reads
+  as a natural continuation of that content, not a dashboard-summary fit for Home. Left Home's "hero-
+  style header treatment" out of scope here — that's a separate, larger visual question (the web's Hero
+  is Phase 2 there but a distinct component from the stats block) better handled with its own decision
+  if/when it comes up, rather than folded into this stat-panel port.
+- **`AboutStatsPanel`** (`lib/features/about/widgets/about_stats_panel.dart`) — the 2×2 grid with the
+  same four values/labels as the web's `About.tsx` (3RD Fluttercon edition, 7th Droidcon edition, 230+
+  sessions delivered, 3,000+ attendees since 2018), using Phase 0's `InvertedPanelColors` extension and
+  `AppTextStyles.display` for the figures. Wired into `about_screen.dart` right after the existing intro
+  text, before "Organising Team".
+- **Verified visually**, not just via analyze/build — ran the app on an emulator, navigated to the About
+  screen, and confirmed both color-inversion states directly: black panel + magenta figures in light
+  mode, magenta panel + white figures in dark mode (toggled via `adb shell cmd uimode night yes/no`),
+  matching the web's design exactly.
 
 ### Phase 3 — Sessions & Speakers
 
