@@ -88,7 +88,7 @@ class OranisingTeamMemberDetailsPage extends StatelessWidget {
               const SizedBox(height: 60),
               AutoSizeText(
                 organiser.designation,
-                style: const TextStyle(color: ThemeColors.orangeColor),
+                style: const TextStyle(color: ThemeColors.flutterconMagenta),
               ),
               AutoSizeText(
                 organiser.name,

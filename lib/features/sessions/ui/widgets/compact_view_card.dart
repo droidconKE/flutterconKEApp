@@ -82,10 +82,7 @@ class CompactViewCard extends StatelessWidget {
               Row(
                 children: [
                   Flexible(
-                    child: Icon(
-                      Icons.android_outlined,
-                      color: colorScheme.primary,
-                    ),
+                    child: Icon(Icons.flutter_dash, color: colorScheme.primary),
                   ),
                   const SizedBox(width: 8),
                   Flexible(
@@ -141,7 +138,7 @@ class CompactViewCard extends StatelessWidget {
                             ? Icons.star_rate_rounded
                             : Icons.star_border_outlined,
                         color: session.isBookmarked
-                            ? ThemeColors.orangeColor
+                            ? ThemeColors.flutterconMagenta
                             : colorScheme.primary,
                         size: 32,
                       ),
@@ -165,7 +162,7 @@ class CompactViewCard extends StatelessWidget {
                       ? Icons.star_rate_rounded
                       : Icons.star_border_outlined,
                   color: session.isBookmarked
-                      ? ThemeColors.orangeColor
+                      ? ThemeColors.flutterconMagenta
                       : colorScheme.primary,
                   size: 32,
                 ),

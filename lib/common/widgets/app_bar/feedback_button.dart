@@ -6,6 +6,7 @@ import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/common/widgets/bottom_nav/app_nav_icon.dart';
 import 'package:fluttercon/core/di/injectable.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:fluttercon/core/theme/theme_styles.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
 
@@ -23,7 +24,7 @@ class FeedbackButton extends StatelessWidget {
             onTap: () {
               final profile = getIt<HiveRepository>().retrieveUser();
               if (profile == null) {
-                GoRouter.of(context).goNamed(FlutterConRouter.signInRoute);
+                GoRouter.of(context).pushNamed(FlutterConRouter.signInRoute);
                 return;
               }
 
@@ -33,8 +34,8 @@ class FeedbackButton extends StatelessWidget {
               height: 30,
               width: 127,
               decoration: BoxDecoration(
-                color: ThemeColors.tealColor.withValues(alpha: 0.21),
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                color: ThemeColors.flutterconMagenta.withValues(alpha: 0.21),
+                borderRadius: Corners.pillBorder,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -54,7 +55,7 @@ class FeedbackButton extends StatelessWidget {
                   const AppNavIcon(
                     'send',
                     height: 12,
-                    color: ThemeColors.tealColor,
+                    color: ThemeColors.flutterconMagenta,
                   ),
                 ],
               ),

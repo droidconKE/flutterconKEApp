@@ -90,14 +90,16 @@ class SpeakerDetailsPage extends StatelessWidget {
                 children: [
                   const Flexible(
                     child: Icon(
-                      Icons.android_outlined,
-                      color: ThemeColors.orangeColor,
+                      Icons.flutter_dash,
+                      color: ThemeColors.flutterconMagenta,
                     ),
                   ),
                   const SizedBox(width: 8),
                   AutoSizeText(
                     l10n.speaker,
-                    style: const TextStyle(color: ThemeColors.orangeColor),
+                    style: const TextStyle(
+                      color: ThemeColors.flutterconMagenta,
+                    ),
                   ),
                 ],
               ),

@@ -106,7 +106,7 @@ class ScheduleViewCard extends StatelessWidget {
                               margin: const EdgeInsets.only(right: 8),
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: ThemeColors.tealColor,
+                                  color: ThemeColors.flutterconMagenta,
                                   width: 2,
                                 ),
                                 borderRadius: Corners.s12Border,
@@ -161,7 +161,7 @@ class ScheduleViewCard extends StatelessWidget {
                                 ? Icons.star_rate_rounded
                                 : Icons.star_border_outlined,
                             color: status == BookmarkStatus.bookmarked
-                                ? ThemeColors.orangeColor
+                                ? ThemeColors.flutterconMagenta
                                 : colorScheme.primary,
                             size: 32,
                           ),
@@ -182,7 +182,7 @@ class ScheduleViewCard extends StatelessWidget {
                                 ? Icons.star_rate_rounded
                                 : Icons.star_border_outlined,
                             color: session.isBookmarked
-                                ? ThemeColors.orangeColor
+                                ? ThemeColors.flutterconMagenta
                                 : colorScheme.primary,
                             size: 32,
                           ),

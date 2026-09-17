@@ -30,7 +30,10 @@ class SpeakerGridTile extends StatelessWidget {
                 maxWidth: MediaQuery.sizeOf(context).width / 4.5,
               ),
               decoration: BoxDecoration(
-                border: Border.all(color: ThemeColors.tealColor, width: 2),
+                border: Border.all(
+                  color: ThemeColors.flutterconMagenta,
+                  width: 2,
+                ),
                 borderRadius: Corners.s12Border,
               ),
               child: ClipRRect(
@@ -83,7 +86,7 @@ class SpeakerGridTile extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   side: const BorderSide(
-                    color: ThemeColors.blueGreenDroidconColor,
+                    color: ThemeColors.flutterconMagenta,
                     width: 2,
                   ),
                   backgroundColor: colorScheme.surface,
@@ -91,7 +94,7 @@ class SpeakerGridTile extends StatelessWidget {
                 child: AutoSizeText(
                   l10n.details.toUpperCase(),
                   style: const TextStyle(
-                    color: ThemeColors.blueGreenDroidconColor,
+                    color: ThemeColors.flutterconMagenta,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

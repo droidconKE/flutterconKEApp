@@ -49,7 +49,8 @@ class AppAssets {
   static const aboutIcon = 'assets/images/about_icon.png';
   static const lockIcon = 'assets/images/lock_icon.png';
   static const playIcon = 'assets/images/play_icon.png';
-  static const flutterConKeLogo = 'assets/images/flutterconke_logo.png';
+  static const flutterConLogoLight = 'assets/images/flutterconlogo_light.svg';
+  static const flutterConLogoDark = 'assets/images/flutterconlogo_dark.svg';
   static const flutterConBanner = 'assets/images/flutterconke_banner.png';
 
   static const smileyIcon = 'assets/images/smiley.png';

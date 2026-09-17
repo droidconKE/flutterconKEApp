@@ -127,10 +127,12 @@ class _SessionsScreenState extends State<SessionsScreen>
                                   },
                                   trackOutlineWidth: WidgetStateProperty.all(1),
                                   trackColor: WidgetStateProperty.all(
-                                    Colors.black,
+                                    ThemeColors.flutterconBlue,
                                   ),
-                                  activeTrackColor: ThemeColors.orangeColor,
-                                  activeThumbColor: ThemeColors.orangeColor,
+                                  activeTrackColor:
+                                      ThemeColors.flutterconMagenta,
+                                  activeThumbColor:
+                                      ThemeColors.flutterconMagenta,
                                   thumbColor: WidgetStateProperty.all(
                                     Colors.white,
                                   ),

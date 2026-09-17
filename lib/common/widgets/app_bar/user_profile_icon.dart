@@ -29,7 +29,7 @@ class _UserProfileIconState extends State<UserProfileIcon> {
       onTap: () {
         final profile = getIt<HiveRepository>().retrieveUser();
         if (profile == null) {
-          GoRouter.of(context).goNamed(FlutterConRouter.signInRoute);
+          GoRouter.of(context).pushNamed(FlutterConRouter.signInRoute);
           return;
         }
 
@@ -66,7 +66,7 @@ class _UserProfileIconState extends State<UserProfileIcon> {
         alignment: Alignment.center,
         decoration: const BoxDecoration(
           shape: BoxShape.circle,
-          color: ThemeColors.tealColor,
+          color: ThemeColors.flutterconMagenta,
         ),
         child: ValueListenableBuilder<Object>(
           valueListenable: Hive.box<dynamic>(
