@@ -1,11 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttercon/common/data/models/local/local_speaker.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/core/theme/theme_styles.dart';
+import 'package:fluttercon/features/home/widgets/speaker_duotone_avatar.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
 
@@ -18,9 +18,12 @@ class SpeakerGridTile extends StatelessWidget {
     final l10n = context.l10n;
     final (isLightMode, colorScheme) = Misc.getTheme(context);
 
-    return Card(
-      elevation: 4,
-      color: colorScheme.secondaryContainer,
+    return Container(
+      decoration: BoxDecoration(
+        color: colorScheme.secondaryContainer,
+        borderRadius: Corners.s32Border,
+        border: Border.all(color: colorScheme.primary),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -36,22 +39,11 @@ class SpeakerGridTile extends StatelessWidget {
                 ),
                 borderRadius: Corners.s12Border,
               ),
-              child: ClipRRect(
-                borderRadius: Corners.s10Border,
-                child: CachedNetworkImage(
-                  fit: BoxFit.cover,
-                  imageUrl: speaker.avatar,
-                  height: 100,
-                  placeholder: (_, __) => const SizedBox(
-                    height: 150,
-                    width: double.infinity,
-                    child: Center(child: CircularProgressIndicator()),
-                  ),
-                  errorWidget: (_, __, ___) => const SizedBox(
-                    height: 150,
-                    width: double.infinity,
-                    child: Icon(Icons.error, color: Colors.red),
-                  ),
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: ClipRRect(
+                  borderRadius: Corners.s10Border,
+                  child: SpeakerDuotoneAvatar(imageUrl: speaker.avatar),
                 ),
               ),
             ),

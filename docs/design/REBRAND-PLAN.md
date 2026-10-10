@@ -1,6 +1,6 @@
 # FlutterconKE 2026 Rebrand — Flutter App Migration Plan
 
-> Status: **Phases 0, 0b, 1, 2 done, Phase 3 next** · Last updated: 2026-09-17 · Tracking: [flutterconKEApp#243](https://github.com/droidconKE/flutterconKEApp/issues/243)
+> Status: **Phases 0, 0b, 1, 2, 3 done, Phase 4 next** · Last updated: 2026-10-09 · Tracking: [flutterconKEApp#243](https://github.com/droidconKE/flutterconKEApp/issues/243)
 
 This plan ports the flutterconKE web rebrand to the Flutter app so both surfaces read as one brand.
 It is deliberately modeled on the web repo's own plan
@@ -161,7 +161,7 @@ placement to match how the web's `About.tsx` stats read (edition number, session
   mode, magenta panel + white figures in dark mode (toggled via `adb shell cmd uimode night yes/no`),
   matching the web's design exactly.
 
-### Phase 3 — Sessions & Speakers
+### Phase 3 — Sessions & Speakers ✅
 
 The highest-value phase — directly portable from web PR #32. Session cards (`schedule_view_card.dart`,
 `compact_view_card.dart`, `day_sessions_view.dart`) get the rounded-card treatment, time-badge box, and
@@ -169,6 +169,34 @@ level/format pill badges matching `SessionListCard.tsx`'s pattern exactly (same 
 pill for level, blue pill for format). Speaker cards/grid tiles get the duotone/halftone avatar
 treatment from `SpeakerCard.tsx` (grayscale + contrast + blue duotone + dot overlay — achievable with
 `ColorFiltered` + a custom dot-pattern `Painter`/asset overlay in Flutter).
+
+**Shipped** (flutterconKEApp#260):
+
+- **`SessionTimeBadge`** (`lib/features/sessions/ui/widgets/session_time_badge.dart`) — the rounded
+  time-badge box (time + AM/PM stacked), reused by both session card variants.
+- **`CompactViewCard`** rebuilt from a `ListTile` to a custom layout matching `SessionListCard.tsx`:
+  rounded-4xl bordered card, `SessionTimeBadge`, level/format `PillBadge`s (skipped for service
+  sessions, matching the web's `!is_serviceSession` check), speaker names in primary color.
+- **`ScheduleViewCard`**: same rounded-4xl border + `SessionTimeBadge` + pill badges added alongside its
+  existing image banner and speaker-avatar row (kept — the web has no direct equivalent of this
+  image-forward variant, so it keeps its own richer layout rather than being forced into
+  `SessionListCard.tsx`'s shape).
+- **`SpeakerDuotoneAvatar`** (`lib/features/home/widgets/speaker_duotone_avatar.dart`) — grayscale +
+  contrast `ColorFiltered`, then a second `ColorFiltered` with `BlendMode.screen` against blue (the
+  Flutter equivalent of the web's `mix-blend-screen` over a `bg-blue-600` backdrop), plus a
+  `CustomPainter` dot overlay. Wired into `SpeakerGridTile` (speakers grid/list) and
+  `SpeakerDetailsPage` (detail header) — **not** into the shared `PersonnelWidget`, since that widget is
+  also used for organisers on the About screen, which don't get this speaker-specific treatment on the
+  web either.
+- `SpeakerGridTile` also picked up the rounded-4xl bordered card shape to match session cards.
+
+**Verification note**: the session-card redesign (compact + schedule views, both light and dark mode)
+was confirmed visually on an emulator — rounded borders, time badges, and pill badges all render as
+intended. The speaker duotone avatar was verified by code review and a clean `flutter analyze`/build
+only, not a fresh on-device screenshot — the emulator's touch-input injection stopped registering taps
+partway through this phase's verification (swipes still worked; likely an emulator-session quirk, not
+an app issue) and recovery attempts (adb restart, alternate input sources) didn't resolve it. Worth a
+manual look on a real device/fresh emulator before considering this phase fully visually confirmed.
 
 ### Phase 4 — Sponsors, Feed, Feedback, About
 

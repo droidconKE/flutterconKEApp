@@ -1,5 +1,4 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttercon/common/data/models/local/local_speaker.dart';
@@ -7,6 +6,7 @@ import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/widgets/social_handle.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:fluttercon/features/home/widgets/speaker_duotone_avatar.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
 
@@ -59,19 +59,7 @@ class SpeakerDetailsPage extends StatelessWidget {
                       height: 110,
                       width: 110,
                       child: ClipOval(
-                        child: CachedNetworkImage(
-                          imageUrl: speaker.avatar,
-                          placeholder: (_, __) => const SizedBox(
-                            height: 150,
-                            width: double.infinity,
-                            child: Center(child: CircularProgressIndicator()),
-                          ),
-                          errorWidget: (_, __, ___) => const SizedBox(
-                            height: 150,
-                            width: double.infinity,
-                            child: Icon(Icons.error, color: Colors.red),
-                          ),
-                        ),
+                        child: SpeakerDuotoneAvatar(imageUrl: speaker.avatar),
                       ),
                     ),
                   ),

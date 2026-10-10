@@ -35,8 +35,8 @@ class SpeakerListScreen extends StatelessWidget {
             child: GridView.builder(
               itemCount: speakers.length,
               gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                mainAxisSpacing: 4,
-                crossAxisSpacing: 4,
+                mainAxisSpacing: 12,
+                crossAxisSpacing: 12,
                 mainAxisExtent: 316,
                 maxCrossAxisExtent: 240,
               ),
