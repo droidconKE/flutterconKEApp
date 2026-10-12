@@ -7,6 +7,7 @@ import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/widgets/app_bar/app_bar.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:fluttercon/core/theme/theme_styles.dart';
 import 'package:fluttercon/features/feed/cubit/feed_cubit.dart';
 import 'package:fluttercon/features/feed/widgets/share_sheet.dart';
 import 'package:fluttercon/l10n/l10n.dart';
@@ -51,13 +52,17 @@ class _FeedScreenState extends State<FeedScreen> {
                     ),
                   )
                 : ListView.separated(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
                     itemCount: fetchedFeeds.length,
                     itemBuilder: (context, index) {
                       final feed = fetchedFeeds[index];
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 16,
+                      return Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: colorScheme.secondaryContainer,
+                          borderRadius: Corners.s32Border,
+                          border: Border.all(color: colorScheme.primary),
                         ),
                         child: Column(
                           children: [
@@ -69,10 +74,8 @@ class _FeedScreenState extends State<FeedScreen> {
                               ),
                             ),
                             const SizedBox(height: 16),
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
+                            ClipRRect(
+                              borderRadius: Corners.s16Border,
                               child: CachedNetworkImage(
                                 fit: BoxFit.cover,
                                 imageUrl: feed.image,
@@ -153,10 +156,8 @@ class _FeedScreenState extends State<FeedScreen> {
                         ),
                       );
                     },
-                    separatorBuilder: (context, index) => const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      child: Divider(color: Color.fromARGB(50, 112, 112, 112)),
-                    ),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 16),
                   ),
             error: (message) => AutoSizeText(
               message,

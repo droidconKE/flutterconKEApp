@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/misc.dart';
+import 'package:fluttercon/core/theme/button_styles.dart';
 import 'package:fluttercon/features/feedback/cubit/send_feedback_cubit.dart';
 import 'package:fluttercon/features/feedback/widgets/emoji_container.dart';
 import 'package:fluttercon/features/feedback/widgets/feedback_custom_appbar.dart';
@@ -135,15 +136,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                         children: [
                           Expanded(
                             child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: colorScheme.primary,
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 32,
-                                ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              ),
+                              style: AppButtonStyles.primary(context),
                               onPressed: () {
                                 final feedback = feedbackController.text;
                                 if (feedback.isNotEmpty &&
@@ -165,8 +158,8 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                               },
                               child: AutoSizeText(
                                 l10n.submitFeedback.toUpperCase(),
-                                style: TextStyle(
-                                  color: colorScheme.surface,
+                                style: const TextStyle(
+                                  color: Colors.white,
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),

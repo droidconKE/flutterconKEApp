@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/widgets/resolved_image.dart';
+import 'package:fluttercon/core/theme/theme_styles.dart';
 import 'package:fluttercon/features/home/cubit/fetch_organisers_cubit.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 import 'package:sizer/sizer.dart';
@@ -33,8 +34,9 @@ class _OrganizersCardState extends State<OrganizersCard> {
       height: size.height * .3,
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: Corners.s24Border,
         color: colorScheme.secondaryContainer,
+        border: Border.all(color: colorScheme.primary),
       ),
       child: Column(
         children: [
@@ -61,13 +63,8 @@ class _OrganizersCardState extends State<OrganizersCard> {
                       color: isLightMode
                           ? colorScheme.secondaryContainer
                           : Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: isLightMode
-                            ? Colors.transparent
-                            : colorScheme.primary,
-                        width: 2,
-                      ),
+                      borderRadius: Corners.s16Border,
+                      border: Border.all(color: colorScheme.primary),
                     ),
                     child: ResolvedImage(imageUrl: organisers[index].logo),
                   ),

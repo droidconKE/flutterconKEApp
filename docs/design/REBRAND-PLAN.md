@@ -1,6 +1,6 @@
 # FlutterconKE 2026 Rebrand — Flutter App Migration Plan
 
-> Status: **Phases 0, 0b, 1, 2, 3 done, Phase 4 next** · Last updated: 2026-10-09 · Tracking: [flutterconKEApp#243](https://github.com/droidconKE/flutterconKEApp/issues/243)
+> Status: **Phases 0, 0b, 1, 2, 3, 4 done, Phase 5 next** · Last updated: 2026-10-12 · Tracking: [flutterconKEApp#243](https://github.com/droidconKE/flutterconKEApp/issues/243)
 
 This plan ports the flutterconKE web rebrand to the Flutter app so both surfaces read as one brand.
 It is deliberately modeled on the web repo's own plan
@@ -198,11 +198,42 @@ partway through this phase's verification (swipes still worked; likely an emulat
 an app issue) and recovery attempts (adb restart, alternate input sources) didn't resolve it. Worth a
 manual look on a real device/fresh emulator before considering this phase fully visually confirmed.
 
-### Phase 4 — Sponsors, Feed, Feedback, About
+### Phase 4 — Sponsors, Feed, Feedback, About ✅
 
 Apply Phase 0 tokens/components consistently across the remaining screens. Sponsors tiering visuals,
 feed post cards, feedback emoji/rating UI, about/organiser cards all get the rounded-card + pill/button
 language so nothing looks pre-rebrand next to Sessions/Speakers.
+
+**Shipped** (flutterconKEApp#261):
+
+- **`SponsorsCard`/`OrganizersCard`** (`lib/features/home/widgets/`): outer card radius bumped to
+  `Corners.s24Border`, inner logo tiles to `Corners.s16Border`, and the border changed from
+  dark-mode-only (`transparent` in light, `colorScheme.primary` in dark) to always-on — matching every
+  other rebrand card, which borders in both themes rather than treating it as a dark-mode-only accent.
+  Added missing item spacing to `SponsorsCard`'s horizontal tile list (it previously relied on the
+  light-mode border being invisible to hide the lack of a gap; with an always-on border that would have
+  made adjacent tiles look fused).
+- **`feed_screen.dart`**: each post wrapped in a `Corners.s32Border`-bordered card (replacing a bare
+  divider-separated list), feed images switched from a `Container` with a `borderRadius` that was
+  never actually clipping its child (`BoxDecoration.borderRadius` doesn't clip content — a pre-existing
+  no-op, not something this phase introduced) to a proper `ClipRRect` with `Corners.s16Border`.
+- **`feedback_screen.dart`**: submit button now uses Phase 0's `AppButtonStyles.primary(context)`
+  instead of a hand-rolled `ElevatedButton.styleFrom`. Also fixed its label color, which was set to
+  `colorScheme.surface` — near-black in dark mode, i.e. dark text on the blue button background, a
+  pre-existing low-contrast bug — to a plain white matching the button style's foreground.
+- **`EmojiContainer`** (feedback rating tiles): radius bumped to `Corners.s16Border` to match the rest
+  of the card scale.
+- **About/organiser cards**: no change needed beyond what Phase 3 already decided —
+  `organising_team.dart`'s grid uses the shared `PersonnelWidget` (deliberately not given the
+  speaker-only duotone treatment, see Phase 3), and `organising_team_details.dart` has no card chrome
+  to restyle, matching `speaker_details.dart`'s equally chrome-less layout.
+
+**Verification**: `SponsorsCard`/`OrganizersCard` confirmed visually on an emulator in both light and
+dark mode — rounded borders, always-on border color, and tile spacing all render as intended. The feed
+card restyle could **not** be visually confirmed — the test event's feed endpoint returned no data
+("Not found") on the build used for this pass, unrelated to this phase's changes. The feedback button
+swap was verified by code review and clean analyze/build only, not re-screenshotted, since it reuses
+the already-proven `AppButtonStyles.primary`.
 
 ### Phase 5 — Polish
 
