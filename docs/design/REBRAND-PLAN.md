@@ -1,6 +1,6 @@
 # FlutterconKE 2026 Rebrand — Flutter App Migration Plan
 
-> Status: **Phases 0, 0b, 1, 2, 3, 4 done, Phase 5 next** · Last updated: 2026-10-12 · Tracking: [flutterconKEApp#243](https://github.com/droidconKE/flutterconKEApp/issues/243)
+> Status: **All phases (0, 0b, 1, 2, 3, 4, 5) done — migration complete** · Last updated: 2026-10-12 · Tracking: [flutterconKEApp#243](https://github.com/droidconKE/flutterconKEApp/issues/243)
 
 This plan ports the flutterconKE web rebrand to the Flutter app so both surfaces read as one brand.
 It is deliberately modeled on the web repo's own plan
@@ -235,11 +235,56 @@ card restyle could **not** be visually confirmed — the test event's feed endpo
 swap was verified by code review and clean analyze/build only, not re-screenshotted, since it reuses
 the already-proven `AppButtonStyles.primary`.
 
-### Phase 5 — Polish
+### Phase 5 — Polish ✅
 
 Dark-mode QA against both documented inversion cases, accessibility pass (contrast on the new ramps),
 responsive check across phone sizes, remove any now-unused pre-rebrand color constants/assets, and
 update this doc + the AI-agent `docs/` (see [docs/README.md](../README.md)) to reflect the final state.
+
+**Shipped** (flutterconKEApp#262):
+
+- **Accessibility pass — contrast computed for every new color pairing** (WCAG relative-luminance
+  formula, not eyeballed):
+  - **Fixed**: `PillBadge`'s format variant and `SessionTimeBadge`'s light-mode text were
+    `flutterconBlue` (blue700) on `blue50` — 3.2:1, below the 4.5:1 AA threshold for this text size.
+    Both are internal component choices (not literal copies of a specific shipped web class value for
+    *this* exact pairing), so swapped to `blue800` from the same ramp — 5.1:1, passes AA, and reads as
+    visually identical at a glance.
+  - **Found, not changed — inherited from the shared design system, shipped identically on web**:
+    - `AppButtonStyles.primary` (white text on `flutterconBlue`): 3.4:1. This is a direct, intentional
+      copy of the web's `.btn-primary` (`text-white bg-primary`) — already live on the public site with
+      the same ratio. Changing it only in the Flutter app would make the two surfaces diverge, which is
+      the opposite of this migration's goal.
+    - `InvertedPanelColors.dark` (white figures on the magenta panel): 3.1:1. This is the explicit,
+      documented color-inversion design decision from the web (see "What's already aligned" above) —
+      also not something to override unilaterally.
+    - The magenta bottom-nav-selected-item color on a white light-mode background: 3.1:1. Pre-existing,
+      predates this rebrand entirely (same `flutterconMagenta` value used for selected state before
+      Phase 0 started).
+
+    All three are AA-compliant for *large* text (≥3:1) but not small/normal text at 4.5:1. Worth a
+    conversation with whoever owns the Figma export if the team wants the brand ramp itself adjusted —
+    that would fix web and app together, which a Flutter-only patch can't.
+- **Dark-mode QA**: re-confirmed visually across every phase's deliverable this session covered —
+  session cards (Phase 3), sponsors/organisers cards (Phase 4) — matching their light-mode counterparts
+  correctly, and the one documented inversion case (About stats panel, Phase 2) swaps correctly in both
+  directions.
+- **Responsive check**: reasoned through `AboutStatsPanel`'s fixed `childAspectRatio` grid (the
+  component most likely to be fragile on a narrow phone, since everything else in this rebrand uses
+  `Wrap`/`Expanded`/`AutoSizeText` which reflow safely) against a 320dp-wide device budget — content
+  height clears the available cell height with margin to spare even with the longest label ("ATTENDEES
+  SINCE 2018") wrapping to two lines. Not re-verified on an actual small-width emulator this round.
+- **Cleanup**: removed `ThemeColors.greyDarkThemeBackground` (zero usages anywhere) and
+  `assets/images/flutterconke_logo.png` (the pre-rebrand logo bitmap, unreferenced by any Dart code or
+  config since the Flutter-blue SVG mark replaced it — confirmed by checking every asset-referencing
+  config file, not just `lib/`). Left the unrelated pre-existing unused `Corners` scale entries
+  (`s3`/`s5`/`s8`/`dialog`/`btn` and their `Border`/`Radius` variants) alone — they predate this rebrand
+  entirely and aren't "now-unused because of" anything this migration did.
+- **Docs**: checked `docs/architecture.md` and `docs/data-layer.md` (the AI-agent docs that mention
+  theming) against the current code — both still accurate, no updates needed.
+
+This closes out the 2026 flutterconKE rebrand migration (#243) — all six phases (0, 0b, 1, 2, 3, 4, 5)
+shipped.
 
 ## Notes for whoever picks up a phase
 

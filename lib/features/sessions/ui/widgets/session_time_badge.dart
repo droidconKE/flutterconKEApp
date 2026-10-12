@@ -35,8 +35,11 @@ class SessionTimeBadge extends StatelessWidget {
               fontSize: 16,
               fontWeight: FontWeight.w700,
               height: 1,
+              // blue700 (flutterconBlue) on blue50 is only 3.2:1 — below
+              // WCAG AA for this text size. blue800 keeps the same
+              // brand-blue family while clearing 4.5:1.
               color: isLightMode
-                  ? ThemeColors.flutterconBlue
+                  ? AppColorRamps.blue800
                   : ThemeColors.flutterconMagenta,
             ),
           ),

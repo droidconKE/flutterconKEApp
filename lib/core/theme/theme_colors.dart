@@ -4,7 +4,6 @@ class ThemeColors {
   ThemeColors._();
 
   static const Color lightGrayBackgroundColor = Color(0xffF5F5F5);
-  static const Color greyDarkThemeBackground = Color(0xff000000);
   static const Color greyTextColor = Color(0xff707070);
   static const Color lightGreyTextColor = Color(0xffC3C3C3);
 
