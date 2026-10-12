@@ -433,6 +433,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No posts found'**
   String get noPosts;
+
+  /// No description provided for @noPostsMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Check back later for updates from the team.'**
+  String get noPostsMessage;
+
+  /// No description provided for @feedErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load the feed'**
+  String get feedErrorTitle;
+
+  /// No description provided for @tryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get tryAgain;
 }
 
 class _AppLocalizationsDelegate

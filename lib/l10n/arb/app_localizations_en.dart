@@ -189,4 +189,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noPosts => 'No posts found';
+
+  @override
+  String get noPostsMessage => 'Check back later for updates from the team.';
+
+  @override
+  String get feedErrorTitle => 'Couldn\'t load the feed';
+
+  @override
+  String get tryAgain => 'Try again';
 }

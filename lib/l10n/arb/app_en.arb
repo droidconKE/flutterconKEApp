@@ -138,5 +138,11 @@
     "noSessions": "No sessions found",
     "@noSessions": {},
     "noPosts": "No posts found",
-    "@noPosts": {}
+    "@noPosts": {},
+    "noPostsMessage": "Check back later for updates from the team.",
+    "@noPostsMessage": {},
+    "feedErrorTitle": "Couldn't load the feed",
+    "@feedErrorTitle": {},
+    "tryAgain": "Try again",
+    "@tryAgain": {}
 }
