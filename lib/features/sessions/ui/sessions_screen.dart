@@ -8,6 +8,7 @@ import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/sessions/cubit/fetch_grouped_sessions_cubit.dart';
 import 'package:fluttercon/features/sessions/ui/widgets/day_sessions_view.dart';
 import 'package:fluttercon/features/sessions/ui/widgets/day_tab_view.dart';
+import 'package:fluttercon/features/sessions/ui/widgets/session_view_toolbar.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 import 'package:intl/intl.dart';
 
@@ -38,16 +39,7 @@ class _SessionsScreenState extends State<SessionsScreen>
     final (isLightMode, colorScheme) = Misc.getTheme(context);
 
     return Scaffold(
-      appBar: CustomAppBar(
-        selectedIndex: 2,
-        selectedScheduleIndex: _viewIndex,
-        onCompactTapped: () => setState(() {
-          _viewIndex = 0;
-        }),
-        onScheduleTapped: () => setState(() {
-          _viewIndex = 1;
-        }),
-      ),
+      appBar: const CustomAppBar(selectedIndex: 2),
       body: BlocBuilder<FetchGroupedSessionsCubit, FetchGroupedSessionsState>(
         builder: (context, state) => state.maybeWhen(
           orElse: () => const Padding(
@@ -59,6 +51,17 @@ class _SessionsScreenState extends State<SessionsScreen>
             child: SafeArea(
               child: NestedScrollView(
                 headerSliverBuilder: (context, innerBoxIsScrolled) => <Widget>[
+                  SliverToBoxAdapter(
+                    child: SessionViewToolbar(
+                      selectedScheduleIndex: _viewIndex,
+                      onCompactTapped: () => setState(() {
+                        _viewIndex = 0;
+                      }),
+                      onScheduleTapped: () => setState(() {
+                        _viewIndex = 1;
+                      }),
+                    ),
+                  ),
                   SliverToBoxAdapter(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
