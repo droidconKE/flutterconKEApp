@@ -36,19 +36,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       title: Row(
         children: [
-          Flexible(
-            child: FittedBox(
-              fit: BoxFit.scaleDown,
-              alignment: Alignment.centerLeft,
-              child: GestureDetector(
-                onTap: () {},
-                child: SvgPicture.asset(
-                  isLightMode
-                      ? AppAssets.flutterConLogoLight
-                      : AppAssets.flutterConLogoDark,
-                  height: 32,
-                ),
-              ),
+          GestureDetector(
+            onTap: () {},
+            child: SvgPicture.asset(
+              isLightMode
+                  ? AppAssets.flutterConLogoLight
+                  : AppAssets.flutterConLogoDark,
+              height: 24,
             ),
           ),
           const Spacer(),
