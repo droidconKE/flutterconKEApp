@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/data/enums/sponsor_type.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/widgets/resolved_image.dart';
+import 'package:fluttercon/core/theme/theme_styles.dart';
 import 'package:fluttercon/features/home/cubit/fetch_sponsors_cubit.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 import 'package:sizer/sizer.dart';
@@ -33,8 +34,9 @@ class _SponsorsCardState extends State<SponsorsCard> {
       height: size.height * .35,
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: Corners.s24Border,
         color: colorScheme.secondaryContainer,
+        border: Border.all(color: colorScheme.primary),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -61,13 +63,8 @@ class _SponsorsCardState extends State<SponsorsCard> {
                         color: isLightMode
                             ? colorScheme.secondaryContainer
                             : Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          color: isLightMode
-                              ? Colors.transparent
-                              : colorScheme.primary,
-                          width: 2,
-                        ),
+                        borderRadius: Corners.s16Border,
+                        border: Border.all(color: colorScheme.primary),
                       ),
                       child: ResolvedImage(
                         imageUrl: sponsors
@@ -86,18 +83,14 @@ class _SponsorsCardState extends State<SponsorsCard> {
                         scrollDirection: Axis.horizontal,
                         itemCount: nonPlatinumSponsors.length,
                         itemBuilder: (context, index) => Container(
+                          margin: const EdgeInsets.only(right: 8),
                           padding: EdgeInsets.symmetric(horizontal: 8.w),
                           decoration: BoxDecoration(
                             color: isLightMode
                                 ? colorScheme.secondaryContainer
                                 : Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: isLightMode
-                                  ? Colors.transparent
-                                  : colorScheme.primary,
-                              width: 2,
-                            ),
+                            borderRadius: Corners.s16Border,
+                            border: Border.all(color: colorScheme.primary),
                           ),
                           child: SizedBox(
                             width: size.width / 4,
