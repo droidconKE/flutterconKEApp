@@ -1,9 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/core/theme/theme_styles.dart';
+import 'package:fluttercon/features/home/widgets/speaker_duotone_avatar.dart';
 
 class PersonnelWidget extends StatelessWidget {
   const PersonnelWidget({
@@ -21,7 +21,7 @@ class PersonnelWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final (isLightMode, colorScheme) = Misc.getTheme(context);
+    final (isLightMode, _) = Misc.getTheme(context);
     return GestureDetector(
       onTap: onTap,
       child: Column(
@@ -37,30 +37,26 @@ class PersonnelWidget extends StatelessWidget {
               ),
               borderRadius: Corners.s12Border,
             ),
-            child: ClipRRect(
-              borderRadius: Corners.s10Border,
-              child: CachedNetworkImage(
-                fit: BoxFit.cover,
-                imageUrl: imageUrl,
-                placeholder: (_, __) => const SizedBox(
-                  height: 100,
-                  width: double.infinity,
-                  child: Center(child: CircularProgressIndicator()),
-                ),
-                errorWidget: (_, __, ___) => const SizedBox(
-                  height: 100,
-                  width: double.infinity,
-                  child: Icon(Icons.error, color: Colors.red),
-                ),
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: ClipRRect(
+                borderRadius: Corners.s10Border,
+                child: SpeakerDuotoneAvatar(imageUrl: imageUrl),
               ),
             ),
           ),
+          const SizedBox(height: 8),
           SizedBox(
             width: MediaQuery.sizeOf(context).width / 4.5,
             child: AutoSizeText(
               name,
               maxLines: 1,
-              style: TextStyle(fontSize: 12, color: colorScheme.onSurface),
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: ThemeColors.flutterconMagenta,
+              ),
             ),
           ),
           if (designation != null)
@@ -69,6 +65,7 @@ class PersonnelWidget extends StatelessWidget {
               child: AutoSizeText(
                 designation!,
                 maxLines: 1,
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 12,
                   color: isLightMode

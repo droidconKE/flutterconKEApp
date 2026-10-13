@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/widgets/app_bar/app_bar.dart';
+import 'package:fluttercon/common/widgets/status_view.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/core/theme/theme_styles.dart';
 import 'package:fluttercon/features/feed/cubit/feed_cubit.dart';
@@ -42,14 +43,10 @@ class _FeedScreenState extends State<FeedScreen> {
         child: BlocBuilder<FetchFeedCubit, FetchFeedState>(
           builder: (context, state) => state.maybeWhen(
             loaded: (fetchedFeeds) => fetchedFeeds.isEmpty
-                ? Center(
-                    child: Text(
-                      l10n.noPosts,
-                      style: TextStyle(
-                        color: colorScheme.onSurface,
-                        fontSize: 20,
-                      ),
-                    ),
+                ? StatusView(
+                    icon: Icons.dynamic_feed_outlined,
+                    title: l10n.noPosts,
+                    message: l10n.noPostsMessage,
                   )
                 : ListView.separated(
                     padding: const EdgeInsets.symmetric(vertical: 16),
@@ -159,13 +156,12 @@ class _FeedScreenState extends State<FeedScreen> {
                     separatorBuilder: (context, index) =>
                         const SizedBox(height: 16),
                   ),
-            error: (message) => AutoSizeText(
-              message,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: colorScheme.primary,
-                fontSize: 18,
-              ),
+            error: (message) => StatusView(
+              icon: Icons.wifi_off_rounded,
+              title: l10n.feedErrorTitle,
+              message: message,
+              onRetry: () =>
+                  context.read<FetchFeedCubit>().fetchFeeds(forceRefresh: true),
             ),
             orElse: () => Center(
               child: CircularProgressIndicator(

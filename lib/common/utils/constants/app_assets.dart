@@ -51,7 +51,8 @@ class AppAssets {
   static const playIcon = 'assets/images/play_icon.png';
   static const flutterConLogoLight = 'assets/images/flutterconlogo_light.svg';
   static const flutterConLogoDark = 'assets/images/flutterconlogo_dark.svg';
-  static const flutterConBanner = 'assets/images/flutterconke_banner.png';
+  static const flutterConBanner =
+      'assets/images/fluttercon-kenya-26-1920x1080.png';
 
   static const smileyIcon = 'assets/images/smiley.png';
   static const profilePhoto = 'assets/images/profile_photo.png';
@@ -70,4 +71,22 @@ class AppAssets {
   static const viewAgendaIcon = 'assets/images/view_agenda.svg';
   static const filterIcon = 'assets/images/filter.svg';
   static const backIcon = 'assets/images/back.svg';
+
+  // Conf. Highlights
+  static const beyondSessions = 'assets/images/beyond-sessions.png';
+  static const devDays = 'assets/images/dev-days.png';
+
+  // Conf. Essentials
+  static const assetsSvg = 'assets/images/SVG';
+  static const svgPanels = '$assetsSvg/panels.svg';
+  static const svgWorkshops = '$assetsSvg/workshops.svg';
+  static const svgNetworking = '$assetsSvg/networking.svg';
+  static const svgExhibitions = '$assetsSvg/exhibitions.svg';
+  static const svgFlutter = '$assetsSvg/Flutter.svg';
+  static const svgKotlin = '$assetsSvg/Kotlin.svg';
+  static const svgSwift = '$assetsSvg/Swift.svg';
+  static const svgReact = '$assetsSvg/React.svg';
+  static const svgAi = '$assetsSvg/AI.svg';
+  static const svgDroidCon = '$assetsSvg/DroidCon.svg';
+  static const svgFlutterCon = '$assetsSvg/FlutterCon.svg';
 }

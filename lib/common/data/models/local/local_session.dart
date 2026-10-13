@@ -75,6 +75,6 @@ class EmbeddedSpeaker {
 class LocalRoom {
   LocalRoom({this.title, this.id});
 
-  int? id;
+  String? id;
   String? title;
 }

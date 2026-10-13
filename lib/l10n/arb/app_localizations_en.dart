@@ -189,4 +189,57 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noPosts => 'No posts found';
+
+  @override
+  String get noPostsMessage => 'Check back later for updates from the team.';
+
+  @override
+  String get feedErrorTitle => 'Couldn\'t load the feed';
+
+  @override
+  String get sessionsErrorTitle => 'Couldn\'t load sessions';
+
+  @override
+  String get organisersErrorTitle => 'Couldn\'t load the team';
+
+  @override
+  String get sponsorsErrorTitle => 'Couldn\'t load sponsors';
+
+  @override
+  String get tryAgain => 'Try again';
+
+  @override
+  String get confEssentialsTitle => '2026 Conf. Essentials';
+
+  @override
+  String get essentialPanels => 'Panels';
+
+  @override
+  String get essentialWorkshops => 'Workshops';
+
+  @override
+  String get essentialNetworking => 'Networking';
+
+  @override
+  String get essentialExhibitions => 'Exhibitions';
+
+  @override
+  String get moreStacksAllMobile => 'More Stacks.\nAll Mobile.';
+
+  @override
+  String get confHighlightsTitle => 'Conf. Highlights';
+
+  @override
+  String get beyondSessionsTitle => 'Beyond the\nSessions';
+
+  @override
+  String get beyondSessionsDescription =>
+      'Hands-on labs, engineering leader panels, and real dev talk. Master Agentic AI, level up your security game, and fast-track your career at the Unconference Track.';
+
+  @override
+  String get developerDaysTitle => 'Developer\nDays';
+
+  @override
+  String get developerDaysDescription =>
+      'Level up across two days of hardcore Flutter and Dart sessions. From cross-platform performance to AI agents and tooling, get real-world insights from top-tier engineers shaping the ecosystem.';
 }

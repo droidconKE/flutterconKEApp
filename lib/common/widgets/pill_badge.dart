@@ -11,8 +11,8 @@ import 'package:fluttercon/core/theme/theme_styles.dart';
 enum PillBadgeVariant { level, format }
 
 /// A small rounded-full label chip introduced by the 2026 rebrand's
-/// pill-badge language. Not yet wired into any screen — Phase 3
-/// (flutterconKEApp#260) adopts this on session/speaker cards.
+/// pill-badge language. Used on session cards (Phase 3, flutterconKEApp#260)
+/// for level/format badges.
 class PillBadge extends StatelessWidget {
   const PillBadge({required this.label, required this.variant, super.key});
 
@@ -37,8 +37,11 @@ class PillBadge extends StatelessWidget {
         background = isLightMode
             ? AppColorRamps.blue50
             : ThemeColors.flutterconBlue.withValues(alpha: 0.2);
+        // blue700 (flutterconBlue) on blue50 is only 3.2:1 — below WCAG AA
+        // for this text size. blue800 keeps the same brand-blue family
+        // while clearing 4.5:1.
         foreground = isLightMode
-            ? ThemeColors.flutterconBlue
+            ? AppColorRamps.blue800
             : AppColorRamps.blue300;
     }
 
