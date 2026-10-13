@@ -458,6 +458,12 @@ abstract class AppLocalizations {
   /// **'Couldn\'t load the team'**
   String get organisersErrorTitle;
 
+  /// No description provided for @sponsorsErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load sponsors'**
+  String get sponsorsErrorTitle;
+
   /// No description provided for @tryAgain.
   ///
   /// In en, this message translates to:

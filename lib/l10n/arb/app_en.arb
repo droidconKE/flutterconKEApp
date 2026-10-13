@@ -147,6 +147,8 @@
     "@sessionsErrorTitle": {},
     "organisersErrorTitle": "Couldn't load the team",
     "@organisersErrorTitle": {},
+    "sponsorsErrorTitle": "Couldn't load sponsors",
+    "@sponsorsErrorTitle": {},
     "tryAgain": "Try again",
     "@tryAgain": {}
 }

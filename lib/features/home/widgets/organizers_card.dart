@@ -1,12 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/widgets/resolved_image.dart';
+import 'package:fluttercon/common/widgets/status_view.dart';
+import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/core/theme/theme_styles.dart';
 import 'package:fluttercon/features/home/cubit/fetch_organisers_cubit.dart';
 import 'package:fluttercon/l10n/l10n.dart';
-import 'package:sizer/sizer.dart';
 
 class OrganizersCard extends StatefulWidget {
   const OrganizersCard({super.key});
@@ -25,65 +25,62 @@ class _OrganizersCardState extends State<OrganizersCard> {
 
   @override
   Widget build(BuildContext context) {
-    final (isLightMode, colorScheme) = Misc.getTheme(context);
-    final size = MediaQuery.sizeOf(context);
     final l10n = context.l10n;
 
     return Container(
       width: double.infinity,
-      height: size.height * .3,
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         borderRadius: Corners.s24Border,
-        color: colorScheme.secondaryContainer,
-        border: Border.all(color: colorScheme.primary),
+        color: ThemeColors.flutterconMagenta,
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
-          const Spacer(),
           AutoSizeText(
             l10n.organisedBy,
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
-              color: colorScheme.primary,
-              fontSize: 18,
+              color: ThemeColors.blackColor,
+              fontSize: 22,
             ),
           ),
-          const Spacer(),
+          const SizedBox(height: 16),
           BlocBuilder<FetchOrganisersCubit, FetchOrganisersState>(
             builder: (context, state) => state.maybeWhen(
-              loaded: (organisers) => SizedBox(
-                height: size.height * .2,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => Container(
-                    height: size.height * .2,
-                    padding: EdgeInsets.symmetric(horizontal: 8.w),
-                    decoration: BoxDecoration(
-                      color: isLightMode
-                          ? colorScheme.secondaryContainer
-                          : Colors.white,
-                      borderRadius: Corners.s16Border,
-                      border: Border.all(color: colorScheme.primary),
-                    ),
-                    child: ResolvedImage(imageUrl: organisers[index].logo),
-                  ),
-                  separatorBuilder: (_, __) => SizedBox(width: 4.w),
-                  itemCount: organisers.length,
-                ),
+              loaded: (organisers) => Wrap(
+                spacing: 10,
+                runSpacing: 10,
+                children: organisers
+                    .map(
+                      (organiser) => Container(
+                        width: 84,
+                        height: 84,
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: Corners.s16Border,
+                        ),
+                        child: ResolvedImage(
+                          imageUrl: organiser.logo,
+                          height: 64,
+                          width: 64,
+                        ),
+                      ),
+                    )
+                    .toList(),
               ),
-              error: (message) => AutoSizeText(
-                message,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: colorScheme.primary,
-                  fontSize: 18,
-                ),
+              error: (message) => StatusView(
+                icon: Icons.wifi_off_rounded,
+                title: l10n.organisersErrorTitle,
+                message: message,
+                onRetry: () =>
+                    context.read<FetchOrganisersCubit>().fetchOrganisers(),
               ),
               orElse: () => const Center(child: CircularProgressIndicator()),
             ),
           ),
-          const Spacer(),
         ],
       ),
     );

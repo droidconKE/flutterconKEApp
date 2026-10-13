@@ -3,11 +3,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/data/enums/sponsor_type.dart';
 import 'package:fluttercon/common/utils/misc.dart';
+import 'package:fluttercon/common/widgets/dashed_divider.dart';
 import 'package:fluttercon/common/widgets/resolved_image.dart';
+import 'package:fluttercon/common/widgets/status_view.dart';
+import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/core/theme/theme_styles.dart';
 import 'package:fluttercon/features/home/cubit/fetch_sponsors_cubit.dart';
 import 'package:fluttercon/l10n/l10n.dart';
-import 'package:sizer/sizer.dart';
+
+/// Tiers that get their own named section, in display order. Anything not
+/// in this list (swag/startup/venue/etc.) is still shown, grouped with
+/// "everything else" after silver/bronze — mirrors the web's
+/// `SponsorsList.tsx` (`REMAINING_TIER_ORDER`), minus its platinum/gold
+/// special-casing which collapses into the same per-tier section here.
+const _tierDisplayOrder = [
+  SponsorType.platinum,
+  SponsorType.gold,
+  SponsorType.silver,
+  SponsorType.bronze,
+  SponsorType.swag,
+  SponsorType.startup,
+  SponsorType.venue,
+];
+
+String _tierLabel(SponsorType type) {
+  final name = type.name;
+  return name[0].toUpperCase() + name.substring(1);
+}
 
 class SponsorsCard extends StatefulWidget {
   const SponsorsCard({super.key});
@@ -25,21 +47,19 @@ class _SponsorsCardState extends State<SponsorsCard> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.sizeOf(context);
     final l10n = context.l10n;
     final (isLightMode, colorScheme) = Misc.getTheme(context);
 
     return Container(
       width: double.infinity,
-      height: size.height * .35,
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         borderRadius: Corners.s24Border,
         color: colorScheme.secondaryContainer,
         border: Border.all(color: colorScheme.primary),
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisSize: MainAxisSize.min,
         children: [
           AutoSizeText(
             l10n.sponsors,
@@ -49,6 +69,7 @@ class _SponsorsCardState extends State<SponsorsCard> {
               fontSize: 18,
             ),
           ),
+          const SizedBox(height: 16),
           BlocBuilder<FetchSponsorsCubit, FetchSponsorsState>(
             builder: (context, state) => state.maybeWhen(
               loaded: (sponsors) {
@@ -56,81 +77,87 @@ class _SponsorsCardState extends State<SponsorsCard> {
                   return const SizedBox.shrink();
                 }
 
-                // Feature whichever tier ranks highest among the sponsors
-                // this event actually has, rather than assuming a "gold"
-                // sponsor always exists — some events only have
-                // platinum/bronze tiers, which previously crashed this
-                // widget with a "Bad state: No element" error.
-                const tierPriority = [
-                  SponsorType.platinum,
-                  SponsorType.gold,
-                  SponsorType.silver,
-                  SponsorType.bronze,
-                  SponsorType.swag,
-                  SponsorType.startup,
-                  SponsorType.venue,
-                ];
-                final topTier = tierPriority.firstWhere(
-                  (tier) =>
-                      sponsors.any((sponsor) => sponsor.sponsorType == tier),
-                  orElse: () => sponsors.first.sponsorType,
-                );
-                final featuredSponsor = sponsors.firstWhere(
-                  (sponsor) => sponsor.sponsorType == topTier,
-                );
-                final remainingSponsors = sponsors
-                    .where((sponsor) => sponsor.sponsorType != topTier)
+                final tiersPresent = _tierDisplayOrder
+                    .where(
+                      (tier) => sponsors.any(
+                        (sponsor) => sponsor.sponsorType == tier,
+                      ),
+                    )
                     .toList();
+                final knownTiers = _tierDisplayOrder.toSet();
+                final otherTiers = sponsors
+                    .map((sponsor) => sponsor.sponsorType)
+                    .where((tier) => !knownTiers.contains(tier))
+                    .toSet();
 
                 return Column(
                   children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8.w),
-                      decoration: BoxDecoration(
-                        color: isLightMode
-                            ? colorScheme.secondaryContainer
-                            : Colors.white,
-                        borderRadius: Corners.s16Border,
-                        border: Border.all(color: colorScheme.primary),
-                      ),
-                      child: ResolvedImage(imageUrl: featuredSponsor.logo),
-                    ),
-                    const SizedBox(height: 16),
-                    SizedBox(
-                      height: size.height / 10,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: remainingSponsors.length,
-                        itemBuilder: (context, index) => Container(
-                          margin: const EdgeInsets.only(right: 8),
-                          padding: EdgeInsets.symmetric(horizontal: 8.w),
-                          decoration: BoxDecoration(
-                            color: isLightMode
-                                ? colorScheme.secondaryContainer
-                                : Colors.white,
-                            borderRadius: Corners.s16Border,
-                            border: Border.all(color: colorScheme.primary),
-                          ),
-                          child: SizedBox(
-                            width: size.width / 4,
-                            child: ResolvedImage(
-                              imageUrl: remainingSponsors[index].logo,
+                    for (final tier in [...tiersPresent, ...otherTiers])
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: Column(
+                          children: [
+                            DashedDivider(
+                              color: isLightMode
+                                  ? ThemeColors.greyAccentColor
+                                  : ThemeColors.lightGreyTextColor,
                             ),
-                          ),
+                            const SizedBox(height: 16),
+                            AutoSizeText(
+                              _tierLabel(tier),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: colorScheme.onSurface,
+                                fontSize: 15,
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            Wrap(
+                              spacing: 12,
+                              runSpacing: 12,
+                              alignment: WrapAlignment.center,
+                              children: sponsors
+                                  .where(
+                                    (sponsor) => sponsor.sponsorType == tier,
+                                  )
+                                  .map(
+                                    (sponsor) => Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 24,
+                                        vertical: 16,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: isLightMode
+                                            ? ThemeColors
+                                                  .lightGrayBackgroundColor
+                                            : Colors.white,
+                                        borderRadius: Corners.s16Border,
+                                      ),
+                                      child: ResolvedImage(
+                                        imageUrl: sponsor.logo,
+                                        height: tier == SponsorType.platinum
+                                            ? 56
+                                            : 40,
+                                        width: tier == SponsorType.platinum
+                                            ? 160
+                                            : 120,
+                                      ),
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 16),
                   ],
                 );
               },
-              error: (message) => AutoSizeText(
-                message,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: colorScheme.primary,
-                  fontSize: 18,
+              error: (message) => StatusView(
+                icon: Icons.wifi_off_rounded,
+                title: l10n.sponsorsErrorTitle,
+                message: message,
+                onRetry: () => context.read<FetchSponsorsCubit>().fetchSponsors(
+                  forceRefresh: true,
                 ),
               ),
               orElse: () => const Center(child: CircularProgressIndicator()),

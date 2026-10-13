@@ -203,5 +203,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get organisersErrorTitle => 'Couldn\'t load the team';
 
   @override
+  String get sponsorsErrorTitle => 'Couldn\'t load sponsors';
+
+  @override
   String get tryAgain => 'Try again';
 }
