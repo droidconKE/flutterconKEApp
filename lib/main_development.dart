@@ -17,7 +17,7 @@ Future<void> main() async {
       baseDomain: 'api.droidcon.co.ke',
       urlScheme: 'https',
       hiveBox: 'fluttercon-dev',
-      eventSlug: 'flutterconke-2025-171',
+      eventSlug: 'fluttercon-ke-2026-222',
       organiserSlug: 'flutterconke-571',
     ),
   );
