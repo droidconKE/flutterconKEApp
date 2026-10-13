@@ -446,6 +446,18 @@ abstract class AppLocalizations {
   /// **'Couldn\'t load the feed'**
   String get feedErrorTitle;
 
+  /// No description provided for @sessionsErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load sessions'**
+  String get sessionsErrorTitle;
+
+  /// No description provided for @organisersErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load the team'**
+  String get organisersErrorTitle;
+
   /// No description provided for @tryAgain.
   ///
   /// In en, this message translates to:

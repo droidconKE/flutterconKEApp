@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/common/widgets/personnel_widget.dart';
+import 'package:fluttercon/common/widgets/status_view.dart';
 import 'package:fluttercon/features/about/cubit/fetch_individual_organisers_cubit.dart';
+import 'package:fluttercon/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
 
 class OrganisingTeamView extends StatefulWidget {
@@ -23,11 +25,22 @@ class _OrganisingTeamViewState extends State<OrganisingTeamView> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
+    final l10n = context.l10n;
     return BlocBuilder<
       FetchIndividualOrganisersCubit,
       FetchIndividualOrganisersState
     >(
       builder: (context, state) => state.maybeWhen(
+        error: (message) => SliverToBoxAdapter(
+          child: StatusView(
+            icon: Icons.wifi_off_rounded,
+            title: l10n.organisersErrorTitle,
+            message: message,
+            onRetry: () => context
+                .read<FetchIndividualOrganisersCubit>()
+                .fetchIndividualOrganisers(forceRefresh: true),
+          ),
+        ),
         loaded: (individualOrganisers) => SliverGrid.builder(
           itemCount: individualOrganisers.length,
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(

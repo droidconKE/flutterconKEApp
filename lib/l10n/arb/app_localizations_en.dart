@@ -197,5 +197,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get feedErrorTitle => 'Couldn\'t load the feed';
 
   @override
+  String get sessionsErrorTitle => 'Couldn\'t load sessions';
+
+  @override
+  String get organisersErrorTitle => 'Couldn\'t load the team';
+
+  @override
   String get tryAgain => 'Try again';
 }

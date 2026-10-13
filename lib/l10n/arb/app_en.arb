@@ -143,6 +143,10 @@
     "@noPostsMessage": {},
     "feedErrorTitle": "Couldn't load the feed",
     "@feedErrorTitle": {},
+    "sessionsErrorTitle": "Couldn't load sessions",
+    "@sessionsErrorTitle": {},
+    "organisersErrorTitle": "Couldn't load the team",
+    "@organisersErrorTitle": {},
     "tryAgain": "Try again",
     "@tryAgain": {}
 }

@@ -5,13 +5,16 @@ import 'package:fluttercon/core/theme/button_styles.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 
-/// A centered icon + title + message state for the Feed screen, used for
-/// both the empty ("no posts yet") and error ("couldn't load the feed")
-/// cases — previously these just rendered the raw message as a bare
-/// top-left text, including the literal API error string (e.g. "Not
-/// found") with no context or way to retry.
-class FeedStatusView extends StatelessWidget {
-  const FeedStatusView({
+/// A centered icon + title + message state, for empty states ("no posts
+/// yet") and error states ("couldn't load the feed") alike. Originally
+/// built for the Feed screen, which used to render the raw API error
+/// string (e.g. literally "Not found") as bare top-left text with no
+/// context or way to retry; promoted to `common/widgets` once Sessions
+/// needed the identical pattern — its `BlocBuilder` had no `error` case at
+/// all, so a failed fetch just spun the loading indicator forever instead
+/// of showing anything.
+class StatusView extends StatelessWidget {
+  const StatusView({
     required this.icon,
     required this.title,
     required this.message,

@@ -6,10 +6,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/widgets/app_bar/app_bar.dart';
+import 'package:fluttercon/common/widgets/status_view.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/core/theme/theme_styles.dart';
 import 'package:fluttercon/features/feed/cubit/feed_cubit.dart';
-import 'package:fluttercon/features/feed/widgets/feed_status_view.dart';
 import 'package:fluttercon/features/feed/widgets/share_sheet.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -43,7 +43,7 @@ class _FeedScreenState extends State<FeedScreen> {
         child: BlocBuilder<FetchFeedCubit, FetchFeedState>(
           builder: (context, state) => state.maybeWhen(
             loaded: (fetchedFeeds) => fetchedFeeds.isEmpty
-                ? FeedStatusView(
+                ? StatusView(
                     icon: Icons.dynamic_feed_outlined,
                     title: l10n.noPosts,
                     message: l10n.noPostsMessage,
@@ -156,7 +156,7 @@ class _FeedScreenState extends State<FeedScreen> {
                     separatorBuilder: (context, index) =>
                         const SizedBox(height: 16),
                   ),
-            error: (message) => FeedStatusView(
+            error: (message) => StatusView(
               icon: Icons.wifi_off_rounded,
               title: l10n.feedErrorTitle,
               message: message,

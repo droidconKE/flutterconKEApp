@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/data/enums/bookmark_status.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/widgets/app_bar/app_bar.dart';
+import 'package:fluttercon/common/widgets/status_view.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/sessions/cubit/fetch_grouped_sessions_cubit.dart';
 import 'package:fluttercon/features/sessions/ui/widgets/day_sessions_view.dart';
@@ -42,9 +43,14 @@ class _SessionsScreenState extends State<SessionsScreen>
       appBar: const CustomAppBar(selectedIndex: 2),
       body: BlocBuilder<FetchGroupedSessionsCubit, FetchGroupedSessionsState>(
         builder: (context, state) => state.maybeWhen(
-          orElse: () => const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: CircularProgressIndicator(),
+          orElse: () => const Center(child: CircularProgressIndicator()),
+          error: (message) => StatusView(
+            icon: Icons.wifi_off_rounded,
+            title: l10n.sessionsErrorTitle,
+            message: message,
+            onRetry: () => context
+                .read<FetchGroupedSessionsCubit>()
+                .fetchGroupedSessions(forceRefresh: true),
           ),
           loaded: (groupedSessions) => DefaultTabController(
             length: groupedSessions.length,
