@@ -52,9 +52,36 @@ class _SponsorsCardState extends State<SponsorsCard> {
           BlocBuilder<FetchSponsorsCubit, FetchSponsorsState>(
             builder: (context, state) => state.maybeWhen(
               loaded: (sponsors) {
-                final nonPlatinumSponsors = sponsors
-                    .where((sponsor) => sponsor.sponsorType != SponsorType.gold)
+                if (sponsors.isEmpty) {
+                  return const SizedBox.shrink();
+                }
+
+                // Feature whichever tier ranks highest among the sponsors
+                // this event actually has, rather than assuming a "gold"
+                // sponsor always exists — some events only have
+                // platinum/bronze tiers, which previously crashed this
+                // widget with a "Bad state: No element" error.
+                const tierPriority = [
+                  SponsorType.platinum,
+                  SponsorType.gold,
+                  SponsorType.silver,
+                  SponsorType.bronze,
+                  SponsorType.swag,
+                  SponsorType.startup,
+                  SponsorType.venue,
+                ];
+                final topTier = tierPriority.firstWhere(
+                  (tier) =>
+                      sponsors.any((sponsor) => sponsor.sponsorType == tier),
+                  orElse: () => sponsors.first.sponsorType,
+                );
+                final featuredSponsor = sponsors.firstWhere(
+                  (sponsor) => sponsor.sponsorType == topTier,
+                );
+                final remainingSponsors = sponsors
+                    .where((sponsor) => sponsor.sponsorType != topTier)
                     .toList();
+
                 return Column(
                   children: [
                     Container(
@@ -66,14 +93,7 @@ class _SponsorsCardState extends State<SponsorsCard> {
                         borderRadius: Corners.s16Border,
                         border: Border.all(color: colorScheme.primary),
                       ),
-                      child: ResolvedImage(
-                        imageUrl: sponsors
-                            .firstWhere(
-                              (sponsor) =>
-                                  sponsor.sponsorType == SponsorType.gold,
-                            )
-                            .logo,
-                      ),
+                      child: ResolvedImage(imageUrl: featuredSponsor.logo),
                     ),
                     const SizedBox(height: 16),
                     SizedBox(
@@ -81,7 +101,7 @@ class _SponsorsCardState extends State<SponsorsCard> {
                       child: ListView.builder(
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
-                        itemCount: nonPlatinumSponsors.length,
+                        itemCount: remainingSponsors.length,
                         itemBuilder: (context, index) => Container(
                           margin: const EdgeInsets.only(right: 8),
                           padding: EdgeInsets.symmetric(horizontal: 8.w),
@@ -95,7 +115,7 @@ class _SponsorsCardState extends State<SponsorsCard> {
                           child: SizedBox(
                             width: size.width / 4,
                             child: ResolvedImage(
-                              imageUrl: nonPlatinumSponsors[index].logo,
+                              imageUrl: remainingSponsors[index].logo,
                             ),
                           ),
                         ),
