@@ -469,6 +469,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Try again'**
   String get tryAgain;
+
+  /// No description provided for @confEssentialsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'2026 Conf. Essentials'**
+  String get confEssentialsTitle;
+
+  /// No description provided for @essentialPanels.
+  ///
+  /// In en, this message translates to:
+  /// **'Panels'**
+  String get essentialPanels;
+
+  /// No description provided for @essentialWorkshops.
+  ///
+  /// In en, this message translates to:
+  /// **'Workshops'**
+  String get essentialWorkshops;
+
+  /// No description provided for @essentialNetworking.
+  ///
+  /// In en, this message translates to:
+  /// **'Networking'**
+  String get essentialNetworking;
+
+  /// No description provided for @essentialExhibitions.
+  ///
+  /// In en, this message translates to:
+  /// **'Exhibitions'**
+  String get essentialExhibitions;
+
+  /// No description provided for @moreStacksAllMobile.
+  ///
+  /// In en, this message translates to:
+  /// **'More Stacks.\nAll Mobile.'**
+  String get moreStacksAllMobile;
+
+  /// No description provided for @confHighlightsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Conf. Highlights'**
+  String get confHighlightsTitle;
+
+  /// No description provided for @beyondSessionsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Beyond the\nSessions'**
+  String get beyondSessionsTitle;
+
+  /// No description provided for @beyondSessionsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Hands-on labs, engineering leader panels, and real dev talk. Master Agentic AI, level up your security game, and fast-track your career at the Unconference Track.'**
+  String get beyondSessionsDescription;
+
+  /// No description provided for @developerDaysTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Developer\nDays'**
+  String get developerDaysTitle;
+
+  /// No description provided for @developerDaysDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Level up across two days of hardcore Flutter and Dart sessions. From cross-platform performance to AI agents and tooling, get real-world insights from top-tier engineers shaping the ecosystem.'**
+  String get developerDaysDescription;
 }
 
 class _AppLocalizationsDelegate
