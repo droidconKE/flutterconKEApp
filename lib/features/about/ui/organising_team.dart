@@ -55,9 +55,7 @@ class _OrganisingTeamViewState extends State<OrganisingTeamView> {
           final mainAxisExtent = cellWidth + 64;
 
           return SliverPadding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: horizontalPadding,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: horizontalPadding),
             sliver: SliverGrid.builder(
               itemCount: individualOrganisers.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
