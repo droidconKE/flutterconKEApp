@@ -11,6 +11,7 @@ class PersonnelWidget extends StatelessWidget {
     required this.name,
     this.designation,
     this.onTap,
+    this.maxWidth,
     super.key,
   });
 
@@ -19,17 +20,23 @@ class PersonnelWidget extends StatelessWidget {
   final String? designation;
   final VoidCallback? onTap;
 
+  /// Overrides the default screen-width-based sizing (used by callers that
+  /// lay this out in a fixed-width grid cell, e.g. the organising team
+  /// grid). Left null for callers like the horizontal speaker list, which
+  /// gives this widget unbounded width and so needs the screen-based
+  /// fallback.
+  final double? maxWidth;
+
   @override
   Widget build(BuildContext context) {
     final (isLightMode, _) = Misc.getTheme(context);
+    final width = maxWidth ?? MediaQuery.sizeOf(context).width / 4.5;
     return GestureDetector(
       onTap: onTap,
       child: Column(
         children: [
           Container(
-            constraints: BoxConstraints(
-              maxWidth: MediaQuery.sizeOf(context).width / 4.5,
-            ),
+            constraints: BoxConstraints(maxWidth: width),
             decoration: BoxDecoration(
               border: Border.all(
                 color: ThemeColors.flutterconMagenta,
@@ -47,7 +54,7 @@ class PersonnelWidget extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           SizedBox(
-            width: MediaQuery.sizeOf(context).width / 4.5,
+            width: width,
             child: AutoSizeText(
               name,
               maxLines: 1,
@@ -61,10 +68,10 @@ class PersonnelWidget extends StatelessWidget {
           ),
           if (designation != null)
             SizedBox(
-              width: MediaQuery.sizeOf(context).width / 4.5,
+              width: width,
               child: AutoSizeText(
                 designation!,
-                maxLines: 1,
+                maxLines: 2,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 12,

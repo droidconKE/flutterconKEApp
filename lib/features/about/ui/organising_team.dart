@@ -41,24 +41,44 @@ class _OrganisingTeamViewState extends State<OrganisingTeamView> {
                 .fetchIndividualOrganisers(forceRefresh: true),
           ),
         ),
-        loaded: (individualOrganisers) => SliverGrid.builder(
-          itemCount: individualOrganisers.length,
-          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 200,
-            crossAxisSpacing: 8,
-            mainAxisSpacing: 8,
-            mainAxisExtent: size.width > 600 ? 200 : 140,
-          ),
-          itemBuilder: (context, index) => PersonnelWidget(
-            imageUrl: individualOrganisers[index].logo,
-            name: individualOrganisers[index].name,
-            designation: individualOrganisers[index].designation,
-            onTap: () => GoRouter.of(context).push(
-              FlutterConRouter.organiserDetailsRoute,
-              extra: individualOrganisers[index],
+        loaded: (individualOrganisers) {
+          const crossAxisCount = 3;
+          const crossAxisSpacing = 8.0;
+          const horizontalPadding = 16.0;
+          final cellWidth =
+              (size.width -
+                  horizontalPadding * 2 -
+                  crossAxisSpacing * (crossAxisCount - 1)) /
+              crossAxisCount;
+          // Square avatar (cellWidth tall) + the 8px gap below it + the name
+          // line + up to two wrapped lines of tagline underneath it.
+          final mainAxisExtent = cellWidth + 64;
+
+          return SliverPadding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: horizontalPadding,
             ),
-          ),
-        ),
+            sliver: SliverGrid.builder(
+              itemCount: individualOrganisers.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: crossAxisCount,
+                crossAxisSpacing: crossAxisSpacing,
+                mainAxisSpacing: 8,
+                mainAxisExtent: mainAxisExtent,
+              ),
+              itemBuilder: (context, index) => PersonnelWidget(
+                imageUrl: individualOrganisers[index].logo,
+                name: individualOrganisers[index].name,
+                designation: individualOrganisers[index].tagline,
+                maxWidth: cellWidth,
+                onTap: () => GoRouter.of(context).push(
+                  FlutterConRouter.organiserDetailsRoute,
+                  extra: individualOrganisers[index],
+                ),
+              ),
+            ),
+          );
+        },
         orElse: () => const SliverToBoxAdapter(
           child: Center(child: CircularProgressIndicator()),
         ),
