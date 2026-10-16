@@ -57,7 +57,11 @@ class AuthRepository {
         if (user.isAnonymous) {
           throw Failure(message: 'User must not be anonymous');
         }
-        return Future.value(authResult.credential?.accessToken);
+        final accessToken = authResult.credential?.accessToken;
+        if (accessToken == null) {
+          throw Failure(message: 'Missing access token');
+        }
+        return accessToken;
       } else {
         throw Failure(message: 'An unexpected error occured');
       }

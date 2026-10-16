@@ -6,7 +6,7 @@ version: 1.20.02+12002
 environment:
   sdk: ^3.9.0
 
-isar_version: &isar_version 3.3.0-dev.3
+isar_version: &isar_version 3.3.2
 
 dependencies:
   appinio_social_share: ^0.3.2
