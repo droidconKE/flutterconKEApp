@@ -6,7 +6,7 @@ import 'package:isar_community/isar.dart';
 final getIt = GetIt.instance;
 late Isar localDB;
 
-@InjectableInit(initializerName: 'initGetIt', generateForDir: ['lib'])
+@InjectableInit(initializerName: 'initGetIt')
 Future<void> configureDependencies() async {
   getIt.initGetIt();
   await getIt.allReady();

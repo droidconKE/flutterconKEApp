@@ -2,6 +2,7 @@ import 'package:auth_buttons/auth_buttons.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fluttercon/common/repository/firebase_repository.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/misc.dart';
@@ -45,7 +46,18 @@ class SignInScreen extends StatelessWidget {
           );
         },
         child: Scaffold(
-          backgroundColor: colorScheme.surface,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back, color: colorScheme.onSurface),
+              onPressed: () {
+                if (GoRouter.of(context).canPop()) {
+                  GoRouter.of(context).pop();
+                }
+              },
+            ),
+          ),
           body: SafeArea(
             child: Center(
               child: Padding(
@@ -81,8 +93,11 @@ class SignInScreen extends StatelessWidget {
                             loading: () => const Center(
                               child: CircularProgressIndicator(),
                             ),
-                            orElse: () => const Image(
-                              image: AssetImage(AppAssets.flutterConKeLogo),
+                            orElse: () => SvgPicture.asset(
+                              isLightMode
+                                  ? AppAssets.flutterConLogoLight
+                                  : AppAssets.flutterConLogoDark,
+                              height: 50,
                             ),
                           );
                         },

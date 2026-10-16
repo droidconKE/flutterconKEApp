@@ -203,7 +203,7 @@ abstract class AppLocalizations {
   /// No description provided for @aboutFluttercon.
   ///
   /// In en, this message translates to:
-  /// **'Fluttercon Kenya is the first event of its kind in Africa, launching the Fluttercon conference on the continent. It will feature tech talks, workshops, and panels led by industry experts, Google Developer Experts, and seasoned Flutter specialists, all focusing on the latest advancements in Flutter and Dart technologies.\n\n Organized by the same team behind four successful editions of Droidcon Kenya, Fluttercon Kenya promises to maintain a high standard of excellence. With a history of hosting over 3,000 attendees and curating 200 sessions, the team brings unmatched expertise to this event.\n\n\'Co-located with Droidcon Kenya, Africa\'s top Android developer conference, Fluttercon Kenya will run from November 6th to 8th, 2024. The joint event will gather hundreds of Flutter and Android developers, offering a packed program of tech talks, workshops, and panels, forming one of the continent\'s largest mobile developer gatherings.\''**
+  /// **'FlutterconKE returns for its 3rd edition on November 5th and 6th, 2026, at PrideInn Azure Hotel in Nairobi, bringing together Flutter and Dart experts, Google Developer Experts, and hundreds of Mobile developers from across the continent.\n\nCo-located with DroidconKE, FlutterconKE is part of next.app devCon, the global home of Droidcon, Fluttercon, and the wider mobile developer community.\n'**
   String get aboutFluttercon;
 
   /// No description provided for @organisingTeam.
@@ -433,6 +433,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No posts found'**
   String get noPosts;
+
+  /// No description provided for @noPostsMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Check back later for updates from the team.'**
+  String get noPostsMessage;
+
+  /// No description provided for @feedErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load the feed'**
+  String get feedErrorTitle;
+
+  /// No description provided for @sessionsErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load sessions'**
+  String get sessionsErrorTitle;
+
+  /// No description provided for @organisersErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load the team'**
+  String get organisersErrorTitle;
+
+  /// No description provided for @sponsorsErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t load sponsors'**
+  String get sponsorsErrorTitle;
+
+  /// No description provided for @tryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get tryAgain;
+
+  /// No description provided for @confEssentialsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'2026 Conf. Essentials'**
+  String get confEssentialsTitle;
+
+  /// No description provided for @essentialPanels.
+  ///
+  /// In en, this message translates to:
+  /// **'Panels'**
+  String get essentialPanels;
+
+  /// No description provided for @essentialWorkshops.
+  ///
+  /// In en, this message translates to:
+  /// **'Workshops'**
+  String get essentialWorkshops;
+
+  /// No description provided for @essentialNetworking.
+  ///
+  /// In en, this message translates to:
+  /// **'Networking'**
+  String get essentialNetworking;
+
+  /// No description provided for @essentialExhibitions.
+  ///
+  /// In en, this message translates to:
+  /// **'Exhibitions'**
+  String get essentialExhibitions;
+
+  /// No description provided for @moreStacksAllMobile.
+  ///
+  /// In en, this message translates to:
+  /// **'More Stacks.\nAll Mobile.'**
+  String get moreStacksAllMobile;
+
+  /// No description provided for @confHighlightsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Conf. Highlights'**
+  String get confHighlightsTitle;
+
+  /// No description provided for @beyondSessionsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Beyond the\nSessions'**
+  String get beyondSessionsTitle;
+
+  /// No description provided for @beyondSessionsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Hands-on labs, engineering leader panels, and real dev talk. Master Agentic AI, level up your security game, and fast-track your career at the Unconference Track.'**
+  String get beyondSessionsDescription;
+
+  /// No description provided for @developerDaysTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Developer\nDays'**
+  String get developerDaysTitle;
+
+  /// No description provided for @developerDaysDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Level up across two days of hardcore Flutter and Dart sessions. From cross-platform performance to AI agents and tooling, get real-world insights from top-tier engineers shaping the ecosystem.'**
+  String get developerDaysDescription;
 }
 
 class _AppLocalizationsDelegate

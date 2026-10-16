@@ -116,4 +116,51 @@ class Corners {
   static BorderRadius get s12Border => BorderRadius.all(s12Radius);
 
   static Radius get s12Radius => const Radius.circular(s12);
+
+  // --- 2026 rebrand rounded-card scale ---
+  // Mirrors the web's `borderRadius` scale in tailwind.config.js
+  // (rounded-2xl/3xl are Tailwind defaults, 4xl/5xl are the rebrand's own
+  // additions there). Used for the rounded-card system introduced by the
+  // rebrand — see docs/design/REBRAND-PLAN.md. Distinct from the s3–s12
+  // scale above, which predates the rebrand and is still used by
+  // pre-rebrand widgets.
+
+  /// Rounded-2xl — small rounded elements (e.g. a time-badge box).
+  static const double s16 = 16;
+
+  static BorderRadius get s16Border => BorderRadius.all(s16Radius);
+
+  static Radius get s16Radius => const Radius.circular(s16);
+
+  /// Rounded-3xl — e.g. the About stat-panel block.
+  static const double s24 = 24;
+
+  static BorderRadius get s24Border => BorderRadius.all(s24Radius);
+
+  static Radius get s24Radius => const Radius.circular(s24);
+
+  /// Rounded-4xl — the rebrand's primary card radius (session cards,
+  /// speaker cards).
+  static const double s32 = 32;
+
+  static BorderRadius get s32Border => BorderRadius.all(s32Radius);
+
+  static Radius get s32Radius => const Radius.circular(s32);
+
+  /// Rounded-5xl.
+  static const double s40 = 40;
+
+  static BorderRadius get s40Border => BorderRadius.all(s40Radius);
+
+  static Radius get s40Radius => const Radius.circular(s40);
+
+  /// Rounded-full — pill buttons and badges. A large fixed value rather
+  /// than `Radius.circular(double.infinity)`, which `BoxDecoration` can't
+  /// render; any value at least half the shortest side of the element
+  /// yields a full pill.
+  static const double pill = 999;
+
+  static BorderRadius get pillBorder => BorderRadius.all(pillRadius);
+
+  static Radius get pillRadius => const Radius.circular(pill);
 }

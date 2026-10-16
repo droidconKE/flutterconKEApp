@@ -68,7 +68,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
       decoration: BoxDecoration(
         color: colorScheme.surface,
         borderRadius: BorderRadius.circular(35),
-        border: Border.all(color: ThemeColors.blueDroidconColor),
+        border: Border.all(color: ThemeColors.flutterconBlue),
       ),
       child: Row(
         children: [
@@ -106,7 +106,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           error: (message) => Center(
             child: AutoSizeText(
               message,
-              style: const TextStyle(color: ThemeColors.orangeDroidconColor),
+              style: const TextStyle(color: ThemeColors.flutterconMagenta),
             ),
           ),
         );
