@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/utils/router.dart';
+import 'package:fluttercon/common/widgets/status_view.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/home/cubit/fetch_sessions_cubit.dart';
 import 'package:fluttercon/l10n/l10n.dart';
@@ -63,7 +64,7 @@ class _SessionsCardState extends State<SessionsCard> {
                     decoration: BoxDecoration(
                       color:
                           (isLightMode
-                                  ? ThemeColors.blueColor
+                                  ? ThemeColors.flutterconBlue
                                   : ThemeColors.lightGrayColor)
                               .withValues(alpha: .11),
                       borderRadius: BorderRadius.circular(50),
@@ -82,6 +83,7 @@ class _SessionsCardState extends State<SessionsCard> {
                                 : ThemeColors.lightGrayColor,
                           ),
                         ),
+                        error: (_) => const SizedBox.shrink(),
                         orElse: () => const SizedBox(
                           height: 16,
                           width: 16,
@@ -180,6 +182,14 @@ class _SessionsCardState extends State<SessionsCard> {
                     ),
                   );
                 },
+              ),
+              error: (message) => StatusView(
+                icon: Icons.wifi_off_rounded,
+                title: l10n.sessionsErrorTitle,
+                message: message,
+                onRetry: () => context.read<FetchSessionsCubit>().fetchSessions(
+                  forceRefresh: true,
+                ),
               ),
               orElse: () => const Center(
                 child: SizedBox(

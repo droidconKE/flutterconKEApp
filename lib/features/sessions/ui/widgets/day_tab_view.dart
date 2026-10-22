@@ -27,8 +27,8 @@ class DayTabView extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           color: isActive
-              ? ThemeColors.orangeDroidconColor
-              : ThemeColors.blueGreenDroidconColor.withValues(alpha: .1),
+              ? ThemeColors.flutterconMagenta
+              : ThemeColors.flutterconMagenta.withValues(alpha: .1),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
         child: Column(

@@ -37,7 +37,7 @@ class _SpeakerCardState extends State<SpeakerCard> {
               l10n.speakers,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                 color: isLightMode
-                    ? ThemeColors.blueDroidconColor
+                    ? ThemeColors.flutterconBlue
                     : colorScheme.onSurface,
                 fontWeight: FontWeight.bold,
               ),
@@ -57,7 +57,7 @@ class _SpeakerCardState extends State<SpeakerCard> {
                 decoration: BoxDecoration(
                   color:
                       (isLightMode
-                              ? ThemeColors.blueColor
+                              ? ThemeColors.flutterconBlue
                               : ThemeColors.lightGrayColor)
                           .withValues(alpha: .11),
                   borderRadius: BorderRadius.circular(50),
@@ -122,7 +122,7 @@ class _SpeakerCardState extends State<SpeakerCard> {
               message,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
-                color: ThemeColors.blueColor,
+                color: ThemeColors.flutterconBlue,
                 fontSize: 18,
               ),
             ),

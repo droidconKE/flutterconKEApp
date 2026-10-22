@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
+import 'package:fluttercon/core/theme/theme_styles.dart';
 
 class EmojiContainer extends StatelessWidget {
   const EmojiContainer({
@@ -23,7 +24,7 @@ class EmojiContainer extends StatelessWidget {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: Corners.s16Border,
           color: isSelected ? colorScheme.primary : ThemeColors.lightGrayColor,
           boxShadow: [
             if (onTap != null)

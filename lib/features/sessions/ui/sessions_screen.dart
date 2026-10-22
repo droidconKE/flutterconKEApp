@@ -4,10 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/data/enums/bookmark_status.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/widgets/app_bar/app_bar.dart';
+import 'package:fluttercon/common/widgets/status_view.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/sessions/cubit/fetch_grouped_sessions_cubit.dart';
 import 'package:fluttercon/features/sessions/ui/widgets/day_sessions_view.dart';
 import 'package:fluttercon/features/sessions/ui/widgets/day_tab_view.dart';
+import 'package:fluttercon/features/sessions/ui/widgets/session_view_toolbar.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 import 'package:intl/intl.dart';
 
@@ -38,27 +40,34 @@ class _SessionsScreenState extends State<SessionsScreen>
     final (isLightMode, colorScheme) = Misc.getTheme(context);
 
     return Scaffold(
-      appBar: CustomAppBar(
-        selectedIndex: 2,
-        selectedScheduleIndex: _viewIndex,
-        onCompactTapped: () => setState(() {
-          _viewIndex = 0;
-        }),
-        onScheduleTapped: () => setState(() {
-          _viewIndex = 1;
-        }),
-      ),
+      appBar: const CustomAppBar(selectedIndex: 2),
       body: BlocBuilder<FetchGroupedSessionsCubit, FetchGroupedSessionsState>(
         builder: (context, state) => state.maybeWhen(
-          orElse: () => const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: CircularProgressIndicator(),
+          orElse: () => const Center(child: CircularProgressIndicator()),
+          error: (message) => StatusView(
+            icon: Icons.wifi_off_rounded,
+            title: l10n.sessionsErrorTitle,
+            message: message,
+            onRetry: () => context
+                .read<FetchGroupedSessionsCubit>()
+                .fetchGroupedSessions(forceRefresh: true),
           ),
           loaded: (groupedSessions) => DefaultTabController(
             length: groupedSessions.length,
             child: SafeArea(
               child: NestedScrollView(
                 headerSliverBuilder: (context, innerBoxIsScrolled) => <Widget>[
+                  SliverToBoxAdapter(
+                    child: SessionViewToolbar(
+                      selectedScheduleIndex: _viewIndex,
+                      onCompactTapped: () => setState(() {
+                        _viewIndex = 0;
+                      }),
+                      onScheduleTapped: () => setState(() {
+                        _viewIndex = 1;
+                      }),
+                    ),
+                  ),
                   SliverToBoxAdapter(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -127,10 +136,12 @@ class _SessionsScreenState extends State<SessionsScreen>
                                   },
                                   trackOutlineWidth: WidgetStateProperty.all(1),
                                   trackColor: WidgetStateProperty.all(
-                                    Colors.black,
+                                    ThemeColors.flutterconBlue,
                                   ),
-                                  activeTrackColor: ThemeColors.orangeColor,
-                                  activeThumbColor: ThemeColors.orangeColor,
+                                  activeTrackColor:
+                                      ThemeColors.flutterconMagenta,
+                                  activeThumbColor:
+                                      ThemeColors.flutterconMagenta,
                                   thumbColor: WidgetStateProperty.all(
                                     Colors.white,
                                   ),

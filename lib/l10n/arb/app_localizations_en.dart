@@ -69,7 +69,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get aboutFluttercon =>
-      'Fluttercon Kenya is the first event of its kind in Africa, launching the Fluttercon conference on the continent. It will feature tech talks, workshops, and panels led by industry experts, Google Developer Experts, and seasoned Flutter specialists, all focusing on the latest advancements in Flutter and Dart technologies.\n\n Organized by the same team behind four successful editions of Droidcon Kenya, Fluttercon Kenya promises to maintain a high standard of excellence. With a history of hosting over 3,000 attendees and curating 200 sessions, the team brings unmatched expertise to this event.\n\n\'Co-located with Droidcon Kenya, Africa\'s top Android developer conference, Fluttercon Kenya will run from November 6th to 8th, 2024. The joint event will gather hundreds of Flutter and Android developers, offering a packed program of tech talks, workshops, and panels, forming one of the continent\'s largest mobile developer gatherings.\'';
+      'FlutterconKE returns for its 3rd edition on November 5th and 6th, 2026, at PrideInn Azure Hotel in Nairobi, bringing together Flutter and Dart experts, Google Developer Experts, and hundreds of Mobile developers from across the continent.\n\nCo-located with DroidconKE, FlutterconKE is part of next.app devCon, the global home of Droidcon, Fluttercon, and the wider mobile developer community.\n';
 
   @override
   String get organisingTeam => 'Organising Team';
@@ -189,4 +189,57 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noPosts => 'No posts found';
+
+  @override
+  String get noPostsMessage => 'Check back later for updates from the team.';
+
+  @override
+  String get feedErrorTitle => 'Couldn\'t load the feed';
+
+  @override
+  String get sessionsErrorTitle => 'Couldn\'t load sessions';
+
+  @override
+  String get organisersErrorTitle => 'Couldn\'t load the team';
+
+  @override
+  String get sponsorsErrorTitle => 'Couldn\'t load sponsors';
+
+  @override
+  String get tryAgain => 'Try again';
+
+  @override
+  String get confEssentialsTitle => '2026 Conf. Essentials';
+
+  @override
+  String get essentialPanels => 'Panels';
+
+  @override
+  String get essentialWorkshops => 'Workshops';
+
+  @override
+  String get essentialNetworking => 'Networking';
+
+  @override
+  String get essentialExhibitions => 'Exhibitions';
+
+  @override
+  String get moreStacksAllMobile => 'More Stacks.\nAll Mobile.';
+
+  @override
+  String get confHighlightsTitle => 'Conf. Highlights';
+
+  @override
+  String get beyondSessionsTitle => 'Beyond the\nSessions';
+
+  @override
+  String get beyondSessionsDescription =>
+      'Hands-on labs, engineering leader panels, and real dev talk. Master Agentic AI, level up your security game, and fast-track your career at the Unconference Track.';
+
+  @override
+  String get developerDaysTitle => 'Developer\nDays';
+
+  @override
+  String get developerDaysDescription =>
+      'Level up across two days of hardcore Flutter and Dart sessions. From cross-platform performance to AI agents and tooling, get real-world insights from top-tier engineers shaping the ecosystem.';
 }

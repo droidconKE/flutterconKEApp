@@ -4,20 +4,29 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:logger/logger.dart';
 
 class ResolvedImage extends StatelessWidget {
-  const ResolvedImage({required this.imageUrl, super.key});
+  const ResolvedImage({
+    required this.imageUrl,
+    this.height,
+    this.width,
+    super.key,
+  });
 
   final String imageUrl;
+  final double? height;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
     Logger().d('ResolvedImage: $imageUrl');
+    final resolvedHeight = height ?? size.height * .15;
+    final resolvedWidth = width ?? size.width * .3;
     return imageUrl.contains('.svg')
-        ? SvgPicture.network(imageUrl)
+        ? SvgPicture.network(imageUrl, height: height, width: width)
         : CachedNetworkImage(
             imageUrl: imageUrl,
-            height: size.height * .15,
-            width: size.width * .3,
+            height: resolvedHeight,
+            width: resolvedWidth,
             placeholder: (_, __) => const SizedBox(
               height: 150,
               width: double.infinity,

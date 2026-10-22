@@ -6,10 +6,12 @@ import 'package:fluttercon/common/data/enums/bookmark_status.dart';
 import 'package:fluttercon/common/data/models/local/local_session.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/utils/router.dart';
+import 'package:fluttercon/common/widgets/pill_badge.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/core/theme/theme_styles.dart';
 import 'package:fluttercon/features/sessions/cubit/bookmark_session_cubit.dart';
 import 'package:fluttercon/features/sessions/cubit/fetch_grouped_sessions_cubit.dart';
+import 'package:fluttercon/features/sessions/ui/widgets/session_time_badge.dart';
 import 'package:fluttercon/l10n/l10n.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -28,60 +30,91 @@ class ScheduleViewCard extends StatelessWidget {
     final l10n = context.l10n;
     final (isLightMode, colorScheme) = Misc.getTheme(context);
 
-    return Card(
-      elevation: 0,
-      color: colorScheme.secondaryContainer,
-      shadowColor: Colors.transparent,
+    return Container(
+      decoration: BoxDecoration(
+        color: colorScheme.secondaryContainer,
+        borderRadius: Corners.s32Border,
+        border: Border.all(color: colorScheme.primary),
+      ),
+      clipBehavior: Clip.antiAlias,
       child: SizedBox(
         width: double.infinity,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: CachedNetworkImage(
-                imageUrl: session.sessionImage,
+            CachedNetworkImage(
+              imageUrl: session.sessionImage,
+              height: 150,
+              width: double.infinity,
+              fit: BoxFit.cover,
+              placeholder: (_, __) => const SizedBox(
                 height: 150,
                 width: double.infinity,
-                fit: BoxFit.cover,
-                placeholder: (_, __) => const SizedBox(
-                  height: 150,
-                  width: double.infinity,
-                  child: Center(child: CircularProgressIndicator()),
-                ),
-                errorWidget: (_, __, ___) => const SizedBox(
-                  height: 150,
-                  width: double.infinity,
-                  child: Icon(Icons.error, color: Colors.red),
-                ),
+                child: Center(child: CircularProgressIndicator()),
               ),
-            ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: AutoSizeText(
-                    l10n.sessionTimeAndVenue(
-                      DateFormat.Hm().format(session.startDateTime),
-                      session.rooms.map((room) => room.title).join(', '),
-                    ),
-                    style: const TextStyle(color: Colors.grey, fontSize: 14),
-                  ),
-                ),
-              ],
+              errorWidget: (_, __, ___) => const SizedBox(
+                height: 150,
+                width: double.infinity,
+                child: Icon(Icons.error, color: Colors.red),
+              ),
             ),
             const SizedBox(height: 16),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: AutoSizeText(
-                session.title,
-                maxLines: 2,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  color: colorScheme.onSurface,
-                ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SessionTimeBadge(startDateTime: session.startDateTime),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AutoSizeText(
+                          session.isKeynote
+                              ? '${l10n.keynote}: ${session.title}'
+                              : session.title,
+                          maxLines: 2,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: colorScheme.onSurface,
+                          ),
+                        ),
+                        if (!session.isServiceSession) ...[
+                          const SizedBox(height: 8),
+                          Wrap(
+                            spacing: 8,
+                            runSpacing: 8,
+                            children: [
+                              PillBadge(
+                                label: session.isKeynote
+                                    ? '#${l10n.keynote}'
+                                    : '#${session.sessionLevel}',
+                                variant: PillBadgeVariant.level,
+                              ),
+                              PillBadge(
+                                label: session.sessionFormat,
+                                variant: PillBadgeVariant.format,
+                              ),
+                            ],
+                          ),
+                        ],
+                        const SizedBox(height: 8),
+                        AutoSizeText(
+                          l10n.sessionTimeAndVenue(
+                            DateFormat.Hm().format(session.startDateTime),
+                            session.rooms.map((room) => room.title).join(', '),
+                          ),
+                          style: const TextStyle(
+                            color: Colors.grey,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 5),
@@ -106,7 +139,7 @@ class ScheduleViewCard extends StatelessWidget {
                               margin: const EdgeInsets.only(right: 8),
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: ThemeColors.tealColor,
+                                  color: ThemeColors.flutterconMagenta,
                                   width: 2,
                                 ),
                                 borderRadius: Corners.s12Border,
@@ -161,7 +194,7 @@ class ScheduleViewCard extends StatelessWidget {
                                 ? Icons.star_rate_rounded
                                 : Icons.star_border_outlined,
                             color: status == BookmarkStatus.bookmarked
-                                ? ThemeColors.orangeColor
+                                ? ThemeColors.flutterconMagenta
                                 : colorScheme.primary,
                             size: 32,
                           ),
@@ -182,7 +215,7 @@ class ScheduleViewCard extends StatelessWidget {
                                 ? Icons.star_rate_rounded
                                 : Icons.star_border_outlined,
                             color: session.isBookmarked
-                                ? ThemeColors.orangeColor
+                                ? ThemeColors.flutterconMagenta
                                 : colorScheme.primary,
                             size: 32,
                           ),

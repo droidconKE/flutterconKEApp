@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/widgets/app_bar/app_bar.dart';
+import 'package:fluttercon/features/home/widgets/conf_essentials_card.dart';
+import 'package:fluttercon/features/home/widgets/conf_highlights_card.dart';
 import 'package:fluttercon/features/home/widgets/organizers_card.dart';
 import 'package:fluttercon/features/home/widgets/search_bar.dart';
 import 'package:fluttercon/features/home/widgets/sessions_card.dart';
@@ -47,8 +49,12 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 15),
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.asset(AppAssets.droidconBanner),
+                child: Image.asset(AppAssets.flutterConBanner),
               ),
+              const SizedBox(height: 24),
+              const ConfEssentialsCard(),
+              const SizedBox(height: 24),
+              const ConfHighlightsCard(),
               const SizedBox(height: 24),
               SessionsCard(switchTab: widget.switchTab),
               const SizedBox(height: 24),
