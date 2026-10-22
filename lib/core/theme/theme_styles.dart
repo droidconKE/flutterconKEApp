@@ -31,6 +31,14 @@ class Sizes {
   static const double xxl = 50;
 }
 
+class IconSizes {
+  /// tech stack logo size = 28
+  static const double stack = 28;
+
+  /// conference essential icon size = 36
+  static const double essential = 36;
+}
+
 class ThemeFonts {
   static const String poppins = 'Poppins';
 }

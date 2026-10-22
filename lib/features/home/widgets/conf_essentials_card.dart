@@ -90,29 +90,19 @@ class ConfEssentialsCard extends StatelessWidget {
                   ),
                 ),
                 Wrap(
-                  spacing: 10,
+                  spacing: Sizes.sm,
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
-                    SizedBox(
-                      height: 28,
-                      width: 28,
-                      child: SvgPicture.asset(AppAssets.svgKotlin),
-                    ),
-                    SizedBox(
-                      height: 28,
-                      width: 28,
-                      child: SvgPicture.asset(AppAssets.svgSwift),
-                    ),
-                    SizedBox(
-                      height: 28,
-                      width: 28,
-                      child: SvgPicture.asset(AppAssets.svgAi),
-                    ),
-                    SizedBox(
-                      height: 28,
-                      width: 28,
-                      child: SvgPicture.asset(AppAssets.svgFlutter),
-                    ),
+                    for (final asset in [
+                      AppAssets.svgKotlin,
+                      AppAssets.svgSwift,
+                      AppAssets.svgAi,
+                      AppAssets.svgFlutter,
+                    ])
+                      SizedBox.square(
+                        dimension: IconSizes.stack,
+                        child: SvgPicture.asset(asset),
+                      ),
                   ],
                 ),
               ],
@@ -134,7 +124,10 @@ class _EssentialItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 36, width: 36, child: SvgPicture.asset(icon)),
+        SizedBox.square(
+          dimension: IconSizes.essential,
+          child: SvgPicture.asset(icon),
+        ),
         const SizedBox(height: 8),
         Text(
           label,
