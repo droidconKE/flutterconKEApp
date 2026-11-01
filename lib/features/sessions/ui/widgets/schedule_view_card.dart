@@ -121,7 +121,7 @@ class ScheduleViewCard extends StatelessWidget {
                           (speaker) => GestureDetector(
                             onTap: () => GoRouter.of(context).push(
                               FlutterConRouter.speakerDetailsRoute,
-                              extra: speaker,
+                              extra: speaker.toLocalSpeaker(),
                             ),
                             child: Container(
                               height: 50,

@@ -1,3 +1,4 @@
+import 'package:fluttercon/common/data/models/local/local_speaker.dart';
 import 'package:isar_community/isar.dart';
 
 part 'local_session.g.dart';
@@ -69,6 +70,21 @@ class EmbeddedSpeaker {
   String? instagram;
   String? blog;
   String? companyWebsite;
+
+  /// The speaker as a [LocalSpeaker], the type the speaker details route
+  /// expects.
+  LocalSpeaker toLocalSpeaker() => LocalSpeaker(
+    name: name ?? '',
+    biography: biography ?? '',
+    avatar: avatar ?? '',
+    tagline: tagline,
+    twitter: twitter,
+    facebook: facebook,
+    linkedin: linkedin,
+    instagram: instagram,
+    blog: blog,
+    companyWebsite: companyWebsite,
+  );
 }
 
 @embedded
