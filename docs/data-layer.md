@@ -47,6 +47,12 @@ Notable query behaviors worth knowing before changing this code:
   (`lib/common/widgets/banner_fallback_image.dart`) then renders `EventBanner` (`AppAssets.flutterConBanner`,
   contained over a blurred copy so it's never cropped) for missing or failed images. `ResolvedImage` and
   `ShareFeedPostCubit` use the same check: sharing skips the attachment instead of trying to download `''`.
+- SVG logos: sponsor and organiser logos are often Illustrator SVG exports that set fills and clip-paths
+  through a `<style>` block (`.cls-1 { fill: … }`). flutter_svg ignores `<style>` and `class`, which drew
+  them as solid black shapes (Kopo Kopo) or unclipped embedded images (Tiskos). `ResolvedImage` loads SVGs
+  with `CssInliningSvgLoader` (`lib/common/utils/css_inlining_svg_loader.dart`), which rewrites plain class
+  rules into attributes before parsing. Other selector types (ids, element names, descendants) are still
+  ignored. Use this loader for any new network SVG.
 
 ## Hive keys
 

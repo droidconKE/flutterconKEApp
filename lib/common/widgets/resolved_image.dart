@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttercon/common/utils/css_inlining_svg_loader.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/widgets/banner_fallback_image.dart';
 
@@ -25,7 +26,11 @@ class ResolvedImage extends StatelessWidget {
       return EventBanner(height: resolvedHeight, width: resolvedWidth);
     }
     return imageUrl.contains('.svg')
-        ? SvgPicture.network(imageUrl, height: height, width: width)
+        ? SvgPicture(
+            CssInliningSvgLoader(imageUrl),
+            height: height,
+            width: width,
+          )
         : CachedNetworkImage(
             imageUrl: imageUrl,
             height: resolvedHeight,
