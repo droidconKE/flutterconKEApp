@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
+import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/core/theme/theme_styles.dart';
 import 'package:fluttercon/l10n/l10n.dart';
@@ -95,7 +96,16 @@ class _HighlightTile extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 12),
-          Expanded(flex: 2, child: Image.asset(image, fit: BoxFit.contain)),
+          Expanded(
+            flex: 2,
+            child: LayoutBuilder(
+              builder: (context, constraints) => Image.asset(
+                image,
+                fit: BoxFit.contain,
+                cacheWidth: Misc.decodeSize(context, constraints.maxWidth),
+              ),
+            ),
+          ),
         ],
       ),
     );

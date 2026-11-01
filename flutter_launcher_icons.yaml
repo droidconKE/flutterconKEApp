@@ -2,6 +2,9 @@ flutter_launcher_icons:
   android: "launcher_icon"
   ios: false
   image_path: "assets/images/flutterconke_launcher.png"
+  adaptive_icon_background: "assets/images/flutterconke_launcher_background.png"
+  adaptive_icon_foreground: "assets/images/flutterconke_launcher_foreground.png"
+  adaptive_icon_foreground_inset: 0 # foreground PNG is already sized to the adaptive safe zone
   min_sdk_android: 21 # android min sdk min:16, default 21
   web:
     generate: false

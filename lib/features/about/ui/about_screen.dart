@@ -36,7 +36,12 @@ class _AboutScreenState extends State<AboutScreen> {
         builder: (context, constraints) {
           return CustomScrollView(
             slivers: [
-              SliverToBoxAdapter(child: Image.asset(AppAssets.teamPhoto)),
+              SliverToBoxAdapter(
+                child: Image.asset(
+                  AppAssets.teamPhoto,
+                  cacheWidth: Misc.decodeSize(context, constraints.maxWidth),
+                ),
+              ),
               const SliverToBoxAdapter(child: SizedBox(height: 16)),
               SliverToBoxAdapter(
                 child: Padding(

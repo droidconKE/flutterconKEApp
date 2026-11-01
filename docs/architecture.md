@@ -110,3 +110,23 @@ the app stays on whatever the platform's default blank/splash surface is.
 - `routerConfig`: `getIt<FlutterConRouter>().config()`
 - `AwesomeNotifications().setListeners(onActionReceivedMethod: ...)` wired in `initState` — see
   [notifications.md](notifications.md)
+
+## Rendering cost
+
+Measured on an emulator in host-GPU mode (2026-11-01). The fixes also matter on low-end phones.
+
+- **Decode images at their display size.** API avatars and session images are 1080×1080 but are drawn
+  at about 48–150dp, and the home banner asset is 3841×2161 (about 32 MB decoded). Pass
+  `Misc.decodeSize(context, logicalSize)` as `cacheWidth` (assets) or `memCacheWidth` (`CachedNetworkImage`).
+  The image sites in `home`, `about`, `sessions`, `splash`, `ResolvedImage` and `BannerFallbackImage` all do.
+- **Avoid per-widget offscreen layers in lists.** `ColorFiltered`, `ImageFiltered`, `Opacity` and
+  `ShaderMask` each render their child into an offscreen texture. In a grid of avatars that multiplies
+  per frame. Apply color matrices on the image paint instead (`DecorationImage.colorFilter`), as
+  `SpeakerDuotoneAvatar` does.
+- **Batch advanced blend modes.** `overlay`, `multiply` and other non-Porter-Duff blends are emulated per
+  draw call, so draw many shapes as one `Path`.
+- The emulator's host-GPU mode (gfxstream on Intel/Mesa) leaked several GB of shared memory per few
+  scrolls on the old avatar code, until Linux OOM-killed it. If that comes back, `-gpu swiftshader_indirect`
+  avoids it.
+- Judge performance with `flutter run --profile` on a real device, not debug builds on an emulator.
+

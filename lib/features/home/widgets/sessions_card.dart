@@ -1,9 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/utils/router.dart';
+import 'package:fluttercon/common/widgets/banner_fallback_image.dart';
 import 'package:fluttercon/common/widgets/status_view.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/home/cubit/fetch_sessions_cubit.dart';
@@ -127,25 +127,12 @@ class _SessionsCardState extends State<SessionsCard> {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(10),
-                            child: CachedNetworkImage(
+                            child: BannerFallbackImage(
                               imageUrl: session.sessionImage,
                               height: size.width > 600
                                   ? size.height * .225
                                   : size.height * .2,
                               width: double.infinity,
-                              fit: BoxFit.cover,
-                              placeholder: (_, __) => const SizedBox(
-                                height: 150,
-                                width: double.infinity,
-                                child: Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              ),
-                              errorWidget: (_, __, ___) => const SizedBox(
-                                height: 150,
-                                width: double.infinity,
-                                child: Icon(Icons.error, color: Colors.red),
-                              ),
                             ),
                           ),
                           const SizedBox(height: 16),

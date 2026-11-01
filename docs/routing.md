@@ -22,6 +22,9 @@ Because `session-details`/`speaker-details`/`organiser-details` force-unwrap `st
 to them via a raw URL (e.g. a deep link, or `context.go('/session-details')` without `extra:`) will throw.
 These routes are only ever meant to be reached via in-app `context.go(route, extra: theObject)` calls
 that already hold the object — they are not designed to reconstruct state from a URL/id.
+The cast is exact, too: a session's speakers are `EmbeddedSpeaker`s, not `LocalSpeaker`s, so convert them
+with `EmbeddedSpeaker.toLocalSpeaker()` before pushing `/speaker-details` (as `ScheduleViewCard` does).
+Passing the embedded object throws a type-cast error.
 
 ## No auth guard
 

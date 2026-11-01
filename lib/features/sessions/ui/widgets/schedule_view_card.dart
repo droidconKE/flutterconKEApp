@@ -6,6 +6,7 @@ import 'package:fluttercon/common/data/enums/bookmark_status.dart';
 import 'package:fluttercon/common/data/models/local/local_session.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/utils/router.dart';
+import 'package:fluttercon/common/widgets/banner_fallback_image.dart';
 import 'package:fluttercon/common/widgets/pill_badge.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/core/theme/theme_styles.dart';
@@ -42,21 +43,10 @@ class ScheduleViewCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CachedNetworkImage(
+            BannerFallbackImage(
               imageUrl: session.sessionImage,
               height: 150,
               width: double.infinity,
-              fit: BoxFit.cover,
-              placeholder: (_, __) => const SizedBox(
-                height: 150,
-                width: double.infinity,
-                child: Center(child: CircularProgressIndicator()),
-              ),
-              errorWidget: (_, __, ___) => const SizedBox(
-                height: 150,
-                width: double.infinity,
-                child: Icon(Icons.error, color: Colors.red),
-              ),
             ),
             const SizedBox(height: 16),
             Padding(
@@ -131,7 +121,7 @@ class ScheduleViewCard extends StatelessWidget {
                           (speaker) => GestureDetector(
                             onTap: () => GoRouter.of(context).push(
                               FlutterConRouter.speakerDetailsRoute,
-                              extra: speaker,
+                              extra: speaker.toLocalSpeaker(),
                             ),
                             child: Container(
                               height: 50,
@@ -149,6 +139,7 @@ class ScheduleViewCard extends StatelessWidget {
                                 child: CachedNetworkImage(
                                   fit: BoxFit.cover,
                                   imageUrl: speaker.avatar!,
+                                  memCacheWidth: Misc.decodeSize(context, 50),
                                   placeholder: (_, __) => const SizedBox(
                                     height: 150,
                                     width: double.infinity,

@@ -27,8 +27,8 @@ class ShareFeedPostCubit extends Cubit<ShareFeedPostState> {
       final message = '$body\n\nhttps://fluttercon.dev';
       String? filePath;
 
-      if (fileUrl != null) {
-        final files = await Misc.downloadFiles([fileUrl]);
+      if (!Misc.isMissingImage(fileUrl)) {
+        final files = await Misc.downloadFiles([fileUrl!]);
         if (files.isNotEmpty) {
           filePath = files.first.path;
         }
