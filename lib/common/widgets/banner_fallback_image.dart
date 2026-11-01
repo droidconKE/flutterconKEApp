@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -26,17 +27,35 @@ class BannerFallbackImage extends StatelessWidget {
     if (Misc.isMissingImage(imageUrl)) {
       return EventBanner(height: height, width: width);
     }
-    return CachedNetworkImage(
-      imageUrl: imageUrl,
-      height: height,
-      width: width,
-      fit: fit,
-      placeholder: (_, __) => SizedBox(
-        height: height ?? 150,
-        width: double.infinity,
-        child: const Center(child: CircularProgressIndicator()),
+    return LayoutBuilder(
+      builder: (context, constraints) => CachedNetworkImage(
+        imageUrl: imageUrl,
+        height: height,
+        width: width,
+        fit: fit,
+        // fitHeight draws at [height]; cover fills the box, so decode at its
+        // longer side (session images are roughly square).
+        memCacheHeight: fit == BoxFit.fitHeight
+            ? Misc.decodeSize(context, height)
+            : null,
+        memCacheWidth: fit == BoxFit.fitHeight
+            ? null
+            : Misc.decodeSize(
+                context,
+                math.max(
+                  width != null && width!.isFinite
+                      ? width!
+                      : constraints.maxWidth,
+                  height ?? 0,
+                ),
+              ),
+        placeholder: (_, __) => SizedBox(
+          height: height ?? 150,
+          width: double.infinity,
+          child: const Center(child: CircularProgressIndicator()),
+        ),
+        errorWidget: (_, __, ___) => EventBanner(height: height, width: width),
       ),
-      errorWidget: (_, __, ___) => EventBanner(height: height, width: width),
     );
   }
 }

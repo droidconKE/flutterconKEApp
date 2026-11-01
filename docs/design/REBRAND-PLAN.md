@@ -182,12 +182,15 @@ treatment from `SpeakerCard.tsx` (grayscale + contrast + blue duotone + dot over
   image-forward variant, so it keeps its own richer layout rather than being forced into
   `SessionListCard.tsx`'s shape).
 - **`SpeakerDuotoneAvatar`** (`lib/features/home/widgets/speaker_duotone_avatar.dart`) — grayscale +
-  contrast `ColorFiltered`, then a second `ColorFiltered` with `BlendMode.screen` against blue (the
-  Flutter equivalent of the web's `mix-blend-screen` over a `bg-blue-600` backdrop), plus a
-  `CustomPainter` dot overlay. Wired into `SpeakerGridTile` (speakers grid/list) and
-  `SpeakerDetailsPage` (detail header) — **not** into the shared `PersonnelWidget`, since that widget is
-  also used for organisers on the About screen, which don't get this speaker-specific treatment on the
-  web either.
+  contrast, then a `BlendMode.screen` against blue (the Flutter equivalent of the web's
+  `mix-blend-screen` over a `bg-blue-600` backdrop), plus a `CustomPainter` dot overlay. Wired into
+  `SpeakerGridTile` (speakers grid/list), `SpeakerDetailsPage` (detail header) and the shared
+  `PersonnelWidget`, so the home speakers row and the About screen's organisers get it too.
+  It was first built as two nested `ColorFiltered` widgets with one `drawCircle` per dot. That cost two
+  offscreen layers plus hundreds of emulated `overlay` blends per avatar, and under the emulator's
+  host-GPU mode it leaked GPU memory until the emulator was OOM-killed. Both filters are now folded
+  into one color matrix applied as the image's paint filter (`DecorationImage.colorFilter`), and the dots
+  are drawn as a single path. See "Rendering cost" in [architecture.md](../architecture.md).
 - `SpeakerGridTile` also picked up the rounded-4xl bordered card shape to match session cards.
 
 **Verification note**: the session-card redesign (compact + schedule views, both light and dark mode)

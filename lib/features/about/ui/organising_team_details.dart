@@ -62,6 +62,7 @@ class OranisingTeamMemberDetailsPage extends StatelessWidget {
                       child: ClipOval(
                         child: CachedNetworkImage(
                           imageUrl: organiser.photo,
+                          memCacheWidth: Misc.decodeSize(context, 110),
                           placeholder: (_, __) => const SizedBox(
                             height: 150,
                             width: double.infinity,

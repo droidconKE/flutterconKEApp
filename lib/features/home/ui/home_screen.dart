@@ -49,7 +49,12 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 15),
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.asset(AppAssets.flutterConBanner),
+                child: LayoutBuilder(
+                  builder: (context, constraints) => Image.asset(
+                    AppAssets.flutterConBanner,
+                    cacheWidth: Misc.decodeSize(context, constraints.maxWidth),
+                  ),
+                ),
               ),
               const SizedBox(height: 24),
               const ConfEssentialsCard(),

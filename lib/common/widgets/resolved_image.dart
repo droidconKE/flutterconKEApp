@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/widgets/banner_fallback_image.dart';
-import 'package:logger/logger.dart';
 
 class ResolvedImage extends StatelessWidget {
   const ResolvedImage({
@@ -20,7 +19,6 @@ class ResolvedImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
-    Logger().d('ResolvedImage: $imageUrl');
     final resolvedHeight = height ?? size.height * .15;
     final resolvedWidth = width ?? size.width * .3;
     if (Misc.isMissingImage(imageUrl)) {
@@ -32,6 +30,8 @@ class ResolvedImage extends StatelessWidget {
             imageUrl: imageUrl,
             height: resolvedHeight,
             width: resolvedWidth,
+            // Logos are drawn contained, so never wider than the box.
+            memCacheWidth: Misc.decodeSize(context, resolvedWidth),
             placeholder: (_, __) => const SizedBox(
               height: 150,
               width: double.infinity,

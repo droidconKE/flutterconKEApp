@@ -12,6 +12,18 @@ class Misc {
   static bool isMissingImage(String? url) =>
       url == null || url.trim().isEmpty || url.contains('via.placeholder.com');
 
+  /// The pixel size to decode an image at so it stays sharp when drawn at
+  /// [logicalSize] on this screen. Pass it as `cacheWidth`/`memCacheWidth`
+  /// (or the height equivalent) so a 1080px avatar shown at 50dp isn't held
+  /// in memory at full resolution. Returns null (decode at full size) when
+  /// [logicalSize] isn't a finite, positive number.
+  static int? decodeSize(BuildContext context, double? logicalSize) {
+    if (logicalSize == null || !logicalSize.isFinite || logicalSize <= 0) {
+      return null;
+    }
+    return (logicalSize * MediaQuery.devicePixelRatioOf(context)).ceil();
+  }
+
   static Future<void> launchURL(Uri uri) async {
     if (!await launchUrl(uri)) {
       throw Exception('Could not launch $uri');

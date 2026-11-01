@@ -80,6 +80,7 @@ class _UserProfileIconState extends State<UserProfileIcon> {
                   imageUrl: profile.avatar,
                   height: 100,
                   width: 100,
+                  memCacheWidth: Misc.decodeSize(context, 100),
                   placeholder: (_, __) => const SizedBox(
                     height: 150,
                     width: double.infinity,

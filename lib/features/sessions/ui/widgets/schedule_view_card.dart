@@ -139,6 +139,7 @@ class ScheduleViewCard extends StatelessWidget {
                                 child: CachedNetworkImage(
                                   fit: BoxFit.cover,
                                   imageUrl: speaker.avatar!,
+                                  memCacheWidth: Misc.decodeSize(context, 50),
                                   placeholder: (_, __) => const SizedBox(
                                     height: 150,
                                     width: double.infinity,
