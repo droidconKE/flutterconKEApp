@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttercon/common/utils/misc.dart';
+import 'package:fluttercon/common/widgets/banner_fallback_image.dart';
 import 'package:logger/logger.dart';
 
 class ResolvedImage extends StatelessWidget {
@@ -21,6 +23,9 @@ class ResolvedImage extends StatelessWidget {
     Logger().d('ResolvedImage: $imageUrl');
     final resolvedHeight = height ?? size.height * .15;
     final resolvedWidth = width ?? size.width * .3;
+    if (Misc.isMissingImage(imageUrl)) {
+      return EventBanner(height: resolvedHeight, width: resolvedWidth);
+    }
     return imageUrl.contains('.svg')
         ? SvgPicture.network(imageUrl, height: height, width: width)
         : CachedNetworkImage(

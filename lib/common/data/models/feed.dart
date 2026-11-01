@@ -11,7 +11,7 @@ abstract class Feed with _$Feed {
     required String topic,
     required String url,
     @JsonKey(name: 'created_at') required DateTime createdAt,
-    @Default('https://via.placeholder.com/150') String image,
+    @Default('') String image,
   }) = _Feed;
 
   factory Feed.fromJson(Map<String, Object?> json) => _$FeedFromJson(json);

@@ -7,6 +7,11 @@ import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Misc {
+  /// Whether [url] has no real image to show: empty, or the
+  /// `via.placeholder.com` default that older builds stored in Isar.
+  static bool isMissingImage(String? url) =>
+      url == null || url.trim().isEmpty || url.contains('via.placeholder.com');
+
   static Future<void> launchURL(Uri uri) async {
     if (!await launchUrl(uri)) {
       throw Exception('Could not launch $uri');

@@ -40,6 +40,13 @@ Notable query behaviors worth knowing before changing this code:
   session id when updating a cached session (e.g. toggling a bookmark).
 - `hasSessions()` is sync (`countSync()`), used by fetch cubits to decide cache-first vs network-first
   without an `await`.
+- Missing images: the API often sends `"session_image": null`, especially for service sessions such as
+  breaks and welcomes. `Session.sessionImage` and `Feed.image` then default to `''`. Older builds defaulted
+  to `https://via.placeholder.com/150` and wrote that to Isar, so cached rows can still hold it.
+  `Misc.isMissingImage` treats both as "no image". `BannerFallbackImage`
+  (`lib/common/widgets/banner_fallback_image.dart`) then renders `EventBanner` (`AppAssets.flutterConBanner`,
+  contained over a blurred copy so it's never cropped) for missing or failed images. `ResolvedImage` and
+  `ShareFeedPostCubit` use the same check: sharing skips the attachment instead of trying to download `''`.
 
 ## Hive keys
 

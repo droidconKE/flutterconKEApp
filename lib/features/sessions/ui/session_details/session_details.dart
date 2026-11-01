@@ -1,5 +1,4 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -8,6 +7,7 @@ import 'package:fluttercon/common/data/enums/social_platform.dart';
 import 'package:fluttercon/common/data/models/local/local_session.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/misc.dart';
+import 'package:fluttercon/common/widgets/banner_fallback_image.dart';
 import 'package:fluttercon/common/widgets/social_handle.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/features/feed/cubit/share_feed_post_cubit.dart';
@@ -160,20 +160,10 @@ class SessionDetailsPage extends StatelessWidget {
             const SizedBox(height: 16),
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: CachedNetworkImage(
+              child: BannerFallbackImage(
                 imageUrl: session.sessionImage,
                 height: 170,
                 fit: BoxFit.fitHeight,
-                placeholder: (_, __) => const SizedBox(
-                  height: 150,
-                  width: double.infinity,
-                  child: Center(child: CircularProgressIndicator()),
-                ),
-                errorWidget: (_, __, ___) => const SizedBox(
-                  height: 150,
-                  width: double.infinity,
-                  child: Icon(Icons.error, color: Colors.red),
-                ),
               ),
             ),
             const SizedBox(height: 16),

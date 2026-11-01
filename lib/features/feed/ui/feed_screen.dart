@@ -1,11 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 import 'package:fluttercon/common/widgets/app_bar/app_bar.dart';
+import 'package:fluttercon/common/widgets/banner_fallback_image.dart';
 import 'package:fluttercon/common/widgets/status_view.dart';
 import 'package:fluttercon/core/theme/theme_colors.dart';
 import 'package:fluttercon/core/theme/theme_styles.dart';
@@ -73,22 +73,9 @@ class _FeedScreenState extends State<FeedScreen> {
                             const SizedBox(height: 16),
                             ClipRRect(
                               borderRadius: Corners.s16Border,
-                              child: CachedNetworkImage(
-                                fit: BoxFit.cover,
+                              child: BannerFallbackImage(
                                 imageUrl: feed.image,
                                 width: double.infinity,
-                                placeholder: (_, __) => const SizedBox(
-                                  height: 100,
-                                  width: double.infinity,
-                                  child: Center(
-                                    child: CircularProgressIndicator(),
-                                  ),
-                                ),
-                                errorWidget: (_, __, ___) => const SizedBox(
-                                  height: 100,
-                                  width: double.infinity,
-                                  child: Icon(Icons.error, color: Colors.red),
-                                ),
                               ),
                             ),
                             const SizedBox(height: 16),
