@@ -54,6 +54,9 @@ class AppAssets {
   static const flutterConBanner =
       'assets/images/fluttercon-kenya-26-1920x1080.png';
 
+  /// Shown for sessions and logos with no image; same as fluttercondev.ke.
+  static const emptyState = 'assets/images/empty-state-2026.jpg';
+
   static const smileyIcon = 'assets/images/smiley.png';
   static const profilePhoto = 'assets/images/profile_photo.png';
   static const sendIcon = 'assets/images/send_icon.png';

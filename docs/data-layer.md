@@ -44,8 +44,9 @@ Notable query behaviors worth knowing before changing this code:
   breaks and welcomes. `Session.sessionImage` and `Feed.image` then default to `''`. Older builds defaulted
   to `https://via.placeholder.com/150` and wrote that to Isar, so cached rows can still hold it.
   `Misc.isMissingImage` treats both as "no image". `BannerFallbackImage`
-  (`lib/common/widgets/banner_fallback_image.dart`) then renders `EventBanner` (`AppAssets.flutterConBanner`,
-  contained over a blurred copy so it's never cropped) for missing or failed images. `ResolvedImage` and
+  (`lib/common/widgets/banner_fallback_image.dart`) then renders `EventBanner` (`AppAssets.emptyState`,
+  the same `empty-state-2026.jpg` fluttercondev.ke uses, cover-fit and centre-cropped like the site) for missing
+  or failed images. Swap that asset when the event artwork changes. `ResolvedImage` and
   `ShareFeedPostCubit` use the same check: sharing skips the attachment instead of trying to download `''`.
 - SVG logos: sponsor and organiser logos are often Illustrator SVG exports that set fills and clip-paths
   through a `<style>` block (`.cls-1 { fill: … }`). flutter_svg ignores `<style>` and `class`, which drew

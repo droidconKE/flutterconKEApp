@@ -1,12 +1,11 @@
 import 'dart:math' as math;
-import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttercon/common/utils/constants/app_assets.dart';
 import 'package:fluttercon/common/utils/misc.dart';
 
-/// A network image that falls back to the FlutterCon banner when [imageUrl]
+/// A network image that falls back to [EventBanner] when [imageUrl]
 /// has no real image (see [Misc.isMissingImage]) or fails to load.
 class BannerFallbackImage extends StatelessWidget {
   const BannerFallbackImage({
@@ -60,65 +59,42 @@ class BannerFallbackImage extends StatelessWidget {
   }
 }
 
-/// The FlutterCon banner, sized to fill a box of any shape without cropping.
+/// The event's empty-state artwork, the same image fluttercondev.ke shows for
+/// sessions without one.
 ///
-/// The banner is drawn whole (`BoxFit.contain`) over a blurred, cover-fitted
-/// copy of itself, so the wordmark and "WELCOME" are never cut off and any
-/// leftover space blends in instead of showing bars. A missing [height] or
-/// [width] is derived from the banner's aspect ratio. Both copies are decoded
-/// at the size they're drawn at, not the asset's full 3841x2161.
+/// Like the site, it covers its box and is cropped from the centre. A missing
+/// [height] or [width] is derived from the other: a height alone gives a
+/// square (matching a square session image drawn with `BoxFit.fitHeight`), a
+/// width alone gives 16:9 (the site's `aspect-video`). It's decoded at the
+/// size it's drawn at, not the asset's full 1080x1080.
 class EventBanner extends StatelessWidget {
   const EventBanner({this.height, this.width, super.key});
 
   final double? height;
   final double? width;
 
-  static const double _aspectRatio = 3841 / 2161;
-
   @override
   Widget build(BuildContext context) {
-    final dpr = MediaQuery.devicePixelRatioOf(context);
     return LayoutBuilder(
       builder: (context, constraints) {
-        var h = height != null && height!.isFinite ? height : null;
-        // No width: size to the banner (like `BoxFit.fitHeight`). An infinite
-        // width (`double.infinity`): fill whatever width the parent allows.
+        final h = height != null && height!.isFinite ? height : null;
+        // No width: square to the height. An infinite width
+        // (`double.infinity`): fill whatever width the parent allows.
         double? w;
         if (width == null) {
-          w = h != null ? h * _aspectRatio : null;
+          w = h;
         } else if (width!.isFinite) {
           w = width;
         }
         w ??= constraints.hasBoundedWidth ? constraints.maxWidth : 150;
         w = w.clamp(0, constraints.maxWidth);
-        h ??= w / _aspectRatio;
-
-        final bannerWidth = w < h * _aspectRatio ? w : h * _aspectRatio;
-        return SizedBox(
+        return Image.asset(
+          AppAssets.emptyState,
+          height: h ?? w * 9 / 16,
           width: w,
-          height: h,
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              ClipRect(
-                child: ImageFiltered(
-                  imageFilter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
-                  child: Image.asset(
-                    AppAssets.flutterConBanner,
-                    fit: BoxFit.cover,
-                    cacheWidth: 96,
-                    excludeFromSemantics: true,
-                  ),
-                ),
-              ),
-              Image.asset(
-                AppAssets.flutterConBanner,
-                fit: BoxFit.contain,
-                cacheWidth: (bannerWidth * dpr).ceil().clamp(1, 3841),
-                excludeFromSemantics: true,
-              ),
-            ],
-          ),
+          fit: BoxFit.cover,
+          cacheWidth: Misc.decodeSize(context, math.max(w, h ?? 0)),
+          excludeFromSemantics: true,
         );
       },
     );
