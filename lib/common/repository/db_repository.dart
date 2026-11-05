@@ -198,7 +198,6 @@ class DBRepository {
         );
       }
 
-      
       await localDB.localSessions.clear();
       await localDB.localSessions.putAll(localSessions);
     });
