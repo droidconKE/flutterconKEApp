@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttercon/common/utils/router.dart';
 import 'package:fluttercon/common/widgets/personnel_widget.dart';
 import 'package:fluttercon/common/widgets/status_view.dart';
 import 'package:fluttercon/features/about/cubit/fetch_individual_organisers_cubit.dart';
 import 'package:fluttercon/l10n/l10n.dart';
-import 'package:go_router/go_router.dart';
 
 class OrganisingTeamView extends StatefulWidget {
   const OrganisingTeamView({super.key});
@@ -69,10 +67,6 @@ class _OrganisingTeamViewState extends State<OrganisingTeamView> {
                 name: individualOrganisers[index].name,
                 designation: individualOrganisers[index].tagline,
                 maxWidth: cellWidth,
-                onTap: () => GoRouter.of(context).push(
-                  FlutterConRouter.organiserDetailsRoute,
-                  extra: individualOrganisers[index],
-                ),
               ),
             ),
           );

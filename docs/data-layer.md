@@ -7,7 +7,7 @@
 | | Isar (`isar_community`) | Hive (`hive_ce`) |
 |---|---|---|
 | File | `lib/common/repository/db_repository.dart` | `lib/common/repository/hive_repository.dart` |
-| Holds | Feed entries, speakers, organisers, individual organisers, sponsors, sessions — the bulk queryable content cache | `accessToken`, `profile` (`FlutterConUser`), `themeMode` — small key-value prefs |
+| Holds | Feed entries, speakers, organisers, individual organisers, sponsors, sessions — the bulk queryable content cache | `accessToken`, `profile` (`FlutterConUser`), `themeMode`, `cachedEventSlug` — small key-value prefs |
 | Why | Supports `.filter()` queries (`titleContains`, `typeEqualTo`, etc.) for search/browsing offline | Simple, fast key-value access; no query needs |
 | Opened in | `DBRepository.init()`, called from `bootstrap.dart`, result assigned to the global `Isar localDB` in `lib/core/di/injectable.dart` | `HiveRepository.initBoxes()`, opens one box named `FlutterConConfig.instance!.values.hiveBox` (per-flavor, e.g. `fluttercon-dev`) |
 | Wiped on logout | `DBRepository.clearAllTables()` — clears *all* collections | `HiveRepository.clearPrefs()` — deletes only `accessToken`/`profile`/`sessions` keys (there's also an unused `clearBox()` that wipes everything) |
@@ -38,6 +38,15 @@ Notable query behaviors worth knowing before changing this code:
   (`lib/features/home/cubit/search_cubit.dart`), which touches only Isar, never the network.
 - `updateSession` looks up by `serverId`, not Isar's internal auto-increment id — always use the API's
   session id when updating a cached session (e.g. toggling a bookmark).
+- Every `persist*` method (`persistSessions`, `persistSpeakers`, `persistSponsors`, `persistOrganisers`,
+  `persistFeedEntries`) **clears its collection before `putAll`** inside the same write transaction, so the
+  cache mirrors the latest API response exactly. Previously they only upserted (unique index with
+  `replace: true`), so rows the API stopped returning — e.g. a past year's sessions after `eventSlug`
+  changed — stayed in the cache forever (issue #275). A local-only bookmark toggle on a session is
+  overwritten by the server's `is_bookmarked` on the next refresh, same as before.
+- `bootstrap.dart` also wipes all Isar tables once when the flavor's `eventSlug` differs from the Hive
+  `cachedEventSlug` key (then stores the new slug), so the first cache-first load after switching events
+  doesn't flash the old event's content.
 - `hasSessions()` is sync (`countSync()`), used by fetch cubits to decide cache-first vs network-first
   without an `await`.
 - Missing images: the API often sends `"session_image": null`, especially for service sessions such as
@@ -57,16 +66,21 @@ Notable query behaviors worth knowing before changing this code:
 
 ## Hive keys
 
-Exactly three keys are ever stored, all in the one per-flavor box:
+These keys are stored, all in the one per-flavor box:
 `accessToken` (String), `profile` (`FlutterConUser`, custom `HiveType` via `FlutterConUserAdapter` in
 `lib/common/data/models/adapters.dart`), `themeMode` (String — `ThemeMode.toString()`, parsed back with
-`ThemeMode.values.firstWhere(..., orElse: () => ThemeMode.system)`).
+`ThemeMode.values.firstWhere(..., orElse: () => ThemeMode.system)`), `cachedEventSlug` (String — the
+`eventSlug` whose content is in Isar; checked in `bootstrap.dart`, deliberately not cleared on logout).
 
 ## Remote models
 
 `lib/common/data/models/*.dart` (excluding `local/`) — freezed classes with `json_serializable` for
 `fromJson`/`toJson`: `Auth`/`AuthResult`, `Feed`, `FeedbackDto`, `Meta`, `Organiser`/`Organisers`,
-`RemoteConfig`, `Room`, `SearchResult`, `Session`, `Speaker`, `Sponsor`. `Failure`
+`RemoteConfig`, `Room`, `SearchResult`, `Session`, `Speaker`, `Sponsor`. The API sends `null` for many
+optional text fields (e.g. a speaker's `biography`, a session's `description`/`session_image`). Declare
+those as nullable or `@Default('')`, never as a required `String`. One `null` in a required field throws
+`type 'Null' is not a subtype of type 'String'` and fails the whole list (this broke the Home speakers
+section, issue #275). `Failure`
 (`lib/common/data/models/failure.dart`) is hand-written, not freezed — it's the app's one error type,
 thrown by `NetworkUtil`/`ApiRepository` and caught by name in cubits (see
 [networking-and-config.md](networking-and-config.md)).

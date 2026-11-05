@@ -90,6 +90,9 @@ entrypoint sets up `FlutterConConfig` (see [build-and-ci.md](build-and-ci.md) fo
 4. `getIt<HiveRepository>().initBoxes()`
 5. `localDB = await getIt<DBRepository>().init()` — opens the Isar instance, assigned to the
    module-level global `Isar localDB` in `injectable.dart` (not itself part of the DI container)
+   - If the Hive `cachedEventSlug` differs from the flavor's `eventSlug`, `DBRepository.clearAllTables()`
+     runs and the new slug is stored, which drops a previous event's cached content (see
+     [data-layer.md](data-layer.md))
 6. `NotificationService` permission request + init
 7. `FirebaseRepository.init()` (remote config)
 8. `runApp(MultiBlocProvider(providers: [...], child: await builder()))`

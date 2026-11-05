@@ -7,8 +7,10 @@ part 'speaker.g.dart';
 abstract class Speaker with _$Speaker {
   const factory Speaker({
     required String name,
-    required String biography,
-    required String avatar,
+    // The API returns `null` for speakers who haven't filled these in; a
+    // single null used to fail parsing of the whole speakers list.
+    @Default('') String biography,
+    @Default('') String avatar,
     String? tagline,
     String? twitter,
     String? facebook,

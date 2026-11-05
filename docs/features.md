@@ -70,8 +70,11 @@ home screen UI:
 - `cubit/fetch_individual_organisers_cubit.dart` — cache-first fetch of individual organiser profiles
   (as opposed to `home`'s organiser-team-level fetch — check `OrganiserType` usage before assuming
   these are the same data).
-- `ui/about_screen.dart`, `ui/organising_team.dart`, `ui/organising_team_details.dart` — reached via
-  `/organiser-details` for the detail page, with a `LocalIndividualOrganiser` passed as `state.extra`.
+- `ui/about_screen.dart`, `ui/organising_team.dart`, `ui/organising_team_details.dart`. The details
+  page is reached via `/organiser-details` with a `LocalIndividualOrganiser` passed as `state.extra`,
+  currently only from search results. Organising-team grid tiles (`organising_team.dart`) are
+  intentionally **not tappable**. The cubit emits `LocalOrganiser`s, not `LocalIndividualOrganiser`s,
+  so pushing one into that route crashed with a type-cast error (issue #275).
 
 ## `auth`
 

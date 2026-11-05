@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercon/common/repository/db_repository.dart';
 import 'package:fluttercon/common/repository/firebase_repository.dart';
 import 'package:fluttercon/common/repository/hive_repository.dart';
+import 'package:fluttercon/common/utils/env/flavor_config.dart';
 import 'package:fluttercon/common/utils/notification_service.dart';
 import 'package:fluttercon/core/di/injectable.dart';
 import 'package:fluttercon/features/about/cubit/fetch_individual_organisers_cubit.dart';
@@ -55,6 +56,15 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
     await getIt<HiveRepository>().initBoxes();
 
     localDB = await getIt<DBRepository>().init();
+
+    // The cache-first cubits would otherwise show a previous event's
+    // sessions/speakers (kept from an older install) until a refresh lands.
+    final eventSlug = FlutterConConfig.instance!.values.eventSlug;
+    final hiveRepository = getIt<HiveRepository>();
+    if (hiveRepository.retrieveCachedEventSlug() != eventSlug) {
+      await getIt<DBRepository>().clearAllTables();
+      hiveRepository.persistCachedEventSlug(eventSlug);
+    }
 
     await getIt<NotificationService>().requestPermission();
     await getIt<NotificationService>().initNotifications();
