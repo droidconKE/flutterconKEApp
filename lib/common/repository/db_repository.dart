@@ -54,6 +54,7 @@ class DBRepository {
         );
       }
 
+      await localDB.localFeedEntrys.clear();
       await localDB.localFeedEntrys.putAll(localFeedEntries);
     });
   }
@@ -83,6 +84,7 @@ class DBRepository {
         );
       }
 
+      await localDB.localSpeakers.clear();
       await localDB.localSpeakers.putAll(localSpeakers);
     });
   }
@@ -108,6 +110,7 @@ class DBRepository {
         );
       }
 
+      await localDB.localOrganisers.clear();
       await localDB.localOrganisers.putAll(localOrganisers);
     });
   }
@@ -141,6 +144,7 @@ class DBRepository {
         );
       }
 
+      await localDB.localSponsors.clear();
       await localDB.localSponsors.putAll(localSponsors);
     });
   }
@@ -194,6 +198,7 @@ class DBRepository {
         );
       }
 
+      await localDB.localSessions.clear();
       await localDB.localSessions.putAll(localSessions);
     });
   }

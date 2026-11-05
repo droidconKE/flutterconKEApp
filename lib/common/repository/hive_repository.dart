@@ -51,6 +51,20 @@ class HiveRepository {
         as FlutterConUser?;
   }
 
+  /// Slug of the event whose content is currently cached in Isar.
+  String? retrieveCachedEventSlug() {
+    return Hive.box<dynamic>(
+          FlutterConConfig.instance!.values.hiveBox,
+        ).get('cachedEventSlug')
+        as String?;
+  }
+
+  void persistCachedEventSlug(String slug) {
+    Hive.box<dynamic>(
+      FlutterConConfig.instance!.values.hiveBox,
+    ).put('cachedEventSlug', slug);
+  }
+
   void persistThemeMode(ThemeMode themeMode) {
     Hive.box<dynamic>(
       FlutterConConfig.instance!.values.hiveBox,
