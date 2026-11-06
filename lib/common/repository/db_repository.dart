@@ -228,6 +228,17 @@ class DBRepository {
         .findAll();
   }
 
+  /// Sessions this speaker is on, earliest first. Matched by name, since
+  /// sessions embed their speakers rather than referencing [LocalSpeaker].
+  Future<List<LocalSession>> fetchSessionsBySpeaker(String name) async {
+    return localDB.localSessions
+        .where()
+        .filter()
+        .speakersElement((q) => q.nameEqualTo(name))
+        .sortByStartDateTime()
+        .findAll();
+  }
+
   bool hasSessions() {
     return localDB.localSessions.where().countSync() > 0;
   }
