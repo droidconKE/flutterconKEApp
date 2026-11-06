@@ -172,5 +172,23 @@
     "developerDaysTitle": "Developer\nDays",
     "@developerDaysTitle": {},
     "developerDaysDescription": "Level up across two days of hardcore Flutter and Dart sessions. From cross-platform performance to AI agents and tooling, get real-world insights from top-tier engineers shaping the ecosystem.",
-    "@developerDaysDescription": {}
+    "@developerDaysDescription": {},
+    "viewSession": "View session",
+    "@viewSession": {},
+    "viewSessions": "View sessions ({count})",
+    "@viewSessions": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "speakerSessionsTitle": "Sessions by {name}",
+    "@speakerSessionsTitle": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    }
 }

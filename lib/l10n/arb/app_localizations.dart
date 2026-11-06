@@ -535,6 +535,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Level up across two days of hardcore Flutter and Dart sessions. From cross-platform performance to AI agents and tooling, get real-world insights from top-tier engineers shaping the ecosystem.'**
   String get developerDaysDescription;
+
+  /// No description provided for @viewSession.
+  ///
+  /// In en, this message translates to:
+  /// **'View session'**
+  String get viewSession;
+
+  /// No description provided for @viewSessions.
+  ///
+  /// In en, this message translates to:
+  /// **'View sessions ({count})'**
+  String viewSessions(int count);
+
+  /// No description provided for @speakerSessionsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sessions by {name}'**
+  String speakerSessionsTitle(String name);
 }
 
 class _AppLocalizationsDelegate
