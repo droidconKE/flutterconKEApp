@@ -242,4 +242,17 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get developerDaysDescription =>
       'Level up across two days of hardcore Flutter and Dart sessions. From cross-platform performance to AI agents and tooling, get real-world insights from top-tier engineers shaping the ecosystem.';
+
+  @override
+  String get viewSession => 'View session';
+
+  @override
+  String viewSessions(int count) {
+    return 'View sessions ($count)';
+  }
+
+  @override
+  String speakerSessionsTitle(String name) {
+    return 'Sessions by $name';
+  }
 }

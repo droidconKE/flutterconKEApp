@@ -36,6 +36,10 @@ Notable query behaviors worth knowing before changing this code:
 - `searchSessions`/`searchSpeakers`/`searchIndividualOrganisers` all do case-insensitive substring
   matching across several fields OR'd together — this is what backs `SearchCubit`
   (`lib/features/home/cubit/search_cubit.dart`), which touches only Isar, never the network.
+- `fetchSessionsBySpeaker(name)` matches sessions whose embedded `speakers` contain that exact name
+  (sessions embed speakers, they don't reference `LocalSpeaker`), sorted by `startDateTime`. It's
+  called straight from `SpeakerDetailsPage` via `getIt<DBRepository>()` (no Cubit) and, like
+  search, is Isar-only — it returns nothing until sessions have been fetched at least once.
 - `updateSession` looks up by `serverId`, not Isar's internal auto-increment id — always use the API's
   session id when updating a cached session (e.g. toggling a bookmark).
 - Every `persist*` method (`persistSessions`, `persistSpeakers`, `persistSponsors`, `persistOrganisers`,

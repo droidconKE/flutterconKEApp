@@ -184,7 +184,7 @@ treatment from `SpeakerCard.tsx` (grayscale + contrast + blue duotone + dot over
 - **`SpeakerDuotoneAvatar`** (`lib/features/home/widgets/speaker_duotone_avatar.dart`) — grayscale +
   contrast, then a `BlendMode.screen` against blue (the Flutter equivalent of the web's
   `mix-blend-screen` over a `bg-blue-600` backdrop), plus a `CustomPainter` dot overlay. Wired into
-  `SpeakerGridTile` (speakers grid/list), `SpeakerDetailsPage` (detail header) and the shared
+  `SpeakerGridTile` (speakers grid/list), `SpeakerDetailsPage` (3:4 portrait in its gradient card) and the shared
   `PersonnelWidget`, so the home speakers row and the About screen's organisers get it too.
   It was first built as two nested `ColorFiltered` widgets with one `drawCircle` per dot. That cost two
   offscreen layers plus hundreds of emulated `overlay` blends per avatar, and under the emulator's
@@ -200,6 +200,26 @@ only, not a fresh on-device screenshot — the emulator's touch-input injection 
 partway through this phase's verification (swipes still worked; likely an emulator-session quirk, not
 an app issue) and recovery attempts (adb restart, alternate input sources) didn't resolve it. Worth a
 manual look on a real device/fresh emulator before considering this phase fully visually confirmed.
+
+### Speaker details page — matches web `SpeakersDetails.tsx`
+
+`SpeakerDetailsPage` (`lib/features/home/ui/speaker_details/speaker_details.dart`) mirrors the web's
+individual speaker section (`components/sessions/SpeakersDetails.tsx`, shown at the top of a session
+page on fluttercondev.ke): a plain app bar, then one `Corners.s32Border` card with a top-to-bottom
+magenta→blue gradient (`from-accent to-primary`) containing a 160px-wide 3:4 `SpeakerDuotoneAvatar`
+in a 4px magenta, `Corners.s16Border` frame; a blue "( SPEAKER )" label; the name; bold tagline; the
+social handle; and a "Bio" heading + body (omitted when the bio is empty). Card text is black in both
+themes, as on the web. The social handle follows the web's link rule (Twitter shown as `@handle`,
+else LinkedIn shown as the name, never a link without a destination) but deliberately departs from
+its look: the web's blue `text-primary` handle is near-invisible mid-gradient, so the app renders it
+as a white pill with a black Twitter/X (or open-in-new) icon and black text, and renders nothing
+when there's no social link instead of repeating the name. The old
+`speaker_background.svg` sliver header and `SocialHandleBody` button were dropped from this page
+(both are still used by `organising_team_details.dart` / session details).
+App-only addition (the web has no equivalent, since its speaker card already lives on the session
+page): below the card, an `AppButtonStyles.primary` "View session" button opens the speaker's session
+directly, or "View sessions (n)" lists several in a bottom sheet of `CompactViewCard`s. It's hidden
+when the Isar session cache has none for that speaker (`DBRepository.fetchSessionsBySpeaker`).
 
 ### Phase 4 — Sponsors, Feed, Feedback, About ✅
 
@@ -229,7 +249,8 @@ language so nothing looks pre-rebrand next to Sessions/Speakers.
 - **About/organiser cards**: no change needed beyond what Phase 3 already decided —
   `organising_team.dart`'s grid uses the shared `PersonnelWidget` (deliberately not given the
   speaker-only duotone treatment, see Phase 3), and `organising_team_details.dart` has no card chrome
-  to restyle, matching `speaker_details.dart`'s equally chrome-less layout.
+  to restyle. (`speaker_details.dart` was originally equally chrome-less; it has since been rebuilt
+  as the web's speaker card — see "Speaker details page" below.)
 
 **Verification**: `SponsorsCard`/`OrganizersCard` confirmed visually on an emulator in both light and
 dark mode — rounded borders, always-on border color, and tile spacing all render as intended. The feed
